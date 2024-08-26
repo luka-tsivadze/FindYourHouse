@@ -1,0 +1,301 @@
+@keyframes fadeIn-Out {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+ padding-top: 170px;
+  z-index: 2;
+
+  .HeaderCol {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    height: 90vh;
+  
+    align-items: center;
+.headerp{
+  color: rgba(255, 255, 255, 0.89);
+  font-size: 18px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  text-transform: capitalize;
+  line-height: 37px;
+  font-weight: 400;
+}
+    h3 {
+      position: relative;
+      display: flex;
+      font-size: 49px;
+      color: #fff;
+
+      span {
+        display: flex;
+   padding-left:5px ;
+    border-bottom: 2px solid white ;
+  
+      }
+    }
+
+    .blinker {
+      display: inline-block;
+      
+      animation: fadeIn-Out 0.5s infinite forwards;
+      position: absolute;
+      right: -10px;
+      width: 6px;
+      bottom: 5px;
+      height: 40px;
+      background-color: #fff;
+    }
+  }
+  .HeaderBtnRow{
+    margin-top: 15px;
+display: flex;
+
+position: relative;
+justify-content: center;
+gap: 10px;
+align-items: center;
+.Sarrow{
+
+  position: absolute;
+
+z-index: 1;
+  width: 30px;
+  height: 30px;
+  background-color: #FF385C;
+  transform: rotate(45deg);
+  bottom: -5px;
+}
+button{
+  z-index: 4;
+  cursor: pointer;
+  border: 0;
+  border-radius: 5px;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 35px;
+  margin-right: 15px;
+  position: relative;
+  display: block;
+  letter-spacing: 0.4px;
+  background: #fff;
+  color: #000;
+  font-family: var(--heading-font);
+  font-weight: 600;
+}
+.active{
+  background: #FF385C;
+  color: white;
+  }
+  .left{
+ 
+
+left: 17%;
+  }
+  .right{
+  
+
+right: 21%;
+  }
+}
+.HeaderSearch{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0px 0px 0px 8px rgba(255, 255, 255, 0.2);
+  padding: 30px;
+  align-items: center;
+  height: 112px;
+
+  background-color: white;
+  border-radius: 9px;
+form{
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  input{
+    width: 255px;
+    border: 1px solid #ebebeb;
+    border-radius: 8px;
+
+    outline: none;
+    text-decoration: none;
+
+    height: 48px;
+    line-height: 48px;
+    width: 100%;
+    padding: 5px 20px;
+    border: 1px solid #D4D4D4;
+    
+    border-radius: 4px;
+    font-size: 15px;
+  }
+  .select{
+    border-radius: 8px;
+  
+    border: 1px solid #ebebeb;
+    font-family: 'Lato', sans-serif;
+    padding: 2px 16px 2px 2px;
+   
+  
+    box-shadow: 0px 0px 0px 8px rgba(255, 255, 255, 0.2);
+select{
+  box-sizing: border-box;
+  clear: both;
+  cursor: pointer;
+ padding: 12px 42px;
+  display: block;
+  border: unset;
+outline: unset;
+  float: left;
+  font-family: inherit;
+  font-size: 15px;
+  color: #666;
+  font-weight: normal;
+}
+
+  }
+  .advanceS{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 20px;
+    border-radius: 8px;
+background-color: #ffffff;
+
+  gap: 5px;
+
+    border: 1px solid #ebebeb;
+   
+    position: relative;
+    h5{
+      width: max-content;
+      font-family: 'Lato', sans-serif;
+      font-size: 15px;
+      font-weight: 200;
+      color: #666;
+    
+      font-size: 13px;
+      font-weight: 400;
+      margin-left: 10px;
+    }
+    img{
+      
+      margin-bottom: 7px;
+    }
+  }
+  .submit{
+    border: 0;
+;
+    border-radius: 5px;
+    width: 50%;
+    height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+text-align: center;
+    line-height: 50px;
+    padding: 10px 35px;
+    margin-right: 15px;
+    position: relative;
+    box-shadow: 0px 1px 4px 0px rgba(255, 90, 95, 0.3);
+    letter-spacing: 0.4px;
+    background: #FF385C;
+    color: white;
+    font-size: 15px;
+    font-family: var(--heading-font);
+    font-weight: 600;
+  }
+
+}
+}
+.popularPlaces{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  gap: 20px;
+  padding: 60px 7%;
+  background-color: #f5f5f5;
+  align-items: center;
+
+  h1{
+    position: relative;
+    color: #111;
+    font-weight: 540;
+    text-transform: capitalize;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .cardPlace{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    .cityCard{
+      width: 23%;
+      height: 152px;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #ebebeb;
+      overflow: hidden;
+      margin-bottom: 30px;
+      padding: 0px;
+      align-items: center;
+      display: flex;
+      img{
+       height: 100%;
+       width: 54%;
+      }
+      .textSide{
+        display: flex;
+        
+        align-items: start;
+        flex-direction: column;
+        gap: 10px;
+      padding: 18px;
+      .cityName{
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+        color: #333;
+        font-weight: 600;
+    
+      }
+      p{
+        font-family: 'Lato', sans-serif;
+        color: #666;
+        font-size: 15px;
+      }
+      }
+    
+    }
+  }
+}
+
+}

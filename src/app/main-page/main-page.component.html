@@ -1,0 +1,54 @@
+<header>
+    <div class="HeaderCol">
+        <h3 >Find Your Dream  
+                <span  class="headerspan" #headerElement>
+            
+                
+                </span>
+                
+                <span class="blinker"></span>
+            
+        </h3>
+        <p class="headerp">We Have Over Million Properties For You.</p>
+        <div class="HeaderBtnRow">
+    <div class="HeaderBtnRow">
+        <button [ngClass]="{'active':booleanLeft==true}" (click)="activeLeft()">For Sale</button>
+        <button [ngClass]="{'active':booleanRight==true}" (click)="activeRight()">For Rent</button>
+        <div class="Sarrow" [ngClass]="{'right':booleanRight==true , 'left':booleanLeft==true}"></div>
+    </div>
+        </div>
+        <div class="HeaderSearch">
+            <form action="">
+                <input type="text" placeholder="Enter keyword" >
+             
+
+                <div class="select">
+                    <select name="property Type" id="">
+                        <option value="0">Propety Type</option>
+                        <option value="1">family house</option>
+                        <option value="2">Apartment</option>
+                    </select>
+                </div>
+                <div class="select">
+                <select name="location">
+                    <option value="0">location</option>
+                </select>
+                </div>
+            <button class="advanceS"><h5>Advance Search </h5><img src="../../assets/Imges/Header/burgerBar.png" alt="three dots"></button>
+            <button class="submit" type="submit">Search Now</button>
+            </form>
+        </div>
+    </div>
+<div class="popularPlaces">
+    <h1>popular places</h1>
+    <p>Properties In Most Popular Places.</p>
+    <div class="cardPlace">
+<div class="cityCard" *ngFor="let card of popularPlacesData">
+    <img src={{card.imgLink}} alt=""> <div class="textSide"><h2 class="cityName">{{card.cityName}}</h2> <p>{{card.properties}} Properties</p></div>
+</div>
+
+
+    </div>
+</div>
+<div class="featuredProperties"></div>
+</header>

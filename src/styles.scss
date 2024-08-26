@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+  
+}
+.cover{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background-color: rgb(2, 2, 2);
+    height: 95vh;
+    background-image: url(../src/assets/Imges/Header/bg-h-1.jpg);
+    background-size: cover;
+    filter: brightness(0.7);
+    z-index: 1;
+}
