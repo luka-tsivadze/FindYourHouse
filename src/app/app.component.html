@@ -1,6 +1,6 @@
 
 
    
-<div class="cover"></div> 
+<div [ngClass]="{'cover':loaded , 'preLoader':loaded==false}" ></div> 
 <app-nav/>
     <app-main-page/>

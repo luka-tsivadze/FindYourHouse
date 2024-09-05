@@ -40,15 +40,124 @@
         </div>
     </div>
 <div class="popularPlaces">
-    <h1>popular places</h1>
-    <p>Properties In Most Popular Places.</p>
+    <h1 [ngClass]="{'fadeIn':scrollY>160}">popular places</h1>
+    <p [ngClass]="{'fadeIn':scrollY>210}"  class="headerP">Properties In Most Popular Places </p>
     <div class="cardPlace">
-<div class="cityCard" *ngFor="let card of popularPlacesData">
+<div  *ngFor="let card of popularPlacesData let i=index"
+[ngStyle]="{'animation-delay': (i * 0.2) + 's'}"
+  [ngClass]="{'CardAnimation': scrollY > 200 , 'cityCard': scrollY<=200}"
+>
+
     <img src={{card.imgLink}} alt=""> <div class="textSide"><h2 class="cityName">{{card.cityName}}</h2> <p>{{card.properties}} Properties</p></div>
 </div>
 
 
     </div>
 </div>
-<div class="featuredProperties"></div>
+<div class="featuredProperties">
+    <h1 class="FH" [ngClass]="{'fadeIn':scrollY>750}">Featured Properties</h1>
+    <p  class="FP" [ngClass]="{'fadeIn':scrollY>799}">These are our featured properties </p>
+    <div class="cardPlace">
+      
+        <div class="propCard"  *ngFor="let info of FutureProperties let i=index"
+        [ngStyle]="{'animation-delay': (i * 0.2) + 's'}"
+        [ngClass]="{'propCardAnimationR': scrollY > 920 && i%2==0 , 'propCardAnimationL': scrollY > 920 && i%2==1 }"
+        >
+            <div class="leftSide" [ngStyle]="{'background-image': 'url(' + info.imgLink + ')'}">
+
+                <div class="FirstRow">
+                    <button [ngClass]="{'dNone':info.featuredBtn==false}">Featured</button>
+                    <button class="whiteBg">For {{info.For}}</button>
+                    
+                </div>
+                  <div class="SecondRow">
+                    <button><img class="link" src="../../assets/Imges/Header/CardImges/icons/link.svg" alt=""></button>
+                    <button><img src="../../assets/Imges/Header/CardImges/icons/camera-video.svg" alt=""></button>
+                    <button><img src="../../assets/Imges/Header/CardImges/icons/img.svg" alt=""></button>
+                  </div>
+            </div>
+            <div class="rightSide">
+                <a>{{info.header}}</a>
+                <p><img src="../../assets/Imges/Header/CardImges/icons/Location.svg" alt="">{{info.location}} </p>
+                <div class="squareFlex">
+
+                <div class="element"><img src="../../assets/Imges/Header/CardImges/icons/bedroom.svg" alt=""><p>{{info.bedrooms}} Bedrooms</p></div> 
+                <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/bathtub.svg" alt=""><p>{{info.bathrooms}} Bathrooms</p></div> 
+                <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/triangular-ruler.svg" alt=""><p>{{info.area}} sq ft</p></div> 
+                <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/car.svg" alt=""><p>{{info.garages}} Garages</p></div>
+            </div>
+            <div class="CardFooterRow">
+                <h1>{{info.price}}</h1> <div class="iconRow"><img src="../../assets/Imges/Header/CardImges/icons/arrow-left-right.svg" alt=""><img src="../../assets/Imges/Header/CardImges/icons/share.svg" alt=""><img class="heart" src="./../../assets/Imges/Header/CardImges/icons/heart.svg" alt=""></div>
+            </div>
+            </div>
+        </div>
+        <button class="viewMore"><span> View More</span> <img src="../../assets/Imges/Header/CardImges/icons/arrow-right-circle-fill.svg" alt=""></button>
+    </div>
+    
+
+</div>
+
+
 </header>
+<main>
+<div class="whyChoose">
+ <div class="headerTextChoose">
+     <h2>Why Choose Us</h2>
+       <p>We provide full service at evey step</p>
+    </div>
+       <div class="WhyCardRow ">
+        <div class="whyCard" *ngFor="let card of WhyCards let i=index" [ngStyle]="{'animation-delay': (i * 0.2) + 's'}" [ngClass]="{'FadeInUp':scrollY>1920}"  ><img src="{{card.Img}}" alt="{{card.alt}}"> <h3>{{card.HText}}</h3> <p>{{card.PText}}</p></div>
+ </div>
+
+</div>
+<div class="popularProperties">
+    <h2  class="PH2" [ngClass]="{'FadeInUp': scrollY >2280 }">Discover Popular Properties</h2>
+    <p class="PP" [ngClass]="{'FadeInUp': scrollY >2370 }">we provide full servicce at every step </p>
+    <div class="scrollParent">
+    <div class="cardParent" [ngClass]="{'first': clickedIndex==0 , 'second':clickedIndex==1, 'third':clickedIndex==2 , 'fourth':clickedIndex==3 ,'fifth': clickedIndex==4 }">
+        
+        <div class="propCard"  *ngFor="let info of DiscoverPopularPlaces let i=index"
+        [ngStyle]="{'animation-delay': (i * 0.2) + 's'}"
+        [ngClass]="{'FadeInUp': scrollY >2400  }"
+        >
+            <div class="leftSide" [ngStyle]="{'background-image': 'url(' + info.imgLink + ')'}">
+
+                <div class="FirstRow">
+                    <button [ngClass]="{'dNone':info.featuredBtn==false}">Featured</button>
+                    <button class="whiteBg">For {{info.For}}</button>
+                    
+                </div>
+                  <div class="SecondRow">
+                    <button><img class="link" src="../../assets/Imges/Header/CardImges/icons/link.svg" alt=""></button>
+                    <button><img src="../../assets/Imges/Header/CardImges/icons/camera-video.svg" alt=""></button>
+                    <button><img src="../../assets/Imges/Header/CardImges/icons/img.svg" alt=""></button>
+                  </div>
+            </div>
+            <div class="rightSide">
+                <a>{{info.header}}</a>
+                <p><img src="../../assets/Imges/Header/CardImges/icons/Location.svg" alt="">{{info.location}} </p>
+                <div class="squareFlex">
+
+                <div class="element"><img src="../../assets/Imges/Header/CardImges/icons/bedroom.svg" alt=""><p>{{info.bedrooms}} Bedrooms</p></div> 
+                <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/bathtub.svg" alt=""><p>{{info.bathrooms}} Bathrooms</p></div> 
+                <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/triangular-ruler.svg" alt=""><p>{{info.area}} sq ft</p></div> 
+                <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/car.svg" alt=""><p>{{info.garages}} Garages</p></div>
+            </div>
+            <div class="CardFooterRow">
+                <h1>{{info.price}}</h1> <div class="iconRow"><img src="../../assets/Imges/Header/CardImges/icons/arrow-left-right.svg" alt=""><img src="../../assets/Imges/Header/CardImges/icons/share.svg" alt=""><img class="heart" src="./../../assets/Imges/Header/CardImges/icons/heart.svg" alt=""></div>
+            </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="btnRow" >
+        <button  #bt  *ngFor="let i of [0,1,2,3,4]; let index = index" [ngClass]="{'active': index==0 && clickedIndex==0 , 'FadeInUp': scrollY >2850 }" (click)="buttons(bt , index)"  [ngStyle]="{'animation-delay': (i * 0.05) + 's'}"
+        >
+          </button>
+  
+    </div>
+</div>
+    
+</div>
+
+</main>

@@ -10,9 +10,56 @@
   }
 }
 
+@keyframes fromBackToFront {
+  0% {
+    transform: scale(0.5) translateZ(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateZ(0);
+    opacity: 1;
+  }
+}
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+@keyframes CardFromLeftToRight {
+  0% {
+    transform: translateX(-50%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
 
+@keyframes CardFromRightToLeft {
+  0% {
+    transform: translateX(50%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+}
+p{
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+}
 header {
+  overflow-x: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,13 +68,18 @@ header {
   width: 100%;
  padding-top: 170px;
   z-index: 2;
-
+  .fadeIn{
+    animation: fromBackToFront 1s ease-out forwards !important;
+  }
   .HeaderCol {
+    
     display: flex;
     flex-direction: column;
     gap: 20px;
     width: 100%;
-    height: 90vh;
+    height: 78vh;
+    animation: fromBackToFront 1s ease-out forwards;
+    transform-style: preserve-3d;
   
     align-items: center;
 .headerp{
@@ -85,6 +137,7 @@ z-index: 1;
   transform: rotate(45deg);
   bottom: -5px;
 }
+
 button{
   z-index: 4;
   cursor: pointer;
@@ -93,7 +146,6 @@ button{
   height: 50px;
   line-height: 50px;
   padding: 0 35px;
-  margin-right: 15px;
   position: relative;
   display: block;
   letter-spacing: 0.4px;
@@ -101,6 +153,8 @@ button{
   color: #000;
   font-family: var(--heading-font);
   font-weight: 600;
+  font-size: 15px;
+  border-radius: 8px;
 }
 .active{
   background: #FF385C;
@@ -240,7 +294,7 @@ text-align: center;
   justify-content: center;
   gap: 20px;
   padding: 60px 7%;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
   align-items: center;
 
   h1{
@@ -249,16 +303,58 @@ text-align: center;
     font-weight: 540;
     text-transform: capitalize;
     font-family: 'Montserrat', sans-serif;
+    opacity: 0;
+    transition: 1s;
   }
-  .cardPlace{
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+
+ .headerP{
+opacity: 0;
+transition: 1s;
+  } .CardAnimation{
+opacity: 0;
+    transform: translateY(20px); 
+    animation: fadeInUp 1s forwards ; 
+    width: 23%;
+    height: 152px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #ebebeb;
+    overflow: hidden;
+    margin-bottom: 30px;
+    padding: 0px;
     align-items: center;
-    padding: 15px;
+    display: flex;
+    img{
+      height: 100%;
+      width: 170px;
+     }
+     .textSide{
+       display: flex;
+       
+       align-items: start;
+       flex-direction: column;
+       gap: 10px;
+     padding: 18px;
+     .cityName{
+       font-family: 'Montserrat', sans-serif;
+       font-size: 18px;
+       color: #333;
+       font-weight: 600;
+   
+     
+     p{
+       font-family: 'Lato', sans-serif;
+       color: #666;
+       font-size: 15px;
+   
+     }
+     }
+   
+   }
+ 
+  }
     .cityCard{
+    opacity: 0 ;
       width: 23%;
       height: 152px;
       background: #fff;
@@ -269,33 +365,559 @@ text-align: center;
       padding: 0px;
       align-items: center;
       display: flex;
-      img{
-       height: 100%;
-       width: 54%;
-      }
-      .textSide{
-        display: flex;
-        
-        align-items: start;
-        flex-direction: column;
-        gap: 10px;
-      padding: 18px;
-      .cityName{
-        font-family: 'Montserrat', sans-serif;
-        font-size: 18px;
-        color: #333;
-        font-weight: 600;
+transition: 2s;
+    }
+}
+.featuredProperties{
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  gap: 20px;
+  padding: 60px 7%;
+  background-color:#F5F7FB;
+  align-items: center;
+.FH{
+  opacity: 0;
+}
+.FP{
+  opacity: 0;
+}
+  h1{
+
+    position: relative;
+    color: #111;
+    font-weight: 540;
+    text-transform: capitalize;
+    font-family: 'Montserrat', sans-serif;
+  }
+  p{
+
+    font-family: 'Lato', sans-serif;
+    color: #666;
+    font-size: 15px;
+  }
+  .propCardAnimationL{
+
+animation: CardFromRightToLeft 1s forwards ;
+
+  }
+  .propCardAnimationR{
+
+    animation: CardFromLeftToRight 1s forwards ;
+  
+  }
+  .propCard{
+    opacity: 0;
+    position: relative;
+    display: flex;
+ 
+    align-items: center;
+    gap: 1px;
+    width: 49%;
+    height: 260px;
+    background-color: white;
+    border: 1px solid #e7e7e7;
     
-      }
-      p{
-        font-family: 'Lato', sans-serif;
-        color: #666;
-        font-size: 15px;
-      }
-      }
+  .leftSide{
+    width: 50%;
+    height: 100%;
+  
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    
+  .FirstRow{
+    display: flex;
+    padding: 15px;
+    justify-content: space-between;
+    align-items: center;
+    button{
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 2px;
+      color: #fff;
+      border: none;
+      background-color: #FF385C;
+      display: inline-block;
     
     }
+    .whiteBg{
+      background-color: rgba(74,74,76,0.7) ;
+    }
+  }
+  .SecondRow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    position: absolute;
+    right: 10px;
+    bottom: 14px;
+    button{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    color: #fff;
+    box-shadow: none;
+    padding: 0;
+    border: unset;
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    line-height: 33px;
+    background: rgba(74,74,76,0.7);
+    img{
+    
+  filter: invert(1) ;
+
+    }
+    .link{
+      width: 55%;
+      transform: rotate(50deg);
+    }
+    }
+  }
+  }
+  .rightSide{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+   justify-content: center;
+   align-items: start;
+   padding: 20px;
+    width: 50%;
+    a{
+      cursor: pointer;
+      color: #333;
+      font-weight: 600;
+    font-size: 1.1rem;
+    }
+    a:hover{
+      color: #FF385C;
+    }
+    p{
+      display: flex;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 400;
+      margin: 0 0 1px;
+      text-decoration: none;
+      color: #666;
+    }
+    .squareFlex{
+      display: flex;
+    padding:25px 0px;
+    padding-right: 60px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap:15px 50px;
+      border-bottom: 1px solid #e8e8e8;
+      .element{
+        display: flex;
+        gap: 9px;
+        width:120px;
+      img{
+        width: 20px;
+        height: 20px;
+      }
+    }
+    }
+    .CardFooterRow{
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding-top:10px ;
+      align-items: center;
+      h1{
+        color: #333;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+      .iconRow{
+display: flex;
+gap: 20px;
+align-items: center;
+.heart{
+  filter: contrast(0.1);
+}
+
+      }
+    }
+  }
+  }
+}
+.cardPlace{
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  .viewMore{
+    cursor: pointer;
+    background-color: #FF385C;
+    color: #fff;
+    border-color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 3rem;
+    padding: 0.9rem 2.1rem 0.9rem 2.1rem;
+    border: unset;
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: 0.2s;
+    img{
+      transition: 0.2s;
+      position: relative;
+      left: 10px;
+      width: 17px;
+      filter: invert(1);
+    }
+  }
+  .viewMore:hover{
+    transition: 0.2s;
+    background-color: #000000;
+    color: #fff;
+    img{
+      transition: 0.2s;
+      left: 16px;
+    }
+    
   }
 }
 
+
+}
+.dNone{
+  opacity: 0 !important;
+}
+.FadeInUp{
+  animation: fadeInUp 1s forwards;
+}
+main{
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+
+  z-index: 2;
+  .whyChoose{
+    display: flex;
+    
+    flex-direction: column;
+    justify-content: center;
+  gap: 30px;
+    align-items: center;
+    width: 100%;
+    height: 500px;
+    background-color: rgb(255, 255, 255);
+    padding: 30px 150xp;
+    .headerTextChoose{
+      display: flex;
+    gap: 0;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      h2{
+        color: #111;
+        font-weight: 600;
+        text-transform: capitalize;
+        font-family: 'Montserrat', sans-serif;
+      }    
+      p{
+        margin-top: 13px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 16px;
+        font-weight: 400;
+        color: #666;
+        max-width: 550px;
+      }
+    }
+    .WhyCardRow{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  
+  .whyCard{
+    opacity: 0;
+        padding: 1.5rem;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        box-shadow: 0px 0px 1px #e7e7e7 !important;
+        border: 1px solid #e7e7e7;
+        width: 350px;
+        height: 300px;
+        gap: 20px;
+        text-align: center;
+        img{
+          width: 100px;
+  
+        }
+        p{
+          color: #666;
+          line-height: 26px;
+     
+        }
+        h3{
+          color: #222;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 18px;
+      
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  .popularProperties{
+    width: 100%;
+  padding:50px 0;
+    background-color: #FF385C;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+justify-content: center;
+align-items: center;
+.PH2{
+  opacity: 0;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-weight: 600;
+ font-size: 2rem;
+  text-transform: capitalize;
+}
+.PP{
+  opacity: 0;
+  color: white;
+  margin-top: 13px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 16px;
+  font-weight: 400;
+}
+.scrollParent{
+  
+  width: 79%;
+  overflow: hidden;
+  .first{
+    transform: translate3d(-2.5%, 0px, 0px);
+  
+  }
+  .second{
+    transform: translate3d(-13%, 0px, 0px);
+  
+  }
+  .third{
+    transform: translate3d(-23.6%, 0px, 0px);
+  
+  }
+  .fourth{
+    transform: translate3d(-34.4%, 0px, 0px);
+    
+  }
+  .fifth{
+    transform: translate3d(-45%, 0px, 0px);
+  
+  }
+  .cardParent{
+ transition: 0.5s;
+    display: flex;
+    width: max-content;
+
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding:30px  100px; 
+    
+    .propCard{
+        opacity: 0;
+        position: relative;
+        display: flex;
+     flex-direction: column;
+        align-items: center;
+        gap: 1px;
+        width: 350px;
+        overflow: hidden;
+        height: 490px;
+        border-radius: 10px;
+        background-color: white;
+        border: 1px solid #e7e7e7;
+        
+      .leftSide{
+        width: 100%;
+        height: 50%;
+       
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: relative;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        
+      .FirstRow{
+        display: flex;
+        padding: 15px;
+        justify-content: space-between;
+        align-items: center;
+        .whiteBg{
+            background-color: rgba(74,74,76,0.7) !important;
+         }
+        button{
+          font-weight: 600;
+          padding: 10px 18px;
+          border-radius: 2px;
+          color: #fff;
+          border: none;
+          background-color: #FF385C;
+          display: inline-block;
+        
+        }
+      }
+      .SecondRow{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        position: absolute;
+        right: 10px;
+        bottom: 14px;
+        button{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        color: #fff;
+        box-shadow: none;
+        padding: 0;
+        border: unset;
+        border-radius: 8px;
+        width: 36px;
+        height: 36px;
+        line-height: 33px;
+        background: rgba(74,74,76,0.7);
+        img{
+        
+      filter: invert(1) ;
+    
+        }
+        .link{
+          width: 55%;
+          transform: rotate(50deg);
+        }
+        }
+      }
+      }
+      .rightSide{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+       justify-content: center;
+       align-items: start;
+       padding: 20px;
+        width: 100%;
+        height: 50%;
+        a{
+          cursor: pointer;
+          color: #333;
+          font-weight: 600;
+        font-size: 1.1rem;
+        }
+        a:hover{
+          color: #FF385C;
+        }
+        p{
+          display: flex;
+          gap: 10px;
+          font-size: 13px;
+          font-weight: 400;
+          margin: 0 0 1px;
+          text-decoration: none;
+          color: #666;
+        }
+        .squareFlex{
+          display: flex;
+        padding:5px 0px;
+        padding-right: 20px;
+          align-items: center;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          gap:10px 30px;
+          border-bottom: 1px solid #e8e8e8;
+          .element{
+            display: flex;
+            gap: 9px;
+            width:120px;
+          img{
+            width: 20px;
+            height: 20px;
+          }
+        }
+        }
+        .CardFooterRow{
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          padding-top:10px ;
+          align-items: center;
+          h1{
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: 600;
+          }
+          .iconRow{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    .heart{
+      filter: contrast(0.1);
+    }
+    
+          }
+        }
+      }
+      }
+    }
+    .btnRow{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 20px;
+      button{
+        width: 16px;
+        height: 16px;
+  opacity: 0;
+
+        border-radius: 50%;
+      background-color: #00000000;
+        border: none;
+       border: 4px solid rgba(255, 255, 255, 0.685);
+        display: inline-block;
+      }
+      .active{
+        transition: 0.1s;
+        background-color: #fff;
+      }
+    }
+  }
+  }
+  
 }

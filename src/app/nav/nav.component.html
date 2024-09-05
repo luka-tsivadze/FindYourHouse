@@ -1,20 +1,84 @@
 
-<nav>
+<nav [ngClass]="{'nav':scrollY>100 }">
   
     <ul class="FirstUl">  
-        <img class="icon" src="../../assets/Imges/NavImg/NavIcon1.svg" alt="Logo">
-        <li><p>Home</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow"></li>
-        <li><p>Listing</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow"></li>
-        <li><p>Property</p><img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow"></li>
-        <li><p>Pages</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow"></li>
-        <li><p>Blog</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow"> </li>
+        <img class="icon" [src]="LogoLink" alt="Logo">
+        <li><p>Home</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
+            <div class="menuBar">
+                <div class="mainPart">
+                <div class="row" *ngFor="let i of this.NavElements.Home"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
+                    <div [ngClass]="{'ArrowNav':i.Showimg==true,'DNone':i.Showimg==false}"><div class="forHover">
+                        <div class="aContainer" *ngFor="let subElement of i.subText">
+                            <a href="" >{{subElement}}</a> </div>
+                        </div>
+                    </div>
+            
+                </div>
+                </div>
+            </div>
+        </li>
+        <li><p>Listing</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow"> 
+            <div class="menuBar">
+                <div class="mainPart">
+                <div class="row" *ngFor="let i of this.NavElements.Listing"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
+                    <div [ngClass]="{'ArrowNav':i.Showimg==true,'DNone':i.Showimg==false}"><div class="forHover">
+                        <div class="aContainer" *ngFor="let subElement of i.subText">
+                            <a href="" >{{subElement}}</a> </div>
+                        </div>
+                    </div>
+            </div>
+                
+                </div>
+           
+            </div>
+            
+        </li>
+        <li><p>Property</p><img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
+            <div class="menuBar">
+                <div class="mainPart">
+        <div class="row" *ngFor="let i of this.NavElements.Property"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">  
+            <div [ngClass]="{'ArrowNav':i.Showimg==true,'DNone':i.Showimg==false}"><div class="forHover">
+                <div class="aContainer" *ngFor="let subElement of i.subText">
+                    <a href="" >{{subElement}}</a> </div>
+                </div>
+            </div>
+    </div>
+                </div>
+            </div>
+        </li>
+        <li><p>Pages</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
+            <div class="menuBar">
+                <div class="mainPart">
+                <div class="row" *ngFor="let i of this.NavElements.Pages"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
+                    <div [ngClass]="{'ArrowNav':i.Showimg==true,'DNone':i.Showimg==false}"><div class="forHover">
+                        <div class="aContainer" *ngFor="let subElement of i.subText">
+                            <a href="" >{{subElement}}</a> </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </li>
+        <li><p>Blog</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
+            <div class="menuBar">
+                <div class="mainPart">
+                <div class="row" *ngFor="let i of this.NavElements.Blog"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
+                    <div [ngClass]="{'ArrowNav':i.Showimg==true,'DNone':i.Showimg==false}"><div class="forHover">
+                        <div class="aContainer" *ngFor="let subElement of i.subText">
+                            <a href="" >{{subElement}}</a> </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div></li>
         <li class="contact"><p>Contact</p></li>
     
     </ul>
     <ul>
-        <li class="row"><img src="../../assets/Imges/NavImg/thirdImg.png" alt=""> <p>ENG</p> <img class="bottomArrow" src="../../assets/Imges/NavImg/arrow-bottom-4.png" alt=""></li>
-        <li class="borders"><p>Sign In</p></li>
-        <li class="RightRow"><div class="circle"><img src="../../assets/Imges/NavImg/profileImg.jpg" alt=""><div class="activebtn"></div></div> <p>Hi, Mary!</p> <img class="bottomArrow" src="../../assets/Imges/NavImg/arrow-bottom-4.png" alt=""> </li>
+        <li class="row"><img src="{{GlobeLink}}" alt=""> <p>ENG</p> <img class="bottomArrow" src="../../assets/Imges/NavImg/arrow-bottom-4.png" alt=""></li>
+        <li class="borders"  [ngClass]="{'DNone':IsSignedIn.signed==true}" ><p>Sign In</p></li>
+        <li class="RightRow"  [ngClass]="{'DNone':IsSignedIn.signed==false}"><div class="circle"><img src="../../assets/Imges/NavImg/profileImg.jpg" alt=""><div class="activebtn"></div></div> <p>Hi, Mary!</p> <img class="bottomArrow" src="../../assets/Imges/NavImg/arrow-bottom-4.png" alt=""> </li>
         <li><button class="listing"><h4>Add Listing</h4> <img src="../../assets/Imges/NavImg/Screenshot 2024-08-20 192117.png" alt=""></button></li>
     </ul>
+ 
 </nav>
