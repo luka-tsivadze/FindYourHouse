@@ -26,7 +26,9 @@
     clickedIndex:number=0;
   FutureProperties=this.dataService.FeaturedProp;
   WhyCards=this.dataService.WhyCards;
+  AgentsInfo=this.dataService.AgentsInfo;
   lastEl:any;
+ReviewsData=this.dataService.ReviewData;
 DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
     constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone, private dataService: MainPageDataService) {
    console.log(this.DiscoverPopularPlaces);
@@ -116,8 +118,8 @@ this.lastEl=element;
   @HostListener('window:scroll', ['$event'])
 onScroll(event: Event): void {
     this.scrollY = window.scrollY || window.pageYOffset; // Get the current scroll position
-  
 }
+
 
 
 

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -288,7 +289,47 @@ export class MainPageDataService {
       PText: 'lorem ipsum dolor sit amet, consectetur pro adipisici consectetur debits adipisicing lacus consectetur Business Directory.',
     },
   ];
-    constructor() {}
+  AgentsInfo=[{imgLink:'../../assets/Imges/Header/CardImges/A-1.jpg',Name:'Carls Jhons', status:'Real Estate Agent',mainalt:'' ,sociaslLinks:[
+    {alt:'facebook' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/icons8-facebook.svg' },
+    {alt:'twitter' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/twitter.svg' },{alt:'Instagram' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/instagram.svg' },{alt:'linkdIn' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/LinkedIn.png' }] 
+  },
+  {imgLink:'../../assets/Imges/Header/CardImges/A-2.jpg',Name:'Arling Tracy', status:'Real Estate Agent',sociaslLinks:[
+    {alt:'facebook' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/icons8-facebook.svg' },
+    {alt:'twitter' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/twitter.svg' },
+    {alt:'Instagram' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/instagram.svg' },
+    {alt:'linkdIn' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/LinkedIn.png' }]}
+  ,  {imgLink:'../../assets/Imges/Header/CardImges/A-3.jpg',Name:'Mark Web', status:'Real Estate Agent',sociaslLinks:[
+    {alt:'facebook' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/icons8-facebook.svg' },
+    {alt:'twitter' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/twitter.svg' },
+    {alt:'Instagram' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/instagram.svg' },
+    {alt:'linkdIn' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/LinkedIn.png' }]},
+    {imgLink:'../../assets/Imges/Header/CardImges/A-4.jpg',Name:'Katy Grace', status:'Real Estate Agent',sociaslLinks:[
+      {alt:'facebook' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/icons8-facebook.svg' },
+      {alt:'twitter' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/twitter.svg' },
+      {alt:'Instagram' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/instagram.svg' },
+      {alt:'linkdIn' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/LinkedIn.png' }]},
+      {imgLink:'../../assets/Imges/Header/CardImges/A-5.jpg',Name:'Chris Melo', status:'Real Estate Agent',sociaslLinks:[
+        {alt:'facebook' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/icons8-facebook.svg' },
+        {alt:'twitter' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/twitter.svg' },
+        {alt:'Instagram' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/instagram.svg' },
+        {alt:'linkdIn' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/LinkedIn.png' }]},
+        {imgLink:'../../assets/Imges/Header/CardImges/A-6.jpg',Name:'Nina Thomas', status:'Real Estate Agent',sociaslLinks:[
+          {alt:'facebook' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/icons8-facebook.svg' },
+          {alt:'twitter' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/twitter.svg' },
+          {alt:'Instagram' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/instagram.svg' },
+          {alt:'linkdIn' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/LinkedIn.png' }]}
+  ]
+  ReviewData=[
+    {Name:'Jonh Doe',imgLink:'../../assets/Imges/Header/CardImges/A-6.jpg', Place:'Houston',Review:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+     {Name:'Cristy Mayer',imgLink:'../../assets/Imges/Header/CardImges/A-5.jpg', Place:'San Francisco',Review:"Lorem ipsum dolor sit amet, consectetur rem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
+    ]
+    constructor( private http: HttpClient) {
+    this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe((data) => {
+      console.log('data',data);
+      
+     })
+    }
+    
 
   Data() {
 this.staticData

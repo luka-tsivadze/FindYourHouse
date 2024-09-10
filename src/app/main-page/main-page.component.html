@@ -160,4 +160,37 @@
     
 </div>
 
+<div class="Agents">
+    <h3 class="AHeader">Meet Our Agents</h3>
+    <p class="AP">Our Agents are here to help you</p>
+    <div class="cardParent">
+
+        <div class="cardTypeAgent" [ngStyle]="{'animation-delay': (i * 0.2) + 's'}" [ngClass]="{'FadeInUp':scrollY>3120}"   *ngFor="let AgentInfo of AgentsInfo let i =index">
+            <div class="Top"><img src= {{AgentInfo.imgLink}}  alt="{{AgentInfo.mainalt}}"> 
+                <div class="ShareRow"><a  *ngFor="let Info of AgentInfo.sociaslLinks" href="{{Info.href}}"><img src={{Info.IconLink}} alt="{{Info.alt}}"></a>
+             
+            </div></div>
+            <div class="bottom"><h3>Carls Jhons</h3><p>Real Estate Agent</p></div>
+
+        </div>
+    </div>
+</div>
+<div class="Reviews">
+    <h1 class="HText">Clients Testimonials</h1>
+    <p class="HP">We collect reviews from our customers.</p>
+<div class="cardPlace">
+
+    <div class="ReviewCard" *ngFor="let review of ReviewsData let i=index" [ngStyle]="{'animation-delay': (i * 0.2) + 's'}" [ngClass]="{'FadeInUp':scrollY>3000}">
+        <div class="Top"><p>{{review.Review}}</div>
+        <div class="Bottom"><span><img src="{{review.imgLink}}" alt="profile image"></span><div class="col"><h3>{{review.Name}}</h3> <p>{{review.Place}}</p></div> <img class="STATICiCON" src="../../assets/Imges/StaticImg/quoe.png" alt=",,"></div>
+</div>
+
+</div>
+<div class="btnRow">
+    <button class="LeftBtn"><img src="../../assets/Imges/StaticImg/StaticIcons/chevron-left.svg" alt="left Arrow"></button>
+    <button class="RightBtn"><img src="../../assets/Imges/StaticImg/StaticIcons/chevron-right.svg" alt="right Arrow"></button>
+</div>
+</div>
 </main>
+
+

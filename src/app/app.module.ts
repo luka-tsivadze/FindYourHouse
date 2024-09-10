@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
+import {  HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -13,12 +14,14 @@ import { FooterComponent } from './footer/footer.component';
     AppComponent,
     MainPageComponent,
     NavComponent,
-    FooterComponent
+    FooterComponent  
+    
  
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+ HttpClientModule  // Import HttpClientModule before declaring AppModule in the root module
   ],
   providers: [
     provideClientHydration()
