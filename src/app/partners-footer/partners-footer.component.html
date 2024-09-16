@@ -1,0 +1,14 @@
+<main>
+    <h1>Our Partners</h1>
+    <p>The Company That Represent Us.</p>
+    <div class="ForOverFlow">
+        <div class="companyRow" #companyRow>
+            <div class="imageContainer">
+                <img *ngFor="let item of Service.PartnerImges" src="{{item}}" alt="PartnerLogo">
+            </div>
+            <div class="imageContainer">
+                <img *ngFor="let item of Service.PartnerImges" src="{{item}}" alt="PartnerLogo">
+            </div>
+        </div>
+    </div>
+</main>

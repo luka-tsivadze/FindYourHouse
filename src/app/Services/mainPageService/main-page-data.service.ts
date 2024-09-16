@@ -321,7 +321,21 @@ export class MainPageDataService {
   ]
   ReviewData=[
     {Name:'Jonh Doe',imgLink:'../../assets/Imges/Header/CardImges/A-6.jpg', Place:'Houston',Review:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
-     {Name:'Cristy Mayer',imgLink:'../../assets/Imges/Header/CardImges/A-5.jpg', Place:'San Francisco',Review:"Lorem ipsum dolor sit amet, consectetur rem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
+     {Name:'Cristy Mayer',imgLink:'../../assets/Imges/Header/CardImges/A-5.jpg', Place:'San Francisco',Review:"Lorem ipsum dolor sit amet, consectetur rem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+     {Name:'Mary Deshaw',imgLink:'../../assets/Imges/Header/CardImges/A-4.jpg', Place:'San Francisco',Review:"Lorem ipsum dolor sit amet, consectetur rem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+     {Name:'Gary Steven',imgLink:'../../assets/Imges/Header/CardImges/A-3.jpg', Place:'San Francisco',Review:"Lorem ipsum dolor sit amet, consectetur rem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+     {Name:'Luka Steven',imgLink:'../../assets/Imges/Header/CardImges/A-2.jpg', Place:'San Francisco',Review:"Lorem ipsum dolor sit amet, consectetur rem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+     {Name:'Jonh Doe',imgLink:'../../assets/Imges/Header/CardImges/A-6.jpg', Place:'Houston',Review:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+     {Name:'Cristy Mayer',imgLink:'../../assets/Imges/Header/CardImges/A-5.jpg', Place:'San Francisco',Review:"Lorem ipsum dolor sit amet, consectetur rem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+     {Name:'Mary Deshaw',imgLink:'../../assets/Imges/Header/CardImges/A-4.jpg', Place:'San Francisco',Review:"Lorem ipsum dolor sit amet, consectetur rem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+     {Name:'Gary Steven',imgLink:'../../assets/Imges/Header/CardImges/A-3.jpg', Place:'San Francisco',Review:"Lorem ipsum dolor sit amet, consectetur rem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+     {Name:'Luka Steven',imgLink:'../../assets/Imges/Header/CardImges/A-2.jpg', Place:'San Francisco',Review:"Lorem ipsum dolor sit amet, consectetur rem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+     {Name:'Jonh Doe',imgLink:'../../assets/Imges/Header/CardImges/A-6.jpg', Place:'Houston',Review:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+     {Name:'Cristy Mayer',imgLink:'../../assets/Imges/Header/CardImges/A-5.jpg', Place:'San Francisco',Review:"Lorem ipsum dolor sit amet, consectetur rem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+     {Name:'Mary Deshaw',imgLink:'../../assets/Imges/Header/CardImges/A-4.jpg', Place:'San Francisco',Review:"Lorem ipsum dolor sit amet, consectetur rem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+     {Name:'Gary Steven',imgLink:'../../assets/Imges/Header/CardImges/A-3.jpg', Place:'San Francisco',Review:"Lorem ipsum dolor sit amet, consectetur rem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+     {Name:'Luka Steven',imgLink:'../../assets/Imges/Header/CardImges/A-2.jpg', Place:'San Francisco',Review:"Lorem ipsum dolor sit amet, consectetur rem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+
     ]
     constructor( private http: HttpClient) {
     this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe((data) => {

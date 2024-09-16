@@ -16,7 +16,18 @@
   staticData:{headerTextList:string[]}=this.dataService.staticData  
   @ViewChild('bt') bt: ElementRef | undefined;
   @ViewChild('headerElement')headerElement!: ElementRef;
+  @ViewChild('RCard')Relement: ElementRef | undefined;
+
+  //for Line 163
+  @ViewChild('cardPlace') cardRow: ElementRef;
+  isDragging = false;
+  startX = 0;
+  scrollLeft = 0;  
+  TransformCof=0;
+  LC=1
+//before 163 line
   list: any;
+  transform:number=0;
     counter: number = 0;
     headertimer=1000;
     intervalId: any;
@@ -30,6 +41,8 @@
   lastEl:any;
 ReviewsData=this.dataService.ReviewData;
 DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
+
+
     constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone, private dataService: MainPageDataService) {
    console.log(this.DiscoverPopularPlaces);
      
@@ -115,11 +128,99 @@ element.classList.add('active');
 this.lastEl=element;
 
   }
+  ReviewMover(event:Event){
+
+    const element = event.target as HTMLElement;
+  const elementClass = element.className;
+ console.log(elementClass);
+  if(elementClass==='LeftBtn'|| elementClass=== 'Left'){ 
+    this.transform+=515;
+
+  }else if(elementClass==='RightBtn' || elementClass=== 'Right'){
+    this.transform-=515;
+    
+  
+
+  }
+  if(this.transform<=-(this.ReviewsData.length-2)*515){//თუ 3 ქარდი ჩანს ეკრანზე თუ 2 იქნება 1 ს გამოაკლებ 2 ის მაგივრად 
+
+      this.transform=0;
+
+  
+  }else if(this.transform>0){
+    this.transform=-(this.ReviewsData.length-3)*515;
+    
+
+   
+  }
+  this.Relement.nativeElement.style.transform=`translate3d( ${this.transform}px, 0px, 0px)`;
+
+  }
   @HostListener('window:scroll', ['$event'])
 onScroll(event: Event): void {
     this.scrollY = window.scrollY || window.pageYOffset; // Get the current scroll position
 }
 
+
+
+onDragStart(event: MouseEvent) { 
+  
+  this.isDragging = true;
+  this.startX = event.pageX - this.cardRow.nativeElement.offsetLeft;
+  this.scrollLeft = this.cardRow.nativeElement.scrollLeft;
+}
+
+onDrag(event: MouseEvent) {
+
+
+  if (!this.isDragging) return;
+  event.preventDefault();
+
+  // Calculate the movement
+  const x = event.pageX - this.cardRow.nativeElement.offsetLeft;
+  const walk = (x - this.startX) * 2; // scroll-fast
+
+  // Update transform value
+  this.transform += event.movementX;
+
+  // Update scroll position
+  this.cardRow.nativeElement.scrollLeft = this.scrollLeft - walk;
+  
+  // Apply transform without animation
+  this.Relement.nativeElement.style.transition = '0s';
+  this.Relement.nativeElement.style.transform = `translate3d(${this.transform}px, 0px, 0px)`;
+}
+
+onDragEnd() {
+  this.isDragging = false;
+
+
+
+  this.TransformCof = Math.round(this.transform / 515); // Rounds to nearest integer
+
+  if(this.LC!==1){
+    console.log(this.TransformCof , this.LC);
+  if(this.LC>this.TransformCof){
+    this.TransformCof=this.TransformCof-1;
+    console.log('right');
+  }else if(this.LC<this.TransformCof){
+    this.TransformCof=this.TransformCof+1;
+    console.log('left');
+  }
+}
+this.LC=this.TransformCof;
+
+  // Apply transform with animation
+  this.transform = this.TransformCof * 515;
+  if(this.transform>0){
+    this.transform=-(this.ReviewsData.length-3)*515;
+   
+  }else if(this.transform<=-(this.ReviewsData.length-2)*515){
+    this.transform=0;
+  }
+  this.Relement.nativeElement.style.transition = '0.8s';
+  this.Relement.nativeElement.style.transform = `translate3d(${this.transform}px, 0px, 0px)`;
+}
 
 
 

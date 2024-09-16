@@ -31,7 +31,7 @@ Home:[    //if Showimg is true then subText array must have data for sub menu
       {a:'text', Showimg: false},
       {a:'text', Showimg:false}]
 }
-IsSignedIn={signed:false, imgLink:'', ImgText:'Hi mary'}
+IsSignedIn={signed:true, imgLink:'../../assets/Imges/NavImg/profileImg.jpg', ImgText:'Hi mary'}
 
 
   constructor() { }

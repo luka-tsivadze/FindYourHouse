@@ -99,7 +99,7 @@
 
 
 </header>
-<main>
+<main (mouseup)="onDragEnd()">
 <div class="whyChoose">
  <div class="headerTextChoose">
      <h2>Why Choose Us</h2>
@@ -110,7 +110,7 @@
  </div>
 
 </div>
-<div class="popularProperties">
+<div class="popularProperties" >
     <h2  class="PH2" [ngClass]="{'FadeInUp': scrollY >2280 }">Discover Popular Properties</h2>
     <p class="PP" [ngClass]="{'FadeInUp': scrollY >2370 }">we provide full servicce at every step </p>
     <div class="scrollParent">
@@ -178,19 +178,22 @@
 <div class="Reviews">
     <h1 class="HText">Clients Testimonials</h1>
     <p class="HP">We collect reviews from our customers.</p>
-<div class="cardPlace">
-
-    <div class="ReviewCard" *ngFor="let review of ReviewsData let i=index" [ngStyle]="{'animation-delay': (i * 0.2) + 's'}" [ngClass]="{'FadeInUp':scrollY>3000}">
-        <div class="Top"><p>{{review.Review}}</div>
-        <div class="Bottom"><span><img src="{{review.imgLink}}" alt="profile image"></span><div class="col"><h3>{{review.Name}}</h3> <p>{{review.Place}}</p></div> <img class="STATICiCON" src="../../assets/Imges/StaticImg/quoe.png" alt=",,"></div>
-</div>
+<div class="ForOverflow">
+    <div #RCard class="cardPlace" #cardPlace  (mousedown)="onDragStart($event)" (mousemove)="onDrag($event)" >
+        <div class="ReviewCard"  *ngFor="let review of ReviewsData let i=index" [ngStyle]="{'animation-delay': (i * 0.2) + 's'}" [ngClass]="{'FadeInUp':scrollY>3000}">
+            <div class="Top"><p>{{review.Review}}</div>
+                <div class="Bottom"><span><img src="{{review.imgLink}}" alt="profile image"></span><div class="col"><h3>{{review.Name}}</h3> <p>{{review.Place}}</p></div> <img class="STATICiCON" src="../../assets/Imges/StaticImg/quoe.png" alt=",,"></div>
+            </div>
+        </div>
 
 </div>
 <div class="btnRow">
-    <button class="LeftBtn"><img src="../../assets/Imges/StaticImg/StaticIcons/chevron-left.svg" alt="left Arrow"></button>
-    <button class="RightBtn"><img src="../../assets/Imges/StaticImg/StaticIcons/chevron-right.svg" alt="right Arrow"></button>
+    <button class="LeftBtn" (click)="ReviewMover($event)" ><img class="Left" src="../../assets/Imges/StaticImg/StaticIcons/chevron-left.svg" alt="left Arrow"></button>
+    <button class="RightBtn" (click)="ReviewMover($event)" ><img class="Right" src="../../assets/Imges/StaticImg/StaticIcons/chevron-right.svg" alt="right Arrow"></button>
 </div>
 </div>
+<app-partners-footer/>
+<app-footer/>
 </main>
 
 

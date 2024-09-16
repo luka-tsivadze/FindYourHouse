@@ -10,7 +10,9 @@ export class NavComponent {
   scrollY: number=0
 LogoLink='../../assets/Imges/NavImg/NavIcon1.svg'
 GlobeLink='../../assets/Imges/NavImg/thirdImg.png'
-  ShowImg=false;
+ShowImg=false;
+displayElement=false;
+ProfileSettings=[{ Text:'Edit Profile'},{ Text:'Add Property'},{Text:'Payments'},{Text:'Change Password'},{Text:'Log Out'}]
 NavElements:any
 IsSignedIn
 
@@ -18,6 +20,9 @@ IsSignedIn
 this.IsSignedIn=this.navService.IsSignedIn;
 this.NavElements=this.navService.MenuBar
 console.log(this.NavElements.Home)
+  }
+  displayEl(){
+this.displayElement=!this.displayElement;
   }
   @HostListener('window:scroll', ['$event'])
   onScroll(event: Event): void {  
@@ -31,6 +36,12 @@ console.log(this.NavElements.Home)
         this.LogoLink='../../assets/Imges/NavImg/NavIcon1.svg'
         this.GlobeLink='../../assets/Imges/NavImg/thirdImg.png'
       }
+  }
+  scrollToTop(): void {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // Smooth scrolling
+    });
   }
   
 }

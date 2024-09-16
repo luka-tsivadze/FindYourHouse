@@ -1,4 +1,5 @@
 
+
 <nav [ngClass]="{'nav':scrollY>100 }">
   
     <ul class="FirstUl">  
@@ -77,8 +78,12 @@
     <ul>
         <li class="row"><img src="{{GlobeLink}}" alt=""> <p>ENG</p> <img class="bottomArrow" src="../../assets/Imges/NavImg/arrow-bottom-4.png" alt=""></li>
         <li class="borders"  [ngClass]="{'DNone':IsSignedIn.signed==true}" ><p>Sign In</p></li>
-        <li class="RightRow"  [ngClass]="{'DNone':IsSignedIn.signed==false}"><div class="circle"><img src="../../assets/Imges/NavImg/profileImg.jpg" alt=""><div class="activebtn"></div></div> <p>Hi, Mary!</p> <img class="bottomArrow" src="../../assets/Imges/NavImg/arrow-bottom-4.png" alt=""> </li>
+        <li class="RightRow" (click)="displayEl()" [ngClass]="{'DNone':IsSignedIn.signed==false}"><div class="circle"><img src="{{IsSignedIn.imgLink}}" alt="Profile img"><div class="activebtn"></div></div> <p>{{IsSignedIn.ImgText}}</p> <img class="bottomArrow" src="../../assets/Imges/NavImg/arrow-bottom-4.png" alt="Arrow Icon"> </li>
+        <div class="SubNav" [ngClass]="{DNone: displayElement==false}"><a *ngFor="let el of ProfileSettings" href="">{{el.Text}}</a></div>
         <li><button class="listing"><h4>Add Listing</h4> <img src="../../assets/Imges/NavImg/Screenshot 2024-08-20 192117.png" alt=""></button></li>
     </ul>
  
 </nav>
+<div class="opacityN" [ngClass]="{'UpButton':scrollY>20}" (click)="scrollToTop()">
+    <img src="../../assets/Imges/NavImg/chevron-double-up.svg" alt="">
+  </div>

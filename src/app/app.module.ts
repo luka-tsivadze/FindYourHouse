@@ -7,6 +7,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
 import {  HttpClientModule } from '@angular/common/http';
+import { PartnersFooterComponent } from './partners-footer/partners-footer.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {  HttpClientModule } from '@angular/common/http';
     AppComponent,
     MainPageComponent,
     NavComponent,
-    FooterComponent  
+    FooterComponent,
+    PartnersFooterComponent  
     
  
   ],
