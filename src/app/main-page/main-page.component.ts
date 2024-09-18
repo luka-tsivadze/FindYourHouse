@@ -44,7 +44,7 @@ DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
 
 
     constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone, private dataService: MainPageDataService) {
-   console.log(this.DiscoverPopularPlaces);
+       
      
     }
 
@@ -81,10 +81,7 @@ DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
             100%{ width: 100%;
             opacity: 1;
           }
-        
-          
-          `;    
-        
+          `;        
           document.head.appendChild(typingAnimation);
           p.style.width='0'
           p.style.opacity='0'
@@ -117,7 +114,7 @@ DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
   activeLeft(){
     this.booleanLeft=true;
     this.booleanRight=false;
-    console.log(this.bt);
+   
   }
   buttons(element:any , index):void {
     if(this.lastEl){
@@ -132,7 +129,7 @@ this.lastEl=element;
 
     const element = event.target as HTMLElement;
   const elementClass = element.className;
- console.log(elementClass);
+
   if(elementClass==='LeftBtn'|| elementClass=== 'Left'){ 
     this.transform+=515;
 
@@ -148,11 +145,13 @@ this.lastEl=element;
 
   
   }else if(this.transform>0){
+
     this.transform=-(this.ReviewsData.length-3)*515;
     
 
    
   }
+      console.log(this.transform);
   this.Relement.nativeElement.style.transform=`translate3d( ${this.transform}px, 0px, 0px)`;
 
   }
@@ -192,20 +191,18 @@ onDrag(event: MouseEvent) {
 }
 
 onDragEnd() {
+  if (!this.isDragging) return;
   this.isDragging = false;
-
-
-
   this.TransformCof = Math.round(this.transform / 515); // Rounds to nearest integer
 
   if(this.LC!==1){
     console.log(this.TransformCof , this.LC);
   if(this.LC>this.TransformCof){
     this.TransformCof=this.TransformCof-1;
-    console.log('right');
+
   }else if(this.LC<this.TransformCof){
     this.TransformCof=this.TransformCof+1;
-    console.log('left');
+
   }
 }
 this.LC=this.TransformCof;

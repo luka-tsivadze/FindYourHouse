@@ -8,7 +8,7 @@ import { FooterService } from '../Services/footer/footer.service';
 export class PartnersFooterComponent {
 
   constructor(public Service: FooterService){
-console.log(this.Service.PartnerImges)
+
   }
 
 }

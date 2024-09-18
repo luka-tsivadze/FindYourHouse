@@ -339,8 +339,7 @@ export class MainPageDataService {
     ]
     constructor( private http: HttpClient) {
     this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe((data) => {
-      console.log('data',data);
-      
+ 
      })
     }
     

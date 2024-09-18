@@ -31,9 +31,9 @@ Home:[    //if Showimg is true then subText array must have data for sub menu
       {a:'text', Showimg: false},
       {a:'text', Showimg:false}]
 }
-IsSignedIn={signed:true, imgLink:'../../assets/Imges/NavImg/profileImg.jpg', ImgText:'Hi mary'}
-
-
+IsSignedIn={signed:false, imgLink:'../../assets/Imges/NavImg/profileImg.jpg', Name:'mary'}
+Languages=['ENG','RUS','GEO']
+chosenLang
   constructor() { }
 
 }
