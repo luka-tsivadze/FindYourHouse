@@ -8,6 +8,8 @@ import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
 import {  HttpClientModule } from '@angular/common/http';
 import { PartnersFooterComponent } from './partners-footer/partners-footer.component';
+import { HeaderComponent } from './header/header.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { PartnersFooterComponent } from './partners-footer/partners-footer.compo
     MainPageComponent,
     NavComponent,
     FooterComponent,
-    PartnersFooterComponent  
+    PartnersFooterComponent,
+    HeaderComponent,
+    RegistrationComponent  
     
  
   ],
