@@ -22,6 +22,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     PartnersFooterComponent,
     HeaderComponent,
     RegistrationComponent  
+    PartnersFooterComponent,
+    HeaderComponent,
+    RegistrationComponent  
     
  
   ],
