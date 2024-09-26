@@ -4,6 +4,7 @@ import { NavInfoService } from '../Services/NavService/nav-info.service';
 import { EngService } from '../Services/Languages/eng/eng.service';
 import { GeoService } from '../Services/Languages/geo/geo.service';
 import { RusService } from '../Services/Languages/rus/rus.service';
+import { RegistrationService } from '../Services/registration/registration.service';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -22,26 +23,37 @@ ProfileSettings=[{ Text:'Edit Profile'},{ Text:'Add Property'},{Text:'Payments'}
 NavElements:any
 IsSignedIn:any
 staticElements
+Displayer=false
 
-  constructor(private navService: NavInfoService,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService ,
+
+  constructor(private navService: NavInfoService,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService , private  Registration: RegistrationService,
     @Inject(PLATFORM_ID) private platformId: Object){
 
       this.IsSignedIn=this.navService.IsSignedIn;
 this.NavElements=this.navService.MenuBar;
 this.staticElements=this.GeoService
-if(isPlatformBrowser(this.platformId)){
-  if(localStorage.getItem('Language')){
-    this.chosenLang=localStorage.getItem('Language')
+if (isPlatformBrowser(this.platformId)) {
+  if (localStorage.getItem('Language')) {
+    this.chosenLang = localStorage.getItem('Language');
   }
-  if(this.chosenLang=='GEO'){
-    this.staticElements=GeoService.NavG
 
-  }else if(this.chosenLang=='ENG'){
-this.staticElements=EngService.NavE
-  }else if(this.chosenLang=='RUS'){
-    this.staticElements=RusService.NavR
+  switch (this.chosenLang) {
+    case 'GEO':
+      this.staticElements = GeoService.NavG;
+      break;
+
+    case 'ENG':
+      this.staticElements = EngService.NavE;
+      break;
+
+    case 'RUS':
+      this.staticElements = RusService.NavR;
+      break;
+
+
   }
 }
+
 
   }
 
@@ -61,6 +73,8 @@ this.staticElements=this.EngService.NavE
     this.staticElements=this.RusService.NavR
   }
 this.showLanguages=false;
+window.location.reload();
+
   }
   displayEl(){
 this.displayElement=!this.displayElement;
@@ -86,6 +100,11 @@ this.showLanguages=!this.showLanguages;
       top: 0,
       behavior: 'smooth' // Smooth scrolling
     });
+  }
+  showRegistrForm() {
+   window.document.body.style.overflow = "hidden";
+    this.Registration.setDisplayer(true);
+
   }
   
 }

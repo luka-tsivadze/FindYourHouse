@@ -8,6 +8,9 @@ import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
 import {  HttpClientModule } from '@angular/common/http';
 import { PartnersFooterComponent } from './partners-footer/partners-footer.component';
+import { HeaderComponent } from './header/header.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,7 +19,9 @@ import { PartnersFooterComponent } from './partners-footer/partners-footer.compo
     MainPageComponent,
     NavComponent,
     FooterComponent,
-    PartnersFooterComponent  
+    PartnersFooterComponent,
+    HeaderComponent,
+    RegistrationComponent  
     
  
   ],
@@ -24,6 +29,8 @@ import { PartnersFooterComponent } from './partners-footer/partners-footer.compo
     BrowserModule,
     AppRoutingModule,
  HttpClientModule  // Import HttpClientModule before declaring AppModule in the root module
+ ,
+ ReactiveFormsModule
   ],
   providers: [
     provideClientHydration()
