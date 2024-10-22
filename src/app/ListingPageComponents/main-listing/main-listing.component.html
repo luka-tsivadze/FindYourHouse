@@ -1,0 +1,90 @@
+<div class="FormParent">
+    <form class="form1">
+        <h3 class="header">Property Description And Price</h3>
+
+        <div class="text">
+
+            <div class="LabledInputs">
+                <label for="title">Property title</label>
+                <input type="text" name="title" id="title" placeholder="Enter your property title">
+            </div>
+            <div class="LabledInputs">
+                <label for="Description">Property title</label>
+                <textarea class="resizable-textarea" type="text" name="Description" id="Description" placeholder="Describe about Your Property"></textarea>
+                </div>
+                <div class="selectRow"><select   id="Status">  <option value="" disabled selected hidden>Select Status</option> <option value="">Rent</option><option value="">Sale</option> </select> 
+                    <select  id="Type"><option value="" disabled selected hidden>Types</option> 
+                        <option value="">House</option><option value="">Comercial</option> <option value="">apartment</option> <option value="">garage</option></select> 
+                    <select  id="Rooms"><option value="" disabled selected hidden>Rooms</option>
+                    <option value="">1</option><option value="">2</option><option value="">3</option><option value="">4</option><option value="">5</option>
+                    </select>
+                 </div>
+                 <div class="row">
+
+                     <div class="LabledInputs">
+                         <label for="price">Price</label>
+                         <input type="text" name="price" id="price" placeholder="USD">
+                        </div>
+                        <div class="LabledInputs">
+                            <label for="area">Area</label>
+                            <input type="text" name="area" id="area" placeholder="sqft">
+                        </div>
+                    </div>
+        </div>
+    
+    </form>
+    <form class="form2">
+        <h3 class="header">Property medea</h3>
+        <input type="file" name="file" id="file">
+        <label for="file"><img src="../../../assets/Imges/StaticImg/StaticIcons/cloud-arrow-up-fill.svg" alt=""><p>click Hare Or Drop Files To Upload</p></label>
+    </form>
+    <form class="form3">
+        <h3 class="header">Property location</h3>
+       
+            <div class="text">
+ <div class="flexWrap">
+                <div class="LabledInputs" *ngFor="let element of form3Info">
+                    <label for={{element.id}}>{{element.HeaderName}}</label>
+                    <input type="text" name={{element.id}} id={{element.id}} placeholder={{element.placeHolder}}>
+                </div>
+             
+            </div>
+         </div>
+       
+    </form>
+    <form class="form4">
+        <h3 class="header">Extra Information</h3>
+        <div class="text">
+            <div class="selectRow">
+
+                <select *ngFor="let form4 of form4Info" id={{form4.id}}><option value="" disabled selected hidden>Select {{form4.firstOption}}</option>
+                    <option *ngFor="let option of form4.options">{{option}}</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <form class="form5">
+        <h3 class="header">Property Features</h3>
+        <div class="text">
+
+            <div class="flexWrap">
+                <div class="row" *ngFor="let el of form5Info"><input type="checkbox" id="{{el.id}}" name="{{el.id}}"> <label for="{{el.id}}">{{el.text}}</label></div>
+            </div>
+        </div>
+        
+    </form>
+    <form class="form6 form3">
+        <h3 class="header">Contact Information</h3>
+             
+        <div class="text">
+            <div class="flexWrap">
+                           <div class="LabledInputs" *ngFor="let element of form6Info">
+                               <label for={{element.id}}>{{element.HeaderName}}</label>
+                               <input type="text" name={{element.id}} id={{element.id}} placeholder={{element.placeHolder}}>
+                           </div>
+                        
+                       </div>
+                    </div>
+                    <button type="submit">Submit Property</button>
+    </form>
+</div>

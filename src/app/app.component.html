@@ -1,6 +1,7 @@
 
 
-   
-<div [ngClass]="{'cover':loaded , 'preLoader':loaded==false}" ></div> 
-<app-nav/>
-    <app-main-page/>
+  
+<div [ngClass]="{ 'preLoader':loaded==false , 'loaded':loaded }"></div>
+
+<router-outlet></router-outlet>
+  

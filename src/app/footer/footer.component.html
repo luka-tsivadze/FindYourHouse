@@ -8,50 +8,45 @@
         />
       </div>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, officiis!
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, officiis!
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, officiis!
+      {{footerData.FindHouse.mainText}}
       </p>
       <div class="row">
         <img
           src="../../assets/Imges/Footer/FooterIcons/Location.svg"
           alt=" Location Icon"
         />
-        <span>95 South Park Avenue, USA</span>
+        <span>      {{footerData.FindHouse.location}}</span>
       </div>
       <div class="row">
         <img
           src="../../assets/Imges/Footer/FooterIcons/telephone-fill.svg"
           alt="telephone Icon"
         />
-        <span>+456 875 369 208</span>
+        <span>{{footerData.FindHouse.Number}}</span>
       </div>
       <div class="row">
         <img
           src="../../assets/Imges/Footer/FooterIcons/envelope-fill.svg"
           alt="envelope Icon"
         />
-        <span>support&#64;findhouses.com</span>
+        <span> {{footerData.FindHouse.Email}}</span>
       </div>
     </div>
     <div class="col Navigation">
-      <h3>Navigation</h3>
+      <h3>{{staticInfo.NavFooter}}</h3>
       <div class="NParent">
-        <div class="NRow"><li><a>Home one</a></li>  <li><a>Agents Details</a></li></div>
-        <div class="NRow"><li><a>Home one</a></li>  <li><a>Agents Details</a></li></div>
-        <div class="NRow"><li><a>Home one</a></li>  <li><a>Agents Details</a></li></div>
-        <div class="NRow"><li><a>Home one</a></li>  <li><a>Agents Details</a></li></div>
-        <div class="NRow"><li><a>Home one</a></li>  <li><a>Agents Details</a></li></div>
+        <div class="NRow" *ngFor="let el of footerData.Navigation"><li><a> {{el.list1}}</a></li>  <li><a>{{el.list2}}</a></li></div>
+      
       </div>
     </div>
     <div class="col TwitterFeeds">
-      <h3>Twitter Feeds</h3>
-      <div class="TRow">
+      <h3>{{staticInfo.Twiter}}</h3>
+      <div class="TRow" *ngFor="let TRow of footerData.TwitterFeed">
         <img src="../../assets/Imges/Footer/FooterIcons/twitter.svg" alt="" />
         <div class="text">
-         <p>   <a>&#64;findhouses</a>
-         all share them with me baby said inspet.</p>
- <a class="time">about 5 days ago</a>
+         <p>   <a>{{TRow.firstWord}}</a>
+         {{TRow.text}}</p>
+ <a class="time">{{TRow.time}}</a>
         </div>
        
       </div>
@@ -76,18 +71,21 @@
       
     </div>
     <div class="col Newsletters">
-      <h3>Newsletters</h3>
-      <p>Sign Up for Our Newsletter to get Latest Updates and Offers. Subscribe to receive news in your inbox.</p>
-      <form action=""><input type="email" placeholder="Enter Your Email"> <button type="submit">SUBSCRIBE</button></form>
+      <h3>{{staticInfo.NewsFooter}}</h3>
+      <p>{{staticInfo.NewsFooterText}}</p>
+      <form action=""><input type="email" placeholder={{staticInfo.NewsFooterPlaceHolder}}> <button type="submit">{{staticInfo.NewsFooterBtn}}</button></form>
     </div>
   </div>  
 
   <div class="bottomPart">
 
-    <p>2021 © Copyright - All Rights Reserved.</p> <div class="icons"><button class="fb"><img src="../../assets/Imges/Footer/FooterIcons/facebook-svgrepo-com.svg" alt="Icon"></button>
-       <button class="tw"><img src="../../assets/Imges/Footer/FooterIcons/twitterBlack.svg" alt="Icon"></button>
-        <button class="IN" ><img src="../../assets/Imges/Footer/FooterIcons/instagram.svg" alt="Icon"></button> 
-        <button class="yt"><img src="../../assets/Imges/Footer/FooterIcons/youtube-svgrepo-com.svg" alt="Icon"></button> </div>
+    <p>Copyright © 2024 findhouse. ყველა უფლება დაცულია.</p>
+     <div class="icons">
+      <a class="fb" href="https://www.facebook.com/profile.php?id=61566310567065"><img src="../../assets/Imges/Footer/FooterIcons/facebook-svgrepo-com.svg" alt="Icon"></a>
+       <!-- <a class="tw" href=""><img src="../../assets/Imges/Footer/FooterIcons/twitterBlack.svg" alt="Icon"></a> -->
+        <a class="IN" href=""><img src="../../assets/Imges/Footer/FooterIcons/instagram.svg" alt="Icon"></a> 
+        <!-- <a class="yt" href=""><img src="../../assets/Imges/Footer/FooterIcons/youtube-svgrepo-com.svg" alt="Icon"></a>  -->
+      </div>
   </div>
   
 </footer>

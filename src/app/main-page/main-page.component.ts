@@ -9,33 +9,32 @@
     templateUrl: './main-page.component.html',
     styleUrls: ['./main-page.component.scss']
   })
-  export class MainPageComponent implements AfterViewInit {
+  export class MainPageComponent  {
 [x: string]: any;
 
     popularPlacesData:{imgLink:string,cityName:string,properties:number}[]=this.dataService.popularPlacesData;
   staticData:{headerTextList:string[]}=this.dataService.staticData  
-  @ViewChild('bt') bt: ElementRef | undefined;
-  @ViewChild('headerElement')headerElement!: ElementRef;
+
+
   @ViewChild('RCard')Relement: ElementRef | undefined;
 
-  //for Line 163
+  //for Line 114
   @ViewChild('cardPlace') cardRow: ElementRef;
   isDragging = false;
   startX = 0;
   scrollLeft = 0;  
   TransformCof=0;
   LC=1
-//before 163 line
-  list: any;
+//before 114 line
+
   transform:number=0;
-    counter: number = 0;
-    headertimer=1000;
+
     intervalId: any;
     booleanLeft=true;
     booleanRight=false;
     scrollY:any=0
     clickedIndex:number=0;
-  FutureProperties=this.dataService.FeaturedProp;
+Languages=this.dataService
   WhyCards=this.dataService.WhyCards;
   AgentsInfo=this.dataService.AgentsInfo;
   lastEl:any;
@@ -48,57 +47,7 @@ DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
      
     }
 
-    ngAfterViewInit(): void {
   
-    
-        this.animateHeaderText(this.staticData.headerTextList);
-      
-    }
-
-    animateHeaderText(headerText: string[]): void {
-
-      let sec=0
-      if (isPlatformBrowser(this.platformId)) {
-        this.intervalId = setInterval(() => {
-          this.list = headerText[this.counter].split('');
-          this.counter = (this.counter + 1) % headerText.length;
-        
-        this.headerElement.nativeElement.innerHTML='';
-        this.list.forEach((char: string) => {
-          const p = document.createElement('p');
-          p.className = 'ptext';
-    
-          p.textContent ='  '+char;
-        
-          const typingAnimation = document.createElement('style');
-          typingAnimation.type = 'text/css';
-          typingAnimation.innerHTML = `
-          @keyframes typing {
-            0% { width: 0;
-            opacity: 0;
-            }
-            
-            100%{ width: 100%;
-            opacity: 1;
-          }
-          `;        
-          document.head.appendChild(typingAnimation);
-          p.style.width='0'
-          p.style.opacity='0'
-          p.style.animation = 'typing 0.3s forwards'; 
-            sec=sec+0.1;
-        
-            p.style.animationDelay = `${sec}s`;
-          p.style.position = 'relative'; 
-          
-          this.headerElement.nativeElement.appendChild(p);
-        });
-      sec=0;
-    
-        }, 3000);
-    
-      }
-    }
 
     ngOnDestroy(): void {
       if (this.intervalId) {

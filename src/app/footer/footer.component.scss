@@ -148,15 +148,18 @@ h3::after{
             border: 0px;
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
-            padding: 0.8rem;
+            padding: 0.9rem;
 
         }
         input::placeholder{
             color: rgba(245, 255, 255, 0.8);
+            font-size: 12px;
         }
         button{
             border: 0px;
-            padding: 0.8rem;
+          width: 103px;
+          height: 46px;
+          text-align: center;
             background: #FF385C;
             color: #fff;
             text-transform: uppercase;
@@ -182,9 +185,10 @@ h3::after{
         gap: 20px;
         align-items: center;
         justify-content: center;
-        button{
-            font-size: 1rem;
-            text-align: center;
+        a{
+            display: flex;
+        align-items: center;
+        justify-content: center;
             background: transparent;
             width: 2.5rem;
             height: 2.5rem;

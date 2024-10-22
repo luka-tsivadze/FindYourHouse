@@ -6,7 +6,7 @@ import { FooterService } from '../Services/footer/footer.service';
   styleUrl: './partners-footer.component.scss'
 })
 export class PartnersFooterComponent {
-
+staticInfo=this.Service.staticValues
   constructor(public Service: FooterService){
 
   }

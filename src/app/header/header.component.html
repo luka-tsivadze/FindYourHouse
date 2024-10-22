@@ -1,0 +1,101 @@
+<header>
+    <div class="HeaderCol">
+        <h3 >{{staticElements.FindYourHouse}} 
+                <span  class="headerspan" #headerElement>
+            
+                
+                </span>
+                
+                <span class="blinker"></span>
+            
+        </h3>
+        <p class="headerp">{{staticElements.weHaveOverMillion}} </p>
+        <div class="HeaderBtnRow">
+    <div class="HeaderBtnRow">
+        <button [ngClass]="{'active':booleanLeft==true}" (click)="activeLeft()">{{staticElements.ForSale}}</button>
+        <button [ngClass]="{'active':booleanRight==true}" (click)="activeRight()">{{staticElements.ForRent}} </button>
+        <div class="Sarrow" [ngClass]="{'right':booleanRight==true , 'left':booleanLeft==true}"></div>
+    </div>
+        </div>
+        <div class="HeaderSearch">
+            <form action="">
+                <input type="text" placeholder="{{staticElements.KayWord}}" >
+             
+
+                <div class="select">
+                    <select name="property Type" id="">
+                        <option value="0">{{staticElements.propertyType}}</option>
+                        <option value="1">family house</option>
+                        <option value="2">Apartment</option>
+                    </select>
+                </div>
+                <div class="select">
+                <select name="location">
+                    <option value="0">{{staticElements.location}}</option>
+                </select>
+                </div>
+            <button class="advanceS"><h5>{{staticElements.Advanced}}</h5><img src="../../assets/Imges/Header/burgerBar.png" alt="three dots"></button>
+            <button class="submit" type="submit">{{staticElements.Search}}</button>
+            </form>
+        </div>
+    </div>
+<div class="popularPlaces">
+    <h1 [ngClass]="{'fadeIn':scrollY>160}">{{popularPropStatic.Header}}</h1>
+    <p [ngClass]="{'fadeIn':scrollY>210}"  class="headerP">{{popularPropStatic.properties}} </p>
+    <div class="cardPlace">
+<div  *ngFor="let card of popularPlacesData let i=index"
+[ngStyle]="{'animation-delay': (i * 0.2) + 's'}"
+  [ngClass]="{'CardAnimation': scrollY > 200 , 'cityCard': scrollY<=200}"
+>
+
+    <img src={{card.imgLink}} alt=""> <div class="textSide"><h2 class="cityName">{{card.cityName}}</h2> <p>{{card.properties}} {{popularPropStatic.prop}}</p></div>
+</div>
+
+
+    </div>
+</div>
+<div class="featuredProperties">
+    <h1 class="FH" [ngClass]="{'fadeIn':scrollY>750}">{{FeaturePS.Header}}</h1>
+    <p  class="FP" [ngClass]="{'fadeIn':scrollY>799}">{{FeaturePS.properties}} </p>
+    <div class="cardPlace">
+      
+        <div class="propCard"  *ngFor="let info of FeatureProperties let i=index"
+        [ngStyle]="{'animation-delay': (i * 0.2) + 's'}"
+        [ngClass]="{'propCardAnimationR': scrollY > 920 && i%2==0 , 'propCardAnimationL': scrollY > 920 && i%2==1 }"
+        >
+            <div class="leftSide" [ngStyle]="{'background-image': 'url(' + info.imgLink + ')'}">
+
+                <div class="FirstRow">
+                    <button [ngClass]="{'dNone':info.featuredBtn==false}">{{FeaturePS.featured}}</button>
+                    <button class="whiteBg"> {{info.For}}</button>
+                    
+                </div>
+                  <div class="SecondRow">
+                    <button><img class="link" src="../../assets/Imges/Header/CardImges/icons/link.svg" alt="shareIcons"></button>
+                    <button><img src="../../assets/Imges/Header/CardImges/icons/camera-video.svg" alt="camerIcon"></button>
+                    <button><img src="../../assets/Imges/Header/CardImges/icons/img.svg" alt="Icon"></button>
+                  </div>
+            </div>
+            <div class="rightSide">
+                <a>{{info.header}}</a>
+                <p><img src="../../assets/Imges/Header/CardImges/icons/Location.svg" alt="locationIcon">{{info.location}} </p>
+                <div class="squareFlex">
+
+                <div class="element"><img src="../../assets/Imges/Header/CardImges/icons/bedroom.svg" alt="badroom"><p>{{info.bedrooms}} {{FeaturePS.BedRooms}}</p></div> 
+                <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/bathtub.svg" alt="bathroom"><p>{{info.bathrooms}} {{FeaturePS.BathRooms}}</p></div> 
+                <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/triangular-ruler.svg" alt="areaIcon"><p>{{info.area}} {{FeaturePS.Area}}</p></div> 
+                <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/car.svg" alt=""><p>{{info.garages}} {{FeaturePS.Garage}}</p></div>
+            </div>
+            <div class="CardFooterRow">
+                <h1>{{info.price}}</h1> <div class="iconRow"><img src="../../assets/Imges/Header/CardImges/icons/arrow-left-right.svg" alt=""><img src="../../assets/Imges/Header/CardImges/icons/share.svg" alt=""><img class="heart" src="./../../assets/Imges/Header/CardImges/icons/heart.svg" alt=""></div>
+            </div>
+            </div>
+        </div>
+        <button class="viewMore"><span> {{FeaturePS.ViewDetails}}</span> <img src="../../assets/Imges/Header/CardImges/icons/arrow-right-circle-fill.svg" alt=""></button>
+    </div>
+    
+
+</div>
+
+
+</header>

@@ -14,3 +14,5 @@ describe('EngService', () => {
     expect(service).toBeTruthy();
   });
 });
+
+export { EngService };

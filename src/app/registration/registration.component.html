@@ -1,0 +1,112 @@
+<div class="bodyEl" [ngClass]="{ 'displayNone': displayer==false, 'dNoneFirst':displayFirst==false, 'Body': displayer==true }">
+<div class="scroll">
+
+    <div class="form" >
+        <div class="Top"><p>Welcome To <span class="find">Find</span><span class="houses">Houses</span></p> <div class="X" (click)="makeDisplayFlse()"><img src="../../assets/Imges/StaticImg/StaticIcons/x.svg" alt=""></div></div>
+        <div class="LogIn"><h3>Login</h3>
+        
+            <a class="fb"><img src="../../assets/Imges/StaticImg/StaticIcons/icons8-facebook.svg" alt=""> <p>Log in with Facebook</p></a>
+            <a class="tw"><img src="../../assets/Imges/StaticImg/StaticIcons/instagram.svg" alt=""> <p> Log in with Instagram</p></a>
+            <span>Or</span>
+        </div>
+        <main>
+            <div class="btnRow">
+                <div class="logInBtn btn active" [ngClass]="{'active':login}" (click)="login = true">Login</div>
+                <div class="RegistrationBtn btn" [ngClass]="{'active':!login}" (click)="login = false">Register</div>
+            </div>
+
+            <!-- Registration Form -->
+            <form [formGroup]="RegistrForm" (ngSubmit)="onSubmitR()" class="inputRow" [ngClass]="{'displayNone':login}">
+                <label for="firstNameReg">First Name*</label>
+                <input type="text" id="firstNameReg" formControlName="saxeli" required>
+                <div class="error" *ngIf="RegistrForm.controls['saxeli'].invalid && RegistrForm.controls['saxeli'].touched">
+                    First Name is required.
+                </div>
+
+                <label for="lastNameReg">Last Name*</label>
+                <input type="text" id="lastNameReg" formControlName="gvari" required>
+                <div class="error" *ngIf="RegistrForm.controls['gvari'].invalid && RegistrForm.controls['gvari'].touched">
+                    Last Name is required.
+                </div>
+
+                <label for="emailReg">Email Address*</label>
+                <input type="text" id="emailReg" formControlName="maili" required>
+                <div class="error" *ngIf="RegistrForm.get('maili')?.invalid && RegistrForm.get('maili')?.touched">
+                    email is required.
+                </div>
+
+                <label for="passwordReg">Password*</label>
+                <input type="password" id="passwordReg" formControlName="paroli" required>
+                <div class="error" *ngIf="RegistrForm.controls['paroli'].invalid && RegistrForm.controls['paroli'].touched">
+                    Password must be at least 6 characters long.
+                </div>
+
+                <label for="passwordRegRepeat">Password Repeat*</label>
+                <input type="password" id="passwordRegRepeat" formControlName="paroliRepeat" required>
+
+                <div class="error" *ngIf="(RegistrForm.controls['paroliRepeat'].invalid || RegistrForm.controls['paroliRepeat'].value !== RegistrForm.controls['paroli'].value) && RegistrForm.controls['paroliRepeat'].touched">
+                    Passwords must match.
+                </div>
+
+                <label for="mobile">mobile Number*
+                    <img class="sendIcon" *ngIf="RegistrForm.controls['nomeri'].valid " src="../../assets/Imges/StaticImg/StaticIcons/send-plus-fill.svg" alt="send btn" (click)="sendCode()" >
+                   <button class="code" type="button" *ngIf="codeSegment && RegistrForm.controls['nomeri'].valid" (click)=checkCode() >chack</button>
+                </label>
+                <input type="tel" id="mobile" formControlName="nomeri" required>
+                <input type="tel" *ngIf="codeSegment && RegistrForm.controls['nomeri'].valid" placeholder="Enter the code you received on your phone" name="verificationInput" formControlName="verificationInput">
+            
+                <div class="error" *ngIf="verification==false && RegistrForm.controls['verificationInput'].touched" >write correct Code</div>
+                <div class="error" *ngIf="RegistrForm.controls['nomeri'].invalid && RegistrForm.controls['nomeri'].touched"  >
+                    Write Your Number.
+                </div>
+                <label for="birthYearReg">birth Year*</label>
+                <input type="date" id="birthYearReg" formControlName="dabadebis_weli" required>
+
+                <label for="genderReg">Gender*</label>
+                <div id="genderReg" class="gender-options">
+                    <label>
+                        <input type="radio" formControlName="sqesi" value="male" required>
+                        Male
+                    </label>
+                    <label>
+                        <input type="radio" formControlName="sqesi" value="female" required>
+                        Female
+                    </label>
+                
+                </div>
+                <div class="error" *ngIf="RegistrForm.controls['sqesi'].invalid && RegistrForm.controls['sqesi'].touched">
+                    Gender is required.
+                </div>
+                <button type="submit" name="registracia"  #registName [disabled]="!RegistrForm.valid ">Register</button>
+            </form>
+
+            <!-- Login Form -->
+            <form [formGroup]="LoginForm" (ngSubmit)="onSubmitL()" class="inputRow" [ngClass]="{'displayNone':!login}">
+                <label for="firstNameLogin">User Name or Email Address*</label>
+                <input type="text" id="firstNameLogin" formControlName="maili" required>
+                <div class="error" *ngIf="LoginForm.controls['maili'].invalid && LoginForm.controls['maili'].touched">
+                   Write Your User Name Or Email.
+                </div>
+
+                <label for="passwordLogin">Password*</label>
+                <input type="password" id="passwordLogin" formControlName="paroli" required>
+                <div class="error" *ngIf="LoginForm.controls['paroli'].invalid && LoginForm.controls['paroli'].touched">
+                    Password must be at least 6 characters.
+                </div>
+
+                <button type="submit" #loginName name="shesvla" [disabled]="!LoginForm.valid">Login</button>
+                <div class="bottomRow" [ngClass]="{'displayNone':!login}">
+                    <div class="RememberMe">
+                        <input type="checkbox" id="rememberMe" formControlName="rememberMe" >
+                        <label for="rememberMe">Remember Me</label>
+                    </div>
+                    <a href="#" class="forgotPassword">Lost Your password?</a>
+                </div>
+            </form>
+        </main>
+          
+       
+    </div>
+</div>
+
+</div>
