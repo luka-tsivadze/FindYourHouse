@@ -23,7 +23,7 @@
                 <div class="row" *ngFor="let i of this.NavElements.Listing"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
                     <div [ngClass]="{'ArrowNav':i.Showimg==true,'DNone':i.Showimg==false}"><div class="forHover">
                         <div class="aContainer" *ngFor="let subElement of i.subText">
-                            <a href="" >{{subElement}}</a> </div>
+                            <a href=""  >{{subElement}}</a> </div>
                         </div>
                     </div>
             </div>
@@ -95,7 +95,7 @@
     <h4>{{SignedIn.Name}}</h4>
   </div>
   <div class="settings">
-   <div class="links" *ngFor="let el of LeftNavInfo"  (click)="activedPage(el)" [ngClass]="{'active': el === activeElement}" >
+   <div class="links" *ngFor="let el of LeftNavInfo"  (click)="activedPage(el)"[routerLink]="['/Listing']" [ngClass]="{'active': el === activeElement}" >
        <a><img src="{{el.icon}}" alt=""><span>{{el.Text}}</span></a>
 
    </div>

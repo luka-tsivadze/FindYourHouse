@@ -1,13 +1,13 @@
 
 
-<nav [ngClass]="{'nav':scrollY>100 }">
+<nav [ngClass]="{'nav':scrollY>100 || showNav===true }">
   
     <ul class="FirstUl">  
-        <img class="icon" [src]="LogoLink" alt="Logo">
+        <img class="icon" routerLink="/" [src]="LogoLink" alt="Logo">
         <li><p>{{staticElements.Home}}</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
             <div class="menuBar">
                 <div class="mainPart">
-                <div class="row" *ngFor="let i of this.NavElements.Home"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
+                <div class="row" *ngFor="let i of this.NavElements.Home"><a  href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
                     <div [ngClass]="{'ArrowNav':i.Showimg==true,'DNone':i.Showimg==false}"><div class="forHover">
                         <div class="aContainer" *ngFor="let subElement of i.subText">
                             <a href="" >{{subElement}}</a> </div>

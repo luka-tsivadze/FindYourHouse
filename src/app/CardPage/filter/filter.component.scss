@@ -1,0 +1,228 @@
+// Mixins for reusable styles
+@mixin flex-center($direction: row, $gap: 0px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direction;
+    gap: $gap;
+  }
+  
+  @mixin box-shadow($x: 0px, $y: 0px, $blur: 0px, $spread: 0px, $color: rgba(255, 255, 255, 0.2)) {
+    box-shadow: $x $y $blur $spread $color;
+  }
+  
+  @mixin input-style($width: auto, $padding: 5px 20px, $font-size: 15px) {
+    width: $width;
+    padding: $padding;
+    border: 0px ;
+    border-radius: 7px;
+    font-size: $font-size;
+    outline: none;
+  }
+  
+  @mixin select-style($padding: 12.5px 22px, $font-size: 15px, $color: #666) {
+    width: 210px;
+    padding: $padding;
+    font-size: $font-size;
+    color: $color;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    font-family: inherit;
+  }
+  @mixin flex-container($direction: row, $justify: flex-start, $align: stretch) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+@keyframes pulldown {
+  0% {
+    opacity: 0;
+    transform:scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+  
+  // Main CSS with mixins applied
+  main{
+    width: 100%;
+    padding:0 180px;
+ @include flex-container(column, center , start );
+ gap: 40px;
+ .topSide{
+h4{
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: #666;
+span{
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: #333;
+    margin-left: 5px;
+    cursor: pointer;
+
+}
+  }
+h2{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #222;
+    padding-top: 10px;
+    text-transform: capitalize;
+    font-size: 28px;
+}
+ }
+}
+  .HeaderSearch {
+    @include flex-center(row, 10px);
+    position: relative;
+
+    width: 100%;
+
+
+    border-radius: 9px;
+    @include box-shadow(0px, 0px, 0px, 8px);
+  
+    form {
+      @include flex-container(row, start,center);
+      gap: 10px;
+      flex-wrap: wrap;
+      width:100%;
+    }
+  
+    // Input fields styling
+    input[type="text"] {
+      @include input-style(250px); // Setting width to 255px for text input
+      height: 45px;
+    }
+  
+    
+    // Select fields styling
+    select {
+      @include select-style();
+      border: 1px solid #ebebeb;
+      border-radius: 8px;
+    }
+  
+    .advanceS {
+      @include flex-center(row, 9px);
+      padding: 11.7px 20px;
+      width: 220px;
+      border: 1px solid #ebebeb;
+      border-radius: 8px;
+      background-color: #ffffff;
+      white-space: nowrap;
+      cursor: pointer;
+  
+      h5 {
+        font-family: 'Lato', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        color: #666;
+      
+      }
+  
+   
+    }
+  
+    .submit {
+      @include flex-center();
+      width: 200px;
+      height: 45px;
+      padding: 10px 15px;
+      margin-right: 15px;
+      border: none;
+      border-radius: 5px;
+      background: #ff385c;
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+      @include box-shadow(0px, 1px, 4px, 0px, rgba(255, 90, 95, 0.3));
+      text-align: center;
+      letter-spacing: 0.4px;
+    }
+  }
+  .bottomLine{
+    width: 98%;
+    @include flex-container(row,space-between,center );
+    h4{
+      font-weight: 700;
+      color: #666;
+      font-size: 15px;
+     }
+    .Sorting{
+      position: relative;
+
+      @include flex-container(row,center ,center );
+      gap: 10px;
+   
+      .options{
+        position: absolute;
+        top: 102%;
+        opacity: 0;
+        overflow: visible;
+    z-index: 99999;
+    width: 100px;
+        transform: translateY(-10px);
+        animation: pulldown 0.5s forwards;
+ @include box-shadow(0, 0, 0, 1, rgba(68, 68, 68, 0.11) );
+        height: 100px;
+        background-color: #fff;
+        border-radius: 5px;
+      }
+   img{
+    width: 14px; 
+    opacity: 0.65;
+    transform: rotate(0deg);
+    transition: 0.3s;
+   }
+   .rotate{
+    transition: 0.4s;
+    transform: rotate(180deg);
+  }
+   h3{
+    font-weight: 600;
+    color: #495057;
+    font-size: 1rem;
+   }
+ 
+    
+    }
+    .sorter{
+      @include flex-container(row, center , center );
+      cursor: pointer;
+ 
+      p{
+        font-size: 15px;
+        color: #495057;
+      }
+      img{
+        width: 34px;
+        opacity: 0.5;
+      
+      }
+      button{
+        color: #495057;
+        border: 1px solid #121B22;
+        padding: 5px 9px;
+        border-radius: 2px;
+        background: transparent;
+        margin-left: 8px;
+        width: 35px;
+        height: 31px;
+        @include flex-center(row, 0);
+        img{
+          width: 90%;
+          fill: red;
+          opacity: 1;
+        }
+      }
+
+    }
+  }

@@ -5,13 +5,19 @@ import { EngService } from '../Services/Languages/eng/eng.service';
 import { GeoService } from '../Services/Languages/geo/geo.service';
 import { RusService } from '../Services/Languages/rus/rus.service';
 import { RegistrationService } from '../Services/registration/registration.service';
+import { BehaviorSubject } from 'rxjs';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss'
 })
 export class NavComponent {
+
   scrollY: number=0
+
 LogoLink='../../assets/Imges/NavImg/NavIcon1.svg'
 GlobeLink='../../assets/Imges/NavImg/thirdImg.png'
 ShowImg=false;
@@ -23,10 +29,10 @@ ProfileSettings=[{ Text:'Edit Profile'},{ Text:'Add Property'},{Text:'Payments'}
 NavElements:any
 IsSignedIn:any
 staticElements
+showNav;
 
 
-
-  constructor(private navService: NavInfoService,private ngZone: NgZone,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService , private  Registration: RegistrationService,
+  constructor(private router: Router , private navService: NavInfoService,private ngZone: NgZone,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService , private  Registration: RegistrationService,
     @Inject(PLATFORM_ID) private platformId: Object){
 
       this.IsSignedIn=this.navService.IsSignedIn;
@@ -54,6 +60,36 @@ if (isPlatformBrowser(this.platformId)) {
   }
 }
 
+
+  }
+  onRouteChange(){
+
+    if(this.router.url=='/'){
+      this.showNav=false;
+    
+  }else{
+    this.showNav=true;
+  }
+
+  console.log(this.showNav)
+}
+    ngOnInit(){
+    
+      this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.onRouteChange();  // Call your function on route change
+      });
+
+this.showNav=this.navService.scrollobser;
+this.showNav=this.showNav.value;
+if(this.showNav==true){
+    this.LogoLink='../../assets/Imges/NavImg/NavIcon2.svg'
+        this.GlobeLink='../../assets/Imges/NavImg/globeBlack.svg'
+    }else{
+          this.LogoLink='../../assets/Imges/NavImg/NavIcon1.svg'
+        this.GlobeLink='../../assets/Imges/NavImg/thirdImg.png'
+    }
 
   }
 
@@ -87,7 +123,7 @@ this.showLanguages=!this.showLanguages;
 
       this.scrollY = window.scrollY || window.pageYOffset; // Get the current scroll position
 
-      if(this.scrollY>100){
+      if(this.scrollY>100 || this.showNav){
         this.LogoLink='../../assets/Imges/NavImg/NavIcon2.svg'
         this.GlobeLink='../../assets/Imges/NavImg/globeBlack.svg'
       }else{

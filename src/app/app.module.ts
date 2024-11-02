@@ -19,6 +19,11 @@ import { ListingFooterComponent } from './ListingPageComponents/listing-footer/l
 import { PasswordChangeComponent } from './ListingPageComponents/password-change/password-change.component';
 import { FavoritePropertiesComponent } from './ListingPageComponents/favorite-properties/favorite-properties.component';
 import { MyPropertiesComponent } from './ListingPageComponents/my-properties/my-properties.component';
+import { AllCardsComponent } from './CardPage/all-cards/all-cards.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { FilterComponent } from './CardPage/filter/filter.component';
+
+import { MainCardsComponent } from './CardPage/main-cards/main-cards.component';
 
 
 @NgModule({
@@ -37,7 +42,12 @@ import { MyPropertiesComponent } from './ListingPageComponents/my-properties/my-
     ListingFooterComponent,
     PasswordChangeComponent,
     FavoritePropertiesComponent,
-    MyPropertiesComponent  
+    MyPropertiesComponent,
+    AllCardsComponent,
+    ErrorPageComponent,
+    FilterComponent,
+ 
+    MainCardsComponent  
     
  
   ],

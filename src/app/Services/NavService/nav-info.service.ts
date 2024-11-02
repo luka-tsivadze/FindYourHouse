@@ -44,20 +44,26 @@ export class NavInfoService {
   IsSignedIn = { signed: false, imgLink: '../../assets/Imges/NavImg/profileImg.jpg', Name: 'Mary Smith' };
   Languages = ['ENG', 'RUS', 'GEO'];
   chosenLang: string | undefined;
+  scrollobser = new BehaviorSubject<boolean>(false);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient) {
     if (isPlatformBrowser(this.platformId)) {
       const userId = localStorage.getItem('id');
       if (userId) {
         this.IsSignedIn.signed = true;
-        this.getUserInfo();
+        this.getUserInfo(userId);
       }
     }
   }
 
-  getUserInfo() {
+  updateScrollStatus(status: boolean) {
+    this.scrollobser.next(status);  // Update the value
+
+  }
+
+  getUserInfo(userId) {
     if (isPlatformBrowser(this.platformId)) {
-      const userId = localStorage.getItem('id');
+       userId = localStorage.getItem('id');
       if (userId) {
         this.http.get(`https://api.example.com/users/${userId}`).subscribe({
           next: (data: any) => {

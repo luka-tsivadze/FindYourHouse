@@ -1,181 +1,188 @@
+// Define colors, spacing, and transition variables for easier adjustments
+$primary-color: #FF385C;
+$secondary-color: #f5f6ff;
+$text-color: #444;
+$border-color: #f3f3f3;
+$shadow-color: #e7e7e7;
+$highlight-color: rgb(85, 85, 252);
+$transition-duration: 0.3s;
 
-@keyframes fadeIn{
-    0%{
+// Keyframe for animation
+@keyframes fadeIn {
+    0% {
         transform: translateY(50px);
         opacity: 0;
     }
-    100%{
-        transform: translateY(0px);
+    100% {
+        transform: translateY(0);
         opacity: 1;
     }
 }
-main{
+
+main {
     width: 70vw;
     min-height: 100%;
     background: #ffffff;
-  
-display: flex;
-flex-direction: column;
-justify-content: center;
-gap: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    border: 1px solid #eaeff5;
+    border: 1px solid $border-color;
     padding: 1rem;
-    box-shadow: 0px 0px 2px #e7e7e7 ;
-    .topRow{
+    box-shadow: 0px 0px 2px $shadow-color;
+
+    .topRow {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 10px 20px;
-        background-color: #f5f6ff;
-       .right{
-        span{
+        background-color: $secondary-color;
+
+        .right span {
             display: inline-block;
             width: 145px;
             text-align: center;
         }
-       }
     }
-    .cardPage{
+
+    .cardPage {
         animation: fadeIn 1.5s;
         display: flex;
         flex-direction: column;
         gap: 15px;
         justify-content: center;
         align-items: center;
-        .card{
+
+        .card {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            padding: 20px 0px;
-            border-bottom: 1px solid #f3f3f3;
-            .left{
+            padding: 20px 0;
+            border-bottom: 1px solid $border-color;
+
+            .left {
                 display: flex;
                 gap: 20px;
                 align-items: center;
-                .mainImg{
+
+                .mainImg {
                     width: 130px;
-                
                     border-radius: 4px;
-               
                 }
-                .leftCol{
+
+                .leftCol {
                     display: flex;
                     flex-direction: column;
                     gap: 10px;
-                    h3{
-                  
+
+                    h3 {
                         font-size: 16px;
-                        color: #444;
-                        text-decoration: none;
-                        text-transform: capitalize;
+                        color: $text-color;
                         font-weight: 600;
+                        text-transform: capitalize;
                     }
-                    p{
+
+                    p {
                         font-size: 14px;
-                        color: #333;
+                        color: $text-color;
                     }
-                .reviewRow{
-                    margin-top: 10px;
-                    display: flex;
-                    gap: 10px;
-                    align-items: center;
-              
-                    .review{
+
+                    .reviewRow {
+                        margin-top: 10px;
                         display: flex;
-                        gap: 3px;
+                        gap: 10px;
                         align-items: center;
-                        justify-content: center;  
-                        .emptyStar{
-                        background-image: url('../../../assets/Imges/StaticImg/StaticIcons/star.svg');
-                        width: 13px;
-                        height: 13px;
-                        background-repeat: no-repeat;
-                        background-size: cover;
-                        margin: unset;
+
+                        .review {
+                            display: flex;
+                            gap: 3px;
+                            align-items: center;
+
+                            .emptyStar,
+                            .filledStar {
+                                width: 13px;
+                                height: 13px;
+                                background-repeat: no-repeat;
+                                background-size: cover;
+                                margin: 0;
+                            }
+
+                            .emptyStar {
+                                background-image: url('/assets/Imges/StaticImg/StaticIcons/star.svg');
+                            }
+
+                            .filledStar {
+                                background-image: url('/assets/Imges/StaticImg/StaticIcons/star-fill.svg');
+                            }
                         }
-                        .filledStar{
-                            background-image: url('../../../assets/Imges/StaticImg/StaticIcons/star-fill.svg');
-                            width: 13px;
-                            height: 13px;
-                            background-repeat: no-repeat;
-                            background-size: cover;
-                            margin: unset;
+
+                        span {
+                            font-size: 14px;
+                            margin-left: 15px;
                         }
-                       
-                    }
-                    span{
-                        font-size: 14px;
-                        margin-left:15px;
                     }
                 }
-                }
-                
-      
             }
-            .right{
+
+            .right {
                 display: flex;
                 align-items: center;
-                div{
+
+                div {
                     width: 160px;
                     text-align: center;
                 }
-                .remover{
-              
-                    button{
-                        cursor: pointer;
-            border: unset;
-            background-color: unset;
-                    }
+
+                .remover button {
+                    cursor: pointer;
+                    border: none;
+                    background: none;
                 }
-                // .editor{
-                //     width: 90px;
-                // }
             }
-        } 
-     }
-     .bottomRow{
+        }
+    }
+
+    .bottomRow {
         display: flex;
         align-items: center;
-        justify-content: start;
+        justify-content: flex-start;
         gap: 10px;
-        .prev{
-            background-color: #FF385C;
-            position: relative;
-            z-index: 1;
+
+        .prev,
+        .numbers {
+            padding: 15px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color $transition-duration, color $transition-duration;
+
+            &:hover {
+                background-color: $primary-color;
+                color: #fff;
+            }
+        }
+
+        .prev {
+            background-color: $primary-color;
             color: #fff;
-            padding: 15px 20px;
-            border: unset;
-            border-radius: 4px;
-        cursor: pointer;
-        transition: 0.7s;
+            border: none;
+
+            &:hover {
+                background-color: #000;
+            }
         }
-        .prev:hover{
-            background-color: #000000;
-            transition: 0.3s;
-            
-        }
-        .numbers{
-         
-            padding: 15px 20px;
-            border: 1px solid #f3f3f3;
-            color: #FF385C;
-    cursor: pointer;
-            border-radius: 4px;
+
+        .numbers {
             background: #fff;
-transition: 0.7s;
+            border: 1px solid $border-color;
+            color: $primary-color;
         }
-        .active{
-      border: 1px solid rgb(85, 85, 252);
-      
+
+        .active {
+            border: 1px solid $highlight-color;
         }
-        .numbers:hover{
-            background-color: #FF385C;
-            color: #fff;
-            transition: 0.3s;
-        }
-     }
+    }
 }
