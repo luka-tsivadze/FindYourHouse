@@ -20,16 +20,56 @@
                 <option value="0">{{staticElements.location}}</option>
             </select>
          
-        <button class="advanceS"><h5>{{staticElements.Advanced}}</h5><img src="../../../assets/Imges/StaticImg/StaticIcons/ellipsis-three-vertical-squares-menu-interface-symbol-svgrepo-com.svg" alt="three dots"></button>
+        <button class="advanceS" (click)="advanced()" ><h5>{{staticElements.Advanced}}</h5><img src="../../../assets/Imges/StaticImg/StaticIcons/ellipsis-three-vertical-squares-menu-interface-symbol-svgrepo-com.svg" alt="three dots"></button>
         <button class="submit" type="submit">{{staticElements.Search}}</button>
-        </form>
+   
+        <div class="advancedOpened" *ngIf="advenced">
+        <div class="selectRow"> 
+
+            <select name="{{sel.text}}" *ngFor="let sel of filterOptions.SelectInputs" >
+            <option value="0" disabled selected hidden>{{sel.text}}</option>
+            <option value="" *ngFor="let opt of sel.options">{{opt}}</option>      
+            </select>
+
+        </div>
+        <div class="mainFilter">
+
+    
+    <div class="leftRange">
+        <div class="area">
+        <h4>Area Size</h4>
+        <input class="custom-range" type="range" id="Area" max="1300" min="0" >
+        </div>
+        <div class="price">
+            <h4>Price Range</h4>
+        <div class="leftBall ball"></div>
+        <div class="line"></div>
+        <div class="rightBall ball"></div>
+        </div>
+
+    </div>
+    <div class="rightChacks"> 
+                
+        <div class="row" *ngFor="let el of filterOptions.filteredCheckBox" >
+            <label for="{{el.id}}">{{el.label}}</label>
+            <input type="checkbox" name="{{el.id}}" id="{{el.id}}">
+</div>
+
+</div>
+        </div>
+    </div>   
+    </form>
         
     </div>
+
    <div class="bottomLine">
     <h4>{{length}} search resoult</h4>
-    <div class="Sorting"(click)="showOptions()"><img src="../../../assets/Imges/StaticImg/StaticIcons/align-left-solid.svg" alt="icon"><h3>SORTBY:</h3>
-        <div class="options" *ngIf="options" ></div>
-        <div class="sorter"   > <p>Top Selling</p> <img  [ngClass]="{'rotate':this.options}"  src="../../../assets/Imges/NavImg/downArrow-removebg-preview.png" alt="">
+    <div class="Sorting"><img src="../../../assets/Imges/StaticImg/StaticIcons/align-left-solid.svg" alt="icon"><h3>SORTBY:</h3>
+        <div class="options" *ngIf="options" >
+   <h3  [ngClass]="{'active':el.state}" (click)='chosenOption(el)'  *ngFor="let el of sortingOptions">{{el.name}}</h3>
+   
+        </div>
+        <div class="sorter" > <div class="sP" (click)="showOptions()"> <p>{{activeEl}}</p> <img  [ngClass]="{'rotate':this.options}"  src="../../../assets/Imges/NavImg/downArrow-removebg-preview.png" alt=""></div>
                   <button><img src="../../../assets/Imges/StaticImg/StaticIcons/list-solid.svg" alt=""></button>
                    <button style="background-color: black"><img  src="../../../assets/Imges/StaticImg/StaticIcons/table-cells-large-solid.svg" alt=""></button>    </div>
     </div>

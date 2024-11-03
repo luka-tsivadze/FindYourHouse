@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { profile } from 'console';
+import { text } from 'stream/consumers';
 
 @Injectable({
   providedIn: 'root'
@@ -103,5 +104,12 @@ export class AllCardsService {
       uploadmonth: 2,
     },
   ];
+  filter={SelectInputs:[{imgLink:'',text:'Property Status', options:['For Sale','For Rent'] } , 
+  {imgLink:'',text:'Bedrooms', options:['1' ,'2' ,'3' ,'4' ,'5','6','7'] },
+  {imgLink:'',text:'bathrooms', options:['1', '2' ,'3' , '4' , '5' ] }
+], filteredCheckBox:[{id:'0' , label:'Air Conditioning' } , {id:'1' , label:'WiFi' },{id:'2' , label:'Swimming Pool' } ,{id:'3' , label:'TV Cable' } ,{id:'4' , label:'Central Heating' } 
+  ,{id:'5' , label:'Dryer' } ,{id:'6' , label:'Laundry Room' } ,{id:'7' , label:'Microwave' } ,{id:'8' , label:'Gym' } ,{id:'9' , label:'Washer' } ,{id:'10' , label: 'Alarm' },
+  {id:'11' , label:'Refrigerator' },{id:'12' , label:'Window Covering' },{id:'13' , label:'Outdoor Shower' }
+   ]  }
   constructor() { }
 }

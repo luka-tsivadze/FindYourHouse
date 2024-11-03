@@ -1,4 +1,5 @@
 // Mixins for reusable styles
+$primary-color: #FF385C;
 @mixin flex-center($direction: row, $gap: 0px) {
     display: flex;
     justify-content: center;
@@ -10,7 +11,14 @@
   @mixin box-shadow($x: 0px, $y: 0px, $blur: 0px, $spread: 0px, $color: rgba(255, 255, 255, 0.2)) {
     box-shadow: $x $y $blur $spread $color;
   }
+  @mixin bodyFont(){
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: #666;
+  }
   
+
   @mixin input-style($width: auto, $padding: 5px 20px, $font-size: 15px) {
     width: $width;
     padding: $padding;
@@ -107,7 +115,7 @@ h2{
     select {
       @include select-style();
       border: 1px solid #ebebeb;
-      border-radius: 8px;
+      border-radius: 6px;
     }
   
     .advanceS {
@@ -166,15 +174,33 @@ h2{
         position: absolute;
         top: 102%;
         opacity: 0;
-        overflow: visible;
-    z-index: 99999;
-    width: 100px;
-        transform: translateY(-10px);
+    z-index: 99;
+    width: auto;
+    height: max-content;
         animation: pulldown 0.5s forwards;
  @include box-shadow(0, 0, 0, 1, rgba(68, 68, 68, 0.11) );
-        height: 100px;
+ @include flex-container(column,center ,start );
+ 
         background-color: #fff;
         border-radius: 5px;
+        padding: 10px 0;
+        h3{
+          width: 100%;
+          padding:10px 15px;
+          font-weight: 600;
+          color: #495057;
+          font-weight: 400;
+          font-size: 1rem;
+          cursor: pointer;
+
+        }
+        h3:hover{
+          background-color:#238AC1;
+          color: #fff;
+        }
+        .active{
+        font-weight: bold;
+        }
       }
    img{
     width: 14px; 
@@ -195,8 +221,12 @@ h2{
     
     }
     .sorter{
+      .sP{
+        @include flex-container(row, center , center );
+        cursor: pointer;
+      }
       @include flex-container(row, center , center );
-      cursor: pointer;
+     
  
       p{
         font-size: 15px;
@@ -219,10 +249,101 @@ h2{
         @include flex-center(row, 0);
         img{
           width: 90%;
-          fill: red;
+         
           opacity: 1;
         }
       }
 
     }
   }
+ 
+  .advancedOpened{
+    position: absolute;
+    top: 100%;
+  padding: 25px;
+    z-index: 99;
+    animation: pulldown 0.5s forwards;
+    
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    @include bodyFont();
+    margin-top: 22px;
+    background: #fff;
+    width: 98%;
+    @include flex-container(column,center ,center );
+    height: max-content;
+   
+     .selectRow{
+      position: relative;
+      width: 100%;
+    @include flex-center(row, 20px);
+    select{
+      width: 33% !important;
+    }
+
+     }
+     .mainFilter{
+      width: 100%;
+      position: relative;
+      @include flex-center(row, 20px);
+      padding: 50px;
+       .rightChacks{
+display: grid;
+grid-template-columns: 1fr 1fr;
+         width: 50%;
+         gap: 10px;
+         .row{
+   display: flex;
+   flex-direction: row-reverse;
+   justify-content: start;
+   gap: 8px;
+   label{
+@include bodyFont();
+   }
+         }
+
+        }
+        .leftRange{
+          display: flex;
+          flex-direction: column;
+          
+        position: relative;
+        // background: #FF385C;
+     
+          width: 50%;
+          div{
+            width: 100%;
+            @include flex-center(column, 10px);
+      .line{
+        width: 100%;
+        height: 3px;
+       background-color: #e8e8e8 !important;
+        border-radius: 5px;
+        position: relative;
+      }
+      .ball{
+        width: 20px;
+        height: 20px;
+        background-color: #FF385C;
+        border-radius: 50%;
+        position: absolute;
+        top: -8px;
+        left: 0;
+        cursor: pointer;
+      }
+          }
+        
+        }
+      }
+  }
+  input[type="checkbox"] {
+    width: 17px !important;
+    height: 17px !important;
+    border-radius: 6px;
+    float: left;
+}
+
+input:checked[type="checkbox"] {
+    accent-color: $primary-color;
+}
