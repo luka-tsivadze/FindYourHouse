@@ -7,6 +7,7 @@ import { AllCardsComponent } from './CardPage/all-cards/all-cards.component';
 import { error } from 'console';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { MainCardsComponent } from './CardPage/main-cards/main-cards.component';
+import { DetailedInfoParentComponent } from './DetailedInfo/detailed-info-parent/detailed-info-parent.component';
 
 const routes: Routes = [ 
 
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'Listing', component:ListingParentComponent},
   {path: 'Listing/:id', component:ListingParentComponent},
   {path: 'allCards', component:MainCardsComponent},
+  {path: 'allCards/:id', component:DetailedInfoParentComponent},
   {path: '**', component:ErrorPageComponent},
 
 ];

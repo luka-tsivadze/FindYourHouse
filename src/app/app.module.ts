@@ -22,8 +22,13 @@ import { MyPropertiesComponent } from './ListingPageComponents/my-properties/my-
 import { AllCardsComponent } from './CardPage/all-cards/all-cards.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { FilterComponent } from './CardPage/filter/filter.component';
-
+import { MatSliderModule } from '@angular/material/slider';
 import { MainCardsComponent } from './CardPage/main-cards/main-cards.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { DetailedInfoParentComponent } from './DetailedInfo/detailed-info-parent/detailed-info-parent.component';
+import { CardGallery1Component } from './DetailedInfo/card-gallery1/card-gallery1.component';
+import { ScheduleRComponent } from './DetailedInfo/schedule-r/schedule-r.component';
+import { AgentInfoComponent } from './DetailedInfo/agent-info/agent-info.component';
 
 
 @NgModule({
@@ -46,8 +51,12 @@ import { MainCardsComponent } from './CardPage/main-cards/main-cards.component';
     AllCardsComponent,
     ErrorPageComponent,
     FilterComponent,
- 
-    MainCardsComponent  
+
+    MainCardsComponent,
+      DetailedInfoParentComponent,
+      CardGallery1Component,
+      ScheduleRComponent,
+      AgentInfoComponent  
     
  
   ],
@@ -56,10 +65,12 @@ import { MainCardsComponent } from './CardPage/main-cards/main-cards.component';
     AppRoutingModule,
  HttpClientModule  ,
  ReactiveFormsModule,
- FormsModule
+ FormsModule,
+ MatSliderModule,
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,21 @@
+<div class="el">
+<h3><img src="../../../assets/Imges/StaticImg/StaticIcons/calendar.svg" alt="calendarIcon">  Schedule a Tour </h3>
+<div class="inputRow"><input type="text" disabled value="02/11/2019"> <input type="text" disabled value="4:31 pm"></div>
+<div class="amountText"><span>Adult</span> <span> Children</span> </div>
+<div class="amountInput">
+    <div class="custom-number-input">
+    <button (click)="decrement(0)"><img src="../../../assets/Imges/StaticImg/StaticIcons/-btn-.svg" alt=""></button>
+    <input type="number" [value]="value" readonly disabled />
+    <button (click)="increment(0)"><img src="../../../assets/Imges/StaticImg/StaticIcons/+btn+.svg" alt=""></button>
+  </div>   
+
+  <div class="custom-number-input">
+    <button (click)="decrement(1)"><img src="../../../assets/Imges/StaticImg/StaticIcons/-btn-.svg" alt=""></button>
+    <input type="number" [value]="value2" readonly disabled />
+    <button (click)="increment(1)"><img src="../../../assets/Imges/StaticImg/StaticIcons/+btn+.svg" alt=""></button>
+  </div>   
+
+
+</div>
+<input type="submit">
+</div>

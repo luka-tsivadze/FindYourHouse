@@ -5,16 +5,12 @@
  </div>
     <div class="HeaderSearch">
         <form action="">
-            <input type="text" placeholder="{{staticElements.KayWord}}" >
-         
-
-        
+            <input type="text" placeholder="{{staticElements.KayWord}}" >   
                 <select name="property Type" id="">
                     <option value="0">{{staticElements.propertyType}}</option>
                     <option value="1">family house</option>
                     <option value="2">Apartment</option>
                 </select>
-           
          
             <select name="location">
                 <option value="0">{{staticElements.location}}</option>
@@ -26,26 +22,57 @@
         <div class="advancedOpened" *ngIf="advenced">
         <div class="selectRow"> 
 
-            <select name="{{sel.text}}" *ngFor="let sel of filterOptions.SelectInputs" >
-            <option value="0" disabled selected hidden>{{sel.text}}</option>
-            <option value="" *ngFor="let opt of sel.options">{{opt}}</option>      
-            </select>
+            <div class="selectParent" *ngFor="let sel of filterOptions.SelectInputs">
+                <img class="simg" src="{{sel.imgLink}}   " alt="HomeIcon">
+                <select name="{{sel.text}}"  >
+                    <option value="0" disabled selected hidden>{{sel.text}}</option>
+                    <option value="" *ngFor="let opt of sel.options">{{opt}}</option>      
+                </select>
+            </div>
 
         </div>
         <div class="mainFilter">
 
     
     <div class="leftRange">
-        <div class="area">
-        <h4>Area Size</h4>
-        <input class="custom-range" type="range" id="Area" max="1300" min="0" >
-        </div>
-        <div class="price">
+      <!-- First wrapper section -->
+<div class="wrapper"> 
+  <h4>Area Size</h4>
+  <div class="values">
+    <span *ngIf="showSliderOne_1">{{ sliderOneValue_1 }} Sq ft</span>
+    <span *ngIf="showSliderTwo_1">{{ sliderTwoValue_1 }} sq ft</span>
+  </div>
+  <div class="container">
+    <div class="slider-track" [ngStyle]="trackStyle_1"></div>
+    <input type="range" min="0" max="1300" [value]="sliderOneValue_1" (input)="slideOne_1($event)" id="slider-1">
+    <input type="range" min="0" max="1300" [value]="sliderTwoValue_1" (input)="slideTwo_1($event)" id="slider-2">
+  </div>
+</div>
+
+<!-- Second wrapper section -->
+<div class="wrapper"> 
+  <h4>Price Range</h4>
+  <div class="values">
+    <span *ngIf="showSliderOne_2">${{ sliderOneValue_2 }}</span>
+    <span *ngIf="showSliderTwo_2">$ {{ sliderTwoValue_2 }} </span>
+  </div>
+  <div class="container">
+    <div class="slider-track" [ngStyle]="trackStyle_2"></div>
+    <input type="range" min="0" max="600000" [value]="sliderOneValue_2" (input)="slideOne_2($event)" id="slider-3">
+    <input type="range" min="0" max="600000" [value]="sliderTwoValue_2" (input)="slideTwo_2($event)" id="slider-4">
+  </div>
+</div>
+
+          
+          
+        <!-- <div class="price">
             <h4>Price Range</h4>
-        <div class="leftBall ball"></div>
-        <div class="line"></div>
-        <div class="rightBall ball"></div>
-        </div>
+            <div class="fullLine"></div>
+            <div class="leftBall ball" draggable="true" (dragstart)="dragger($event, leftBall)" #leftBall></div>
+            <div class="line" (dragover)="onDragOver($event)" (drop)="onDrop($event)"></div>
+            <div class="rightBall ball" draggable="true" (dragstart)="dragger($event, rightBall)" #rightBall></div>
+            
+        </div> -->
 
     </div>
     <div class="rightChacks"> 

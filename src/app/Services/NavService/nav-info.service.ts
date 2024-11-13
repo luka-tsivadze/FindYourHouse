@@ -31,8 +31,8 @@ export class NavInfoService {
     ],
     Pages: [ 
       { a: 'Shop', Showimg: true, subText: ['Product Sidebar', 'Product', 'text3'] },
-      { a: 'text', Showimg: false },
-      { a: 'text', Showimg: true, subText: ['text1', 'text2', 'text3'] }
+      { a: 'User Panel', Showimg: true, subText: ['User Profile', 'My Properties', 'Favorited Properties' , 'Add Properties' ,'Change Password'] },
+      { a: 'text', Showimg: false, subText: ['text1', 'text2', 'text3'] }
     ],
     Blog: [ 
       { a: 'text', Showimg: true, subText: ['text1', 'text2', 'text3'] },

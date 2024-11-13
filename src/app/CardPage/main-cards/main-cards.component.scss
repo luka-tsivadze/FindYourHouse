@@ -2,7 +2,6 @@
   padding-top: 150px;
   background: #f5f7fb;
 
-  // Use :ng-deep directly before the selector
   ::ng-deep app-nav nav {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.12);
   }

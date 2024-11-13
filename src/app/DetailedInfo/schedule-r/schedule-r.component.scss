@@ -1,0 +1,117 @@
+@mixin flex($direction:row  ,$justify: center, $align: center, $gap: 0) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    gap: $gap;
+}
+
+.el{
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: #666;
+    width: 100%;
+    height: 300px;
+    background: #fff;
+    box-shadow: 0px 0px 2px #e7e7e7 !important;
+    padding: 25px;
+
+    @include flex(column, start, center, 20px);
+h3{
+    width: 100%;
+    color: #222;
+    font-size: 18px;
+    font-weight: 600;
+    padding-bottom:1.1rem;
+    border-bottom: 1px solid #eaeff5;
+    @include flex(row, start, center);
+    img{
+        margin-right: 20px;
+    }
+}
+    .inputRow{
+        width: 100%;
+     @include flex(row, space-between, center);
+     input{
+        padding: .3rem;
+        width: 47%;
+        text-align: center;
+    border: 1px solid #dddddd;
+    background-color: transparent;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #495057;
+     }
+    }
+    .amountText{
+        width: 100%;
+        @include flex(row, start, center, 80px);
+       
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #222;
+        text-align: center;
+        span{
+            color: #000;
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 400;
+        }
+    }
+    .amountInput{
+        width: 100%;
+        position: relative;
+        @include flex(row, space-between, center);
+    
+        .custom-number-input{
+            @include flex(row, start, center);
+            width: 45%;
+            button{
+                padding: 5px;
+                transition: all 0.3s ease;
+                background-color: transparent;
+                border: unset;
+                @include flex(row, center, center);
+                cursor: pointer;
+                img{
+                    width: 20px;
+                    height: 20px;
+                
+                }
+            }
+            button:hover{
+            border-radius: 4px;
+                transition: all 0.3s ease;
+                background-color: #FF385C;  
+                img{
+                    filter: brightness(0) invert(1);
+                }
+            }
+            
+        input{
+            width: 23.5px;
+            padding: 0 !important;
+           border: unset;
+        margin-left: 14px;
+           font-size: 1rem;
+           font-weight: 400;
+             
+           color: #495057;
+           background-color: transparent;
+
+        }
+   } 
+}
+
+input[type="submit"] {
+    color: #fff;
+    background: #FF385C;
+    width: 100%;
+    padding: 10px 30px;
+    border-radius: 3px;
+    border: unset;
+}
+
+}
+

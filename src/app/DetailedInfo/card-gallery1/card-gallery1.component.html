@@ -1,0 +1,12 @@
+<div class="firstRow">
+ <div class="row"> <h2>Luxury Villa House  <button>For Sale</button></h2>   <span>$ 230000</span> </div>
+<div class="row"><p><img src="../../../assets/Imges/StaticImg/StaticIcons/Location.svg" alt="locationIcon"> 77 - Central Park South, NYC</p>  <h4>$1200 / sq ft</h4>  </div>
+</div>
+<main>
+    <h2>Gallery</h2>
+<img class="mainImg" src="{{mainImg}}" alt="">
+<div class="btn-row"><div class="shade"><button (click)="decriment()"><img src="../../../assets/Imges/StaticImg/StaticIcons/chevron-left.svg"   alt=""></button></div><div class="shade"><button (click)="incriment()"><img src="../../../assets/Imges/StaticImg/StaticIcons/chevron-right.svg" alt=""></button></div> </div>
+<div class="container">
+    <div class="imgRow"><img [ngClass]="{'Active':ForActive==i}" *ngFor="let el of data.img let i=index" src="{{el}}" alt="Property Imges" (click)="setIndex(i)" >  </div>
+</div>
+</main>
