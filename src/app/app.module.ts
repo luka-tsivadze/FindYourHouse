@@ -29,6 +29,9 @@ import { DetailedInfoParentComponent } from './DetailedInfo/detailed-info-parent
 import { CardGallery1Component } from './DetailedInfo/card-gallery1/card-gallery1.component';
 import { ScheduleRComponent } from './DetailedInfo/schedule-r/schedule-r.component';
 import { AgentInfoComponent } from './DetailedInfo/agent-info/agent-info.component';
+import { LeftAmentiesComponent } from './DetailedInfo/left-amenties/left-amenties.component';
+import { FloorPlanComponent } from './DetailedInfo/floor-plan/floor-plan.component';
+import { RecentPropRComponent } from './DetailedInfo/recent-prop-r/recent-prop-r.component';
 
 
 @NgModule({
@@ -56,7 +59,10 @@ import { AgentInfoComponent } from './DetailedInfo/agent-info/agent-info.compone
       DetailedInfoParentComponent,
       CardGallery1Component,
       ScheduleRComponent,
-      AgentInfoComponent  
+      AgentInfoComponent,
+      LeftAmentiesComponent,
+      FloorPlanComponent,
+      RecentPropRComponent  
     
  
   ],

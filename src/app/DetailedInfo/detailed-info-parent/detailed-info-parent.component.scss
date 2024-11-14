@@ -9,13 +9,40 @@
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.12);
   }
 
-  h2{
+  ::ng-deep .container .leftSide * h2 {
     color: #000;
-font-family: 'Montserrat', sans-serif;
-font-weight: 600;
-text-transform: capitalize;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    text-transform: capitalize;
 }
-h2::after{
+::ng-deep .container * main {
+  border-radius: 6px;
+  padding: 1.5rem;
+min-height: 60vh;
+background: #ffffff;
+  position: relative;
+@include flex-container(column, flex-start, flex-start, 2rem);
+  border: 1px solid #eaeff5;
+  box-shadow: 0px 0px 2px #e7e7e7;;
+}
+::ng-deep .container .rightSide h3:after{
+  content: '';
+display: block;
+  width: 100%;
+  height: 4px;
+
+  margin: 10px 0;
+  border-bottom: 1px solid #eaeff5;
+}
+::ng-deep .container .rightSide  h3{
+width: 100%;
+  color: #222 ;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+}
+
+::ng-deep .container .leftSide * h2::after {
     content: '';
     display: block;
     width: 50px;
@@ -25,7 +52,9 @@ h2::after{
 }
 
 
+
 .container{
+  
     
     background: #f5f7fb;
     width: 100%;
@@ -35,11 +64,15 @@ h2::after{
     @include flex-container(row,center,flex-start, 50px);
     .leftSide{
 
+      
+
+
 @include flex-container(column,center ,center , 20px);
 width: 65%;
 > * { 
     width: 100%;
     margin-bottom: 20px;
+    
   }
 .description{
   width: 100%;
