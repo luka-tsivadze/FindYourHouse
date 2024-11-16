@@ -45,6 +45,38 @@ export class PropertyInformationService {
   price:'$1,200,000'
   }
 ]
+featuredProp=[{
+      img:'../../../assets/Imges/StaticImg/CardImges/fp-1.jpg',
+      type:'Family House',
+      price:'$200,000',
+      For: 'For Sale',
+      locationCity: 'New York',   
+      area:'720', 
+      rooms:'8',
+      bedrooms:'3',
+},
+{
+  img:'../../../assets/Imges/StaticImg/CardImges/fp-2.jpg',
+  type:'luxury House',
+  price:'$900,000',
+  For: 'For Sale',
+  locationCity: 'New York',
+  area:'420',
+  rooms:'6',
+  bedrooms:'2',
+},
+{
+  img:'../../../assets/Imges/StaticImg/CardImges/fp-3.jpg',
+  type:'Family House',
+  price:'$10,000',
+  For: 'For Rent',
+  locationCity: 'New York',
+  area:'120',
+  rooms:'4',
+  bedrooms:'1',
+}
+
+]
   
   constructor() { }
 }

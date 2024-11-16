@@ -32,6 +32,11 @@ import { AgentInfoComponent } from './DetailedInfo/agent-info/agent-info.compone
 import { LeftAmentiesComponent } from './DetailedInfo/left-amenties/left-amenties.component';
 import { FloorPlanComponent } from './DetailedInfo/floor-plan/floor-plan.component';
 import { RecentPropRComponent } from './DetailedInfo/recent-prop-r/recent-prop-r.component';
+import { FeaturedPRComponent } from './DetailedInfo/featured-pr/featured-pr.component';
+import { AdvertismentRComponent } from './DetailedInfo/advertisment-r/advertisment-r.component';
+import { TagsRComponent } from './DetailedInfo/tags-r/tags-r.component';
+import { NearbyLComponent } from './DetailedInfo/nearby-l/nearby-l.component';
+import { MapComponent } from './DetailedInfo/map/map.component';
 
 
 @NgModule({
@@ -62,7 +67,12 @@ import { RecentPropRComponent } from './DetailedInfo/recent-prop-r/recent-prop-r
       AgentInfoComponent,
       LeftAmentiesComponent,
       FloorPlanComponent,
-      RecentPropRComponent  
+      RecentPropRComponent,
+      FeaturedPRComponent,
+      AdvertismentRComponent,
+      TagsRComponent,
+      NearbyLComponent,
+      MapComponent  
     
  
   ],
@@ -73,6 +83,7 @@ import { RecentPropRComponent } from './DetailedInfo/recent-prop-r/recent-prop-r
  ReactiveFormsModule,
  FormsModule,
  MatSliderModule,
+  
   ],
   providers: [
     provideClientHydration(),
