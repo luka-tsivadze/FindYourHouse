@@ -1,9 +1,11 @@
 
 <div class="innerPage">
     <div class="header"></div>
-    <div class="cardPlace">
+    <div class="cardPlace " [ngClass]="{'active':dataState}">
    
-        <div class="propCard" routerLink="{{info.id}}"  *ngFor="let info of activePage let i=index"
+
+        
+        <div class="propCard " [ngClass]="{'active':dataState}" routerLink="{{info.id}}"  *ngFor="let info of activePage let i=index"
         [ngStyle]="{'animation-delay': (i * 0.16) + 's'}"
      
         >

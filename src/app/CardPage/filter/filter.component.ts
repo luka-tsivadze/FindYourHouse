@@ -58,7 +58,7 @@ advanced(){
   minGap2 = 10000;
   sliderMaxValue1 = 1300;
   sliderMaxValue2 = 600000;
-
+ activeimg=true;
 
 
   // First wrapper slider methods
@@ -131,6 +131,15 @@ advanced(){
     };
   }
   
+
+  list(){
+    this.cardDataServ.setData(true); 
+  this.activeimg=false;
+  }
+  grid(){
+    this.cardDataServ.setData(false); 
+    this.activeimg=true;
+  }
 }
 
 

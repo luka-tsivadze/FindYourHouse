@@ -55,7 +55,13 @@ $primary-color: #FF385C;
   }
 }
   
-  // Main CSS with mixins applied
+.activeimg{
+  background-color: black !important;
+ img{
+  filter: invert(1);
+ }
+
+}
   main{
     width: 100%;
     padding:0 180px;

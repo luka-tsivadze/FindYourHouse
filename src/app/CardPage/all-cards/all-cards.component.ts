@@ -20,6 +20,7 @@ activePage=[];
 reviewIndices=[]
 pageIndices=[]
 pages;
+dataState=false
 amountOfCards=9;
   constructor(private navService:NavInfoService , private mainPageService:MainPageDataService ,private cardsService:AllCardsService) {
     this.navService.scrollobser.next(true);
@@ -28,6 +29,10 @@ amountOfCards=9;
 }
 ngOnInit() {
   this.pageFunction();
+   this.cardsService.data$.subscribe((value) => {
+      this.dataState = value; // React to updates
+      console.log('dataState', this.dataState);
+});
 }
 pageFunction() {
  
@@ -61,5 +66,6 @@ this.activePage = this.finalInfo[index]
   this.ActivePage = index;
 }
 }
+
 
 }

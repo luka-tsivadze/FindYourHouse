@@ -1,0 +1,20 @@
+<main>
+    <h2>Property Video</h2>
+
+    <div class="video-container">
+     
+        <div *ngIf="showCover" class="video-cover">
+          <img src="../../../assets/Imges/CardDetailed/home-slider-4.jpg" alt="Video Cover" />
+          <button class="play-button" (click)="playVideo()">
+            ▶
+          </button>
+        </div>
+ 
+
+        <video #videoPlayer controls muted   (pause)="playVideo()">
+            <source src="../../../assets/Video/VID_20220810_175242.mp4" type="video/mp4">
+           
+            Your browser does not support the video tag.
+          </video>
+   </div>
+</main>

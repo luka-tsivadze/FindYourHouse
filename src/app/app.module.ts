@@ -37,6 +37,7 @@ import { AdvertismentRComponent } from './DetailedInfo/advertisment-r/advertisme
 import { TagsRComponent } from './DetailedInfo/tags-r/tags-r.component';
 import { NearbyLComponent } from './DetailedInfo/nearby-l/nearby-l.component';
 import { MapComponent } from './DetailedInfo/map/map.component';
+import { PropvideoLComponent } from './DetailedInfo/propvideo-l/propvideo-l.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { MapComponent } from './DetailedInfo/map/map.component';
       AdvertismentRComponent,
       TagsRComponent,
       NearbyLComponent,
-      MapComponent  
+      MapComponent,
+      PropvideoLComponent  
     
  
   ],

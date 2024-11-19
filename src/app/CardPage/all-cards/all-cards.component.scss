@@ -28,6 +28,35 @@ $transition-duration: 0.5s;
     display: flex;
     @include flex-container(column, flex-start, center);
     gap: 20px;
+    .cardPlace.active{
+      padding: 30px 140px;
+      .propCard.active{
+        width: 100%;
+     gap: 20px;
+        height: 300px;
+        @include flex-container(row, center, center);
+        .leftSide{
+         height: 100%;
+          width: 50%;
+          background-size: cover;
+          background-repeat: no-repeat;
+          position: relative;
+          background-position: center;
+        }
+        .rightSide{
+          gap: 25px;
+          .squareFlex{
+            padding-right: 250px;
+            width: 100%;
+            gap: 20px;
+            padding-bottom: 10px;
+            .element{
+              width: 40%;
+            }
+          }
+        }
+      }
+    }
     .cardPlace{
    
       padding: 30px  50px;
@@ -196,6 +225,9 @@ $transition-duration: 0.5s;
           }
         }
         }
+      
+        
+        
     }
     .bottomRow {
       width: 100%;

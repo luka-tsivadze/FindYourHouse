@@ -89,8 +89,8 @@
    
         </div>
         <div class="sorter" > <div class="sP" (click)="showOptions()"> <p>{{activeEl}}</p> <img  [ngClass]="{'rotate':this.options}"  src="../../../assets/Imges/NavImg/downArrow-removebg-preview.png" alt=""></div>
-                  <button><img src="../../../assets/Imges/StaticImg/StaticIcons/list-solid.svg" alt=""></button>
-                   <button style="background-color: black"><img  src="../../../assets/Imges/StaticImg/StaticIcons/table-cells-large-solid.svg" alt=""></button>    </div>
+                  <button (click)="list()" [ngClass]="{'activeimg': !activeimg }" ><img  src="../../../assets/Imges/StaticImg/StaticIcons/list-solid.svg" alt=""></button>
+                   <button (click)="grid()" [ngClass]="{'activeimg': activeimg }"  ><img  src="../../../assets/Imges/StaticImg/StaticIcons/table-cells-large-solid.svg" alt=""></button>    </div>
     </div>
    </div>
 </main>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { profile } from 'console';
+import { Subject } from 'rxjs';
 import { text } from 'stream/consumers';
 
 @Injectable({
@@ -118,5 +119,13 @@ export class AllCardsService {
   ,{id:'5' , label:'Dryer' } ,{id:'6' , label:'Laundry Room' } ,{id:'7' , label:'Microwave' } ,{id:'8' , label:'Gym' } ,{id:'9' , label:'Washer' } ,{id:'10' , label: 'Alarm' },
   {id:'11' , label:'Refrigerator' },{id:'12' , label:'Window Covering' },{id:'13' , label:'Outdoor Shower' }
    ]  }
+
+   private dataSubject = new Subject<any>(); // Replace `any` with a specific type if needed.
+   data$ = this.dataSubject.asObservable(); // Observable for the components to subscribe to.
+ 
+   // Method to send data
+   setData(value: boolean) {
+    this.dataSubject.next(value);
+  }
   constructor() { }
 }
