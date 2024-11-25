@@ -1,0 +1,24 @@
+
+<h2>Add Review</h2>
+<form action="">
+<div class="firstRow">
+    <div class="col"><p>your Rating For This  Listing</p> 
+        <div class="starPlace">
+           <span *ngFor="let el of starRating "
+            [ngClass]="{'empty':el.filled ,'filled':!el.filled}" 
+            (click)="rater(el.id)"></span>
+      
+        </div> 
+    
+    </div>
+<input type="file" id="File" placeholder="Upload Photos" class="DN">
+<label for="File" class="FileInp"> Upload Photos</label>
+</div>
+<input type="text" placeholder="First Name">
+<input type="text" placeholder=" Last Name">
+<input type="email" placeholder="Email" >
+<textarea class="resizable-textarea" name="Description" id="Desc" placeholder="Review" type="text"></textarea>
+<button>Submit Review </button>
+
+</form>
+

@@ -13,7 +13,7 @@ export class CardGallery1Component {
  ForActive=0;
  mainImg=this.cardInfo.chosenCard.img[this.ForActive];
   constructor( private cardInfo:PropertyInformationService){
-    console.log(this.cardInfo.chosenCard)
+
    }
 
   ngOnInit(): void {

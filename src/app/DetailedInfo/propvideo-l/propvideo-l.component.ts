@@ -12,7 +12,7 @@ export class PropvideoLComponent {
  
   playVideo() {
     const videoElement = this.videoPlayer.nativeElement;
-    console.log(videoElement);
+   
     if (videoElement) {
    
       this.showCover = !this.showCover; // Hide the cover

@@ -38,6 +38,9 @@ import { TagsRComponent } from './DetailedInfo/tags-r/tags-r.component';
 import { NearbyLComponent } from './DetailedInfo/nearby-l/nearby-l.component';
 import { MapComponent } from './DetailedInfo/map/map.component';
 import { PropvideoLComponent } from './DetailedInfo/propvideo-l/propvideo-l.component';
+import { ReviewsComponent } from './DetailedInfo/reviews/reviews.component';
+import { ReviewAdderComponent } from './DetailedInfo/review-adder/review-adder.component';
+import { SimilarPropComponent } from './DetailedInfo/similar-prop/similar-prop.component';
 
 
 @NgModule({
@@ -74,17 +77,21 @@ import { PropvideoLComponent } from './DetailedInfo/propvideo-l/propvideo-l.comp
       TagsRComponent,
       NearbyLComponent,
       MapComponent,
-      PropvideoLComponent  
+      PropvideoLComponent,
+      ReviewsComponent,
+      ReviewAdderComponent,
+      SimilarPropComponent  
     
  
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
- HttpClientModule  ,
+    HttpClientModule,
  ReactiveFormsModule,
  FormsModule,
  MatSliderModule,
+
   
   ],
   providers: [
