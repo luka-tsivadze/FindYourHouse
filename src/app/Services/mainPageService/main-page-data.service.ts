@@ -62,8 +62,9 @@ export class MainPageDataService {
     },
   ];
   
-  FeaturedProp = [  
+  FeaturedProp = [    
     {
+      id:90,
       featuredBtn: true,
       For: 'For Sale',
       imgLink: '../../assets/Imges/Header/CardImges/F1.jpg',
@@ -77,6 +78,8 @@ export class MainPageDataService {
       price: '$ 110,000',
     },
     {
+      
+      id:211,
       featuredBtn: false,
       For: 'For Rent',
       imgLink: '../../assets/Imges/Header/CardImges/F2.jpg',
@@ -90,6 +93,8 @@ export class MainPageDataService {
       price: '$ 150,000',
     },
     {
+      
+      id:32,
       featuredBtn: false,
       For: 'For Sale',
       imgLink: '../../assets/Imges/Header/CardImges/F3.jpg',
@@ -103,6 +108,8 @@ export class MainPageDataService {
       price: '$ 150,000',
     },
     {
+      
+      id:43,
       featuredBtn: true,
       For: 'For Rent',
       imgLink: '../../assets/Imges/Header/CardImges/F4.jpg',
@@ -116,6 +123,7 @@ export class MainPageDataService {
       price: '$ 150,000',
     },
     {
+      id:64,
       featuredBtn: true,
       For: 'For Sale',
       imgLink: '../../assets/Imges/Header/CardImges/F5.jpg',
@@ -129,6 +137,8 @@ export class MainPageDataService {
       price: '$ 150,000',
     },
     {
+      
+      id:715,
       featuredBtn: false,
       For: 'For Rent',
       imgLink: '../../assets/Imges/Header/CardImges/F6.jpg',

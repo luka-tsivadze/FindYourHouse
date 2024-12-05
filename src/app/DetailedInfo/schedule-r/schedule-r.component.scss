@@ -163,12 +163,9 @@ input[type="submit"] {
     background: #ffffff;
     box-shadow: 0 0 0 1px #e8212a, 0 0 0 8px rgba(0, 0, 0, 0.05);
     user-select: none;
-    /* Prevents selection of text or images */
     -webkit-user-select: none;
-    /* Safari compatibility */
     -ms-user-select: none;
 
-    /* Legacy IE compatibility */
     .time {
         position: absolute;
         left: 50%;

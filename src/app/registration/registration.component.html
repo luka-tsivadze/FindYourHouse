@@ -1,4 +1,4 @@
-<div class="bodyEl" [ngClass]="{ 'displayNone': displayer==false, 'dNoneFirst':displayFirst==false, 'Body': displayer==true }">
+<div class="bodyEl" [ngClass]="{ 'displayNone': displayer==false, 'dNoneFirst':displayFirst==false, 'Body': displayer==true }" >
 <div class="scroll">
 
     <div class="form" >
@@ -11,7 +11,7 @@
         </div>
         <main>
             <div class="btnRow">
-                <div class="logInBtn btn active" [ngClass]="{'active':login}" (click)="login = true">Login</div>
+                <div class="logInBtn btn " [ngClass]="{'active':login}" (click)="login = true">Login</div>
                 <div class="RegistrationBtn btn" [ngClass]="{'active':!login}" (click)="login = false">Register</div>
             </div>
 

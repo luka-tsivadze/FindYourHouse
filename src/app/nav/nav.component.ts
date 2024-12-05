@@ -35,6 +35,7 @@ showNav;
   constructor(private router: Router , private navService: NavInfoService,private ngZone: NgZone,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService , private  Registration: RegistrationService,
     @Inject(PLATFORM_ID) private platformId: Object){
 
+ 
       this.IsSignedIn=this.navService.IsSignedIn;
 this.NavElements=this.navService.MenuBar;
 this.staticElements=this.GeoService
@@ -62,34 +63,36 @@ if (isPlatformBrowser(this.platformId)) {
 
 
   }
-  onRouteChange(){
+  
 
-    if(this.router.url=='/'){
-      this.showNav=false;
-    
-  }else{
-    this.showNav=true;
-  }
+  ngOnInit() {
 
-  console.log(this.showNav)
-}
-    ngOnInit(){
-    
-      this.router.events
+    this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
-        this.onRouteChange();  // Call your function on route change
+        this.onRouteChange();
       });
+    
+ 
+    this.onRouteChange();
+  }
 
-this.showNav=this.navService.scrollobser;
-this.showNav=this.showNav.value;
-if(this.showNav==true){
-    this.LogoLink='../../assets/Imges/NavImg/NavIcon2.svg'
-        this.GlobeLink='../../assets/Imges/NavImg/globeBlack.svg'
-    }else{
-          this.LogoLink='../../assets/Imges/NavImg/NavIcon1.svg'
-        this.GlobeLink='../../assets/Imges/NavImg/thirdImg.png'
+  onRouteChange() {
+
+    if (this.router.url === '/') {
+      this.showNav = false;
+    } else {
+      this.showNav = true;
     }
+
+    if (this.showNav) {
+      this.LogoLink = '../../assets/Imges/NavImg/NavIcon2.svg';
+      this.GlobeLink = '../../assets/Imges/NavImg/globeBlack.svg';
+    } else {
+      this.LogoLink = '../../assets/Imges/NavImg/NavIcon1.svg';
+      this.GlobeLink = '../../assets/Imges/NavImg/thirdImg.png';
+    }
+
 
   }
 
@@ -135,10 +138,23 @@ this.showLanguages=!this.showLanguages;
   showRegistrForm() {
    window.document.body.style.overflow = "hidden";
     this.Registration.setDisplayer(true);
-
-
   }
- 
+
+ navtoReg_Log( element ){
+  if(element.a=='Login'){
+this.Registration.toggleLogin(true);
+this.showRegistrForm()
+
+  }else if(element.a=='Register'){
+    this.Registration.toggleLogin(false);
+    this.showRegistrForm()
+ }else if(element.a=='User Panel' && !this.IsSignedIn.signed){
+this.showRegistrForm()
+element.route='/'
+
+}
+
+}
   
   scrollToTop(duration: number = 600): void {
     const start = window.scrollY || window.pageYOffset; // Start position
@@ -166,5 +182,10 @@ this.showLanguages=!this.showLanguages;
    easeInOutCubic(t: number): number {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   }
+  uploadToLocal(info){
+   
   
+    localStorage.setItem('ActiveElement',info)
+     
+  }
 }

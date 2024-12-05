@@ -8,6 +8,7 @@ import { error } from 'console';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { MainCardsComponent } from './CardPage/main-cards/main-cards.component';
 import { DetailedInfoParentComponent } from './DetailedInfo/detailed-info-parent/detailed-info-parent.component';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [ 
 
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: 'Listing/:id', component:ListingParentComponent},
   {path: 'allCards', component:MainCardsComponent},
   {path: 'allCards/:id', component:DetailedInfoParentComponent},
-  {path: '**', component:ErrorPageComponent},
+  {path: 'contact', component:ContactComponent},
+  {path: '**', component:ErrorPageComponent}
 
 ];
 

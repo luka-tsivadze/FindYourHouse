@@ -41,6 +41,7 @@ import { PropvideoLComponent } from './DetailedInfo/propvideo-l/propvideo-l.comp
 import { ReviewsComponent } from './DetailedInfo/reviews/reviews.component';
 import { ReviewAdderComponent } from './DetailedInfo/review-adder/review-adder.component';
 import { SimilarPropComponent } from './DetailedInfo/similar-prop/similar-prop.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { SimilarPropComponent } from './DetailedInfo/similar-prop/similar-prop.c
       PropvideoLComponent,
       ReviewsComponent,
       ReviewAdderComponent,
-      SimilarPropComponent  
+      SimilarPropComponent,
+      ContactComponent  
     
  
   ],

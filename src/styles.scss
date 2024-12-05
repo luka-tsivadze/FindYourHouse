@@ -3,6 +3,8 @@
     box-sizing:border-box;
     margin:0;
     padding:0;
+    -webkit-user-select: none;
+    -ms-user-select: none;
   
 }
 @keyframes opacity{
@@ -68,7 +70,10 @@
 animation-delay:1s;
 }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body 
+{
+     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 @mixin flex-container($direction: row, $justify: flex-start, $align: stretch, $gap: 0) {
     display: flex;

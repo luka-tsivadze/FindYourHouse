@@ -25,7 +25,12 @@ export class RegistrationService {
       this.displayer$ = this.displayerSubject.asObservable();
     
   }
+  login = false;
 
+  toggleLogin(isLogin: boolean): void {
+    this.login = isLogin;
+
+  }
   // Method to get the current displayer value
   getDisplayerValue() {
     return this.displayerSubject.getValue();

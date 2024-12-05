@@ -27,14 +27,18 @@ public RememberMe = new FormControl(false);
 @ViewChild('loginName') loginName!: ElementRef;
 @ViewChild('registName') registName!: ElementRef;
  
-constructor(private registrationService: RegistrationService, private http:HttpClient) {}
+constructor(private registrationService: RegistrationService, private http:HttpClient) {
+ 
+}
 
 
   ngOnInit() {
+
     // Subscribe to the displayer observable
     this.displayerSubscription = this.registrationService.displayer$.subscribe(
       (value: boolean) => {
         this.displayer = value;  // Update local displayer value
+        this.chosenBtn();
       }
     );
     this.registrationService.displayerFirst$.pipe(take(2)).subscribe((value: boolean) => {
@@ -73,7 +77,11 @@ constructor(private registrationService: RegistrationService, private http:HttpC
 
   chosenBtn() {
 
-    this.login=!this.login;
+    
+   
+    this.login = this.registrationService.login;
+   
+
   }
 
   ngOnDestroy() {
@@ -127,41 +135,48 @@ constructor(private registrationService: RegistrationService, private http:HttpC
     }
   
   }
-  sendCode(){
-    this.codeSegment=true;
+  sendCode() {
+    this.codeSegment = true;
   
+    // Helper function to generate a random 4-digit code
     const generateRandomCode = (length: number): string => {
       const characters = '0123456789';
       let result = '';
       for (let i = 0; i < length; i++) {
         result += characters.charAt(Math.floor(Math.random() * characters.length));
       }
-      if (this.RegistrForm.value.verificationInput === this.verification) {
-        this.verification = true;
-      
-      }
       return result;
     };
+  
+    // Generate the verification code
     const verificationCode = generateRandomCode(4);
-this.verificationCode = verificationCode;
-   
-  console.log('amas wavshli mas shemdeg rac telefonze mesiji mova :', verificationCode);
-  this.http.post('send_code.php', { nomeri:this.RegistrForm.value.verificationInput, random_kodi: verificationCode }).subscribe({
-    next: (response) => {
-      // Handle successful code sending
-      console.log('Verification code sent successfully:', response);
-    },
-    error: (error) => {
-      // Handle HTTP errors
-      console.error('Request failed:', error);
+    this.verificationCode = verificationCode;
+  
+    // Validate phone number (international format)
+    const nomeri = this.RegistrForm.value.nomeri;
+    if (!/^\+[0-9]{7,15}$/.test(nomeri)) {
+      console.error('Invalid phone number format');
+      return;
     }
-  });
-}
+  
+    console.log('Generated code to be sent to phone:', verificationCode);
+  
+    // Send the verification code to the backend
+    this.http.post('https://chats-2c54b-default-rtdb.europe-west1.firebasedatabase.app/users.json', { nomeri, random_kodi: verificationCode }).subscribe({
+      next: (response) => {
+        console.log('Verification code sent successfully:', response);
+      },
+      error: (error) => {
+        console.error('Failed to send verification code:', error);
+      }
+    });
+  }
+  
   checkCode(){
 
     if (this.RegistrForm.value.verificationInput === this.verificationCode) {
       this.verification = true;
-    console.log('Code is correct:');
+   
     }
   }
 }

@@ -1,6 +1,6 @@
 
 
-<nav [ngClass]="{'nav':scrollY>100 || showNav===true }">
+<nav [ngClass]="{'nav':scrollY>200 || showNav }">
   
     <ul class="FirstUl">  
         <img class="icon" routerLink="/" [src]="LogoLink" alt="Logo">
@@ -34,7 +34,7 @@
             </div>
             
         </li>
-        <li routerLink="/allCards"><p>{{staticElements.Property}}</p><img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
+        <li routerLink="/allCards" ><p>{{staticElements.Property}}</p><img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
             <div class="menuBar">
                 <div class="mainPart">
         <div class="row" *ngFor="let i of this.NavElements.Property"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">  
@@ -50,10 +50,10 @@
         <li><p>{{staticElements.Pages}}</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
             <div class="menuBar">
                 <div class="mainPart">
-                <div class="row" *ngFor="let i of this.NavElements.Pages"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
-                    <div [ngClass]="{'ArrowNav':i.Showimg==true,'DNone':i.Showimg==false}"><div class="forHover">
-                        <div class="aContainer" *ngFor="let subElement of i.subText">
-                            <a href="" >{{subElement}}</a> </div>
+                <div class="row"  *ngFor="let i of this.NavElements.Pages" (click)="navtoReg_Log(i)"   ><a >{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
+                    <div [ngClass]="{'ArrowNav':i.Showimg==true,'DNone':i.Showimg==false}"><div class="forHover" [ngClass]="{'DNone':i.a=='User Panel'&& !IsSignedIn.signed}"   >
+                        <div class="aContainer" [routerLink]="i.route"   *ngFor="let subElement of i.subText" >
+                            <a  (click)="uploadToLocal(subElement.text)" >{{subElement.text}} </a> </div>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,8 @@
                 </div>
                 </div>
             </div></li>
-        <li class="contact"><p>{{staticElements.Contact}}</p></li>
+        <li class="contact"  routerLink="/contact"><p>{{staticElements.Contact}}</p></li>
+  
     
     </ul>
     <ul>

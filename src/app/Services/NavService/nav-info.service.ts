@@ -2,6 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { text } from 'stream/consumers';
 
 @Injectable({
   providedIn: 'root'
@@ -30,9 +31,11 @@ export class NavInfoService {
       { a: 'Single Property 6', Showimg: false }
     ],
     Pages: [ 
-      { a: 'Shop', Showimg: true, subText: ['Product Sidebar', 'Product', 'text3'] },
-      { a: 'User Panel', Showimg: true, subText: ['User Profile', 'My Properties', 'Favorited Properties' , 'Add Properties' ,'Change Password'] },
-      { a: 'text', Showimg: false, subText: ['text1', 'text2', 'text3'] }
+      { a: 'User Panel', Showimg: true,  route:'', subText: [ {text:'Dashboard'},{ text:'Profile'}, {text:'My Properties'}, { text:'Favorited Properties'} ,
+         {text:'Add Property'} ,{text:'Payements'},{text:'change Password'}] },
+      { a: 'Login', Showimg: false,  },
+      { a: 'Register', Showimg: false, },
+      { a: 'About Us', Showimg: false, }
     ],
     Blog: [ 
       { a: 'text', Showimg: true, subText: ['text1', 'text2', 'text3'] },
@@ -48,11 +51,18 @@ export class NavInfoService {
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient) {
     if (isPlatformBrowser(this.platformId)) {
+    
       const userId = localStorage.getItem('id');
       if (userId) {
         this.IsSignedIn.signed = true;
         this.getUserInfo(userId);
       }
+      this.MenuBar.Pages.forEach((element) => {
+
+         if(this.IsSignedIn){
+          element.route='Listing'
+         }
+      });
     }
   }
 

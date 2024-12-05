@@ -44,7 +44,7 @@ export class MyPropertiesComponent {
   
     pageFunction() {
       if (this.allCardEl.length > 6) {
-        console.log('No favorite properties');
+    
        
         this.pages = Math.ceil(this.allCardEl.length / 6);
         

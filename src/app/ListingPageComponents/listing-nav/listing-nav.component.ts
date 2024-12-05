@@ -40,7 +40,7 @@ LeftNavInfo=[
   {icon:'../../../assets/Imges/StaticImg/StaticIcons/lock-fill.svg',Text:'change Password'},
   {icon:'../../../assets/Imges/StaticImg/StaticIcons/log-out.svg',Text:'Log Out'},
 ]
-activeElement= this.LeftNavInfo[4];
+activeElement=this.LeftNavInfo[4].Text;
 
 
   constructor(private navService: NavInfoService,private ngZone: NgZone,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService , 
@@ -50,6 +50,7 @@ activeElement= this.LeftNavInfo[4];
 this.NavElements=this.navService.MenuBar;
 this.staticElements=this.GeoService
 if (isPlatformBrowser(this.platformId)) {
+  this.activeElement=localStorage.getItem('ActiveElement')
   if (localStorage.getItem('Language')) {
     this.chosenLang = localStorage.getItem('Language');
   }
@@ -101,9 +102,17 @@ this.showLanguages=!this.showLanguages;
   }
   activedPage(element){
 
-    this.activeElement=element
-    this.valueChange.emit(element.Text);
+    localStorage.setItem('ActiveElement',element)
+    this.activeElement=element;
+    this.valueChange.emit(element);
+
     
+  }
+  uploadToLocal(info){
+  
+    localStorage.setItem('ActiveElement',info)
+    window.location.reload();
+
   }
 
 }

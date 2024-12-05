@@ -49,13 +49,13 @@
         <li><p>{{staticElements.Pages}}</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
             <div class="menuBar">
                 <div class="mainPart">
-                <div class="row" *ngFor="let i of this.NavElements.Pages"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
-                    <div [ngClass]="{'ArrowNav':i.Showimg==true,'DNone':i.Showimg==false}"><div class="forHover">
-                        <div class="aContainer" *ngFor="let subElement of i.subText">
-                            <a href="" >{{subElement}}</a> </div>
+                    <div class="row"    ><a >{{this.NavElements.Pages[0].a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':this.NavElements.Pages[0].Showimg==true}" alt="arrow">
+                        <div [ngClass]="{'ArrowNav':this.NavElements.Pages[0].Showimg==true,'DNone':this.NavElements.Pages[0].Showimg==false}"><div class="forHover">
+                            <div class="aContainer" [routerLink]="this.NavElements.Pages[0].route"   *ngFor="let subElement of this.NavElements.Pages[0].subText">
+                                <a (click)="uploadToLocal(subElement.text)" >{{subElement.text}} </a> </div>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </li>
@@ -95,7 +95,7 @@
     <h4>{{SignedIn.Name}}</h4>
   </div>
   <div class="settings">
-   <div class="links" *ngFor="let el of LeftNavInfo"  (click)="activedPage(el)"[routerLink]="['/Listing']" [ngClass]="{'active': el === activeElement}" >
+   <div class="links" *ngFor="let el of LeftNavInfo"  (click)="activedPage(el.Text)"[routerLink]="['/Listing']" [ngClass]="{'active': el.Text === activeElement}" >
        <a><img src="{{el.icon}}" alt=""><span>{{el.Text}}</span></a>
 
    </div>
