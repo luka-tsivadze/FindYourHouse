@@ -1,112 +1,162 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { text } from 'stream/consumers';
 
 @Component({
   selector: 'app-main-listing',
   templateUrl: './main-listing.component.html',
-  styleUrl: './main-listing.component.scss'
+  styleUrls: ['./main-listing.component.scss']
 })
 export class MainListingComponent {
+  listingForm: FormGroup;
+  imgRowlink: string[] = [];
+  selectedFile: File | null = null;
+  
 
-  listingForm: FormGroup= new FormGroup({
-    title: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
-    status: new FormControl('', Validators.required),
-    type: new FormControl('', Validators.required),
-    rooms: new FormControl('', Validators.required),
-    price: new FormControl('', Validators.required),
-    area: new FormControl('', Validators.required),
-    media: new FormControl('', Validators.required),
-    // Form 3
-    address: new FormControl('', Validators.required),
-    city: new FormControl('', Validators.required),
-    state: new FormControl('', Validators.required),
-    country: new FormControl('', Validators.required),
-    mapLatitude: new FormControl('', Validators.required),
-    mapLongitude: new FormControl('', Validators.required),
-    // Form 4
-    age: new FormControl('', Validators.required),
-    bedrooms: new FormControl('', Validators.required),
-    bathrooms: new FormControl('', Validators.required),
-    // Form 5
-    airConditioning: new FormControl(false),
-    swimmingPool: new FormControl(false),
-    centralHeating: new FormControl(false),
-    laundryRoom: new FormControl(false),
-    gym: new FormControl(false),
-    alarm: new FormControl(false),
-    windowCovering: new FormControl(false),
-    refrigerator: new FormControl(false),
-    tvCableWifi: new FormControl(false),
-    microwave: new FormControl(false),
-    // Form 6
-    name: new FormControl('', Validators.required),
-    username: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl('', Validators.required)
-
-
-  });
-
-  form4Info = [
-    {
-      id: 'Age',
-      firstOption: 'Select Age',
-      options: ['0-1 Years', '0-5 Years', '0-10 Years', '0-15 Years', '0-20 Years', '0-50 Years', '50+ Years'],
-      formControlName: 'age'
-    },
-    {
-      id: 'badrooms',
-      firstOption: 'Bedrooms',
-      options: ['1', '2', '3', '4', '5', '6'],
-      formControlName: 'bedrooms'
-    },
-    {
-      id: 'bathroom',
-      firstOption: 'Bathrooms',
-      options: ['1', '2', '3', '4', '5', '6'],
-      formControlName: 'bathrooms'
-    }
-  ];
-
-  form3Info = [
-    { HeaderName: 'Address', placeHolder: 'Enter Your Address', id: 'adress', formControlName: 'address' },
-    { HeaderName: 'City', placeHolder: 'Enter Your city', id: 'City', formControlName: 'city' },
-    { HeaderName: 'state', placeHolder: 'Enter Your state', id: 'state', formControlName: 'state' },
-    { HeaderName: 'Country', placeHolder: 'Enter Your Country', id: 'country', formControlName: 'country' },
-    { HeaderName: 'Google Map Latitude', placeHolder: 'Google Map Latitude', id: 'mapa', formControlName: 'mapLatitude' },
-    { HeaderName: 'Google Map Longitude', placeHolder: 'Google Map Longitude', id: 'mapo', formControlName: 'mapLongitude' }
-  ];
-
-  form5Info = [
-    { text: 'Air Conditioning', id: 'air', formControlName: 'airConditioning' },
-    { text: 'Swimming Pool', id: 'pool', formControlName: 'swimmingPool' },
-    { text: 'Central Heating', id: 'Heating', formControlName: 'centralHeating' },
-    { text: 'Laundry Room', id: 'room', formControlName: 'laundryRoom' },
-    { text: 'Gym', id: 'gym', formControlName: 'gym' },
-    { text: 'Alarm', id: 'alarm', formControlName: 'alarm' },
-    { text: 'Window Covering', id: 'window', formControlName: 'windowCovering' },
-    { text: 'Refrigerator', id: 'Refrigerator', formControlName: 'refrigerator' },
-    { text: 'TV Cable & WIFI', id: 'TV', formControlName: 'tvCableWifi' },
-    { text: 'Microwave', id: 'Mic', formControlName: 'microwave' }
-  ];
-
-  form6Info = [
-    { HeaderName: 'Name', placeHolder: 'Enter Your Name', id: 'name6', formControlName: 'name' },
-    { HeaderName: 'Username', placeHolder: 'Enter Your Username', id: 'Username6', formControlName: 'username' },
-    { HeaderName: 'Email', placeHolder: 'Enter Your Email', id: 'Email6', formControlName: 'email' },
-    { HeaderName: 'Phone', placeHolder: 'Enter Your Number', id: 'Number6', formControlName: 'phone' }
-  ];
-constructor(private fb: FormBuilder) { }
-  ngOnInit(): void {
- 
+form4Info = [
+  {
+    id: 'Age',
+    FormControlName: 'asaki',
+    firstOption: 'Select Age',
+    options: ['0-1 Years', '0-5 Years', '0-10 Years', '0-15 Years', '0-20 Years', '0-50 Years', '50+ Years'],
+    formControlName: 'asaki'
+  },
+  {
+    id: 'badrooms',
+    firstOption: 'Bedrooms',
+    options: ['1', '2', '3', '4', '5', '6'],
+    formControlName: 'sadzinebeli'
+  },
+  {
+    id: 'bathroom',
+    firstOption: 'Bathrooms',
+    options: ['1', '2', '3', '4', '5', '6'],
+    formControlName: 'saabazano'
   }
-  onSubmit(): void {
-    if (this.listingForm.valid) {
-      console.log(this.listingForm.value); // You can process the form data here
+];
+
+form3Info = [
+  { HeaderName: 'Address', placeHolder: 'Enter Your Address', id: 'adress', formControlName: 'mdebareoba' },
+  { HeaderName: 'City', placeHolder: 'Enter Your city', id: 'City', formControlName: 'qalaqi' },
+  { HeaderName: 'state', placeHolder: 'Enter Your state', id: 'state', formControlName: 'shtati' },
+  { HeaderName: 'Country', placeHolder: 'Enter Your Country', id: 'country', formControlName: 'qveyana' },
+  { HeaderName: 'Google Map Latitude', placeHolder: 'Google Map Latitude', id: 'mapa', formControlName: 'mapLatitude' },
+  { HeaderName: 'Google Map Longitude', placeHolder: 'Google Map Longitude', id: 'mapo', formControlName: 'mapLongitude' }
+];
+
+form5Info = [
+  { text: 'Air Conditioning', id: 'air', formControlName: 'airConditioning' },
+  { text: 'Swimming Pool', id: 'pool', formControlName: 'swimmingPool' },
+  { text: 'Central Heating', id: 'Heating', formControlName: 'centrluriGatboba' },
+  { text: 'Laundry Room', id: 'room', formControlName: 'laundryRoom' },
+  { text: 'Gym', id: 'gym', formControlName: 'gym' },
+  { text: 'Alarm', id: 'alarm', formControlName: 'alarm' },
+  { text: 'Window Covering', id: 'window', formControlName: 'windowCovering' },
+  { text: 'Refrigerator', id: 'Refrigerator', formControlName: 'macivari' },
+  { text: 'TV Cable & WIFI', id: 'TV', formControlName:'televisia' },
+  { text: 'Microwave', id: 'Mic', formControlName: 'microwave' }
+];
+
+form6Info = [
+  { HeaderName: 'Name', placeHolder: 'Enter Your Name', id: 'name6', formControlName: 'saxeli' },
+  { HeaderName: 'Username', placeHolder: 'Enter Your Username', id: 'Username6', formControlName: 'metsaxeli' },
+  { HeaderName: 'Email', placeHolder: 'Enter Your Email', id: 'Email6', formControlName: 'emaili' },
+  { HeaderName: 'Phone', placeHolder: 'Enter Your Number', id: 'Number6', formControlName: 'telephone' }
+];
+
+  constructor(private fb: FormBuilder) {
+    // Initialize the form
+    this.listingForm = this.fb.group({
+      satauri: ['', Validators.required],
+      agwera: ['', Validators.required],
+      statusi: ['', Validators.required],
+      types: ['', Validators.required],
+      otaxebi: ['', Validators.required],
+      fasi: ['', Validators.required],
+      area: ['', Validators.required],
+      media: [null, Validators.required], // Media is required
+      mdebareoba: ['', Validators.required],
+      qalaqi: ['', Validators.required],
+      shtati: ['', Validators.required],
+      qveyana: ['', Validators.required],
+      mapLatitude: ['', Validators.required],
+      mapLongitude: ['', Validators.required],
+      asaki: ['', Validators.required],
+      sadzinebeli: ['', Validators.required],
+      saabazano: ['', Validators.required],
+      airConditioning: [false],
+      swimmingPool: [false],
+      centrluriGatboba: [false],
+      laundryRoom: [false],
+      gym: [false],
+      alarm: [false],
+      windowCovering: [false],
+      macivari: [false],
+      televisia: [false],
+      microwave: [false],//hare
+      saxeli: ['', Validators.required],
+      metsaxeli: ['', Validators.required],
+      emaili: ['', [Validators.required, Validators.email]],
+      telephone: ['', Validators.required],
+    });
+  }
+
+  // Handles file selection
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+  
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+  
+      // Validate file size (e.g., max 5MB) and type
+      if (file.size > 5 * 1024 * 1024) {
+        console.error('File size exceeds 5MB limit');
+        input.value = ''; // Clear the input
+        return;
+      }
+      if (!['image/jpeg', 'image/png', 'image/jpg'].includes(file.type)) {
+        console.error('Invalid file type. Only JPEG, JPG, and PNG are allowed.');
+        input.value = ''; // Clear the input
+        return;
+      }
+  
+      this.selectedFile = file;
+      this.imgRowlink.push(URL.createObjectURL(file)); // Generate preview URL
+      this.listingForm.patchValue({ media: file });
+      console.log('Selected File:', file);
     } else {
-      console.log('Form is not valid');
+      console.log('No file selected');
+    }
+  }
+  
+  // Handles form submission
+  onSubmit(): void {
+    if (!this.selectedFile) {
+      this.listingForm.get('media')?.setErrors({ required: true });
+      console.error('No file selected');
+      return;
+    }
+ console.log('Form Data:', this.listingForm.value);
+    if (this.listingForm.valid) {
+      const formData = new FormData();
+
+      // Append form fields to FormData
+      Object.keys(this.listingForm.controls).forEach((key) => {
+        const value = this.listingForm.get(key)?.value;
+        if (key === 'media' && this.selectedFile) {
+          formData.append(key, this.selectedFile);
+        } else if (value !== null && value !== undefined) {
+          formData.append(key, value);
+        }
+      });
+
+      console.log('Form Data:', formData);
+      // Uncomment and update the endpoint for actual submission
+      // this.http.post('https://your-api-endpoint.com/submit', formData).subscribe(
+      //   response => console.log('Form submitted successfully:', response),
+      //   error => console.error('Error submitting form:', error)
+      // );
+    } else {
+      console.error('Form is invalid', this.listingForm.errors);
     }
   }
 }

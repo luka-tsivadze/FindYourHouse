@@ -8,6 +8,7 @@ import { RegistrationService } from '../Services/registration/registration.servi
 import { BehaviorSubject } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { log } from 'console';
 
 @Component({
   selector: 'app-nav',
@@ -75,11 +76,17 @@ if (isPlatformBrowser(this.platformId)) {
     
  
     this.onRouteChange();
+    if( isPlatformBrowser(this.platformId)){
+    if (localStorage.getItem('ActiveElement') =='Log Out'){ 
+      this.logout('Log Out')
+    }
+  }
   }
 
   onRouteChange() {
 
     if (this.router.url === '/') {
+   
       this.showNav = false;
     } else {
       this.showNav = true;
@@ -93,7 +100,9 @@ if (isPlatformBrowser(this.platformId)) {
       this.GlobeLink = '../../assets/Imges/NavImg/thirdImg.png';
     }
 
-
+    if (isPlatformBrowser(this.platformId)) {
+      this.scrollToTop(0);
+      }
   }
 
   chosenLanguage(element){
@@ -183,9 +192,27 @@ element.route='/'
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   }
   uploadToLocal(info){
-   
+    if (localStorage.getItem('ActiveElement') =='Log Out'){ 
+      localStorage.removeItem('id');
+  
+    }
   
     localStorage.setItem('ActiveElement',info)
      
   }
+  logout(el){
+    if(el=='Log Out'){
+   console.log(el)
+   localStorage.removeItem('id');
+   localStorage.removeItem('ActiveElement');
+   this.router.navigate(['/'])
+   window.location.reload();
+
+  }
 }
+}
+
+
+
+
+

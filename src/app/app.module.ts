@@ -42,6 +42,10 @@ import { ReviewsComponent } from './DetailedInfo/reviews/reviews.component';
 import { ReviewAdderComponent } from './DetailedInfo/review-adder/review-adder.component';
 import { SimilarPropComponent } from './DetailedInfo/similar-prop/similar-prop.component';
 import { ContactComponent } from './contact/contact.component';
+import { DashboardComponent } from './ListingPageComponents/DashboardParent/dashboard/dashboard.component';
+import { ManageComponent } from './ListingPageComponents/DashboardParent/manage/manage.component';
+import { DashListingComponent } from './ListingPageComponents/DashboardParent/dash-listing/dash-listing.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 
 @NgModule({
@@ -82,7 +86,11 @@ import { ContactComponent } from './contact/contact.component';
       ReviewsComponent,
       ReviewAdderComponent,
       SimilarPropComponent,
-      ContactComponent  
+      ContactComponent,
+      DashboardComponent,
+      ManageComponent,
+      DashListingComponent,
+      AboutUsComponent  
     
  
   ],

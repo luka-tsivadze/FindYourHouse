@@ -5,4 +5,18 @@
 </header>
 <main>
     
+    <form>
+        <h3>Contact Us</h3>
+        <input type="{{el.type}}" placeholder="{{el.placeholder}}"  *ngFor="let el of inputs">
+
+        <textarea type="text" placeholder="Message" class="resizable"></textarea>
+        <input type="submit" class="submit">
+    </form>
+    <div class="details">
+        <h3>Contact Details</h3>
+        <p>Please find below contact details and contact us today!</p>
+        <div class="row" *ngFor="let row of contactInfo"><img src="{{row.IconLink}}" alt="icon"> <span>{{row.text}}</span> </div>
+ 
+    </div>
 </main>
+<app-footer></app-footer>

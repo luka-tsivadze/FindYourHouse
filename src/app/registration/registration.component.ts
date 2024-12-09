@@ -17,11 +17,15 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   displayer: boolean = true;
   private displayerSubscription: Subscription;
 login=false;
+userId;
 displayFirst:boolean =true ;
 LoginForm!: FormGroup;
 RegistrForm!: FormGroup;
 codeSegment=false;
 verification: boolean=false
+error=false;
+errorText;
+regErrorText;
 verificationCode ;
 public RememberMe = new FormControl(false);
 @ViewChild('loginName') loginName!: ElementRef;
@@ -52,7 +56,7 @@ constructor(private registrationService: RegistrationService, private http:HttpC
         Validators.minLength(6),// At least one digit
       ]),
       rememberMe: new FormControl(false)   
-    });
+    }); 
     
     this.RegistrForm = new FormGroup({
       maili: new FormControl('', [Validators.required, Validators.email]),
@@ -60,7 +64,7 @@ constructor(private registrationService: RegistrationService, private http:HttpC
       saxeli: new FormControl('', Validators.required),
       gvari: new FormControl('', Validators.required),
       paroliRepeat: new FormControl('', Validators.required),
-      nomeri: new FormControl('+995', [Validators.required, Validators.minLength(9),  Validators.pattern('^\\+?[0-9]*$')]),
+      nomeri: new FormControl({ value: '+995', disabled: false}, [Validators.required, Validators.minLength(9),  Validators.pattern('^\\+?[0-9]*$') ]),
       verificationInput: new FormControl('', Validators.required),
       sqesi: new FormControl('', Validators.required),
       dabadebis_weli: new FormControl('', Validators.required),
@@ -94,15 +98,21 @@ constructor(private registrationService: RegistrationService, private http:HttpC
   onSubmitL(): void {
     if (this.LoginForm.valid) {
       this.http.post('login_user.php', this.LoginForm.value).subscribe({
-        next: (response) => {
-          // Handle successful login
-          console.log('Login successful:', response);
-          // write if depending on response
+        next: (response: any) => {
+       
+        localStorage.setItem('id', response.id)
+         
           window.location.reload();
         },
         error: (error) => {
-          // Handle HTTP errors
-          console.error('Request failed:', error);
+        this.error=true;
+        this.errorText=error.error.message;
+        if (error.error.message=='paroli-arasworia'){
+            this.errorText='password is incorrect'; 
+        }else if(error.error.message=='angarishi-ver-moidzebna'){
+            this.errorText='user not found';
+        }
+          console.error('Request failed:', error.error.message);
         }
       })
      
@@ -112,29 +122,37 @@ constructor(private registrationService: RegistrationService, private http:HttpC
     } else {
       console.log('Login form has validation errors');
     }
-    // Reload the current page
+
    
   }
   onSubmitR(): void {
     if (this.RegistrForm.valid) {
-    this.http.post("reg_user.php", this.RegistrForm.value).subscribe({
-      next: (response) => {
-        // Handle successful registration
-        console.log('Registration successful:', response);
-      },
-      error: (error) => {
-        // Handle HTTP errors
-        console.error('Request failed:', error);
-      }
-    });
-      this.login=true
+      // Use getRawValue() to include disabled fields
+      const formData = this.RegistrForm.getRawValue();
   
-    console.log('Registration form submitted successfully:', this.RegistrForm.value);
+      this.http.post("reg_user.php", formData).subscribe({
+        next: (response: any) => {
+          // Handle successful registration
+          console.log('Registration successful:', response);
+          if(response.message=='email-already-in-use'){
+           this.regErrorText='email already in use';
+          }else if(response.message=='nomeri-arasworia'){
+            this.regErrorText='phone number is incorrect';
+          }else if(response.message==''){}
+          this.login = true;
+  
+          console.log('Registration form submitted successfully:', formData);
+        },
+        error: (error) => {
+          // Handle HTTP errors
+          console.error('Request failed:', error);
+        }
+      });
     } else {
       console.log('Registration form has validation errors');
     }
-  
   }
+  
   sendCode() {
     this.codeSegment = true;
   
@@ -148,7 +166,7 @@ constructor(private registrationService: RegistrationService, private http:HttpC
       return result;
     };
   
-    // Generate the verification code
+ 
     const verificationCode = generateRandomCode(4);
     this.verificationCode = verificationCode;
   
@@ -159,12 +177,13 @@ constructor(private registrationService: RegistrationService, private http:HttpC
       return;
     }
   
-    console.log('Generated code to be sent to phone:', verificationCode);
+
   
     // Send the verification code to the backend
-    this.http.post('https://chats-2c54b-default-rtdb.europe-west1.firebasedatabase.app/users.json', { nomeri, random_kodi: verificationCode }).subscribe({
+  
+    this.http.post('send_code.php', { nomeri, random_kodi: verificationCode }).subscribe({
       next: (response) => {
-        console.log('Verification code sent successfully:', response);
+        console.log('Verification code sent successfully:');
       },
       error: (error) => {
         console.error('Failed to send verification code:', error);
@@ -173,10 +192,13 @@ constructor(private registrationService: RegistrationService, private http:HttpC
   }
   
   checkCode(){
-
+ 
     if (this.RegistrForm.value.verificationInput === this.verificationCode) {
       this.verification = true;
-   
+      this.RegistrForm.get('nomeri')?.disable();
+    
     }
   }
+
+
 }

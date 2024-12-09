@@ -9,17 +9,18 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { MainCardsComponent } from './CardPage/main-cards/main-cards.component';
 import { DetailedInfoParentComponent } from './DetailedInfo/detailed-info-parent/detailed-info-parent.component';
 import { ContactComponent } from './contact/contact.component';
-
+import { AboutUsComponent } from './about-us/about-us.component';
+import { authGuard } from './auth.guard';
 const routes: Routes = [ 
 
   { path: '', component:MainPageComponent},
   { path: 'Home', component:MainPageComponent},
-  {path: 'Listing', component:ListingParentComponent},
-  {path: 'Listing/:id', component:ListingParentComponent},
+  {path: 'Listing', component:ListingParentComponent ,canActivate: [authGuard]},
   {path: 'allCards', component:MainCardsComponent},
   {path: 'allCards/:id', component:DetailedInfoParentComponent},
   {path: 'contact', component:ContactComponent},
-  {path: '**', component:ErrorPageComponent}
+  {path: 'about', component:AboutUsComponent},
+  {path: '**', component:ErrorPageComponent},
 
 ];
 

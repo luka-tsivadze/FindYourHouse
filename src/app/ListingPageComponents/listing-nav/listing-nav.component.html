@@ -33,7 +33,7 @@
             </div>
             
         </li>
-        <li><p>{{staticElements.Property}}</p><img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
+        <li routerLink="/allCards"><p>{{staticElements.Property}}</p><img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
             <div class="menuBar">
                 <div class="mainPart">
         <div class="row" *ngFor="let i of this.NavElements.Property"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">  
@@ -49,7 +49,8 @@
         <li><p>{{staticElements.Pages}}</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
             <div class="menuBar">
                 <div class="mainPart">
-                    <div class="row"    ><a >{{this.NavElements.Pages[0].a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':this.NavElements.Pages[0].Showimg==true}" alt="arrow">
+                    <div class="row">
+                        <a >{{this.NavElements.Pages[0].a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':this.NavElements.Pages[0].Showimg==true}" alt="arrow">
                         <div [ngClass]="{'ArrowNav':this.NavElements.Pages[0].Showimg==true,'DNone':this.NavElements.Pages[0].Showimg==false}"><div class="forHover">
                             <div class="aContainer" [routerLink]="this.NavElements.Pages[0].route"   *ngFor="let subElement of this.NavElements.Pages[0].subText">
                                 <a (click)="uploadToLocal(subElement.text)" >{{subElement.text}} </a> </div>

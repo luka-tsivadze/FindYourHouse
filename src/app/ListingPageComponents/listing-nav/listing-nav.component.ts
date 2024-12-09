@@ -36,21 +36,24 @@ LeftNavInfo=[
   {icon:'../../../assets/Imges/StaticImg/StaticIcons/heart-fill.svg',Text:'Favorited Properties'},
   {icon:'../../../assets/Imges/StaticImg/StaticIcons/list.svg',Text:'Add Property'},
   {icon:'../../../assets/Imges/StaticImg/StaticIcons/credit-card-fill.svg ',Text:'Payements'},
-  {icon:'../../../assets/Imges/StaticImg/StaticIcons/invoice.svg ',Text:'Invoices'}, 
+
   {icon:'../../../assets/Imges/StaticImg/StaticIcons/lock-fill.svg',Text:'change Password'},
   {icon:'../../../assets/Imges/StaticImg/StaticIcons/log-out.svg',Text:'Log Out'},
 ]
 activeElement=this.LeftNavInfo[4].Text;
 
+  router: any;
+
 
   constructor(private navService: NavInfoService,private ngZone: NgZone,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService , 
     @Inject(PLATFORM_ID) private platformId: Object){
-
+      this.valueChange.emit(this.activeElement);
       this.SignedIn=this.navService.IsSignedIn;
 this.NavElements=this.navService.MenuBar;
 this.staticElements=this.GeoService
 if (isPlatformBrowser(this.platformId)) {
   this.activeElement=localStorage.getItem('ActiveElement')
+
   if (localStorage.getItem('Language')) {
     this.chosenLang = localStorage.getItem('Language');
   }
@@ -104,7 +107,7 @@ this.showLanguages=!this.showLanguages;
 
     localStorage.setItem('ActiveElement',element)
     this.activeElement=element;
-    this.valueChange.emit(element);
+    this.valueChange.emit(this.activeElement);
 
     
   }
@@ -114,5 +117,4 @@ this.showLanguages=!this.showLanguages;
     window.location.reload();
 
   }
-
 }

@@ -1,0 +1,27 @@
+.row{
+    display: flex;
+    gap: 10px;
+   flex-wrap: wrap;
+  .el{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width:49%;
+    width: 294px;
+    height: 94px;
+    border-radius: 7px;
+
+  }
+  .red{
+    background-color: #FF385C;
+  }
+  .blue{
+    background-color: rgb(102,170,238);
+  }
+  .green{
+    background-color: #1EC38B;
+  }
+    .yellow{
+        background-color: rgb(255,153,17);
+    }
+}

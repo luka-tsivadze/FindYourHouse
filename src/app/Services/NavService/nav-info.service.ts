@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { text } from 'stream/consumers';
+import { Router } from 'express';
 
 @Injectable({
   providedIn: 'root'
@@ -31,11 +32,11 @@ export class NavInfoService {
       { a: 'Single Property 6', Showimg: false }
     ],
     Pages: [ 
-      { a: 'User Panel', Showimg: true,  route:'', subText: [ {text:'Dashboard'},{ text:'Profile'}, {text:'My Properties'}, { text:'Favorited Properties'} ,
+      { a: 'User Panel', Showimg: true,  RouterLink: '', subText: [ {text:'Dashboard'},{ text:'Profile'}, {text:'My Properties'}, { text:'Favorited Properties'} ,
          {text:'Add Property'} ,{text:'Payements'},{text:'change Password'}] },
-      { a: 'Login', Showimg: false,  },
-      { a: 'Register', Showimg: false, },
-      { a: 'About Us', Showimg: false, }
+      { a: 'Login', Showimg: false },
+      { a: 'Register', Showimg: false, RouterLink: ''  },
+      { a: 'About Us', Showimg: false, RouterLink: '/about' },
     ],
     Blog: [ 
       { a: 'text', Showimg: true, subText: ['text1', 'text2', 'text3'] },
@@ -48,6 +49,7 @@ export class NavInfoService {
   Languages = ['ENG', 'RUS', 'GEO'];
   chosenLang: string | undefined;
   scrollobser = new BehaviorSubject<boolean>(false);
+  
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient) {
     if (isPlatformBrowser(this.platformId)) {
@@ -56,11 +58,17 @@ export class NavInfoService {
       if (userId) {
         this.IsSignedIn.signed = true;
         this.getUserInfo(userId);
+        if (localStorage.getItem('activeElement')=='Log Out'){
+          localStorage.removeItem('id');
+        }
       }
       this.MenuBar.Pages.forEach((element) => {
 
          if(this.IsSignedIn){
-          element.route='Listing'
+            if(element.a=='user Panel'){
+              element.RouterLink='Listing';
+            }
+
          }
       });
     }
@@ -70,21 +78,33 @@ export class NavInfoService {
     this.scrollobser.next(status);  // Update the value
 
   }
-
-  getUserInfo(userId) {
+  getUserInfo(userId: string): void {
     if (isPlatformBrowser(this.platformId)) {
-       userId = localStorage.getItem('id');
-      if (userId) {
-        this.http.get(`https://api.example.com/users/${userId}`).subscribe({
-          next: (data: any) => {
-            this.IsSignedIn.imgLink = data.imgLink;
-            this.IsSignedIn.Name = data.name;
-          },
-          error: (error) => {
-            console.error('Error fetching user info', error);
-          }
-        });
+      const localUserId = localStorage.getItem('id');
+      const resolvedUserId = userId || localUserId;
+  
+      if (!resolvedUserId) {
+        console.error('No userId available to fetch user info.');
+        return;
       }
+  
+      const headers = {
+        'User-ID': resolvedUserId // Add userId to the headers
+      };
+  
+      this.http.get('users.php', { headers }).subscribe({
+        next: (data: any) => {
+          this.IsSignedIn.imgLink = data.imgLink;
+          this.IsSignedIn.Name = data.name;
+          this.IsSignedIn.signed = true;
+          console.log('User info fetched successfully:', data);
+        },
+        error: (error) => {
+          console.error('Error fetching user info', error);
+        }
+      });
     }
   }
+  
+  
 }

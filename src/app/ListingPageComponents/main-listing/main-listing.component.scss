@@ -110,6 +110,7 @@ $gap: 20px;
 
     // Styles for additional forms (e.g., form2, form3, etc.)
     .form2 {
+        position: relative;
         input {
             opacity: 0;
             z-index: -1;
@@ -130,7 +131,11 @@ $gap: 20px;
             text-transform: capitalize;
 
             img {
+                z-index: 3; 
                 width: 64px;
+            }
+            p{
+                z-index: 3;
             }
         }
     }
@@ -222,4 +227,25 @@ label {
     font: 600 15px $font-primary;
     color: $text-color;
     text-transform: capitalize;
+}
+.imgrow{
+    width: 73%;
+
+    // position: absolute;
+    z-index: 0;
+    display: flex;
+    gap: 10px;
+    left: 13.5%;
+    // top: 139px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    img{
+     z-index: 1;
+        border-radius: unset;
+
+        width: 250px;
+    
+        
+    }
 }
