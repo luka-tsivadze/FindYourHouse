@@ -45,5 +45,7 @@ profileInfo;
       phoneNumber: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]]
     });
+    this.forNgRow[0].text = this.profileInfo.number;
+    this.forNgRow[1].text = this.profileInfo.email;
   }
 }

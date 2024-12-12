@@ -45,7 +45,7 @@ export class NavInfoService {
     ]
   };
 
-  IsSignedIn = { signed: false, imgLink: '../../assets/Imges/NavImg/profileImg.jpg', Name: 'Mary Smith' };
+  IsSignedIn = { signed: false, imgLink: '../../assets/Imges/NavImg/man.png', Name: 'Mary Smith' ,number:'592837189' ,email:'ksdnvest@gmail.com' ,gender:''};
   Languages = ['ENG', 'RUS', 'GEO'];
   chosenLang: string | undefined;
   scrollobser = new BehaviorSubject<boolean>(false);
@@ -88,15 +88,22 @@ export class NavInfoService {
         return;
       }
   
-      const headers = {
-        'User-ID': resolvedUserId // Add userId to the headers
-      };
+      const body = { id: resolvedUserId }; // Send ID in the request body
   
-      this.http.get('users.php', { headers }).subscribe({
+      this.http.post('get_user_data.php', body).subscribe({
         next: (data: any) => {
-          this.IsSignedIn.imgLink = data.imgLink;
-          this.IsSignedIn.Name = data.name;
-          this.IsSignedIn.signed = true;
+              this.IsSignedIn.Name = data[0].saxeli + ' ' + data[0].gvari;
+              this.IsSignedIn.number = data[0].nomeri;
+              this.IsSignedIn.email = data[0].maili;
+              this.IsSignedIn.gender = data[0].sqesi;
+              if(data[0].img_link){
+                this.IsSignedIn.imgLink = data[0].img_link;
+              }else if(data[0].sqesi=='male'){
+                this.IsSignedIn.imgLink = '../../assets/Imges/NavImg/man.png';
+              }else if(data[0].sqesi=='famale'){
+                this.IsSignedIn.imgLink = '../../assets/Imges/NavImg/girl.png';
+
+              }
           console.log('User info fetched successfully:', data);
         },
         error: (error) => {
@@ -105,6 +112,7 @@ export class NavInfoService {
       });
     }
   }
+  
   
   
 }

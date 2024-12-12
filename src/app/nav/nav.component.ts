@@ -198,6 +198,7 @@ element.route='/'
     }
   
     localStorage.setItem('ActiveElement',info)
+    this.router.navigate(['Listing'])
      
   }
   logout(el){

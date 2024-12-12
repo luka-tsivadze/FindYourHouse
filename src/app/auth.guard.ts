@@ -4,8 +4,7 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 export const authGuard: CanActivateFn = (route, state) => {
 
-console.log('authGuard' , route, state);
- console.log('navInfo', NavInfoService);
+
 
  
  const navInfoService = inject(NavInfoService);

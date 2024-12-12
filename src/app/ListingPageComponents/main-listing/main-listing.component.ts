@@ -44,23 +44,23 @@ form3Info = [
 ];
 
 form5Info = [
-  { text: 'Air Conditioning', id: 'air', formControlName: 'airConditioning' },
-  { text: 'Swimming Pool', id: 'pool', formControlName: 'swimmingPool' },
+  { text: 'Air Conditioning', id: 'air', formControlName: 'kondincioneri' },
+  { text: 'Swimming Pool', id: 'pool', formControlName: 'auzi' },
   { text: 'Central Heating', id: 'Heating', formControlName: 'centrluriGatboba' },
-  { text: 'Laundry Room', id: 'room', formControlName: 'laundryRoom' },
-  { text: 'Gym', id: 'gym', formControlName: 'gym' },
-  { text: 'Alarm', id: 'alarm', formControlName: 'alarm' },
-  { text: 'Window Covering', id: 'window', formControlName: 'windowCovering' },
+  { text: 'Laundry Room', id: 'room', formControlName: 'sarecxisotaxi' },
+  { text: 'Gym', id: 'gym', formControlName: 'darbazi' },
+  { text: 'Alarm', id: 'alarm', formControlName: 'magvidzara' },
+  { text: 'Window Covering', id: 'window', formControlName: 'fanjrisdafarva' },
   { text: 'Refrigerator', id: 'Refrigerator', formControlName: 'macivari' },
   { text: 'TV Cable & WIFI', id: 'TV', formControlName:'televisia' },
-  { text: 'Microwave', id: 'Mic', formControlName: 'microwave' }
+  { text: 'Microwave', id: 'Mic', formControlName: 'microtalguri' }
 ];
 
 form6Info = [
   { HeaderName: 'Name', placeHolder: 'Enter Your Name', id: 'name6', formControlName: 'saxeli' },
   { HeaderName: 'Username', placeHolder: 'Enter Your Username', id: 'Username6', formControlName: 'metsaxeli' },
   { HeaderName: 'Email', placeHolder: 'Enter Your Email', id: 'Email6', formControlName: 'emaili' },
-  { HeaderName: 'Phone', placeHolder: 'Enter Your Number', id: 'Number6', formControlName: 'telephone' }
+  { HeaderName: 'Phone', placeHolder: 'Enter Your Number', id: 'Number6', formControlName: 'telephoni' }
 ];
 
   constructor(private fb: FormBuilder) {
@@ -69,7 +69,7 @@ form6Info = [
       satauri: ['', Validators.required],
       agwera: ['', Validators.required],
       statusi: ['', Validators.required],
-      types: ['', Validators.required],
+      typebi: ['', Validators.required],
       otaxebi: ['', Validators.required],
       fasi: ['', Validators.required],
       area: ['', Validators.required],
@@ -83,20 +83,20 @@ form6Info = [
       asaki: ['', Validators.required],
       sadzinebeli: ['', Validators.required],
       saabazano: ['', Validators.required],
-      airConditioning: [false],
-      swimmingPool: [false],
+      kondincioneri: [false],
+      auzi: [false],
       centrluriGatboba: [false],
-      laundryRoom: [false],
-      gym: [false],
-      alarm: [false],
-      windowCovering: [false],
+      sarecxisotaxi: [false],
+      darbazi: [false],
+      magvidzara: [false],
+      fanjrisdafarva: [false],
       macivari: [false],
       televisia: [false],
-      microwave: [false],//hare
+      microtalguri: [false],//hare
       saxeli: ['', Validators.required],
       metsaxeli: ['', Validators.required],
       emaili: ['', [Validators.required, Validators.email]],
-      telephone: ['', Validators.required],
+      telephoni: ['', Validators.required],
     });
   }
 
