@@ -108,9 +108,8 @@ this.showLanguages=!this.showLanguages;
     localStorage.setItem('ActiveElement',element)
     this.activeElement=element;
     this.valueChange.emit(this.activeElement);
-
-    
   }
+  
   uploadToLocal(info){
   
     localStorage.setItem('ActiveElement',info)

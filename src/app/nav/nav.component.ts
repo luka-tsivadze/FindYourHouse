@@ -8,7 +8,7 @@ import { RegistrationService } from '../Services/registration/registration.servi
 import { BehaviorSubject } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { log } from 'console';
+import { log, profile } from 'console';
 
 @Component({
   selector: 'app-nav',
@@ -26,7 +26,7 @@ displayElement=false;
 showLanguages=false;
 navLang=this.navService.Languages;
 chosenLang='GEO'
-ProfileSettings=[{ Text:'Edit Profile'},{ Text:'Add Property'},{Text:'Payments'},{Text:'Change Password'},{Text:'Log Out'}]
+ProfileSettings=[{ Text:'Edit Profile' , routes:''},{ Text:'Add Property'},{Text:'Payments'},{Text:'Change Password'},{Text:'Log Out'}]
 NavElements:any
 IsSignedIn:any
 staticElements
@@ -78,7 +78,7 @@ if (isPlatformBrowser(this.platformId)) {
     this.onRouteChange();
     if( isPlatformBrowser(this.platformId)){
     if (localStorage.getItem('ActiveElement') =='Log Out'){ 
-      this.logout('Log Out')
+      this.profileSettings('Log Out')
     }
   }
   }
@@ -201,15 +201,24 @@ element.route='/'
     this.router.navigate(['Listing'])
      
   }
-  logout(el){
+  profileSettings(el){
     if(el=='Log Out'){
    console.log(el)
    localStorage.removeItem('id');
    localStorage.removeItem('ActiveElement');
    this.router.navigate(['/'])
    window.location.reload();
+  }else if(el=='Edit Profile'){
+    console.log(el);
+    localStorage.setItem('ActiveElement', 'Profile')
 
-  }
+}else if(el=='Add Property'){
+localStorage.setItem('ActiveElement', 'Add Property')
+
+}else if(el=='change Password'){
+  localStorage.setItem('ActiveElement', 'Change Password')
+}
+this.router.navigate(['/Listing'])
 }
 }
 

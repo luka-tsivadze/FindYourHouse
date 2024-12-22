@@ -47,6 +47,7 @@ import { ManageComponent } from './ListingPageComponents/DashboardParent/manage/
 import { DashListingComponent } from './ListingPageComponents/DashboardParent/dash-listing/dash-listing.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { PersonalInfoComponent } from './ListingPageComponents/DashboardParent/personal-info/personal-info.component';
+import { DashreviewComponent } from './ListingPageComponents/DashboardParent/dashreview/dashreview.component';
 
 
 @NgModule({
@@ -92,7 +93,8 @@ import { PersonalInfoComponent } from './ListingPageComponents/DashboardParent/p
       ManageComponent,
       DashListingComponent,
       AboutUsComponent,
-      PersonalInfoComponent  
+      PersonalInfoComponent,
+      DashreviewComponent  
     
  
   ],

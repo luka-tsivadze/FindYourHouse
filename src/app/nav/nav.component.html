@@ -88,8 +88,8 @@
          </li>
         <li class="borders"  [ngClass]="{'DNone':IsSignedIn.signed==true}" (click)=" showRegistrForm()" ><p>{{staticElements.SignIn}}</p></li>
         <li class="RightRow" (click)="displayEl()" [ngClass]="{'DNone':IsSignedIn.signed==false}"><div class="circle"><img src="{{IsSignedIn.imgLink}}" alt="Profile img"><div class="activebtn"></div></div> <p>Hi {{IsSignedIn.Name}}</p> <img class="bottomArrow" src="../../assets/Imges/NavImg/arrow-bottom-4.png" alt="Arrow Icon"> </li>
-        <div class="SubNav" [ngClass]="{DNone: displayElement==false}"><a *ngFor="let el of ProfileSettings" (click)="logout(el.Text)">{{el.Text}}</a></div>
-        <li><button class="listing"   routerLink="/Listing" [ngClass]="{'DNone':IsSignedIn.signed==false}"><h4>{{staticElements.AddListing}}</h4> <img src="../../assets/Imges/NavImg/Screenshot 2024-08-20 192117.png" alt=""></button></li>
+        <div class="SubNav" [ngClass]="{DNone: displayElement==false}"><a *ngFor="let el of ProfileSettings"  (click)="profileSettings(el.Text)">{{el.Text}}</a></div>
+        <li><button class="listing"    routerLink="/Listing" [ngClass]="{'DNone':IsSignedIn.signed==false}"><h4>{{staticElements.AddListing}}</h4> <img src="../../assets/Imges/NavImg/Screenshot 2024-08-20 192117.png" alt=""></button></li>
         <li><button class="listing"   (click)=" showRegistrForm()"   [ngClass]="{'DNone':IsSignedIn.signed==true}"><h4>{{staticElements.AddListing}}</h4> <img src="../../assets/Imges/NavImg/Screenshot 2024-08-20 192117.png" alt=""></button></li>
     </ul>
  

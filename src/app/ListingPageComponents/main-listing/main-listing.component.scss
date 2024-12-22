@@ -9,9 +9,13 @@ $font-primary: 'Lato', sans-serif;
 $font-secondary: 'Montserrat', sans-serif;
 $gap: 20px;
 
+@use '../../../styles.scss' as *;
 // Main container
+
+
+
 .FormParent {
-    padding: 1rem 10px 1rem 300px;
+    padding: 1rem 10px 1rem 330px;
     background: $background-color;
     display: flex;
     flex-direction: column;
@@ -111,6 +115,19 @@ $gap: 20px;
     // Styles for additional forms (e.g., form2, form3, etc.)
     .form2 {
         position: relative;
+
+        .row{
+
+      
+            video{
+                position: absolute;
+                right: 190px;
+                bottom: 215px ;
+
+                width: 294px;
+                height: 294px;
+            }
+        }
         input {
             opacity: 0;
             z-index: -1;
@@ -129,12 +146,16 @@ $gap: 20px;
             color: $secondary-color;
             font: 20px $font-primary;
             text-transform: capitalize;
+            background-color: transparent;
 
             img {
+             
                 z-index: 3; 
                 width: 64px;
             }
+          
             p{
+                font-size: 16px;
                 z-index: 3;
             }
         }
@@ -227,25 +248,179 @@ label {
     font: 600 15px $font-primary;
     color: $text-color;
     text-transform: capitalize;
+
+}
+.headerspan{
+    font: 600 15px $font-primary;
+    color: $primary-color;
+    text-transform: capitalize;
+    z-index: 9;
 }
 .imgrow{
-    width: 73%;
+    width: 75%;
+    border: 2px dashed $secondary-color;
 
-    // position: absolute;
+    
     z-index: 0;
-    display: flex;
-    gap: 10px;
-    left: 13.5%;
-    // top: 139px;
+
+    padding:18px;
+    @include flex-container(row,flex-start, flex-start);
+    gap: 15px;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
+    min-height: 285px;
+    max-height: max-content;
+    .square{
+       @include flex-container(row,center, center);
+        width: 100px!important;
+        padding-top: 45px !important;
+        border: unset !important;
+    border-radius: 10px !important;
+        height: 100px !important;
+        background-color: #00FF01 !important;
+        img{
+             filter: invert(1);
+            height: 64px;
+        }
+    
+    }
+    .disabled{
+display: none !important;
+    }
     img{
      z-index: 1;
         border-radius: unset;
-
-        width: 250px;
+        position: relative;
+        bottom: 10px;
+        
+      height: 100px;
     
         
     }
+    .img{
+        position: relative;
+        .removeatr{
+         position: absolute;
+         top: -15px;
+         right: -6px;
+         background-color: red;
+         z-index: 99;
+         width: 30px;
+         height: 30px;
+            border-top-right-radius:7px;
+            border-bottom-left-radius:7px ;
+       padding-top: 10px;
+       cursor: pointer;
+         img{
+                width: 30px;
+                height: 30px;
+         }
+        }
+        .chooseMain{
+            position: absolute;
+            top: -15px;
+            left: -6px;
+            background-color: green;
+            z-index: 99;
+            width: 30px;
+            height: 30px;
+               border-top-right-radius:7px;
+               border-bottom-left-radius:7px ;
+          padding-top: 10px;
+          cursor: pointer;
+            img{
+                   width: 30px;
+                   height: 30px;
+            } 
+        }
+        .uploadedimg{
+            width: 130px;
+            background-color: rgb(199, 199, 199);
+            height: 130px;
+            object-fit: contain;
+     }
+    }
+}
+.vid{
+    height: 400px !important;
+
+}
+.VideoRow{
+    position: relative;
+    width: 80%;
+            height: 500px;
+    z-index: 99;
+    border: 2px dashed $secondary-color;
+    @include flex-container(row,center, center);
+    label{
+        all: unset !important;
+        position: absolute !important;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+        width: 20% !important;
+        height: 20% !important;
+        cursor: pointer !important;
+        z-index: 99 !important;
+              
+        border-top-left-radius: 20px !important;
+        border-bottom-right-radius: 20px !important;
+    }
+    video{
+        z-index: 99;
+        min-width: 480px;
+        max-width: 600px;
+        max-height: 390px;
+    }
+    
+    .after{
+
+   
+        top: 100px !important;
+        left: 3px !important;
+        
+        
+        background-image: url('../../../assets/Imges/StaticImg/StaticIcons/x.svg') !important;
+        background-size: 60px !important;
+
+       
+        background-color: rgba(255, 0, 0, 0.5) !important;
+      
+    }
+    .before{
+  
+     
+        top: 100px !important;
+        right: 3px !important;
+
+        
+        background-image: url('../../../assets/Imges/StaticImg/StaticIcons/pencil.svg') !important;
+        background-size: 40px !important ;
+
+      
+        background-color: rgba(0, 255, 8, 0.5) !important; 
+    }
+
+}
+
+.center{
+border: 2px dashed $secondary-color;
+    z-index: 99;
+    width: 80%;
+
+    
+    
+@include flex-container(row,center, center,15px);
+        .change{
+            all: unset !important;
+            width: 160px !important;
+            height: 160px !important;
+            cursor: pointer !important;
+            border-radius: 50% !important;
+            @include flex-container(row,center, center,15px);
+            background-color: $secondary-color !important;
+        }
+img{
+    max-width: 100%;
+    max-height: 395px;
+  
+}
 }
