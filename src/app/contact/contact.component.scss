@@ -136,7 +136,7 @@ width: 100%;
         font-weight: 300;
       }
       img{
-
+ 
         width: 20px;
         
       
@@ -144,4 +144,14 @@ width: 100%;
 
     }
    }
+}
+.success{
+  font-family: 'Lato', sans-serif;
+  color:rgb(22, 174, 19) ;
+  font-size: 1.2rem;
+}
+.error{
+  font-family: 'Lato', sans-serif;
+  color: #ff0000;
+  font-size: 1.2rem;
 }

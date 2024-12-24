@@ -45,7 +45,7 @@ export class NavInfoService {
     ]
   };
 
-  IsSignedIn = { signed: true, imgLink: '../../assets/Imges/NavImg/man.png', Name: 'Mary Smith' ,number:'592837189' ,email:'ksdnvest@gmail.com' ,gender:''};
+  IsSignedIn = { signed: false, imgLink: '../../assets/Imges/NavImg/man.png', Name: 'Mary Smith' ,number:'592837189' ,email:'ksdnvest@gmail.com' ,gender:''};
   Languages = ['ENG', 'RUS', 'GEO'];
   chosenLang: string | undefined;
   scrollobser = new BehaviorSubject<boolean>(false);

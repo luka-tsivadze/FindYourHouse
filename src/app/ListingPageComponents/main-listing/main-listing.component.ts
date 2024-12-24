@@ -12,11 +12,15 @@ import { first } from 'rxjs';
 })
 export class MainListingComponent {
   listingForm: FormGroup;
+  
   imgRowlink: string[] = [];
   videoRowlink: string = null;
   selectedFile: File | null = null;
-  binisNaxazi: string = null;
+  binisNaxazi = null;
 fotofiles:File[]=[];
+videoFiles:File[]=[];
+naxaziFiles:File[]=[];
+
 maxFiles = 7;
 index=0;
 
@@ -127,7 +131,8 @@ form6Info : [
       kondincioneri: [false],
       sacurao_auzi: [false],
       statusis_fasi: [''],
-      statusis_chartvis_dro: [''],
+      statusis_chartvis_dro: ['2024/12/24'],
+      
       centrluri_gatboba: [false],
       samrecxao_otaxi: [false],
       sportuli_darbazi: [false],
@@ -149,69 +154,68 @@ form6Info : [
   onFileChange(event: Event, type: 'image' | 'video' | 'image1'): void {
     const input = event.target as HTMLInputElement;
   
-
     if (input.files && input.files.length > 0) {
-
-
       const files = input.files;
   
       // Validate file size
       const maxSize = type === 'image' || type === 'image1' ? 5 * 1024 * 1024 : 50 * 1024 * 1024;
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-      if (file.size > maxSize) {
-        console.error(`File size exceeds ${maxSize / (1024 * 1024)}MB limit`);
-        input.value = ''; // Clear the input
-        return;
-      }
   
-      // Validate file type
-      let validTypes: string[];
-      if (type === 'image' || type === 'image1') {
-        validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-      } else if (type === 'video') {
-        validTypes = ['video/mp4', 'video/avi', 'video/mkv'];
-      } else {
-        console.error('Invalid type specified');
-        input.value = ''; // Clear the input
-        return;
-      }
-  
-      if (!validTypes.includes(file.type)) {
-        console.error(`Invalid file type. Only ${validTypes.join(', ')} are allowed.`);
-        input.value = ''; // Clear the input
-        return;
-      }
-  
-      // Handle file assignment and preview URL generation
-      this.selectedFile = file;
-      if (type === 'image') {
-
-        console.log(this.index)
-        if(this.index>this.maxFiles-1){
-          console.log('Max files reached');
+        if (file.size > maxSize) {
+          console.error(`File size exceeds ${maxSize / (1024 * 1024)}MB limit`);
+          input.value = ''; // Clear the input
           return;
-        }else{
-          this.index++;
-          this.fotofiles.push(file);
-          this.imgRowlink.push(URL.createObjectURL(file));
-          this.listingForm.patchValue({ fotoebi: this.fotofiles });
         }
-      } else if (type === 'video') {
-        this.listingForm.patchValue({ video: file });
-        this.videoRowlink = URL.createObjectURL(file);
-      } else if (type === 'image1') {
-        this.listingForm.patchValue({binis_naxazi: file });
-        this.binisNaxazi = URL.createObjectURL(file);
-      }
   
-    }
+        // Validate file type
+        let validTypes: string[];
+        if (type === 'image' || type === 'image1') {
+          validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        } else if (type === 'video') {
+          validTypes = ['video/mp4', 'video/avi', 'video/mkv'];
+        } else {
+          console.error('Invalid type specified');
+          input.value = ''; // Clear the input
+          return;
+        }
+  
+        if (!validTypes.includes(file.type)) {
+          console.error(`Invalid file type. Only ${validTypes.join(', ')} are allowed.`);
+          input.value = ''; // Clear the input
+          return;
+        }
+  
+        // Handle file assignment and preview URL generation
+        if (type === 'image') {
+          if (this.index >= this.maxFiles) {
+            console.log('Max files reached');
+            return;
+          } else {
+            this.index++;
+            this.fotofiles.push(file);
+            this.imgRowlink.push(URL.createObjectURL(file));
+            this.listingForm.patchValue({ fotoebi: this.fotofiles });
+          }
+        } else if (type === 'video') {
+          this.videoFiles = [file];
+
+      
+          this.listingForm.patchValue({ video: this.videoFiles });
+          this.videoRowlink = URL.createObjectURL(file);
+        } else if (type === 'image1') {
+          this.naxaziFiles = [file];
+          this.listingForm.patchValue({ binis_naxazi: this.naxaziFiles });
+          this.binisNaxazi = URL.createObjectURL(file);
+        }
+      }
       // Reset input to allow re-selection of the same file
       input.value = '';
     } else {
       console.log('No file selected');
     }
   }
+  
   
   
   remover(inputElement?: HTMLInputElement): void {
@@ -223,15 +227,22 @@ form6Info : [
       inputElement.value = '';
     }
   }
-  imgremover(index: number): void {
-    this.index-=1;
-    console.log('Removing image at index:', index);
-    this.imgRowlink.splice(index, 1);
-    this.fotofiles.splice(index, 1);
-    this.listingForm.patchValue({ fotoebi: this.fotofiles });
+  imgremover(index: number ,mainimg): void {
+    if(mainimg){
+    
+    }else{ 
+      this.index-=1;
+    }
+      
+      this.imgRowlink.splice(index, 1);
+      this.fotofiles.splice(index, 1);
+      this.listingForm.patchValue({ fotoebi: this.fotofiles });
   }
   mainimg(index: number){
-    console.log('Removing image at index:', index);
+
+   this.fotofiles.unshift(this.fotofiles[index]);
+   this.imgRowlink.unshift(this.imgRowlink[index]);
+    this.imgremover(index+1, true);
     
     this.listingForm.patchValue({ fotoebi: this.fotofiles });
   }
@@ -246,62 +257,80 @@ form6Info : [
       console.error('No file selected');
       return;
     }
-
-    
-     this.listingForm.patchValue({ statusis_chartvis_dro: new Date().toISOString().split('T')[0] });
-     this.listingForm.patchValue({ statusis_fasi: 'it is not added yet 1' });
-      this.listingForm.patchValue({ amtvirtvelis_maili: this.navservice.IsSignedIn.email });
-      this.listingForm.patchValue({ id: localStorage.getItem('id')});
-      const fasiValue = this.listingForm.get('fasi')?.value;
-      const currencies = ['₾', '$', '€'];
-      const foundCurrencies = currencies.filter(currency => fasiValue.includes(currency));
-
-      if (foundCurrencies.length > 1) {
-        console.error('Multiple currencies detected');
-        this.listingForm.setErrors({ multipleCurrencies: true });
-        return;
-      }
-
-      if (foundCurrencies.length === 1) {
-        const currency = foundCurrencies[0];
-        const amount = fasiValue.replace(currency, '').trim();
-        this.listingForm.patchValue({ fasi: amount, fasis_valuta: currency });
-      } else {
-
-        this.listingForm.patchValue({ fasis_valuta: '₾' });
-      }
-   
-    // Log the form data for debugging
-    console.log('Form Value Before Submission:', this.listingForm.value);
   
+    // Add default values or other values to the form before submitting
+    this.listingForm.patchValue({
+      statusis_chartvis_dro: new Date().toISOString().split('T')[0],
+      statusis_fasi: 'it is not added yet 1',
+      amtvirtvelis_maili: this.navservice.IsSignedIn.email,
+      id: localStorage.getItem('id')
+    });
+  
+    const fasiValue = this.listingForm.get('fasi')?.value;
+    const currencies = ['₾', '$', '€'];
+    const foundCurrencies = currencies.filter(currency => fasiValue.includes(currency));
+  
+    if (foundCurrencies.length > 1) {
+      console.error('Multiple currencies detected');
+      this.listingForm.setErrors({ multipleCurrencies: true });
+      return;
+    }
+  
+    if (foundCurrencies.length === 1) {
+      const currency = foundCurrencies[0];
+      const amount = fasiValue.replace(currency, '').trim();
+      this.listingForm.patchValue({ fasi: amount, fasis_valuta: currency });
+    } else {
+      this.listingForm.patchValue({ fasis_valuta: '₾' });
+    }
+  
+    // Log the form data for debugging
     if (this.listingForm.valid) {
       const formData = new FormData();
   
-      // Append all form controls to the FormData
-      Object.keys(this.listingForm.controls).forEach((key) => {
+      // Append all form fields to FormData
+      Object.keys(this.listingForm.value).forEach(key => {
         const value = this.listingForm.get(key)?.value;
         if (value !== null && value !== undefined) {
-          // Handle arrays (e.g., imgRowlink) separately if needed
-          if (Array.isArray(value)) {
-            value.forEach((item, index) => {
-              formData.append(`${key}[${index}]`, item);
-            });
-          } else {
-            formData.append(key, value);
-          }
+          formData.append(key, value);
         }
       });
-      
-
-      // Submit the form data to the backend
-      this.http.post('upload_house.php', formData).subscribe({
-        next: (response) => console.log('Form submitted successfully:', response),
-        error: (error) => console.error('Error submitting form:', error),
-        complete: () => console.log('Form submission completed')
-      });
-    }else{
-      console.log('Form is invalid');
+  
+      // Append files to FormData
+      if (this.fotofiles.length > 0) {
+        this.fotofiles.forEach((file) => {
+          formData.append('fotoebi', file, file.name); // Add each image
+        });
+      }
+  
+      if (this.videoFiles.length > 0) {
+        this.videoFiles.forEach((file) => {
+          formData.append('video', file, file.name); // Add video file
+        });
+      }
+  
+      if (this.naxaziFiles.length > 0) {
+        this.naxaziFiles.forEach((file) => {
+          formData.append('binis_naxazi', file, file.name); // Add other files
+        });
+      }
+      console.log('Form Data:', formData, this.listingForm.value);
+      this.submitFormData(formData);
+    } else {
+      alert('Please fill in all required fields correctly.');
     }
-      
-  }      
+  }
+  
+  // Function to handle the submission of form data
+  submitFormData(formData: FormData): void {
+    console.log('Form Data:', formData);
+    // Submit the form data as multipart/form-data
+    this.http.post('upload_house.php', formData).subscribe({
+      next: (response) => console.log('Form submitted successfully:', response),
+      error: (error) => console.error('Error submitting form:', error),
+      complete: () => console.log('Form submission completed')
+    });
+  }
+  
+       
 }    

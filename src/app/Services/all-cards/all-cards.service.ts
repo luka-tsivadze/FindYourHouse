@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { profile } from 'console';
 import { Subject } from 'rxjs';
 import { text } from 'stream/consumers';
+import { HttpClient } from '@angular/common/http';
+import { response } from 'express';
 
 @Injectable({
   providedIn: 'root'
@@ -112,6 +114,7 @@ export class AllCardsService {
       id:5
     },
   ];
+  userid=localStorage.getItem('id');
   filter={SelectInputs:[{imgLink:'../../../assets/Imges/StaticImg/StaticIcons/icons8-home-16.png',text:'Property Status', options:['For Sale','For Rent'] } , 
   {imgLink:'../../../assets/Imges/StaticImg/StaticIcons/sleeping.png',text:'Bedrooms', options:['1' ,'2' ,'3' ,'4' ,'5','6','7'] },
   {imgLink:'../../../assets/Imges/Header/CardImges/icons/bathtub.svg',text:'bathrooms', options:['1', '2' ,'3' , '4' , '5' ] }
@@ -127,5 +130,31 @@ export class AllCardsService {
    setData(value: boolean) {
     this.dataSubject.next(value);
   }
-  constructor() { }
+constructor(private http: HttpClient) { 
+
+}
+
+fetchDataFromApi(): void {
+  if (!this.userid) {
+    console.error('User ID is missing.');
+    return;
+  }
+
+  this.http.post<any[]>('get_houses.php', { userid: this.userid })
+    .subscribe({
+      next: (response) => {
+        // Ensure response is an array
+        if (Array.isArray(response)) {
+          this.CardsInfo = response;
+          this.dataSubject.next(this.CardsInfo);
+        } else {
+          console.error('Unexpected response format', response);
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching data from API', error ,response);
+      },
+    });
+}
+
 }

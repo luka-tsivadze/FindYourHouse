@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-contact',
@@ -7,6 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./contact.component.scss'],
 })
 export class ContactComponent {
+  message={text:'' , validity:false , class:'' }; 
+  res;
   inputs = [
     { placeholder: 'First Name', type: 'text', FormControlname: 'saxeli' },
     { placeholder: 'Last Name', type: 'text', FormControlname: 'gvari' },
@@ -21,9 +24,9 @@ export class ContactComponent {
   ];
 
   form: FormGroup;
-  http: any;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder , private http: HttpClient) {
+
     this.form = this.fb.group({
       saxeli: ['', Validators.required],
       gvari: ['', Validators.required],
@@ -38,16 +41,29 @@ export class ContactComponent {
   }
 
   onSubmit(): void {
+    
     if (this.form.valid) {
-      this.http.post('contact.php', this.form.value).subscribe(
-        response => {
-          console.log('Form Submitted Successfully:', response);
+      this.http.post('contact.php', this.form.value).subscribe({
+        next: response => {
+          this.res=response;
+          if (this.res.status == 'success' && this.res.message == 'shetyobineba-gaigzavna') {
+            this.message.validity=true;
+            this.message.text='message sent successfully';
+            this.message.class='success';
+          }
+ 
         },
-        error => {
+        error: error => {
+          this.message.validity=true;
+          this.message.text='message was not sent';
+          this.message.class='error';
           console.error('Error submitting form:', error , this.form.value);
         }
-      );
+      });
     } else {
+      this.message.validity=true;
+      this.message.text='message was not sent , please fill in all the fields';
+      this.message.class='error';
       console.error('Form is invalid');
     }
   }

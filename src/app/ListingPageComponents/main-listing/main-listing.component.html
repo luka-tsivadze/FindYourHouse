@@ -39,8 +39,9 @@
 
  
         <input  type="file" multiple accept="image/*"  id="file" (change)="onFileChange($event, 'image' )"   accept="image/*"  >   
-        <label for="file" *ngIf="!selectedFile" ><img src="../../../assets/Imges/StaticImg/StaticIcons/cloud-arrow-up-fill.svg" alt=""><p>click Hare Or Drop pictures To Upload</p></label>
-        <div class="imgrow"  *ngIf="selectedFile">  <div class="img"  *ngFor="let img of imgRowlink let i=index"  ><img class="uploadedimg" src="{{img}}"alt=""><div class="removeatr" (click)="imgremover(i)" ><img  src="../../../assets/Imges/StaticImg/StaticIcons/x.svg" alt=""> </div>  <div class="chooseMain" (click)="mainimg(i)" ><img  src="../../../assets/Imges/StaticImg/StaticIcons/check.svg" alt=""></div> </div>  <label class="square" for="file"  [ngClass]="{'disabled': imgRowlink.length>=7}"><img src="../../../assets/Imges/StaticImg/StaticIcons/+btn+ - white.svg" alt="">  </label></div>
+        <label for="file" *ngIf="index==0" ><img src="../../../assets/Imges/StaticImg/StaticIcons/cloud-arrow-up-fill.svg" alt=""><p>click Hare Or Drop pictures To Upload</p></label>
+        <div class="imgrow"  *ngIf="index>0">  <div class="img"  *ngFor="let img of imgRowlink let i=index"  ><img class="uploadedimg" src="{{img}}"alt=""><div class="removeatr" (click)="imgremover(i , false)" ><img  src="../../../assets/Imges/StaticImg/StaticIcons/x.svg" alt=""> </div> 
+         <div class="chooseMain" *ngIf="i>0" (click)="mainimg(i)" ><img  src="../../../assets/Imges/StaticImg/StaticIcons/check.svg" alt=""></div> </div>  <label class="square" for="file"  [ngClass]="{'disabled': imgRowlink.length>=7}"><img src="../../../assets/Imges/StaticImg/StaticIcons/+btn+ - white.svg" alt="">  </label></div>
 
 
 </form>
