@@ -134,25 +134,20 @@ constructor(private http: HttpClient) {
 
 }
 
-fetchDataFromApi(): void {
+fetchDataFromApi() {
   if (!this.userid) {
     console.error('User ID is missing.');
     return;
   }
 
-  this.http.post<any[]>('get_houses.php', { userid: this.userid })
+  this.http.post('get_houses.php', { userid: this.userid })
     .subscribe({
       next: (response) => {
-        // Ensure response is an array
-        if (Array.isArray(response)) {
-          this.CardsInfo = response;
-          this.dataSubject.next(this.CardsInfo);
-        } else {
-          console.error('Unexpected response format', response);
-        }
+console.log('Data fetched successfully:', response);
+      
       },
       error: (error) => {
-        console.error('Error fetching data from API', error ,response);
+        console.error('Error fetching data from API', error);
       },
     });
 }
