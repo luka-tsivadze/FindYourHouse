@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavInfoService } from '../../Services/NavService/nav-info.service';
 import { MainPageDataService } from '../../Services/mainPageService/main-page-data.service';
 import { AllCardsService } from '../../Services/all-cards/all-cards.service';
+import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-cards',
@@ -22,7 +24,7 @@ pageIndices=[]
 pages;
 dataState=false
 amountOfCards=9;
-  constructor(private navService:NavInfoService , private mainPageService:MainPageDataService ,private cardsService:AllCardsService) {
+  constructor(private navService:NavInfoService , private router: Router, private detailedservice:PropertyInformationService, private mainPageService:MainPageDataService ,private cardsService:AllCardsService) {
     this.navService.scrollobser.next(true);
 
 
@@ -72,6 +74,14 @@ this.activePage = this.finalInfo[index]
      console.log('index', this.activePage); 
   this.ActivePage = index;
 }
+}
+routertodetailedInfo(cardId: number): void {
+  // Call the service to set the chosen card
+  this.detailedservice.setCardId(cardId);
+
+  // Navigate to the detailed info page after setting the card
+
+  this.router.navigate(['/allCards', cardId]);
 }
 
 

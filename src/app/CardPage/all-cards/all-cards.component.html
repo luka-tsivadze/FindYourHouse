@@ -5,7 +5,7 @@
    
 
         
-        <div class="propCard " [ngClass]="{'active':dataState}" routerLink="{{info.id}}"  *ngFor="let info of activePage let i=index"
+        <div class="propCard " [ngClass]="{'active':dataState}" (click)="routertodetailedInfo(info.id)"  *ngFor="let info of activePage let i=index"
         [ngStyle]="{'animation-delay': (i * 0.16) + 's'}"
      
         >

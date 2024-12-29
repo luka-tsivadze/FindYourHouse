@@ -16,12 +16,12 @@ videoLink=this.propertyService.chosenCard.videoLink;
  }
   playVideo() {
     const videoElement = this.videoPlayer.nativeElement;
-   
+   console.log('videurl', this.videoLink);
     if (videoElement) {
    
       this.showCover = !this.showCover; // Hide the cover
       if(this.showCover){
-        videoElement.pouse();
+        videoElement.pause();
     
       }else{
         videoElement.play();

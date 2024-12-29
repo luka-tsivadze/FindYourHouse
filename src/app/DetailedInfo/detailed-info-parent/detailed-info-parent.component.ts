@@ -12,8 +12,13 @@ export class DetailedInfoParentComponent {
 
   description=this.infoService.chosenCard.describtion;
 showPropVideo=this.infoService.chosenCard.videoLink;
+mapvalidity=this.infoService.chosenCard.latitude || this.infoService.chosenCard.longitude;
   constructor(private navService:NavInfoService ,private infoService:PropertyInformationService ,  private route: ActivatedRoute,) {
-if(infoService.chosenCard){
+  
+    let cardId = JSON.parse(this.route.snapshot.paramMap.get('id'));
+    this.infoService.setCardId(cardId);
+
+    if(infoService.chosenCard){
     this.navService.scrollobser.next(true);
    }
  console.log('Card:', this.infoService.chosenCard);
@@ -21,10 +26,11 @@ if(infoService.chosenCard){
   }
   ngOnInit(): void {
     // Extract the 'id' from the route
-    const cardId = this.route.snapshot.paramMap.get('id');
+ 
   
-
+    
     // Pass the 'id' to the service
-    this.infoService.setCardId(cardId);
   }
+
+  
 }

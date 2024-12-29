@@ -13,6 +13,7 @@ export class AllCardsService {
     throw new Error('Method not implemented.');
   }
   firstimg
+  back_end_data;
  CardsInfo = [  
    
     {
@@ -57,7 +58,7 @@ constructor(private http: HttpClient) {
 fetchDataFromApi(): Observable<any[]> {
   return this.http.get<any[]>('get_houses.php').pipe(
     map((data: any[]) => {
-      console.log('CardsInfo', data);
+      this.back_end_data=data;
       this.CardsInfo = data.map((item: any) => {
         try {
                const images = JSON.parse(item.fotoebi);

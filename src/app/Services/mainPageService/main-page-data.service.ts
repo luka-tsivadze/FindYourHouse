@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import {  Injectable } from '@angular/core';
+
 import { EngService } from '../Languages/eng/eng.service';
 import { GeoService } from '../Languages/geo/geo.service';
 import { RusService } from '../Languages/rus/rus.service';
 import { AllCardsService } from '../all-cards/all-cards.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class MainPageDataService implements OnInit {
+export class MainPageDataService {
   static getData(): any {
     throw new Error('Method not implemented.');
   }
@@ -63,96 +65,7 @@ export class MainPageDataService implements OnInit {
     },
   ];
   
-  FeaturedProp = [    
-    {
-      id:90,
-      featuredBtn: true,
-      For: 'For Sale',
-      imgLink: '../../assets/Imges/Header/CardImges/F1.jpg',
-      alt: 'Luxury family house villa for sale',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 110,000',
-    },
-    {
-      
-      id:211,
-      featuredBtn: false,
-      For: 'For Rent',
-      imgLink: '../../assets/Imges/Header/CardImges/F2.jpg',
-      alt: 'Luxury family house villa for rent',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-    },
-    {
-      
-      id:32,
-      featuredBtn: false,
-      For: 'For Sale',
-      imgLink: '../../assets/Imges/Header/CardImges/F3.jpg',
-      alt: 'Another luxury family house villa for sale',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-    },
-    {
-      
-      id:43,
-      featuredBtn: true,
-      For: 'For Rent',
-      imgLink: '../../assets/Imges/Header/CardImges/F4.jpg',
-      alt: 'Featured luxury family house villa for rent',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-    },
-    {
-      id:64,
-      featuredBtn: true,
-      For: 'For Sale',
-      imgLink: '../../assets/Imges/Header/CardImges/F5.jpg',
-      alt: 'Featured luxury family house villa for sale',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-    },
-    {
-      
-      id:715,
-      featuredBtn: false,
-      For: 'For Rent',
-      imgLink: '../../assets/Imges/Header/CardImges/F6.jpg',
-      alt: 'Luxury family house villa for rent',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-    },
-  ];
+
   
   DiscoverPopularPlaces = [  
     {
@@ -372,13 +285,24 @@ featuredPropertiesStatic = {
 }
 main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთავაზობთ სრულ სერვისს ყოველ ნაბიჯზე ' ,popularPropertys:'აღმოაჩინე პოპულარული ქონება' , AgentsH:'შეხვდით ჩვენს აგენტებს' , 
   AgentsP:'ჩვენ ყოველთვის მზად ვართ რომ დაგეხმაროთ' ,RHeader:'კლიენტების შეფასებები',Rptext:'ჩვენ ვაგროვებთ შეფასებებს ჩვენი მომხმარებლებისგან.'}
+  private featuredPropSubject = new BehaviorSubject<any[]>([]);
 
-
-    constructor( private http: HttpClient,private allcards:AllCardsService , private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService ) {
-   
-
-
-
+  constructor(
+    private http: HttpClient,
+    private allcards: AllCardsService,
+    private EngService: EngService,
+    private GeoService: GeoService,
+    private RusService: RusService
+  ) {
+  this.allcards.fetchDataFromApi().subscribe((data) => {
+    console.log('Fetched Data:', data);
+    this.featuredPropSubject.next(data.slice(0, 6));
+  });
+  
+  
+  
+    // Language setup logic here
+    
     if (typeof localStorage !== 'undefined' && localStorage.getItem('Language')) {
       this.localStorage = localStorage.getItem('Language');
       
@@ -418,14 +342,9 @@ main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთ
     }
     
     }
-    ngOnInit(): void {
-      // Fetch backend data
-      this.allcards.fetchDataFromApi().subscribe((data) => {
-        console.log('Fetched Data:', data);
-        // Handle the fetched data as needed
-      });
-    }    
-    
+    getFeaturedProperties(): Observable<any[]> {
+      return this.featuredPropSubject.asObservable();
+    }
 
   Data() {
 this.staticData

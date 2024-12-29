@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, HostListener, Inject, NgZone, PLATFORM_ID, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, Inject, NgZone, PLATFORM_ID, ViewChild } from '@angular/core';
 import { MainPageDataService } from '../Services/mainPageService/main-page-data.service';
 import { EngService } from '../Services/Languages/eng/eng.service';
 import { GeoService } from '../Services/Languages/geo/geo.service';
@@ -32,14 +32,23 @@ export class HeaderComponent {
     clickedIndex:number=0;
 staticElements=this.dataService.staticData.staticElements
 popularPropStatic=this.dataService.popularPlacesStatic
-    FeatureProperties=this.dataService.FeaturedProp;
+    FeatureProperties;
    FeaturePS=this.dataService.featuredPropertiesStatic;
  
 
 
 
-    constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone, private dataService: MainPageDataService , private EngServic:EngService,  private GeoService:GeoService ,private RusService:RusService ) {
+    constructor(@Inject(PLATFORM_ID) private platformId: Object,  private cd: ChangeDetectorRef , private zone: NgZone, private dataService: MainPageDataService , private EngServic:EngService,  private GeoService:GeoService ,private RusService:RusService ) {
    
+    }
+
+    ngOnInit(): void {
+      this.dataService.getFeaturedProperties().subscribe((data) => {
+        console.log('Fetched Data:', data);
+        this.FeatureProperties = data.slice(0, 6);
+
+        this.cd.detectChanges(); // Trigger UI updates here
+      });
     }
 
     ngAfterViewInit(): void {
