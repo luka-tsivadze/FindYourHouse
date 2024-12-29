@@ -56,14 +56,14 @@ export class MapComponent implements OnInit, AfterViewInit {
         ],
         controls: [],
         view: new View({
-          center: [this.lat,this.long], // Center using service-provided coordinates
-          zoom: 15,
+          center: [this.long,this.lat], // Center using service-provided coordinates
+          zoom: 14,
         }),
 
       });
 
       // Add a custom marker at the given coordinates
-      this.addMarker([this.lat,this.long]);
+      this.addMarker([this.long,this.lat]);
 
       // Ensure the map renders properly in the DOM
       setTimeout(() => {

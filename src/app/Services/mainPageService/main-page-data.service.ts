@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { EngService } from '../Languages/eng/eng.service';
 import { GeoService } from '../Languages/geo/geo.service';
 import { RusService } from '../Languages/rus/rus.service';
+import { AllCardsService } from '../all-cards/all-cards.service';
 @Injectable({
   providedIn: 'root',
 })
-export class MainPageDataService {
+export class MainPageDataService implements OnInit {
   static getData(): any {
     throw new Error('Method not implemented.');
   }
@@ -373,10 +374,11 @@ main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთ
   AgentsP:'ჩვენ ყოველთვის მზად ვართ რომ დაგეხმაროთ' ,RHeader:'კლიენტების შეფასებები',Rptext:'ჩვენ ვაგროვებთ შეფასებებს ჩვენი მომხმარებლებისგან.'}
 
 
-    constructor( private http: HttpClient , private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService ) {
-    // this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe((data) => {
- 
-    //  })
+    constructor( private http: HttpClient,private allcards:AllCardsService , private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService ) {
+   
+
+
+
     if (typeof localStorage !== 'undefined' && localStorage.getItem('Language')) {
       this.localStorage = localStorage.getItem('Language');
       
@@ -416,7 +418,13 @@ main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთ
     }
     
     }
-    
+    ngOnInit(): void {
+      // Fetch backend data
+      this.allcards.fetchDataFromApi().subscribe((data) => {
+        console.log('Fetched Data:', data);
+        // Handle the fetched data as needed
+      });
+    }    
     
 
   Data() {

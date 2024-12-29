@@ -1,120 +1,39 @@
 import { Injectable } from '@angular/core';
-import { profile } from 'console';
-import { Subject } from 'rxjs';
+
+import { map, Observable, Subject } from 'rxjs';
 import { text } from 'stream/consumers';
 import { HttpClient } from '@angular/common/http';
-import { response } from 'express';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AllCardsService {
+  getCardsInfo() {
+    throw new Error('Method not implemented.');
+  }
+  firstimg
  CardsInfo = [  
+   
     {
-      featuredBtn: true,
-      For: 'For Sale',
-      imgLink: '../../assets/Imges/Header/CardImges/F1.jpg',
-      alt: 'Luxury family house villa for sale',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 110,000',
-      profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-4.jpg',
-      profileName: 'john Doe',
-      uploadmonth: 2,
-      id:0,
-      
-    },
-    {
-      featuredBtn: false,
-      For: 'For Rent',
-      imgLink: '../../assets/Imges/Header/CardImges/F2.jpg',
-      alt: 'Luxury family house villa for rent',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-      profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-6.jpg',
-      profileName: 'Maria Williams',
-      uploadmonth: 2,
-      id:1
-    },
-    {
-      featuredBtn: false,
-      For: 'For Sale',
-      imgLink: '../../assets/Imges/Header/CardImges/F3.jpg',
-      alt: 'Another luxury family house villa for sale',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-      profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-3.jpg',
-      profileName: 'Martina Williams',
-      uploadmonth: 4,
-      id:2
-    },
-    {
-      featuredBtn: true,
-      For: 'For Rent',
-      imgLink: '../../assets/Imges/Header/CardImges/F4.jpg',
-      alt: 'Featured luxury family house villa for rent',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-      profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-6.jpg',
-      profileName: 'Maria Williams',
-      uploadmonth: 1,
-      id:3
-    },
-    {
-      featuredBtn: true,
-      For: 'For Sale',
-      imgLink: '../../assets/Imges/Header/CardImges/F5.jpg',
-      alt: 'Featured luxury family house villa for sale',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-      profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-6.jpg',
-      profileName: 'Maria Williams',
-      uploadmonth: 6,
-      id:4
-    },
-    {
-      featuredBtn: false,
+      featuredBtn: false, //needs to be fixed
       For: 'For Rent',
       imgLink: '../../assets/Imges/Header/CardImges/F6.jpg',
-      alt: 'Luxury family house villa for rent',
+      alt: 'Luxury family house villa for rent', //needs to be fixed
       header: 'Real Luxury Family House Villa',
       location: 'Est St, 77 - Central Park South, NYC',
       bedrooms: 6,
       bathrooms: 3,
       area: 720,
-      garages: 2,
+      garages: 2,//needs to be fixed
       price: '$ 135,000',
-      profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-6.jpg',
-      profileName: 'Maria Williams',
-      uploadmonth: 2,
+      profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-6.jpg', //needs to be fixed
+      profileName: 'Maria Williams', 
+      uploadmonth: 2, //can be added by me
       id:5
     },
   ];
-  userid=localStorage.getItem('id');
+ 
   filter={SelectInputs:[{imgLink:'../../../assets/Imges/StaticImg/StaticIcons/icons8-home-16.png',text:'Property Status', options:['For Sale','For Rent'] } , 
   {imgLink:'../../../assets/Imges/StaticImg/StaticIcons/sleeping.png',text:'Bedrooms', options:['1' ,'2' ,'3' ,'4' ,'5','6','7'] },
   {imgLink:'../../../assets/Imges/Header/CardImges/icons/bathtub.svg',text:'bathrooms', options:['1', '2' ,'3' , '4' , '5' ] }
@@ -131,25 +50,49 @@ export class AllCardsService {
     this.dataSubject.next(value);
   }
 constructor(private http: HttpClient) { 
-
+  this.fetchDataFromApi()
 }
 
-fetchDataFromApi() {
-  if (!this.userid) {
-    console.error('User ID is missing.');
-    return;
-  }
 
-  this.http.post('get_houses.php', { userid: this.userid })
-    .subscribe({
-      next: (response) => {
-console.log('Data fetched successfully:', response);
-      
-      },
-      error: (error) => {
-        console.error('Error fetching data from API', error);
-      },
-    });
+fetchDataFromApi(): Observable<any[]> {
+  return this.http.get<any[]>('get_houses.php').pipe(
+    map((data: any[]) => {
+      console.log('CardsInfo', data);
+      this.CardsInfo = data.map((item: any) => {
+        try {
+               const images = JSON.parse(item.fotoebi);
+    
+            if (Array.isArray(images) && images.length > 0) {
+              this.firstimg = `houses/${item.amtvirtvelis_maili}/${item.gancxadebis_saidentifikacio_kodi}/photos/${images[0]}`;
+            }
+          return {
+            featuredBtn: item.featuredBtn,
+            imgLink: this.firstimg,
+            id: item.idi,
+            price: item.fasi + item.fasis_valuta,
+            header: item.satauri,
+            location: item.misamarti,
+            bedrooms: item.sadzinebeli,
+            bathrooms: item.sveli_wertilebis_raodenoba,
+            area: item.fartobi,
+            garages: 0,
+            For: item.garigebis_tipi,
+            profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-6.jpg',
+            profileName: item.momxmareblis_saxeli,
+            alt: item.satauri,
+            uploadmonth:3,
+          };
+        } catch (error) {
+          console.error('Error processing item:', item, error);
+          return null; // Skip invalid items
+        }
+      }).filter((item) => item !== null); // Filter out invalid items
+
+      console.log('CardsInfoChanged', this.CardsInfo);
+      return this.CardsInfo;
+    })
+  );
 }
+
 
 }

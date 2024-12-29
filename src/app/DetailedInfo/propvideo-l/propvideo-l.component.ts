@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
 
 @Component({
   selector: 'app-propvideo-l',
@@ -9,7 +10,10 @@ export class PropvideoLComponent {
   showCover = true; // Controls the visibility of the cover
   @ViewChild('videoPlayer') videoPlayer: any;
   // Play video and hide the cover
- 
+videoLink=this.propertyService.chosenCard.videoLink;
+ constructor( private propertyService:PropertyInformationService) {
+
+ }
   playVideo() {
     const videoElement = this.videoPlayer.nativeElement;
    

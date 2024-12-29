@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavInfoService } from '../../Services/NavService/nav-info.service';
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-detailed-info-parent',
@@ -10,10 +11,20 @@ import { PropertyInformationService } from '../../Services/Property-info/propert
 export class DetailedInfoParentComponent {
 
   description=this.infoService.chosenCard.describtion;
-
-  constructor(private navService:NavInfoService ,private infoService:PropertyInformationService) {
-
+showPropVideo=this.infoService.chosenCard.videoLink;
+  constructor(private navService:NavInfoService ,private infoService:PropertyInformationService ,  private route: ActivatedRoute,) {
+if(infoService.chosenCard){
     this.navService.scrollobser.next(true);
    }
+ console.log('Card:', this.infoService.chosenCard);
 
+  }
+  ngOnInit(): void {
+    // Extract the 'id' from the route
+    const cardId = this.route.snapshot.paramMap.get('id');
+  
+
+    // Pass the 'id' to the service
+    this.infoService.setCardId(cardId);
+  }
 }

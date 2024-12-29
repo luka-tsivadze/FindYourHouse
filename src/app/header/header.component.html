@@ -54,7 +54,11 @@
 
     </div>
 </div>
-<div class="featuredProperties">
+<!-- <div *ngIf="loading">
+    <p>Loading featured properties...</p>
+  </div> -->
+  <!-- *ngIf="!loading" -->
+<div class="featuredProperties"  > 
     <h1 class="FH" [ngClass]="{'fadeIn':scrollY>750}">{{FeaturePS.Header}}</h1>
     <p  class="FP" [ngClass]="{'fadeIn':scrollY>799}">{{FeaturePS.properties}} </p>
     <div class="cardPlace">

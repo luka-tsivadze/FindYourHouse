@@ -9,7 +9,7 @@ import { AllCardsService } from '../../Services/all-cards/all-cards.service';
   styleUrl: './all-cards.component.scss'
 })
 export class AllCardsComponent {
-  cards=this.cardsService.CardsInfo;
+  cards: any[] = [];
 FeaturePS=this.mainPageService.featuredPropertiesStatic;
 
 ActivePage = 0;
@@ -28,18 +28,25 @@ amountOfCards=9;
 
 }
 ngOnInit() {
-  this.pageFunction();
-   this.cardsService.data$.subscribe((value) => {
-      this.dataState = value; // React to updates
-      console.log('dataState', this.dataState);
-});
+  this.cardsService.data$.subscribe((value) => {
+    this.dataState = value; // React to updates
+    console.log('dataState', this.dataState);
+  });
+
+}
+
+ngAfterViewInit() {
+  this.cardsService.fetchDataFromApi().subscribe((cards: any[]) => {
+    this.cards = cards; // Set cards after fetching data
+    this.pageFunction(); // Call pageFunction after cards are ready
+  });
 }
 pageFunction() {
  
   
 
    
-    this.pages = Math.ceil(this. cards.length /this.amountOfCards);
+    this.pages = Math.ceil(this.cards.length /this.amountOfCards);
     
     for (let i = 0; i < this.pages; i++) {
       this.pageIndices.push(i);

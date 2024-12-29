@@ -18,7 +18,7 @@ export class AppComponent implements AfterViewInit {
       setTimeout(() => {
         window.scrollTo(0, 0);
         this.loaded = true; // Set the loaded flag after scrolling
-      }, 0);
+      }, 1);
     }
   }
 }

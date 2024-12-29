@@ -50,14 +50,14 @@ export class NavInfoService {
   chosenLang: string | undefined;
   scrollobser = new BehaviorSubject<boolean>(false);
   
-
+userId
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient) {
     if (isPlatformBrowser(this.platformId)) {
     
-      const userId = localStorage.getItem('id');
-      if (userId) {
+      this.userId = localStorage.getItem('id');
+      if (this.userId) {
         this.IsSignedIn.signed = true;
-        this.getUserInfo(userId);
+        this.getUserInfo(this.userId);
         if (localStorage.getItem('activeElement')=='Log Out'){
           localStorage.removeItem('id');
         }

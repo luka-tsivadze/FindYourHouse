@@ -23,7 +23,7 @@
           <div class="date">{{el.date}}</div>
           <div class="views">{{el.view}}</div>
           <div class="editor"> <button class="actions" [routerLink]="el.id">Edit</button> </div>
-          <div class="remover"><button class="removeBtn "><img
+          <div class="remover"><button class="removeBtn "(click)="removeitem(el.id)"><img
             src="../../../assets/Imges/StaticImg/StaticIcons/trash.svg" alt=""></button></div>
         </div>
       </div>
@@ -37,4 +37,7 @@
       
   
        <button class="prev" (click)="chosenPage((this.ActivePage+1))" >Next</button> </div>
-  </main>
+  
+
+       <img src="https://findhouse.com/cars/lukacivadze6@gmail.com/677015a6bf49b.webp" alt="">
+      </main>

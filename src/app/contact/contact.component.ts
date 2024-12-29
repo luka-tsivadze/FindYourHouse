@@ -43,6 +43,7 @@ export class ContactComponent {
   onSubmit(): void {
     
     if (this.form.valid) {
+      
       this.http.post('contact.php', this.form.value).subscribe({
         next: response => {
           this.res=response;
@@ -51,13 +52,14 @@ export class ContactComponent {
             this.message.text='message sent successfully';
             this.message.class='success';
           }
- 
+          console.log('Form submitted:', this.form.value  , response);
         },
         error: error => {
           this.message.validity=true;
           this.message.text='message was not sent';
           this.message.class='error';
           console.error('Error submitting form:', error , this.form.value);
+          
         }
       });
     } else {

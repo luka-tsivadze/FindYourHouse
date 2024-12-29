@@ -1,13 +1,18 @@
 import { Injectable, Type } from '@angular/core';
+import { AllCardsService } from '../all-cards/all-cards.service';
+
+import { Router } from 'express';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PropertyInformationService {
-
+cardId;
   chosenCard = {
     featuredBtn: true,
     For: 'For Sale',
+    videoLink:'../../../assets/Video/VID_20220810_175242.mp4',
     Type: 'Villa',
     imgLink: '../../assets/Imges/Header/CardImges/F1.jpg',
     alt: 'Luxury family house villa for sale',
@@ -23,8 +28,8 @@ export class PropertyInformationService {
     uploadmonth: 2,
     YearBuilt: '2010/06/23',
     id: 0,
-   latitude: 44.72194817478845,
-   longitude: 41.72001600002968,
+   latitude:  41.82143000, 
+   longitude: 41.77921000,
     Rooms: 8,
     Reviews:[
       {name:'Mary Smith',date:'May 30 2020', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero luctus tincidunt. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero',ProfileimgLink:'/assets/Imges/Header/CardImges/A-4.jpg', review:3, postedimgesLinks:{isimg:true, imgUrl:['../../../assets/Imges/StaticImg/CardImges/fp-2.jpg','../../../assets/Imges/StaticImg/CardImges/ts-4.jpg']} },
@@ -150,5 +155,22 @@ export class PropertyInformationService {
   uploadmonth: 4,
   id:2
 },]
-  constructor() { }
+
+constructor(private route: ActivatedRoute , private allcards:AllCardsService) {
+
+
+}
+
+
+ngOnInit(): void {
+  console.log('Full Route Snapshot:', this.route.snapshot);
+  this.cardId = this.route.snapshot.paramMap.get('id');
+  console.log('Extracted Card ID:', this.cardId);
+  console.log('All Cards:',   this.allcards.CardsInfo[this.cardId]);
+}
+setCardId(cardId) {
+ 
+ this.cardId = cardId; 
+console.log('Card ID:', this.cardId);
+}
 }
