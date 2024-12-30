@@ -3,6 +3,7 @@
   import { NgZone } from '@angular/core';
   import { MainPageDataService } from '../Services/mainPageService/main-page-data.service';
   import { HostListener } from '@angular/core';
+import { AllCardsService } from '../Services/all-cards/all-cards.service';
 
   @Component({
     selector: 'app-main-page',
@@ -42,10 +43,18 @@ ReviewsData=this.dataService.ReviewData;
 DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
 
 
-    constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone, private dataService: MainPageDataService) {
-       
-     
+    constructor(@Inject(PLATFORM_ID) private platformId: Object,private allCardsService: AllCardsService, private zone: NgZone, private dataService: MainPageDataService) {
+      
+    
+
     }
+        
+  // ngOnInit(): void {
+  //   this.allCardsService.data$.subscribe((data) => {
+  //     console.log('Received data in component:', data);
+  //       // Use the data as needed
+  //   });
+  // }
 
   
 

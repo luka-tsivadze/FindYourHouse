@@ -47,9 +47,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 5s;
-
     animation: opacity 1s forwards;
+    animation-delay: 1s;
 }
 .loaded{
  z-index: 99;

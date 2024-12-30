@@ -296,7 +296,7 @@ main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთ
   ) {
   this.allcards.fetchDataFromApi().subscribe((data) => {
     console.log('Fetched Data:', data);
-    this.featuredPropSubject.next(data.slice(0, 6));
+    this.featuredPropSubject.next(data);
   });
   
   

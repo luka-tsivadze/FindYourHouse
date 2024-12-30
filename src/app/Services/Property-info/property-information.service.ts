@@ -21,6 +21,7 @@ cardId;
     bedrooms: 6,
     bathrooms: 3,
     purePrice:'50',
+    currency:'$',
     area: 720,
     garages: 2,
     floorPlan: '../../../assets/Imges/StaticImg/CardImges/fp-1.jpg',
@@ -160,6 +161,7 @@ cardId;
 
 imgLink=[];
 floorimg;
+alldata;
 videoLin;
 constructor(private route: ActivatedRoute , private allcards:AllCardsService) {
 
@@ -193,6 +195,7 @@ if (Array.isArray(images) && images.length > 0) {
       featuredBtn: true, // Static value as per requirements
       For: selectedCard.garigebis_tipi || 'Unknown',
       price: selectedCard.fasi + selectedCard.fasis_valuta || 'Price Unavailable',
+      currency: selectedCard.fasis_valuta || '$',
       purePrice:selectedCard.fasi, Type: selectedCard.tipi || 'Unknown',
       imgLink: this.imgLink[0] || 'No Image',
       alt: selectedCard.satauri || 'No Title',
@@ -202,13 +205,19 @@ if (Array.isArray(images) && images.length > 0) {
       bathrooms: parseInt(selectedCard.sveli_wertilebis_raodenoba) || 0,
       area: parseInt(selectedCard.fartobi) || 0,
       garages: 0, // Static value
-
+  
       profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-4.jpg', // Static placeholder
       profileName: selectedCard.momxmareblis_saxeli || 'Unknown',
       uploadmonth: new Date(selectedCard.statusis_gaaqtiurebis_tarigi).getMonth() + 1 || 1,
-      YearBuilt: '2010/06/23', // Static placeholder
+    
+      YearBuilt: new Date(
+        new Date(selectedCard.gancxadebis_atvirtvis_tarigi).setFullYear(
+          new Date(selectedCard.gancxadebis_atvirtvis_tarigi).getFullYear() -
+          this.extractYears(selectedCard.asaki ) // Dynamically replace 5 with extracted value
+        )
+      ).toISOString().split('T')[0],
       id: parseInt(selectedCard.idi),
-      latitude:  selectedCard.mapis_ganedi, // Static placeholder
+      latitude:  selectedCard.mapis_grdzedi, // Static placeholder
       longitude: selectedCard.mapis_ganedi, // Static placeholder
       Rooms: parseInt(selectedCard.otaxebis_raodenoba) || 0,
       Reviews: [], // Placeholder
@@ -246,6 +255,16 @@ if (Array.isArray(images) && images.length > 0) {
     console.log('Transformed chosenCard:', this.chosenCard);
   } else {
     console.error('No card found with the given ID:', this.cardId);
+  }
+}
+extractYears(rangeStr: string): number {
+  const regex = /\d+-(\d+)/; // Match number range "0-15"
+  const match = rangeStr.match(regex);
+
+  if (match && match[1]) {
+    return parseInt(match[1], 10); // Extract and return the second number
+  } else {
+    throw new Error('Invalid range string format'); // Handle invalid input gracefully
   }
 }
 
