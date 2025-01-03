@@ -64,7 +64,8 @@
 
     <input type="file" id="Floor" (change)="onFileChange($event, 'image1' )"  accept="image/*"  >   
     <label for="Floor" class="vid"  *ngIf="!binisNaxazi" ><img src="../../../assets/Imges/StaticImg/StaticIcons/cloud-arrow-up-fill.svg" alt=""><p>click Hare Or Drop picture To Upload</p></label>
-    <div class="center"  *ngIf="binisNaxazi" ><img  src="{{binisNaxazi}}" alt="">       <label for="Floor" class="change"><img src="../../../assets/Imges/StaticImg/StaticIcons/pencil.svg" alt="pencil"> </label></div>
+    <div class="center"  *ngIf="binisNaxazi" ><img  src="{{binisNaxazi}}" alt="">       <label for="Floor" class="change"><img src="../../../assets/Imges/StaticImg/StaticIcons/pencil.svg" alt="pencil"> </label>
+     </div>
 
 </form>
 
@@ -117,6 +118,6 @@
                        </div>
                     </div>
                     <button type="submit" (click)="onSubmit()">{{allForms.form1info.submit}}</button> 
-                    <div class="sendingAn"*ngIf="SendingAnimation" ><img src="../../../assets/Imges/PreLoading/preloader.gif" alt=""></div>
+                    <div class="sendingAn"*ngIf="SendingAnimation" ><img src="../../../assets/Imges/PreLoading/preloader.gif" alt=""> <div class="loading">Uploading..</div></div>
     </form>
 </div>

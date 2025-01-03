@@ -18,25 +18,32 @@
     </div>
         </div>
         <div class="HeaderSearch">
-            <form action="">
-                <input type="text" placeholder="{{staticElements.KayWord}}" >
-             
-
+            <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+                <input type="text" placeholder="{{staticElements.KayWord}}" formControlName="searchText" />
+              
                 <div class="select">
-                    <select name="property Type" id="">
-                        <option value="0">{{staticElements.propertyType}}</option>
-                        <option value="1">family house</option>
-                        <option value="2">Apartment</option>
-                    </select>
+                  <select name="propertyType" formControlName="Propselect">
+                    <option value="">{{staticElements.propertyType}}</option>
+                    <option *ngFor="let el of allcardsData.FirstFilter.PropertyTpes" [value]="el">{{el}}</option>
+                  </select>
                 </div>
+              
                 <div class="select">
-                <select name="location">
-                    <option value="0">{{staticElements.location}}</option>
-                </select>
+                  <select name="location" formControlName="locselect">
+                    <option value="">{{staticElements.location}}</option>
+                    <option *ngFor="let el of allcardsData.FirstFilter.locations" [value]="el">{{el}}</option>
+                  </select>
                 </div>
-            <button class="advanceS"><h5>{{staticElements.Advanced}}</h5><img src="../../assets/Imges/Header/burgerBar.png" alt="three dots"></button>
-            <button class="submit" type="submit">{{staticElements.Search}}</button>
-            </form>
+              
+                <button class="advanceS" type="button" (click)="advanced()">
+                  <h5>{{staticElements.Advanced}}</h5>
+                  <img src="../../assets/Imges/Header/burgerBar.png" alt="three dots" />
+                </button>
+                <button class="submit" type="submit">{{staticElements.Search}}</button>
+              
+                <app-filter-advenced *ngIf="advenced"></app-filter-advenced>
+              </form>
+              
         </div>
     </div>
 <div class="popularPlaces">

@@ -294,10 +294,10 @@ main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთ
     private GeoService: GeoService,
     private RusService: RusService
   ) {
-  this.allcards.fetchDataFromApi().subscribe((data) => {
-    console.log('Fetched Data:', data);
-    this.featuredPropSubject.next(data);
-  });
+    this.allcards.fetchDataFromApi().subscribe((data) => {
+      console.log('Fetched Data:', data);
+      this.featuredPropSubject.next(data);
+    });
   
   
   

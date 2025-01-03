@@ -12,6 +12,8 @@ cardId;
   chosenCard = {
     featuredBtn: true,
     For: 'For Sale',
+    Nomeri:'',
+    email:'',
     videoLink:'../../../assets/Video/VID_20220810_175242.mp4',
     Type: 'Villa',
     imgLink: '../../assets/Imges/Header/CardImges/F1.j',
@@ -35,7 +37,7 @@ cardId;
    longitude: 41.77921000,
     Rooms: 8,
     Reviews:[
-      {name:'Mary Smith',date:'May 30 2020', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero luctus tincidunt. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero',ProfileimgLink:'/assets/Imges/Header/CardImges/A-4.jpg', review:3, postedimgesLinks:{isimg:true, imgUrl:['../../../assets/Imges/StaticImg/CardImges/fp-2.jpg','../../../assets/Imges/StaticImg/CardImges/ts-4.jpg']} },
+      {name:'Mary Smith',date:'May 30 2020', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero luctus tincidunt. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero',ProfileimgLink:'/assets/Imges/Header/CardImges/A-4.jpg', review:3, postedimgesLinks:{isimg:false, imgUrl:[]} },
      {name:'Lisa Williams',date:'jul 12 2020', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero luctus tincidunt. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero',ProfileimgLink:'/assets/Imges/Header/CardImges/A-2.jpg', review:5, postedimgesLinks:{isimg:false} },
     ],
 
@@ -194,6 +196,7 @@ if (Array.isArray(images) && images.length > 0) {
     this.chosenCard = {
       featuredBtn: true, // Static value as per requirements
       For: selectedCard.garigebis_tipi || 'Unknown',
+      email: selectedCard.amtvirtvelis_maili || 'Unknown',
       price: selectedCard.fasi + selectedCard.fasis_valuta || 'Price Unavailable',
       currency: selectedCard.fasis_valuta || '$',
       purePrice:selectedCard.fasi, Type: selectedCard.tipi || 'Unknown',
@@ -204,6 +207,7 @@ if (Array.isArray(images) && images.length > 0) {
       bedrooms: parseInt(selectedCard.sadzinebeli) || 0,
       bathrooms: parseInt(selectedCard.sveli_wertilebis_raodenoba) || 0,
       area: parseInt(selectedCard.fartobi) || 0,
+     Nomeri:selectedCard.telefonis_nomeri || 'Unknown',
       garages: 0, // Static value
   
       profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-4.jpg', // Static placeholder
@@ -213,9 +217,7 @@ if (Array.isArray(images) && images.length > 0) {
       YearBuilt: new Date(
         new Date(selectedCard.gancxadebis_atvirtvis_tarigi).setFullYear(
           new Date(selectedCard.gancxadebis_atvirtvis_tarigi).getFullYear() -
-          this.extractYears(selectedCard.asaki ) // Dynamically replace 5 with extracted value
-        )
-      ).toISOString().split('T')[0],
+          this.extractYears(selectedCard.asaki )) ).toISOString().split('T')[0],
       id: parseInt(selectedCard.idi),
       latitude:  selectedCard.mapis_grdzedi, // Static placeholder
       longitude: selectedCard.mapis_ganedi, // Static placeholder
@@ -252,7 +254,7 @@ if (Array.isArray(images) && images.length > 0) {
     }
 
     // Log the transformed card for debugging
-    console.log('Transformed chosenCard:', this.chosenCard);
+
   } else {
     console.error('No card found with the given ID:', this.cardId);
   }

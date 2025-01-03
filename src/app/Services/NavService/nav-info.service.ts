@@ -45,7 +45,7 @@ export class NavInfoService {
     ]
   };
 
-  IsSignedIn = { signed: false, imgLink: '../../assets/Imges/NavImg/man.png', Name: 'Mary Smith' ,number:'592837189' ,email:'ksdnvest@gmail.com' ,gender:''};
+  IsSignedIn = { signed: false, imgLink: '../../assets/Imges/NavImg/man.png', Name: '' ,number:'' ,email:'' ,gender:''};
   Languages = ['ENG', 'RUS', 'GEO'];
   chosenLang: string | undefined;
   scrollobser = new BehaviorSubject<boolean>(false);
@@ -104,7 +104,7 @@ userId
                 this.IsSignedIn.imgLink = '../../assets/Imges/NavImg/girl.png';
 
               }
-          console.log('User info fetched successfully:', data);
+        
         },
         error: (error) => {
           console.error('Error fetching user info', error);

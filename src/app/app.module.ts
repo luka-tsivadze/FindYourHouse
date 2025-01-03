@@ -48,6 +48,7 @@ import { DashListingComponent } from './ListingPageComponents/DashboardParent/da
 import { AboutUsComponent } from './about-us/about-us.component';
 import { PersonalInfoComponent } from './ListingPageComponents/DashboardParent/personal-info/personal-info.component';
 import { DashreviewComponent } from './ListingPageComponents/DashboardParent/dashreview/dashreview.component';
+import { FilterAdvencedComponent } from './header/filter-advenced/filter-advenced.component';
 
 
 @NgModule({
@@ -94,7 +95,8 @@ import { DashreviewComponent } from './ListingPageComponents/DashboardParent/das
       DashListingComponent,
       AboutUsComponent,
       PersonalInfoComponent,
-      DashreviewComponent  
+      DashreviewComponent,
+      FilterAdvencedComponent  
     
  
   ],

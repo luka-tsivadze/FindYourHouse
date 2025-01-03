@@ -144,9 +144,9 @@ name;
       macivari: [false],
       televizia_wifi: [false],
       microtalguri: [false],
-      momxmareblis_saxeli: ['', Validators.required],
-      telefonis_nomeri: ['', Validators.required],
-      el_fosta: ['', [Validators.required, Validators.email]],
+      momxmareblis_saxeli: [this.navservice.IsSignedIn.Name, Validators.required],
+      telefonis_nomeri: [this.navservice.IsSignedIn.number, Validators.required],
+      el_fosta: [this.navservice.IsSignedIn.email, [Validators.required, Validators.email]],
 
       amtvirtvelis_maili: [''],
       id : ['']
@@ -179,6 +179,8 @@ name;
       this.fotofiles.splice(index, 1);
       this.listingForm.patchValue({ fotoebi: this.fotofiles });
   }
+
+
   mainimg(index: number){
 
    this.fotofiles.unshift(this.fotofiles[index]);
@@ -262,6 +264,7 @@ name;
     
       this.listingForm.patchValue({id: this.navservice.userId});
   this.listingForm.patchValue({amtvirtvelis_maili: this.navservice.IsSignedIn.email});
+  
     // Check if the 'fasi' value contains any currency symbol and remove it
     const currencySymbols = ['₾', '$', '€'];
     let fasiValue = this.listingForm.value.fasi;
@@ -307,7 +310,7 @@ name;
         if (response.status === 'success' && response.message === 'gancxadeba-aitvirta-warmatebit') {
           window.location.href = '/allCards';
           this.SendingAnimation = false;
-          alert('Form submitted successfully');
+    
         } else {
           this.SendingAnimation = false
           console.error('Error:', response.message , response);

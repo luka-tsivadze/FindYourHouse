@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { MainPageDataService } from '../../Services/mainPageService/main-page-data.service';
 import { AllCardsService } from '../../Services/all-cards/all-cards.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { FilterDataUniterService } from '../../Services/filter-data-uniter/filter-data-uniter.service';
+
 
 @Component({
   selector: 'app-filter',
@@ -11,15 +14,16 @@ export class FilterComponent {
  staticElements = this.mainPageData.staticData.staticElements;
 length = this.cardDataServ.CardsInfo.length;
 filterOptions = this.cardDataServ.filter;
+firstFilter=this.cardDataServ.FirstFilter;
   activeEl='Top Selling';
   advenced=false;
+filterForm: FormGroup;
 sortingOptions = [{name:'Top Selling',state:true},
-
   {name:'Most Viewed',state:false},
   {name:'Price: Low to High',state:false}
   ,{name:'price: Hight to Low ',state:false}];
 options=false  
-constructor( private mainPageData:MainPageDataService , private cardDataServ:AllCardsService) { 
+constructor( private mainPageData:MainPageDataService ,private uniter:FilterDataUniterService, private cardDataServ:AllCardsService , private fb: FormBuilder) { 
     this.updateTrackColor_1();
     this.updateTrackColor_2();
   }
@@ -39,7 +43,37 @@ chosenOption(option){
 advanced(){
   this.advenced=!this.advenced;
 }
- 
+
+ngOnInit(): void {
+  console.log(this.filterOptions.filteredCheckBox);
+  this.filterForm = this.fb.group({
+    searchText: [''],
+    propertyType: ['0'],
+    location: ['0'],
+    propertyStatus: ['0'],
+    bedrooms: ['0'],
+    bathrooms: ['0'],
+    airConditioning: [false],
+    wifi: [false],
+    swimmingPool: [false],
+    tvCable: [false],
+    centralHeating: [false],
+    dryer: [false],
+    gym: [false],
+    washer: [false],
+    alarm: [false],
+    refrigerator: [false],
+    windowCovering: [false],
+    outdoorShower: [false],
+    laundryRoom: [false],
+    microwave: [false],
+    areaMax: '',
+    areaMin: '', 
+    priceMin: '',
+    priceMax: '',
+  });
+}
+
  //double slider
  sliderOneValue_1 = 0;
   sliderTwoValue_1 = 1300;
@@ -60,7 +94,14 @@ advanced(){
   sliderMaxValue2 = 600000;
  activeimg=true;
 
-
+onSubmit() {
+  this.filterForm.patchValue({ areaMin:  this.sliderOneValue_1  });
+  this.filterForm.patchValue({ areaMax:  this.sliderTwoValue_1  });
+  this.filterForm.patchValue({ priceMin:  this.sliderOneValue_2  });
+  this.filterForm.patchValue({ priceMax:  this.sliderTwoValue_2  });
+  console.log(this.filterForm.value)
+  this.uniter.transferData(this.filterForm.value, 2)
+}
   // First wrapper slider methods
   slideOne_1(event: Event) {
     const target = event.target as HTMLInputElement;

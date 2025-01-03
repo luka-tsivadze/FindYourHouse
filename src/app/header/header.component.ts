@@ -4,6 +4,8 @@ import { MainPageDataService } from '../Services/mainPageService/main-page-data.
 import { EngService } from '../Services/Languages/eng/eng.service';
 import { GeoService } from '../Services/Languages/geo/geo.service';
 import { RusService } from '../Services/Languages/rus/rus.service';
+import { AllCardsService } from '../Services/all-cards/all-cards.service';
+import { Form, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -34,14 +36,28 @@ staticElements=this.dataService.staticData.staticElements
 popularPropStatic=this.dataService.popularPlacesStatic
     FeatureProperties;
    FeaturePS=this.dataService.featuredPropertiesStatic;
- 
+   advenced=false;
+allcardsData=this.allcard;
+filterForm = this.fb.group({
+  searchText: [''], // Default value: empty
+  Propselect: [''], // Default value: none selected
+  locselect: [''], // Default value: none selected
+});
+    constructor(@Inject(PLATFORM_ID) private platformId: Object, private fb: FormBuilder , private cd: ChangeDetectorRef ,private allcard:AllCardsService, private zone: NgZone, private dataService: MainPageDataService , private EngServic:EngService,  private GeoService:GeoService ,private RusService:RusService ) {
 
-
-
-    constructor(@Inject(PLATFORM_ID) private platformId: Object,  private cd: ChangeDetectorRef , private zone: NgZone, private dataService: MainPageDataService , private EngServic:EngService,  private GeoService:GeoService ,private RusService:RusService ) {
-   
     }
+    onSubmit() {
+      if (this.filterForm.valid) {
+        const formData = this.filterForm.value;
 
+        this.allcard.formValue=this.filterForm.value;
+          this.submitChildData();
+      
+        // Process formData as needed
+      } else {
+        console.warn('Form is invalid');
+      }
+    }
     ngOnInit(): void {
       this.dataService.getFeaturedProperties().subscribe((data) => {
         console.log('Fetched Data:', data);
@@ -50,7 +66,17 @@ popularPropStatic=this.dataService.popularPlacesStatic
         this.cd.detectChanges(); // Trigger UI updates here
       });
     }
-
+    submitChildData() {
+   
+      console.log(this.filterForm.value);
+      this.allcard.triggerSubmit();
+    }
+   
+    advanced(){
+      this.advenced=!this.advenced;
+      console.log('this should activate another log');  
+    }
+     
     ngAfterViewInit(): void {
   
     

@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { log, profile } from 'console';
+import { AllCardsService } from '../Services/all-cards/all-cards.service';
 
 @Component({
   selector: 'app-nav',
@@ -33,7 +34,7 @@ staticElements
 showNav;
 
 
-  constructor(private router: Router , private navService: NavInfoService,private ngZone: NgZone,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService , private  Registration: RegistrationService,
+  constructor(private router: Router , private navService: NavInfoService,private ngZone: NgZone,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService ,private allCardService:AllCardsService , private  Registration: RegistrationService,
     @Inject(PLATFORM_ID) private platformId: Object){
 
  
@@ -67,7 +68,7 @@ if (isPlatformBrowser(this.platformId)) {
   
 
   ngOnInit() {
-
+    this.allCardService.fetchDataFromApi(); 
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
