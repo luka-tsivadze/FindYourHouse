@@ -5,6 +5,7 @@ import { NavInfoService } from '../../Services/NavService/nav-info.service';
 import { GeoService } from '../../Services/Languages/geo/geo.service';
 import { first } from 'rxjs';
 import { log } from 'node:console';
+import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
 @Component({
   selector: 'app-main-listing',
@@ -26,91 +27,10 @@ naxaziFiles:File[]=[];
 maxFiles = 7;
 index=0;
 
-allForms={
- 
-form1info : {
-  HeaderName1: 'Property description and price',
-  firstTitle: 'Property title',
-  firstplaceHolder: 'Enter your property title',
-
-secondTitle: 'Property description',
-secondplaceHolder: 'describe your property',
-
-firstselectName: 'Select Status',
-firstselect:['For Sale', 'For Rent', 'Pledge','rented daily','Apartments under construction'],
-
-secondselectName: 'Property Types',
-secondselect:['Apartment', 'House', 'Commercial', 'Garage'],
-
-thirdselectName: 'Rooms',
-
-thirdTitle: 'Price',
-fourthTitle:'area',
-
-HeaderName2: 'Property Pictures',
-HeaderName3: 'Property Video',
-HeaderName4:'Floor Plan',
-HeaderName5:'Property Location',
-HeaderName6:'Extra Information',
-HeaderName7:'Propert Features',
-HeaderName8:'Contact Information',
-submit:'Submit Property'
-},
-
-form4Info : [
-  {
-    id: 'Age',
-    FormControlName: 'asaki',
-    firstOption: 'Select Age',
-    options: ['0-1 Years', '0-5 Years', '0-10 Years', '0-15 Years', '0-20 Years', '0-50 Years', '50+ Years'],
-    formControlName: 'asaki'
-  },
-  {
-    id: 'badrooms',
-    firstOption: 'Bedrooms',
-    options: ['1', '2', '3', '4', '5', '6'],
-    formControlName: 'sadzinebeli'
-  },
-  {
-    id: 'bathroom',
-    firstOption: 'Bathrooms',
-    options: ['1', '2', '3', '4', '5', '6'],
-    formControlName: 'sveli_wertilebis_raodenoba'
-  }
-],
-
-form3Info : [
-  { HeaderName: 'Address', placeHolder: 'Enter Your Address', id: 'adress', formControlName: 'misamarti' , type:'text'},
-  { HeaderName: 'City', placeHolder: 'Enter Your city', id: 'City', formControlName: 'qalaqi' , type:'text'},
-
-
-  { HeaderName: 'Google Map Latitude', placeHolder: 'Google Map Latitude', id: 'mapa', formControlName: 'mapis_grdzedi' ,type:'number' },
-  { HeaderName: 'Google Map Longitude', placeHolder: 'Google Map Longitude', id: 'mapo', formControlName: 'mapis_ganedi' , type:'text' }
-],
-
-form5Info : [
-  { text: 'Air Conditioning', id: 'air', formControlName: 'kondincioneri' },
-  { text: 'Swimming Pool', id: 'pool', formControlName: 'sacurao_auzi' },
-  { text: 'Central Heating', id: 'Heating', formControlName: 'centrluri_gatboba' },
-  { text: 'Laundry Room', id: 'room', formControlName: 'samrecxao_otaxi' },
-  { text: 'Gym', id: 'gym', formControlName: 'sportuli_darbazi' },
-  { text: 'Alarm', id: 'alarm', formControlName: 'signalizacia' },
-  { text: 'balcony', id: 'balcon', formControlName: 'aivani' },
-  { text: 'Refrigerator', id: 'Refrigerator', formControlName: 'macivari' },
-  { text: 'TV Cable & WIFI', id: 'TV', formControlName:'televizia_wifi' },
-  { text: 'Microwave', id: 'Mic', formControlName: 'microtalguri' }
-],
-
-form6Info : [
-  { HeaderName: 'Name', placeHolder: 'Enter Your Name', id: 'name6', formControlName: 'momxmareblis_saxeli' },
-
-  { HeaderName: 'Email', placeHolder: 'Enter Your Email', id: 'Email6', formControlName: 'el_fosta' },
-  { HeaderName: 'Phone', placeHolder: 'Enter Your Number', id: 'Number6', formControlName: 'telefonis_nomeri' }
-]
-}
+allForms=this.lang.chosenLang.allForms;
 name;
 
-  constructor(private fb: FormBuilder , private http: HttpClient ,private navservice: NavInfoService ,private geo: GeoService) { 
+  constructor(private fb: FormBuilder , private http: HttpClient ,private navservice: NavInfoService ,private lang:LanguageChooserService) { 
     // Initialize the form
     this.listingForm = this.fb.group({
       satauri: ['', Validators.required],
@@ -120,10 +40,10 @@ name;
       otaxebis_raodenoba: ['', Validators.required],
       fasi: [' '+'₾', Validators.required],
       fasis_valuta:['₾'],
-      fartobi: ['', Validators.required],
+      fartobi: [null, Validators.required],
       fotoebi: [null, Validators.required],
-      video: [null,], 
-      binis_naxazi: [null, ],
+      video: ['',], 
+      binis_naxazi: ['', ],
       misamarti: ['', Validators.required],
       qalaqi: ['', Validators.required],
       mapis_grdzedi: ['',],
@@ -151,6 +71,7 @@ name;
       amtvirtvelis_maili: [''],
       id : ['']
     });
+ 
   }
 
   // Handles file selection
@@ -205,7 +126,7 @@ name;
         const file = files[i];
   
         if (file.size > maxSize) {
-          console.error(`File size exceeds ${maxSize / (1024 * 1024)}MB limit`);
+          alert(`File size exceeds ${maxSize / (1024 * 1024)}MB limit`);
           input.value = ''; // Clear the input
           return;
         }
@@ -217,13 +138,13 @@ name;
         } else if (type === 'video') {
           validTypes = ['video/mp4', 'video/avi', 'video/mkv'];
         } else {
-          console.error('Invalid type specified');
+          alert('Invalid file type');
           input.value = ''; // Clear the input
           return;
         }
         
         if (!validTypes.includes(file.type)) {
-          console.error(`Invalid file type. Only ${validTypes.join(', ')} are allowed.`);
+          alert(`Invalid file type. Only ${validTypes.join(', ')} are allowed.`);
           input.value = ''; // Clear the input
           return;
         }
@@ -231,7 +152,7 @@ name;
         // Handle file assignment
         if (type === 'image') {
           if (this.index >= this.maxFiles) {
-            console.log('Max files reached');
+            
             return;
           } else {
             this.index++;
@@ -301,7 +222,7 @@ name;
       formData.append('binis_naxazi[]', file);
     });
 
-    console.log('FormData to Submit:', formData , this.listingForm.value);
+ 
   
     this.http.post('upload_house.php', formData).subscribe({
       next: (response: any) => {

@@ -225,8 +225,9 @@ padding: 25px;
     position: relative;
     width: 100%;
   @include flex-center(row, 20px);
+  justify-content: space-between;
   .selectParent{
-    width: 33% !important;
+    width: 49% !important;
   position: relative;
   }
   select{

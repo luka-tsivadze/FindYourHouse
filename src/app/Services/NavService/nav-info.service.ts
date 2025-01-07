@@ -17,12 +17,7 @@ export class NavInfoService {
       { a: 'Home Slider', Showimg: true, subText: ['text1', 'text2', 'text3'] },
       { a: 'Home Styles', Showimg: true, subText: ['text1', 'text2', 'text3'] }
     ],
-    Listing: [ 
-      { a: 'Listing Grid', Showimg: true, subText: ['text1', 'text2'] },
-      { a: 'Listing List', Showimg: true, subText: ['text1', 'text2'] },
-      { a: 'Listing Map', Showimg: true, subText: ['text1', 'text2'] },
-      { a: 'Listing View', Showimg: true, subText: ['text1', 'text2'] }
-    ],
+  
     Property: [ 
       { a: 'Single Property 1', Showimg: false },
       { a: 'Single Property 2', Showimg: false },

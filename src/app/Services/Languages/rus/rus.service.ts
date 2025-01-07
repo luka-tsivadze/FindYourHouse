@@ -5,15 +5,15 @@ import { Injectable } from '@angular/core';
 })
 export class RusService {
 
-NavR={Home:'дом' , Listing:'Список',
+NavR={Home:'дом' ,
   Property:' недвижимость', Pages:'Страницы',Blog:'Блог',
   Contact:'Контакт',SignIn:'Регистрация', AddListing:'Добавить запись'
 }
 Header = {
   FindYourHouse: 'Найди свою мечту ',
   weHaveOverMillion: 'У нас есть более миллиона объектов недвижимости для вас',
-  ForSale: 'На продажу',
-  ForRent: 'В аренду',
+
+  status:['На продажу','В аренду','Приносить присягу','Арендуется посуточно','Квартиры в стадии строительства'],
   location: 'Местоположение',
   KayWord: 'Введите ключевое слово..',
   propertyType: 'Тип недвижимости',

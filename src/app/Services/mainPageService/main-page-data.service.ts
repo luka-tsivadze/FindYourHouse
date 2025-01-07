@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import {  Injectable } from '@angular/core';
 
-import { EngService } from '../Languages/eng/eng.service';
+import { EngService } from '../Languages/Eng/eng.service';
 import { GeoService } from '../Languages/geo/geo.service';
 import { RusService } from '../Languages/rus/rus.service';
 import { AllCardsService } from '../all-cards/all-cards.service';
@@ -265,9 +265,15 @@ export class MainPageDataService {
     ]
 
 //საწყისი ენის პარამეტრები
+For= {
+  imgLink: '../../../assets/Imges/StaticImg/StaticIcons/icons8-home-16.png',
+  text: 'Property Status',
+  options: ['For Sale', 'For Rent' ,'Pledge','Rented daily','Apartments Under Construction'],
+  name: 'propertyStatus', // Added name
+};
 staticData = {
   headerTextList: ['პლაზა', 'სახლი', 'ბინა'], // ტექსტები რომლებიც გამოიყენება მთავარი გვერდის ანიმაციაზე
-  staticElements:{FindYourHouse:'იპოვე შენი საოცნებო ' ,weHaveOverMillion:'ჩვენ გვაქვს უძრავი ქონების მილიონზე მეტი  არჩევანი, თქვენთვის' ,ForSale:'იყიდება', ForRent:'ქირავდება',location:'მდებარეობა',
+  staticElements:{FindYourHouse:'იპოვე შენი საოცნებო ' ,weHaveOverMillion:'ჩვენ გვაქვს უძრავი ქონების მილიონზე მეტი  არჩევანი, თქვენთვის' , status:['ქირავდება','იყიდება','გირავდება','ქირავდება დღიურად',' მშენებარე ბინები'],location:'მდებარეობა',
     KayWord:'შეიყვანეთ საძიებო სიტყვა', propertyType:'ქონების ტიპი', Advanced:'გაფართოებული ძებნა', Search:'მოძებნა',}
 };
 popularPlacesStatic={Header:'პოპულარული ადგილები' ,properties:'უძრავი ქონება ყველაზე პოპულარულ ადგილებში', prop:'უძრავი ქონება'}
@@ -285,6 +291,10 @@ featuredPropertiesStatic = {
 }
 main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთავაზობთ სრულ სერვისს ყოველ ნაბიჯზე ' ,popularPropertys:'აღმოაჩინე პოპულარული ქონება' , AgentsH:'შეხვდით ჩვენს აგენტებს' , 
   AgentsP:'ჩვენ ყოველთვის მზად ვართ რომ დაგეხმაროთ' ,RHeader:'კლიენტების შეფასებები',Rptext:'ჩვენ ვაგროვებთ შეფასებებს ჩვენი მომხმარებლებისგან.'}
+
+
+
+
   private featuredPropSubject = new BehaviorSubject<any[]>([]);
 
   constructor(

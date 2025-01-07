@@ -2,9 +2,10 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, EventEmitter, Inject, NgZone, Output, PLATFORM_ID } from '@angular/core';
 import { NavInfoService } from '../../Services/NavService/nav-info.service';
 
-import { EngService } from '../../Services/Languages/eng/eng.service';
+import { EngService } from '../../Services/Languages/Eng/eng.service';
 import { GeoService } from '../../Services/Languages/geo/geo.service';
 import { RusService } from '../../Services/Languages/rus/rus.service';
+import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 @Component({
   selector: 'app-listing-nav',
   templateUrl: './listing-nav.component.html',
@@ -28,24 +29,13 @@ Displayer=false
 @Output() valueChange = new EventEmitter<string>();
 
 
-LeftNavInfo=[
-  {icon:'../../../assets/Imges/StaticImg/StaticIcons/Location.svg ',Text:'Dashboard'},
-  {icon:'../../../assets/Imges/StaticImg/StaticIcons/person-fill.svg ',Text:'Profile'},
-  {icon:'../../../assets/Imges/StaticImg/StaticIcons/list.svg ',Text:'My Properties'},
-
-  {icon:'../../../assets/Imges/StaticImg/StaticIcons/heart-fill.svg',Text:'Favorited Properties'},
-  {icon:'../../../assets/Imges/StaticImg/StaticIcons/list.svg',Text:'Add Property'},
-  {icon:'../../../assets/Imges/StaticImg/StaticIcons/credit-card-fill.svg ',Text:'Payements'},
-
-  {icon:'../../../assets/Imges/StaticImg/StaticIcons/lock-fill.svg',Text:'change Password'},
-  {icon:'../../../assets/Imges/StaticImg/StaticIcons/log-out.svg',Text:'Log Out'},
-]
+LeftNavInfo=this.lang.chosenLang.LeftInfo;
 activeElement=this.LeftNavInfo[4].Text;
 
   router: any;
 
 
-  constructor(private navService: NavInfoService,private ngZone: NgZone,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService , 
+  constructor(private navService: NavInfoService,private lang:LanguageChooserService,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService , 
     @Inject(PLATFORM_ID) private platformId: Object){
       this.valueChange.emit(this.activeElement);
       this.SignedIn=this.navService.IsSignedIn;

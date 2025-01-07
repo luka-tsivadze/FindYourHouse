@@ -4,7 +4,7 @@
       <div class="right"><span>Date Added</span> <span>Views</span> <span>Actions</span></div>
     </div>
   
-    <div class="cardPage" *ngFor="let el of this.activePage">
+    <div class="cardPage" *ngFor="let el of this.activePage let i = index">
       <div class="card">
         <div class="left"><img class="mainImg" src="{{el.imgLink}}" alt="">
           <div class="leftCol">

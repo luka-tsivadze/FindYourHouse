@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EngService } from '../Languages/eng/eng.service';
+import { EngService } from '../Languages/Eng/eng.service';
 import { GeoService } from '../Languages/geo/geo.service';
 import { RusService } from '../Languages/rus/rus.service';
 import { MainPageDataService } from '../mainPageService/main-page-data.service';

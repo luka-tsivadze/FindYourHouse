@@ -99,9 +99,10 @@ export class MyPropertiesComponent {
 
     this.http.post('del_my_house.php', { id_2:index }).subscribe((data: any) => {
       console.log('Remove item response:', data);
-      window.location.reload();
       this.userData(); // Refresh data after removal
+      window.location.reload();
     });
+    
   }
 
   chosenPage(index) {

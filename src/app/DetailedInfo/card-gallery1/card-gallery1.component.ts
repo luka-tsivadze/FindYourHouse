@@ -11,7 +11,7 @@ export class CardGallery1Component {
 
  data = this.cardInfo.chosenCard;
  ForActive=0;
- priceForM=Math.round(Number(this.data.purePrice)/Number(this.data.area)) + this.data.currency;
+ priceForM=Math.round(Number(this.data.purePrice)/Number(this.data.area)) + this.data.currency || 'GEL';
  mainImg=this.cardInfo.chosenCard.img[this.ForActive];
   constructor( private cardInfo:PropertyInformationService){
 

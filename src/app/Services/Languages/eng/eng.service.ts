@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class EngService {
   NavE = {
     Home: 'Home',
-    Listing: 'Listing',
+   
     Property: 'Property',
     Pages: 'Pages',
     Blog: 'Blog',
@@ -17,8 +17,7 @@ export class EngService {
   Header = {
     FindYourHouse: 'Find Your Dream ',
     weHaveOverMillion: 'We Have Over Million Property For You',
-    ForSale: 'For Sale',
-    ForRent: 'For Rent',
+    status:['For Sale','For Rent','pledge','Rented daily','Apartments Under Construction'],
     location: 'Location',
     KayWord: 'Enter keyword..',
     propertyType: 'propertyType',

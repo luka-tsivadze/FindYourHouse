@@ -166,12 +166,20 @@ button{
   .left{
  
 
-left: 17%;
+left: 6%;
   }
-  .right{
-  
+  .left-1{
+    left: 22%;
+  }
+  .middle{
+    left: 37.5%;
+  }
 
-right: 21%;
+  .right{
+right: 42%;
+  }
+  .right-1{
+    right: 17%;
   }
 }
 .HeaderSearch{
@@ -600,8 +608,10 @@ align-items: center;
 
 
 }
+
 .dNone{
   opacity: 0 !important;
+z-index: -1;
 }
 .FadeInUp{
   animation: fadeInUp 1s forwards;

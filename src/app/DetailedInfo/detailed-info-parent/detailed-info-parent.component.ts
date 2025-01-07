@@ -12,7 +12,12 @@ export class DetailedInfoParentComponent {
 
   description=this.infoService.chosenCard.describtion;
 showPropVideo=this.infoService.chosenCard.videoLink;
-mapvalidity=this.infoService.chosenCard.latitude || this.infoService.chosenCard.longitude;
+mapvalidity = 
+  !isNaN(Number(this.infoService.chosenCard.latitude)) && 
+  !isNaN(Number(this.infoService.chosenCard.longitude)) &&
+  this.infoService.chosenCard.latitude !== null && 
+  this.infoService.chosenCard.longitude !== null;
+
   constructor(private navService:NavInfoService ,private infoService:PropertyInformationService ,  private route: ActivatedRoute,) {
   
     let cardId = JSON.parse(this.route.snapshot.paramMap.get('id'));

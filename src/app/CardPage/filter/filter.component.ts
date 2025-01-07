@@ -15,6 +15,7 @@ export class FilterComponent {
 length = this.cardDataServ.CardsInfo.length;
 filterOptions = this.cardDataServ.filter;
 firstFilter=this.cardDataServ.FirstFilter;
+for=this.mainPageData.For;
   activeEl='Top Selling';
   advenced=false;
 filterForm: FormGroup;
@@ -32,7 +33,7 @@ showOptions(){
 this.options=!this.options;
 }
 chosenOption(option){
-  console.log(option)
+
   this.sortingOptions.forEach(element => {
     element.state=false;
   });
@@ -47,30 +48,30 @@ advanced(){
 ngOnInit(): void {
   console.log(this.filterOptions.filteredCheckBox);
   this.filterForm = this.fb.group({
-    searchText: [''],
-    propertyType: ['0'],
-    location: ['0'],
-    propertyStatus: ['0'],
-    bedrooms: ['0'],
-    bathrooms: ['0'],
-    airConditioning: [false],
-    wifi: [false],
-    swimmingPool: [false],
-    tvCable: [false],
-    centralHeating: [false],
-    dryer: [false],
-    gym: [false],
-    washer: [false],
-    alarm: [false],
-    refrigerator: [false],
-    windowCovering: [false],
-    outdoorShower: [false],
-    laundryRoom: [false],
-    microwave: [false],
-    areaMax: '',
-    areaMin: '', 
-    priceMin: '',
-    priceMax: '',
+
+    propertyType: ['0'], //ქონების ტიპი
+    location: ['0'], //მდებარეობა
+    propertyStatus: ['0'], //ქონების სტატუსი
+    bedrooms: ['0'],  //საძინებლების რაოდენობა
+    bathrooms: ['0'],//სააბაზანოს რაოდენობა
+    airConditioning: [false], //კონდიციონერი
+    wifi: [false], //ვაი-ფაი
+    swimmingPool: [false], //საცურაო აუზი
+    tvCable: [false], //ტელევიზია
+    centralHeating: [false],//ცენტრალური გათბობა
+    dryer: [false],//საშრობი
+    gym: [false], //სპორტული დარბაზი
+    washer: [false], //სარეცხი მანქანა
+    alarm: [false],//სიგნალიზაცია
+    refrigerator: [false], //მაცივარი
+    windowCovering: [false],//ფანჯრის საფარი
+    outdoorShower: [false], //გარე დუში
+    laundryRoom: [false], //სამრეცხაო ოთახი
+    microwave: [false], // მიკროტალღური ღუმელი
+    areaMax: '', //ფართობი მაქსიმუმი
+    areaMin: '',  //ფართობი მინიმუმი
+    priceMin: '', //ფასი მინიმუმი
+    priceMax: '',//ფასი მაქსიმუმი
   });
 }
 
@@ -93,6 +94,8 @@ ngOnInit(): void {
   sliderMaxValue1 = 1300;
   sliderMaxValue2 = 600000;
  activeimg=true;
+
+
 
 onSubmit() {
   this.filterForm.patchValue({ areaMin:  this.sliderOneValue_1  });

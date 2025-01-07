@@ -5,7 +5,15 @@
  </div>
     <div class="HeaderSearch">
         <form  [formGroup]="filterForm">
-            <input type="text" placeholder="{{staticElements.KayWord}}"     formControlName="searchText" >   
+
+          <div class="selectParent" >
+            <img class="simg"  src="{{for.imgLink}}   " alt="HomeIcon">
+            <select name="{{for.text}}" class="{{for.name}}"  formControlName="{{for.name}}">
+                <option value="0" disabled selected hidden>{{for.text}}</option>
+                <option value="{{opt}}" *ngFor="let opt of for.options">{{opt}}</option>      
+            </select>
+        </div>
+
                 <select formControlName="propertyType">
                     <option disabled value="0">{{staticElements.propertyType}}</option>
                     <option  *ngFor="let el of firstFilter.PropertyTpes" value="{{el}}">{{el}}</option>

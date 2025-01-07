@@ -18,22 +18,7 @@
                 </div>
             </div>
         </li>
-        <li><p>{{staticElements.Listing}}</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow"> 
-            <div class="menuBar">
-                <div class="mainPart">
-                <div class="row" *ngFor="let i of this.NavElements.Listing"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
-                    <div [ngClass]="{'ArrowNav':i.Showimg==true,'DNone':i.Showimg==false}"><div class="forHover">
-                        <div class="aContainer" *ngFor="let subElement of i.subText">
-                            <a href="" >{{subElement}}</a> </div>
-                        </div>
-                    </div>
-            </div>
-                
-                </div>
-           
-            </div>
-            
-        </li>
+     
         <li routerLink="/allCards" ><p>{{staticElements.Property}}</p><img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
             <div class="menuBar">
                 <div class="mainPart">

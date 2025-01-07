@@ -1,7 +1,7 @@
 import { Component, HostListener,NgZone, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { NavInfoService } from '../Services/NavService/nav-info.service';
-import { EngService } from '../Services/Languages/eng/eng.service';
+import { EngService } from '../Services/Languages/Eng/eng.service';
 import { GeoService } from '../Services/Languages/geo/geo.service';
 import { RusService } from '../Services/Languages/rus/rus.service';
 import { RegistrationService } from '../Services/registration/registration.service';

@@ -7,11 +7,11 @@ import { every } from 'rxjs';
 export class GeoService {
 
 
-NavG={Home:'მთავარი გვერდი' , Listing:'ჩამონათვალი',
+NavG={Home:'მთავარი ' , 
     Property:'უძრავი ქონება', Pages:'გვერდები',Blog:'ბლოგი',
     Contact:'კონტაქტი',SignIn:'რეგისტრაცია',AddListing:' სიის დამატება'}
 
-    Header={FindYourHouse:'იპოვე შენი საოცნებო ' ,weHaveOverMillion:'ჩვენ გვაქვს უძრავი ქონების მილიონზე მეტი  არჩევანი, თქვენთვის' ,ForSale:'იყიდება', ForRent:'ქირავდება',
+    Header={FindYourHouse:'იპოვე შენი საოცნებო ' ,weHaveOverMillion:'ჩვენ გვაქვს უძრავი ქონების მილიონზე მეტი  არჩევანი, თქვენთვის' ,status:['ქირავდება','იყიდება','გირავდება','ქირავდება დღიურად',' მშენებარე ბინები'],
        KayWord:'საძიებო სიტყვა', propertyType:'ქონების ტიპი', Advanced:'გაფართოებული ძებნა', Search:'მოძებნა',location:'მდებარეობა'
     }
     popularPlaces={Header:'პოპულარული ადგილები' ,properties:'უძრავი ქონება ყველაზე პოპულარულ ადგილებში', prop:"ადგილი"} 

@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, HostListener, Inject, NgZone, PLATFORM_ID, ViewChild } from '@angular/core';
 import { MainPageDataService } from '../Services/mainPageService/main-page-data.service';
-import { EngService } from '../Services/Languages/eng/eng.service';
+import { EngService } from '../Services/Languages/Eng/eng.service';
 import { GeoService } from '../Services/Languages/geo/geo.service';
 import { RusService } from '../Services/Languages/rus/rus.service';
 import { AllCardsService } from '../Services/all-cards/all-cards.service';
@@ -21,10 +21,10 @@ export class HeaderComponent {
 
   @ViewChild('headerElement')headerElement!: ElementRef;
 
-
+For=this.dataService.For;
  
   list: any;
-  
+
     counter: number = 0;
   
     intervalId: any;
@@ -39,12 +39,12 @@ popularPropStatic=this.dataService.popularPlacesStatic
    advenced=false;
 allcardsData=this.allcard;
 filterForm = this.fb.group({
-  searchText: [''], // Default value: empty
-  Propselect: [''], // Default value: none selected
-  locselect: [''], // Default value: none selected
+  Propselect: ['0'], // Default value: none selected
+  locselect: ['0'], // Default value: none selected
+  propstatus:['0'],
 });
     constructor(@Inject(PLATFORM_ID) private platformId: Object, private fb: FormBuilder , private cd: ChangeDetectorRef ,private allcard:AllCardsService, private zone: NgZone, private dataService: MainPageDataService , private EngServic:EngService,  private GeoService:GeoService ,private RusService:RusService ) {
-
+      this.setActive(1 , 'For Sale');
     }
     onSubmit() {
       if (this.filterForm.valid) {
@@ -60,7 +60,7 @@ filterForm = this.fb.group({
     }
     ngOnInit(): void {
       this.dataService.getFeaturedProperties().subscribe((data) => {
-        console.log('Fetched Data:', data);
+     
         this.FeatureProperties = data.slice(0, 6);
 
         this.cd.detectChanges(); // Trigger UI updates here
@@ -68,13 +68,14 @@ filterForm = this.fb.group({
     }
     submitChildData() {
    
-      console.log(this.filterForm.value);
+      
       this.allcard.triggerSubmit();
+      
     }
    
     advanced(){
       this.advenced=!this.advenced;
-      console.log('this should activate another log');  
+
     }
      
     ngAfterViewInit(): void {
@@ -136,15 +137,25 @@ filterForm = this.fb.group({
       
     }
 
-  activeRight(){
-    this.booleanLeft=false;
-    this.booleanRight=true;
-  }
-  activeLeft(){
-    this.booleanLeft=true;
-    this.booleanRight=false;
-   
-  }
+
+    activeElement:number | null = 1; // Track the currently active element
+    arrowClass: string = ''; // Class to apply to the Sarrow div
+
+    // Map button indices to specific classes
+    arrowClassMap: { [key: number]: string } = {
+      0: 'left',     // Class for the first button
+      1: 'left-1',   // Class for the fourth button
+      2: 'middle',   // Class for the second button
+      3: 'right',    // Class for the third button
+      4: 'right-1'    // Class for the fifth button
+    };
+  setActive(index: number ,el): void {
+  this.activeElement = index; // Set the active button
+  this.arrowClass = this.arrowClassMap[index] || ''; // Set the corresponding class for Sarrow
+
+this.filterForm.patchValue({propstatus:el})
+}
+    
 
  
   @HostListener('window:scroll', ['$event'])

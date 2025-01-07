@@ -44,6 +44,9 @@ export class FilterAdvencedComponent {
  sliderMaxValue2 = 600000;
 activeimg=true;
 private subscription: Subscription;
+
+
+
 collectData() {
   return {
     selectInputs: Object.entries(this.selectedValues).map(([name, value]) => ({
@@ -71,7 +74,10 @@ onSubmit() {
   };
 
   console.log('Merged Data to Send:', mergedData);
-this.uniter.transferData(mergedData, 1)
+  this.cardDataServ.formValue = mergedData;
+  this.uniter.transferData(mergedData, 1)
+
+
 
 }
 
