@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 
 @Component({
   selector: 'app-my-properties',
@@ -24,7 +24,7 @@ export class MyPropertiesComponent {
   pageIndices = [];
   isLoading = true; // New loading flag
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient ,private cdr: ChangeDetectorRef) {
     this.userData();
   }
 
@@ -95,15 +95,39 @@ export class MyPropertiesComponent {
     return Array.from({ length: 5 }, (_, index) => ({ filled: index < review }));
   }
 
-  removeitem(index) {
-
-    this.http.post('del_my_house.php', { id_2:index }).subscribe((data: any) => {
+  removeitem(index: number) {
+    this.http.post('del_my_house.php', { id_2: index }).subscribe((data: any) => {
       console.log('Remove item response:', data);
-      this.userData(); // Refresh data after removal
-      window.location.reload();
+  
+      if (data?.status === 'success') {
+        // Remove the item from allCardEl
+        const globalIndex = this.allCardEl.findIndex((card) => card.id === index);
+        if (globalIndex !== -1) {
+          this.allCardEl.splice(globalIndex, 1);
+  
+          // Update activePage based on the current active page
+          const activeIndex = this.activePage.findIndex((card) => card.id === index);
+          if (activeIndex !== -1) {
+            this.activePage.splice(activeIndex, 1);
+          }
+  
+          // Recalculate pagination if necessary
+          this.index = 0; // Reset index for pagination
+          this.finalInfo = []; // Clear pagination data
+          this.pageIndices = []; // Clear page indices
+          this.pageFunction(); // Recreate pagination
+          this.cdr.detectChanges(); // Manually trigger change detection
+        } else {
+          console.error('Item not found in global list');
+        }
+      } else {
+        console.error('Failed to remove item:', data?.message || 'Unknown error');
+      }
     });
-    
   }
+  
+  
+  
 
   chosenPage(index) {
     if (this.finalInfo[index]) {

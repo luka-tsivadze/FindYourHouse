@@ -180,7 +180,12 @@ setCardId(cardId: number) {
 console.log('Selected Card:', selectedCard);
 const images = JSON.parse(selectedCard.fotoebi);
 const floorimg = JSON.parse(selectedCard.binis_naxazi);
-const video = JSON.parse(selectedCard.video);
+let video;
+try {
+  video = JSON.parse(selectedCard.video) || false;
+} catch (e) {
+  video = false;
+}
 if (Array.isArray(images) && images.length > 0) {
   this.imgLink = [];
   for (let i = 0; i < images.length; i++) {
@@ -188,7 +193,9 @@ if (Array.isArray(images) && images.length > 0) {
   }
 }
   this.floorimg=`houses/${selectedCard.amtvirtvelis_maili}/${selectedCard.gancxadebis_saidentifikacio_kodi}/blueprints/${floorimg[0]}`;
-  this.videoLin=`houses/${selectedCard.amtvirtvelis_maili}/${selectedCard.gancxadebis_saidentifikacio_kodi}/video/${video[0]}`;
+  this.videoLin = video?.length > 0 
+  ? `houses/${selectedCard.amtvirtvelis_maili}/${selectedCard.gancxadebis_saidentifikacio_kodi}/video/${video[0]}`
+  : null;
 
 
   if (selectedCard) {

@@ -13,10 +13,12 @@ export class DetailedInfoParentComponent {
   description=this.infoService.chosenCard.describtion;
 showPropVideo=this.infoService.chosenCard.videoLink;
 mapvalidity = 
-  !isNaN(Number(this.infoService.chosenCard.latitude)) && 
-  !isNaN(Number(this.infoService.chosenCard.longitude)) &&
-  this.infoService.chosenCard.latitude !== null && 
-  this.infoService.chosenCard.longitude !== null;
+  typeof this.infoService.chosenCard.latitude === "string" &&
+  typeof this.infoService.chosenCard.longitude === "string" &&
+  (this.infoService.chosenCard.latitude as string).trim() !== "" &&
+  (this.infoService.chosenCard.longitude as string).trim() !== "" &&
+  !isNaN(parseFloat(this.infoService.chosenCard.latitude)) &&
+  !isNaN(parseFloat(this.infoService.chosenCard.longitude));
 
   constructor(private navService:NavInfoService ,private infoService:PropertyInformationService ,  private route: ActivatedRoute,) {
   
