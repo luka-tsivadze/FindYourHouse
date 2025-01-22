@@ -15,7 +15,10 @@ export class FilterComponent {
 length = this.cardDataServ.CardsInfo.length;
 filterOptions = this.cardDataServ.filter;
 firstFilter=this.cardDataServ.FirstFilter;
+Fortypes=this.mainPageData.staticData.staticElements.status;
 for=this.mainPageData.For;
+  maxArea;
+maxPeice;
   activeEl='Top Selling';
   advenced=false;
 filterForm: FormGroup;
@@ -68,16 +71,40 @@ ngOnInit(): void {
     outdoorShower: [false], //გარე დუში
     laundryRoom: [false], //სამრეცხაო ოთახი
     microwave: [false], // მიკროტალღური ღუმელი
-    areaMax: '', //ფართობი მაქსიმუმი
-    areaMin: '',  //ფართობი მინიმუმი
-    priceMin: '', //ფასი მინიმუმი
-    priceMax: '',//ფასი მაქსიმუმი
+
+
   });
+
+  this.uniter.filtredCards$.subscribe((filteredCards) => {
+    if ((!filteredCards || filteredCards.length === 0) && !this.uniter.wasCalled) {
+      console.log('This was called by observer');
+      return;
+    }
+    if (this.uniter.wasCalled) {
+      this.length = filteredCards.length; // Update the length dynamically
+
+    }
+  });
+    this.cardDataServ.fetchDataFromApi().subscribe((data) => {
+    this.length = data.length; // Update length with the total number of cards
+
+ 
+      this.maxPeice = Math.max(...data.map(item => item.price.replace(/\D/g, '')));
+      this.maxArea= Math.max(...data.map(item => item.area));
+      console.log('maxPeice:', this.maxPeice , 'maxArea:', this.maxArea , 'rawest back_end_data i can get:', this.cardDataServ.back_end_data);
+      console.log('data  i get from fetchapi:', data);
+      this.sliderTwoValue_1 = this.maxArea;
+      this.sliderTwoValue_2 = this.maxPeice;
+      this.sliderMaxValue2= this.maxPeice;
+      this.sliderMaxValue1= this.maxArea;
+  });
+ 
+  
 }
 
  //double slider
  sliderOneValue_1 = 0;
-  sliderTwoValue_1 = 1300;
+  sliderTwoValue_1 = 20000;
   showSliderOne_1 = true;
   showSliderTwo_1 = true;
   trackStyle_1: { [key: string]: string };
@@ -90,8 +117,8 @@ ngOnInit(): void {
   trackStyle_2: { [key: string]: string };
   
   minGap1 = 25;
-  minGap2 = 10000;
-  sliderMaxValue1 = 1300;
+  minGap2 = 5000;
+  sliderMaxValue1 = 20000;
   sliderMaxValue2 = 600000;
  activeimg=true;
 

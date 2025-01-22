@@ -11,17 +11,16 @@ import { ActivatedRoute } from '@angular/router';
 export class DetailedInfoParentComponent {
 
   description=this.infoService.chosenCard.describtion;
-showPropVideo=this.infoService.chosenCard.videoLink;
-mapvalidity = 
-  typeof this.infoService.chosenCard.latitude === "string" &&
-  typeof this.infoService.chosenCard.longitude === "string" &&
-  (this.infoService.chosenCard.latitude as string).trim() !== "" &&
-  (this.infoService.chosenCard.longitude as string).trim() !== "" &&
-  !isNaN(parseFloat(this.infoService.chosenCard.latitude)) &&
-  !isNaN(parseFloat(this.infoService.chosenCard.longitude));
+showPropVideo=this.infoService.video;
+floorplan=this.infoService.floorimg;
+mapvalidity: boolean = 
+  !isNaN(parseFloat(this.infoService.chosenCard.latitude.toString())) &&
+  !isNaN(parseFloat(this.infoService.chosenCard.longitude.toString()));
+
+
 
   constructor(private navService:NavInfoService ,private infoService:PropertyInformationService ,  private route: ActivatedRoute,) {
-  
+
     let cardId = JSON.parse(this.route.snapshot.paramMap.get('id'));
     this.infoService.setCardId(cardId);
 
@@ -33,7 +32,7 @@ mapvalidity =
   }
   ngOnInit(): void {
     // Extract the 'id' from the route
- 
+ console.log('map',this.mapvalidity);
   
     
     // Pass the 'id' to the service

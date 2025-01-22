@@ -6,6 +6,9 @@ import { GeoService } from '../Services/Languages/geo/geo.service';
 import { RusService } from '../Services/Languages/rus/rus.service';
 import { AllCardsService } from '../Services/all-cards/all-cards.service';
 import { Form, FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-header',
@@ -34,6 +37,7 @@ For=this.dataService.For;
     clickedIndex:number=0;
 staticElements=this.dataService.staticData.staticElements
 popularPropStatic=this.dataService.popularPlacesStatic
+
     FeatureProperties;
    FeaturePS=this.dataService.featuredPropertiesStatic;
    advenced=false;
@@ -43,8 +47,8 @@ filterForm = this.fb.group({
   locselect: ['0'], // Default value: none selected
   propstatus:['0'],
 });
-    constructor(@Inject(PLATFORM_ID) private platformId: Object, private fb: FormBuilder , private cd: ChangeDetectorRef ,private allcard:AllCardsService, private zone: NgZone, private dataService: MainPageDataService , private EngServic:EngService,  private GeoService:GeoService ,private RusService:RusService ) {
-      this.setActive(1 , 'For Sale');
+    constructor(@Inject(PLATFORM_ID) private platformId: Object, private http:HttpClient , private router:Router ,private fb: FormBuilder , private cd: ChangeDetectorRef ,private allcard:AllCardsService, private zone: NgZone, private dataService: MainPageDataService , private EngServic:EngService,  private GeoService:GeoService ,private RusService:RusService ) {
+      this.setActive(0 , 'For Sale');
     }
     onSubmit() {
       if (this.filterForm.valid) {
@@ -52,7 +56,7 @@ filterForm = this.fb.group({
 
         this.allcard.formValue=this.filterForm.value;
           this.submitChildData();
-      
+   
         // Process formData as needed
       } else {
         console.warn('Form is invalid');
@@ -65,13 +69,17 @@ filterForm = this.fb.group({
 
         this.cd.detectChanges(); // Trigger UI updates here
       });
+      this.http.get('get_main_houses.php').subscribe((data) => {
+           console.log('this should be 8 element long data: ',data);
+      }) ;
+
     }
     submitChildData() {
    
       
       this.allcard.triggerSubmit();
-      
-    }
+  this.router.navigate(['/allCards']);    
+      }
    
     advanced(){
       this.advenced=!this.advenced;
@@ -138,16 +146,16 @@ filterForm = this.fb.group({
     }
 
 
-    activeElement:number | null = 1; // Track the currently active element
+    activeElement:number | null = 0; // this does not matter change submit in construction 
     arrowClass: string = ''; // Class to apply to the Sarrow div
 
     // Map button indices to specific classes
     arrowClassMap: { [key: number]: string } = {
-      0: 'left',     // Class for the first button
-      1: 'left-1',   // Class for the fourth button
-      2: 'middle',   // Class for the second button
-      3: 'right',    // Class for the third button
-      4: 'right-1'    // Class for the fifth button
+      0: 'left',   
+      1: 'left-1',
+      2: 'middle', 
+      3: 'right',   
+      4: 'right-1'  
     };
   setActive(index: number ,el): void {
   this.activeElement = index; // Set the active button

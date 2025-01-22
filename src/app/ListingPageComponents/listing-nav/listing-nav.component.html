@@ -81,7 +81,7 @@
     <h4>{{SignedIn.Name}}</h4>
   </div>
   <div class="settings">
-   <div class="links" *ngFor="let el of LeftNavInfo"  (click)="activedPage(el.upText)"[routerLink]="['/Listing']" [ngClass]="{'active': el.Text === activeElement}" >
+   <div class="links" *ngFor="let el of LeftNavInfo"  (click)="activedPage(el.upText)"[routerLink]="['/Listing']" [ngClass]="{'active': el.upText === activeElement}" >
        <a><img src="{{el.icon}}" alt=""><span>{{el.Text}}</span></a>
 
    </div>

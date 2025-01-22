@@ -1,50 +1,81 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { set } from 'ol/transform';
+import { Subscription } from 'rxjs';
+import { ListingServiceService } from '../../Services/listing-service/listing-service.service';
+
 
 @Component({
   selector: 'app-listing-parent',
   templateUrl: './listing-parent.component.html',
-  styleUrl: './listing-parent.component.scss'
+  styleUrls: ['./listing-parent.component.scss'],
 })
-export class ListingParentComponent {
-Value: string='addProperties';  
+export class ListingParentComponent implements OnInit, OnDestroy {
+  Value: string = 'Add Property'; // Default page to display
+  editItemId: number | null = null; // Stores the ID of the item to edit
 
+  private subscriptions: Subscription[] = []; // Array to track subscriptions
 
-constructor(@Inject(PLATFORM_ID) private platformId: object,  private router: Router) { 
-}
-ngOnInit(): void {
-  if (isPlatformBrowser(this.platformId)) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: object,
+    private router: Router,
+    private sharedService: ListingServiceService,
+    private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
+  ) {}
 
-    if(localStorage.getItem('ActiveElement')){
-    this.Value=localStorage.getItem('ActiveElement');
-  }else{
-this.Value='Add Property';
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      // Get initial Value from localStorage
+      this.Value = localStorage.getItem('ActiveElement') ;
+
+      // Listen for changes to 'ActiveElement' in localStorage
+      window.addEventListener('storage', this.onStorageChange.bind(this));
+    }
+
+    // Subscribe to changes in editItemId from ListingServiceService
+    const editItemSubscription = this.sharedService.editItemId$.subscribe((id) => {
+      this.editItemId = id;
+      if (this.editItemId !== null) {
+        // Update Value to show 'Add Property' when editing an item
+        this.Value = 'Add Property';
+        localStorage.setItem('ActiveElement', 'Add Property'); // Update localStorage for consistency
+        console.log(`Edit Item ID received: ${this.editItemId}`);
+        this.cdr.detectChanges(); // Trigger change detection
+      }
+    });
+
+    this.subscriptions.push(editItemSubscription); // Track the subscription
   }
-   
 
+  // Handle localStorage changes
+  onStorageChange(event: StorageEvent): void {
+    if (event.key === 'ActiveElement') {
+      this.Value = event.newValue || 'Add Property'; // Update dynamically
+      this.cdr.detectChanges(); // Trigger UI update
+    }
   }
-}
-ngOnChanges(): void {
-  if (isPlatformBrowser(this.platformId)) {
-    // Only access localStorage if in the browser
-    localStorage.getItem('ActiveElement');
 
-  }
-}
+  // Handle Value changes from child components
   receiveValue(value: string): void {
- 
-    this.Value = value; // Store the received value
-    console.log(this.Value);
-    if(value=='Log Out'){
+    this.Value = value; // Update Value based on the event
+    console.log('Value Changed:', this.Value);
+
+    if (value === 'Log Out') {
+      // Handle logout logic
       localStorage.removeItem('id');
       this.router.navigate(['/']);
       setTimeout(() => {
         window.location.reload();
       }, 0);
-     
+    }
 
+    localStorage.setItem('ActiveElement', value); // Persist new Value in localStorage
+    this.cdr.detectChanges(); // Trigger UI update
   }
+
+  ngOnDestroy(): void {
+    // Cleanup: Remove event listener and unsubscribe
+    window.removeEventListener('storage', this.onStorageChange.bind(this));
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 }

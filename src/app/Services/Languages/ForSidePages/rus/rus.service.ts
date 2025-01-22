@@ -58,11 +58,11 @@ export class RusService {
     ],
     
     form3Info : [
-      { HeaderName: 'Адрес', placeHolder: 'Введите ваш адрес', id: 'adress', formControlName: 'misamarti' , type:'number'},
-      { HeaderName: 'Город', placeHolder: 'Введите ваш город', id: 'City', formControlName: 'qalaqi' , type:'number'},
+      { HeaderName: 'Адрес', placeHolder: 'Введите ваш адрес', id: 'adress', formControlName: 'misamarti' , type:'text'},
+      { HeaderName: 'Город', placeHolder: 'Введите ваш город', id: 'City', formControlName: 'qalaqi' , type:'text'},
     
       { HeaderName: 'Широта Google Map', placeHolder: 'Широта Google Map', id: 'mapa', formControlName: 'mapis_grdzedi' ,type:'number' },
-      { HeaderName: 'Долгота Google Map', placeHolder: 'Долгота Google Map', id: 'mapo', formControlName: 'mapis_ganedi' , type:'text' }
+      { HeaderName: 'Долгота Google Map', placeHolder: 'Долгота Google Map', id: 'mapo', formControlName: 'mapis_ganedi' , type:'number' }
     ],
     
     form5Info : [

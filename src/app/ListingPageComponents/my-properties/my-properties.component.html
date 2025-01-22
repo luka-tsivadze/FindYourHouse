@@ -22,7 +22,7 @@
         <div class="right">
           <div class="date">{{el.date}}</div>
           <div class="views">{{el.view}}</div>
-          <div class="editor"> <button class="actions" [routerLink]="el.id">Edit</button> </div>
+          <div class="editor"> <button class="actions"  (click)="editItem(el)">Edit</button> </div>
           <div class="remover"><button class="removeBtn "(click)="removeitem(el.id)"><img
             src="../../../assets/Imges/StaticImg/StaticIcons/trash.svg" alt=""></button></div>
         </div>

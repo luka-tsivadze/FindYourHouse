@@ -7,7 +7,7 @@
         <p>{{description}}</p>
     </div>
     <app-left-amenties/>
-    <app-floor-plan/>
+    <app-floor-plan *ngIf="floorplan" />
     <app-nearby-l/>
     <app-propvideo-l *ngIf="showPropVideo"/>
     <app-map *ngIf="mapvalidity" />

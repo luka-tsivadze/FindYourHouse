@@ -1,11 +1,12 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, EventEmitter, Inject, NgZone, Output, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Inject, NgZone, Output, PLATFORM_ID } from '@angular/core';
 import { NavInfoService } from '../../Services/NavService/nav-info.service';
 
 import { EngService } from '../../Services/Languages/Eng/eng.service';
 import { GeoService } from '../../Services/Languages/geo/geo.service';
 import { RusService } from '../../Services/Languages/rus/rus.service';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
+import { ListingServiceService } from '../../Services/listing-service/listing-service.service';
 @Component({
   selector: 'app-listing-nav',
   templateUrl: './listing-nav.component.html',
@@ -35,7 +36,7 @@ activeElement=this.LeftNavInfo[4].Text;
   router: any;
 
 
-  constructor(private navService: NavInfoService,private lang:LanguageChooserService,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService , 
+  constructor(  private sharedService:ListingServiceService ,private navService: NavInfoService,private lang:LanguageChooserService,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService , 
     @Inject(PLATFORM_ID) private platformId: Object){
       this.valueChange.emit(this.activeElement);
       this.SignedIn=this.navService.IsSignedIn;
@@ -68,6 +69,21 @@ if (isPlatformBrowser(this.platformId)) {
 
   }
 
+
+  ngOnInit(): void {
+
+    const editItemSubscription = this.sharedService.editItemId$.subscribe(() => {   //to add active class navelement when user clicks on edit in my properties
+
+  
+
+        this.activeElement = 'Add Property';
+
+  
+
+      
+    });
+
+  }
   chosenLanguage(element: number){
     localStorage.removeItem('Language');
     this.navService.chosenLang=this.navLang[element];

@@ -6,6 +6,7 @@ import { GeoService } from '../../Services/Languages/geo/geo.service';
 import { first } from 'rxjs';
 import { log } from 'node:console';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
+import { ListingServiceService } from '../../Services/listing-service/listing-service.service';
 
 @Component({
   selector: 'app-main-listing',
@@ -23,14 +24,14 @@ export class MainListingComponent {
 fotofiles:File[]=[];
 videoFiles:File[]=[];
 naxaziFiles:File[]=[];
-
+editItemId: number | null = null;
 maxFiles = 7;
 index=0;
 
 allForms=this.lang.chosenLang.allForms;
 name;
 
-  constructor(private fb: FormBuilder , private http: HttpClient ,private navservice: NavInfoService ,private lang:LanguageChooserService) { 
+  constructor( private sharedService:ListingServiceService,  private fb: FormBuilder , private http: HttpClient ,private navservice: NavInfoService ,private lang:LanguageChooserService) { 
     // Initialize the form
     this.listingForm = this.fb.group({
       satauri: ['', Validators.required],
@@ -77,7 +78,61 @@ name;
   // Handles file selection
  
   
-  
+  ngOnInit(): void {
+    // Subscribe to get the ID of the item being edited
+    this.sharedService.editItemId$.subscribe((id) => {
+      this.editItemId = id;
+      if (this.editItemId !== null) {
+        this.loadItemData(this.editItemId);
+      }
+    });
+  }
+
+    loadItemData(data) {
+      // Fetch the data for the given ID and populate the form
+      console.log(data);
+      if(data){
+        this.listingForm.patchValue({
+          satauri: data.title,
+          mokle_agwera: data.additionalInfo.mokle_agwera,
+          garigebis_tipi: data.additionalInfo.garigebis_tipi,
+          tipi: data.additionalInfo.tipi,
+          otaxebis_raodenoba: data.additionalInfo.otaxebis_raodenoba,
+          fasi: data.additionalInfo.fasi,
+          fasis_valuta: data.additionalInfo.fasis_valuta,
+          fartobi: data.additionalInfo.fartobi,
+          fotoebi: data.additionalInfo.fotoebi,
+          video: data.additionalInfo.video|| '',
+          binis_naxazi: data.additionalInfo.binis_naxazi || '',
+          misamarti: data.location,
+          qalaqi: data.additionalInfo.qalaqi,
+          mapis_grdzedi: data.additionalInfo.mapis_grdzedi,
+          mapis_ganedi: data.additionalInfo.mapis_ganedi,
+          asaki: data.additionalInfo.asaki,
+          sadzinebeli: data.additionalInfo.sadzinebeli,
+          sveli_wertilebis_raodenoba: data.additionalInfo.sveli_wertilebis_raodenoba,
+          kondincioneri: data.additionalInfo.kondincioneri,
+          sacurao_auzi: data.additionalInfo.sacurao_auzi,
+          centrluri_gatboba: data.additionalInfo.centrluri_gatboba || false,
+          samrecxao_otaxi: data.additionalInfo.samrecxao_otaxi,
+          sportuli_darbazi: data.additionalInfo.sportuli_darbazi,
+          signalizacia: data.additionalInfo.signalizacia,
+          aivani: data.additionalInfo.aivani,
+          macivari: data.additionalInfo.macivari,
+          televizia_wifi: data.additionalInfo.televizia_wifi,
+          microtalguri: data.additionalInfo.microtalguri,
+          momxmareblis_saxeli: data.additionalInfo.momxmareblis_saxeli,
+          telefonis_nomeri: data.additionalInfo.telefonis_nomeri,
+          el_fosta: data.additionalInfo.el_fosta,
+          amtvirtvelis_maili: data.additionalInfo.amtvirtvelis_maili,
+          id: data.id
+        });
+
+      }
+    
+
+      // Add your data-fetching logic here
+    }
   
   
   remover(inputElement?: HTMLInputElement): void {
@@ -177,6 +232,7 @@ name;
   }
   
   onSubmit(): void {
+    console.log(this.listingForm.value);
     if (!this.selectedFile && (!this.imgRowlink.length && !this.videoRowlink)) {
       console.error('No file selected');
       return;

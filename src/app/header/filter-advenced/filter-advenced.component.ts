@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AllCardsService } from '../../Services/all-cards/all-cards.service';
-import { Subscription } from 'rxjs';
+import { max, Subscription } from 'rxjs';
 import { FilterDataUniterService } from '../../Services/filter-data-uniter/filter-data-uniter.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class FilterAdvencedComponent {
 
   //double slider
  sliderOneValue_1 = 0;
- sliderTwoValue_1 = 1300;
+ sliderTwoValue_1 = 20000;
  showSliderOne_1 = true;
  showSliderTwo_1 = true;
  trackStyle_1: { [key: string]: string };
@@ -38,13 +38,14 @@ export class FilterAdvencedComponent {
  showSliderTwo_2 = true;
  trackStyle_2: { [key: string]: string };
  
- minGap1 = 25;
+ minGap1 = 250;
  minGap2 = 10000;
- sliderMaxValue1 = 1300;
+ sliderMaxValue1 = 20000;
  sliderMaxValue2 = 600000;
 activeimg=true;
 private subscription: Subscription;
-
+maxPeice
+maxArea;
 
 
 collectData() {
@@ -86,6 +87,18 @@ ngOnInit() {
   this.subscription = this.cardDataServ.submit$.subscribe(() => {
     this.onSubmit();
   });
+
+  this.cardDataServ.fetchDataFromApi().subscribe((data)=>{
+ 
+    this.maxPeice = Math.max(...data.map(item => item.price.replace(/\D/g, '')));
+    this.maxArea= Math.max(...data.map(item => item.area));
+    console.log('maxPeice:', this.maxPeice , 'maxArea:', this.maxArea , 'rawest back_end_data i can get:', this.cardDataServ.back_end_data);
+    console.log('data  i get from fetchapi:', data);
+    this.sliderTwoValue_1 = this.maxArea;
+    this.sliderTwoValue_2 = this.maxPeice;
+    this.sliderMaxValue2= this.maxPeice;
+    this.sliderMaxValue1= this.maxArea;
+})
 }
 ngOnDestroy() {
   if (this.subscription) {

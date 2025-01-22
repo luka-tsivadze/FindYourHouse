@@ -15,7 +15,7 @@
   
         <button *ngFor="let el of staticElements.status; let i = index" 
                 [ngClass]="{'active': activeElement === i}" 
-                (click)="setActive(i , el)">
+                (click)="setActive(i , For.options[i])">
           {{el}}
         </button>
 
@@ -57,7 +57,7 @@
                   <h5>{{staticElements.Advanced}}</h5>
                   <img src="../../assets/Imges/Header/burgerBar.png" alt="three dots" />
                 </button>
-                <button class="submit" type="submit">{{staticElements.Search}}</button>
+                <button class="submit"  type="submit">{{staticElements.Search}}</button>
               
                 <app-filter-advenced [ngClass]="{'dNone':!advenced}"></app-filter-advenced>
               </form>

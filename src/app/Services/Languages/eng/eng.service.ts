@@ -38,7 +38,7 @@ export class EngService {
     BedRooms: ' Bedrooms',
     BathRooms: 'Bathrooms',
     Garage: 'Garages',
-    Area: 'sq Ft',
+    Area: 'sq M',
     ViewDetails: 'View More',
   };
   main = {

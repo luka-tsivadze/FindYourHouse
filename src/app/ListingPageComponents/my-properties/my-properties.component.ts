@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { ListingServiceService } from '../../Services/listing-service/listing-service.service';
 
 @Component({
   selector: 'app-my-properties',
@@ -24,17 +25,15 @@ export class MyPropertiesComponent {
   pageIndices = [];
   isLoading = true; // New loading flag
 
-  constructor(private http: HttpClient ,private cdr: ChangeDetectorRef) {
+  constructor(private http: HttpClient ,private cdr: ChangeDetectorRef ,private sharedService:ListingServiceService) {
     this.userData();
   }
 
-  ngOnInit() {
-    // pageFunction will now be called after userData finishes
-  }
+
 
   userData() {
     this.http.post('get_my_houses.php', { id: this.id }).subscribe((data: any) => {
-      console.log('Data for MyProperties:', data);
+
   
       if (data && data.length > 0) {
         this.allCardEl = data.map((element) => {
@@ -49,7 +48,13 @@ export class MyPropertiesComponent {
           } catch (error) {
             console.error('Error parsing fotoebi JSON:', error);
           }
-  
+          const additionalInfo = { ...element };
+          delete additionalInfo.idi;
+          delete additionalInfo.satauri;
+          delete additionalInfo.statusis_gaaqtiurebis_tarigi;
+          delete additionalInfo.misamarti;
+       
+
           return {
             id: element.idi,
             imgLink: firstImg, // Use the first image or default if none
@@ -59,18 +64,28 @@ export class MyPropertiesComponent {
             view: 0, // Placeholder for actual logic
             date: element.statusis_gaaqtiurebis_tarigi || 'No Date',
             location: element.misamarti || 'No Location',
+
+            additionalInfo: {
+              ...element,
+            },
           };
         });
       } else {
         console.warn('No data received. Retaining static elements.');
       }
-  
+
       this.isLoading = false; // Data loading completed
       this.pageFunction(); // Recalculate pages after data is updated
     });
   }
   
+ 
+    editItem(el) {
+      localStorage.setItem('ActiveElement', 'Add Property'); // Update the active component
+      this.sharedService.setEditItemId(el); // Pass the ID to the shared service
+    }
 
+  
   pageFunction() {
     if (this.allCardEl.length > 0) {
       this.pages = Math.ceil(this.allCardEl.length / 6);

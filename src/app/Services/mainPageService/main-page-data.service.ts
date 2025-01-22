@@ -268,7 +268,7 @@ export class MainPageDataService {
 For= {
   imgLink: '../../../assets/Imges/StaticImg/StaticIcons/icons8-home-16.png',
   text: 'Property Status',
-  options: ['For Sale', 'For Rent' ,'Pledge','Rented daily','Apartments Under Construction'],
+  options: [ 'For Rent','For Sale' ,'Pledge','Rented daily','Apartments Under Construction'],
   name: 'propertyStatus', // Added name
 };
 staticData = {
@@ -298,14 +298,14 @@ main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთ
   private featuredPropSubject = new BehaviorSubject<any[]>([]);
 
   constructor(
-    private http: HttpClient,
+
     private allcards: AllCardsService,
     private EngService: EngService,
     private GeoService: GeoService,
     private RusService: RusService
   ) {
     this.allcards.fetchDataFromApi().subscribe((data) => {
-      console.log('Fetched Data:', data);
+      
       this.featuredPropSubject.next(data);
     });
   

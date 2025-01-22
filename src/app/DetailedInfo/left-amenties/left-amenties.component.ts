@@ -9,7 +9,7 @@ import { PropertyInformationService } from '../../Services/Property-info/propert
 export class LeftAmentiesComponent {
 
   // Static array of property labels
-  propstatic = ['Property ID', 'Property Type', 'Property Status', 'Property Price', 'Rooms', 'Bedrooms', 'Bath', 'Garages', 'Year Built'];
+  propstatic = ['Property ID', 'Property Type', 'Property Status', 'Property Price', 'Rooms', 'Bedrooms', 'Bath', 'Area', 'Year Built'];
   // Array to hold chosenCard values
   Infoelements: any[] = [];
   Amenties = this.propertyInfo.chosenCard.Amenities;
@@ -25,7 +25,7 @@ export class LeftAmentiesComponent {
       chosenCard.Rooms,
       chosenCard.bedrooms,
       chosenCard.bathrooms,
-      chosenCard.garages,
+      chosenCard.area +' /sqM',
       chosenCard.YearBuilt
     ];
   }

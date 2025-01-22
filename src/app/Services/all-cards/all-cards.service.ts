@@ -101,53 +101,60 @@ constructor(private http: HttpClient , ) {
 
 
 fetchDataFromApi(): Observable<any[]> {
-  // If apiResponse$ is already set, return it
   if (!this.apiResponse$) {
     this.apiResponse$ = this.http.get<any[]>('get_houses.php').pipe(
       map((data: any[]) => {
-        this.back_end_data = data; // Cache backend data
-        this.CardsInfo = data
-          .map((item: any) => {
-            try {
-              const images = JSON.parse(item.fotoebi || '[]');
-              const firstimg =
-                Array.isArray(images) && images.length > 0
-                  ? `houses/${item.amtvirtvelis_maili}/${item.gancxadebis_saidentifikacio_kodi}/photos/${images[0]}`
-                  : null;
+        this.back_end_data = data;
+        this.CardsInfo = data.map((item: any) => {
+          try {
+            const images = JSON.parse(item.fotoebi || '[]');
+            const firstimg =
+              Array.isArray(images) && images.length > 0
+                ? `houses/${item.amtvirtvelis_maili}/${item.gancxadebis_saidentifikacio_kodi}/photos/${images[0]}`
+                : null;
 
-              return {
-                featuredBtn: item.featuredBtn,
-                imgLink: firstimg,
-                
-                id: item.idi,
-                price: item.fasi + item.fasis_valuta,
-                header: item.satauri,
-                location: item.misamarti,
-                bedrooms: item.sadzinebeli,
-                bathrooms: item.sveli_wertilebis_raodenoba,
-                area: item.fartobi,
-                garages: 0,
-                For: item.garigebis_tipi,
-                profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-6.jpg',
-                profileName: item.momxmareblis_saxeli,
-                alt: item.satauri,
-                uploadmonth: 3,
-              };
-            } catch (error) {
-              console.error('Error processing item:', item, error);
-              return null; // Skip invalid items
-            }
-          })
-          .filter((item) => item !== null); // Filter out invalid items
+            return {
+              featuredBtn: item.featuredBtn,
+              imgLink: firstimg,
+              id: item.idi,
+              price: item.fasi + item.fasis_valuta,
+              header: item.satauri,
+              location: item.misamarti,
+              bedrooms: item.sadzinebeli,
+              bathrooms: item.sveli_wertilebis_raodenoba,
+              area: item.fartobi,
+              garages: 0,
+              For: item.garigebis_tipi,
+              profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-6.jpg',
+              profileName: item.momxmareblis_saxeli,
+              alt: item.satauri,
+              uploadmonth: 3,
+            };
+          } catch (error) {
+            console.error('Error processing item:', item, error);
+            return null; // Skip invalid items
+          }
+        }).filter((item) => item !== null);
 
-        return this.CardsInfo; // Return transformed data
+        return this.CardsInfo;
       }),
-      shareReplay(1) // Cache the response
+      tap((cards) => {
+        console.log('Data fetched or reused:', cards);
+      }),
+      shareReplay(1)
     );
   }
 
+  // Repopulate CardsInfo even when using cached data
+  this.apiResponse$.subscribe((data) => {
+    this.CardsInfo = data;
+  });
+
   return this.apiResponse$;
 }
+
+
+
 
 
 }

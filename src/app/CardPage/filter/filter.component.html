@@ -10,12 +10,12 @@
             <img class="simg"  src="{{for.imgLink}}   " alt="HomeIcon">
             <select name="{{for.text}}" class="{{for.name}}"  formControlName="{{for.name}}">
                 <option value="0" disabled selected hidden>{{for.text}}</option>
-                <option value="{{opt}}" *ngFor="let opt of for.options">{{opt}}</option>      
+                <option value="{{for.options[i]}}" *ngFor="let opt of Fortypes let i=index">{{opt}}</option>      
             </select>
         </div>
 
                 <select formControlName="propertyType">
-                    <option disabled value="0">{{staticElements.propertyType}}</option>
+                    <option value="0">{{staticElements.propertyType}}</option>
                     <option  *ngFor="let el of firstFilter.PropertyTpes" value="{{el}}">{{el}}</option>
               
                 </select>
@@ -53,8 +53,8 @@
   </div>
   <div class="container">
     <div class="slider-track" [ngStyle]="trackStyle_1"></div>
-    <input type="range" min="0" max="1300" [value]="sliderOneValue_1"     (input)="slideOne_1($event)" id="slider-1">
-    <input type="range" min="0" max="1300" [value]="sliderTwoValue_1"     (input)="slideTwo_1($event)" id="slider-2">
+    <input type="range" min="0" [max]="sliderMaxValue1" [value]="sliderOneValue_1"     (input)="slideOne_1($event)" id="slider-1">
+    <input type="range" min="0" [max]="sliderMaxValue1" [value]="sliderTwoValue_1"     (input)="slideTwo_1($event)" id="slider-2">
   </div>
 </div>
 
@@ -67,8 +67,8 @@
   </div>
   <div class="container">
     <div class="slider-track" [ngStyle]="trackStyle_2"></div>
-    <input type="range" min="0" max="600000" [value]="sliderOneValue_2" (input)="slideOne_2($event)"   id="slider-3">
-    <input type="range" min="0" max="600000" [value]="sliderTwoValue_2" (input)="slideTwo_2($event)" id="slider-4"     >
+    <input type="range" min="0" [max]="sliderMaxValue2" [value]="sliderOneValue_2" (input)="slideOne_2($event)"   id="slider-3">
+    <input type="range" min="0" [max]="sliderMaxValue2" [value]="sliderTwoValue_2" (input)="slideTwo_2($event)" id="slider-4"     >
   </div>
 </div>
 

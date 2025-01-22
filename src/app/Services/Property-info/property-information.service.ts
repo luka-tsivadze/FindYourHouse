@@ -164,7 +164,9 @@ cardId;
 imgLink=[];
 floorimg;
 alldata;
+video;
 videoLin;
+floorimgLink;
 constructor(private route: ActivatedRoute , private allcards:AllCardsService) {
 
 
@@ -179,12 +181,22 @@ setCardId(cardId: number) {
   const selectedCard = this.allcards.back_end_data.find((card) => card.idi == this.cardId);
 console.log('Selected Card:', selectedCard);
 const images = JSON.parse(selectedCard.fotoebi);
-const floorimg = JSON.parse(selectedCard.binis_naxazi);
-let video;
+
 try {
-  video = JSON.parse(selectedCard.video) || false;
+  this.floorimg = selectedCard.binis_naxazi 
+    ? JSON.parse(selectedCard.binis_naxazi) 
+    : false;
+
+} catch (error) {
+  console.error("Invalid JSON in binis_naxazi:", error);
+  this.floorimg = false;
+}
+
+
+try {
+  this.video = JSON.parse(selectedCard.video) || false;
 } catch (e) {
-  video = false;
+  this.video = false;
 }
 if (Array.isArray(images) && images.length > 0) {
   this.imgLink = [];
@@ -192,9 +204,9 @@ if (Array.isArray(images) && images.length > 0) {
     this.imgLink.push(`houses/${selectedCard.amtvirtvelis_maili}/${selectedCard.gancxadebis_saidentifikacio_kodi}/photos/${images[i]}`);
   }
 }
-  this.floorimg=`houses/${selectedCard.amtvirtvelis_maili}/${selectedCard.gancxadebis_saidentifikacio_kodi}/blueprints/${floorimg[0]}`;
-  this.videoLin = video?.length > 0 
-  ? `houses/${selectedCard.amtvirtvelis_maili}/${selectedCard.gancxadebis_saidentifikacio_kodi}/video/${video[0]}`
+  this.floorimgLink=`houses/${selectedCard.amtvirtvelis_maili}/${selectedCard.gancxadebis_saidentifikacio_kodi}/blueprints/${this.floorimg[0]}`;
+  this.videoLin = this.video?.length > 0 
+  ? `houses/${selectedCard.amtvirtvelis_maili}/${selectedCard.gancxadebis_saidentifikacio_kodi}/video/${this.video[0]}`
   : null;
 
 
@@ -232,7 +244,7 @@ if (Array.isArray(images) && images.length > 0) {
       Reviews: [], // Placeholder
       Amenities: [],
       img: this.imgLink,
-      floorPlan: this.floorimg, 
+      floorPlan: this.floorimgLink || false, // Static placeholder
       videoLink: this.videoLin || false, // Static placeholder
       describtion: selectedCard.mokle_agwera, 
     };
