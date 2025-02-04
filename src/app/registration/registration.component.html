@@ -78,7 +78,7 @@
                     Gender is required.
                 </div>
                 <button type="submit" name="registracia"  #registName [disabled]="!RegistrForm.valid ">Register</button>
-                <div class="error">Registration Was No succsesfull</div>
+                <div class="error" *ngIf="RError" >Registration Was No succsesfull</div>
             </form>
 
             <!-- Login Form -->

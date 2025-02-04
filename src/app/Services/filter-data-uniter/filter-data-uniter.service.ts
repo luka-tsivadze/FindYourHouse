@@ -113,7 +113,7 @@ console.log('finall filtred Data',this.finallData);
     console.log('allcard',this.allcard);
     const filtered = this.filterCards(this.allcard, this.finallData);
     this.filtredCards.next(filtered);
-    console.log('filtered',filtered);
+    
 
   
   }

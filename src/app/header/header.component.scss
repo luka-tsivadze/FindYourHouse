@@ -60,6 +60,13 @@ p{
   font-weight: 400;
   color: #666;
 }
+.row{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+}
 header {
   overflow-x: hidden;
   display: flex;
@@ -191,7 +198,7 @@ right: 42%;
   box-shadow: 0px 0px 0px 8px rgba(255, 255, 255, 0.2);
   padding: 30px;
   align-items: center;
-  height: 112px;
+  height: max-content;
 
   background-color: white;
   border-radius: 9px;
@@ -199,6 +206,7 @@ form{
   display: flex;
   gap: 15px;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
   input{
     width: 255px;
@@ -276,7 +284,7 @@ background-color: #ffffff;
     border: 0;
 cursor: pointer;
     border-radius: 5px;
-    width: 50%;
+    width: 150px;
     height: 50px;
   display: flex;
   align-items: center;
@@ -387,7 +395,7 @@ transition: 2s;
 
   justify-content: center;
   gap: 20px;
-  padding: 60px 7%;
+  padding: 60px 4%;
   background-color:#F5F7FB;
   align-items: center;
 .FH{
@@ -427,7 +435,7 @@ animation: CardFromRightToLeft 1s forwards ;
  
     align-items: center;
     gap: 1px;
-    width: 625px;
+    width: 594px;
     height: 260px;
     background-color: white;
     border: 1px solid #e7e7e7;
@@ -445,9 +453,11 @@ animation: CardFromRightToLeft 1s forwards ;
     
   .FirstRow{
     display: flex;
-    padding: 15px;
+    padding: 0px;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+  
     button{
       font-weight: 600;
       padding: 10px 18px;
@@ -524,7 +534,7 @@ animation: CardFromRightToLeft 1s forwards ;
     .squareFlex{
       display: flex;
     padding:20px 0px;
-    padding-right: 20px;
+ 
       align-items: center;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -556,7 +566,7 @@ display: flex;
 gap: 20px;
 align-items: center;
 .heart{
-  filter: contrast(0.1);
+cursor: pointer;
 }
 
       }
@@ -610,9 +620,73 @@ align-items: center;
 }
 
 .dNone{
-  opacity: 0 !important;
+  opacity: 0;
+display: none;
 z-index: -1;
 }
 .FadeInUp{
   animation: fadeInUp 1s forwards;
+}
+
+@media  (max-width:1254px) {
+.HeaderBtnRow{
+gap: 6px;
+button{
+  padding: 0 20px;
+}
+}
+.HeaderSearch{
+padding: 30px 9px;
+ padding-left: 2px;
+  padding-right: 2px;
+   form{
+    gap: 11px;
+   .select{
+    width: 135px;
+    padding: 2px 3px 2px 2px;
+    .advanceS{
+      padding: 7px;
+    }
+select{
+  width: 100% !important;
+  padding: 12px 0px !important;
+  background-color: transparent !important;
+}
+   }
+  }
+  }
+
+  //cards
+.popularPlaces{
+      padding: 60px 2%;
+ 
+  .cardPlace{
+    gap: 14px;
+    .CardAnimation{
+      width: 300px;
+      margin-bottom: 11px;
+
+    }
+  }
+}
+.featuredProperties{
+  padding: 60px 2%;
+  .cardPlace{
+    padding: 15px 1px;
+    gap: 15px;
+         .propCard{
+          width: 750px;
+            .squareFlex{
+              gap: 15px 3px;
+              .element{
+            gap: 9px;
+            width: 130px !important;
+            p{
+                font-size: 16px;
+            }
+          } 
+        }
+         }
+  }
+}
 }

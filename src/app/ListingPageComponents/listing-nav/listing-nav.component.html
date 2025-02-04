@@ -3,7 +3,7 @@
   
     <ul class="FirstUl">  
         <img class="icon"  src="../../../assets/Imges/StaticImg/StaticIcons/ListingLogo.svg" alt="Logo">
-        <li ><p>{{staticElements.Home}}</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
+        <li ><p>{{staticElements.Home}}</p>
             <div class="menuBar">
                 <div class="mainPart">
                 <div class="row" *ngFor="let i of this.NavElements.Home"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
@@ -18,7 +18,7 @@
             </div>
         </li>
       
-        <li routerLink="/allCards"><p>{{staticElements.Property}}</p><img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
+        <li routerLink="/allCards"><p>{{staticElements.Property}}</p>
             <div class="menuBar">
                 <div class="mainPart">
         <div class="row" *ngFor="let i of this.NavElements.Property"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">  

@@ -5,6 +5,7 @@ import { AllCardsService } from '../../Services/all-cards/all-cards.service';
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
 import { Router } from '@angular/router';
 import { FilterDataUniterService } from '../../Services/filter-data-uniter/filter-data-uniter.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-all-cards',
@@ -27,33 +28,73 @@ export class AllCardsComponent {
   amountOfCards = 9;
   filteredCards: any[] = [];
 
+  heartimgLinks=[];
+    heartimg='../../../assets/Imges/Header/CardImges/icons/heart.svg'
+  heartFilled='./../../assets/Imges/StaticImg/StaticIcons/heart-fill - red.svg'
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private filterService: FilterDataUniterService,
     private navService: NavInfoService,
     private router: Router,
+   
     private detailedservice: PropertyInformationService,
     private mainPageService: MainPageDataService,
-    private cardsService: AllCardsService
+    private cardsService: AllCardsService,
+    private http: HttpClient
   ) {
     this.navService.scrollobser.next(true);
+
   }
+    ngOnInit() {
+  
+      this.cardsService.fetchDataFromApi().subscribe((cards: any[]) => {
 
-  ngOnInit() {
+        this.cards = cards;
+        this.filteredCards = cards; // Set filtered cards to all cards initially
+        this.pageFunction(); // Call pageFunction after cards are ready
+        this.heartimgLinks = new Array(this.filteredCards.length).fill(this.heartimg);
+      });
+      this.cardsService.data$.subscribe((value) => {
+        this.dataState = value;
+  
+ 
+      });
 
-    this.cardsService.fetchDataFromApi().subscribe((cards: any[]) => {
+        
+      // this.restoreState(); // Restore the state if returning to this page
+    }
 
-      this.cards = cards;
-      this.filteredCards = cards; // Set filtered cards to all cards initially
-      this.pageFunction(); // Call pageFunction after cards are ready
-    });
-    this.cardsService.data$.subscribe((value) => {
-      this.dataState = value;
-      console.log('dataState', this.dataState);
-     });
-       
-    // this.restoreState(); // Restore the state if returning to this page
+
+  
+
+    saveToFav(i:number , info){
+   
+ 
+      const momxmareblis_idi= this.navService.userId
+      const gancxadebis_idi=info.id
+      const postBody={momxmareblis_idi,gancxadebis_idi}
+      if(this.heartimgLinks[i]===this.heartimg){
+          this.heartimgLinks[i]=this.heartFilled;
+   
+            
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        
+        this.http.post('https://findhouse.ge/save-house.php', postBody, { headers }).subscribe({
+          next:(data)=>{ console.log('Response:', data)},
+          error:(error) =>{console.error('Error:', error.error)}, 
+          complete: () => console.log('Request completed') // Now shows detailed JSON error
+          
+          // Now shows detailed JSON error
+        }
+        );
+    
+        }
+        else{// write remove function of api 
+          this.heartimgLinks[i]=this.heartimg;
+        }
+
   }
+  
 
   ngAfterViewInit() {
 
@@ -61,7 +102,7 @@ export class AllCardsComponent {
     this.filterService.filtredCards$.subscribe((filteredIds) => {
       if ((!filteredIds || filteredIds.length == 0) && !this.filterService.wasCalled) {
         // If no filters are applied or the filterIds array is empty, reset to all cards
-        console.log('Observer-triggered update detected; skipping UI updates.');
+
         return; // Skip further logic
       }
       // Filter the cards
@@ -69,7 +110,7 @@ export class AllCardsComponent {
         filteredIds.some((filterCard) => filterCard.idi === card.id)
       );
     
-      console.log('Filtered Cards:', this.filteredCards, 'Filtered Ids:', filteredIds);
+   
       this.resetPagination();
       this.changeDetectorRef.detectChanges();
     });
@@ -103,14 +144,14 @@ export class AllCardsComponent {
     }
 
     this.activePage = this.finalInfo[0] || [];
-    console.log('Filtered Cards - Active Page:', this.activePage);
+
   }
 
   chosenPage(index) {
     if (this.finalInfo[index]) {
       this.activePage = this.finalInfo[index];
       this.ActivePage = index;
-      console.log('index', this.activePage);
+  
     }
   }
 
@@ -125,7 +166,7 @@ export class AllCardsComponent {
       this.pageFunction();
     } else {
       this.cardsService.fetchDataFromApi().subscribe((cards: any[]) => {
-        console.log('Restoring state with fetched data:', cards);
+
         this.cards = cards;
         this.filteredCards = [...cards];
         this.pageFunction();

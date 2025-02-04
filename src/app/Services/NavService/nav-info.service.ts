@@ -10,25 +10,12 @@ import { Router } from 'express';
 })
 export class NavInfoService {
   MenuBar = {
-    Home: [ 
-      { a: 'Home Map', Showimg: true, subText: ['text1', 'text2', 'text3'] },
-      { a: 'Home Image', Showimg: true, subText: ['text1', 'text2', 'text3'] },
-      { a: 'Home Video', Showimg: true, subText: ['text1', 'text2', 'text3'] },
-      { a: 'Home Slider', Showimg: true, subText: ['text1', 'text2', 'text3'] },
-      { a: 'Home Styles', Showimg: true, subText: ['text1', 'text2', 'text3'] }
-    ],
+    Home: [  ],
   
-    Property: [ 
-      { a: 'Single Property 1', Showimg: false },
-      { a: 'Single Property 2', Showimg: false },
-      { a: 'Single Property 3', Showimg: true, subText: ['text1', 'text2', 'text3'] },
-      { a: 'Single Property 4', Showimg: false },
-      { a: 'Single Property 5', Showimg: false },
-      { a: 'Single Property 6', Showimg: false }
-    ],
+    Property: [ ],
     Pages: [ 
       { a: 'User Panel', Showimg: true,  RouterLink: '', subText: [ {text:'Dashboard'},{ text:'Profile'}, {text:'My Properties'}, { text:'Favorited Properties'} ,
-         {text:'Add Property'} ,{text:'Payements'},{text:'change Password'}] },
+         {text:'Add Property'} ,{text:'Payments'},{text:'Change Password'}] },
       { a: 'Login', Showimg: false },
       { a: 'Register', Showimg: false, RouterLink: ''  },
       { a: 'About Us', Showimg: false, RouterLink: '/about' },
@@ -85,7 +72,7 @@ userId
   
       const body = { id: resolvedUserId }; // Send ID in the request body
   
-      this.http.post('get_user_data.php', body).subscribe({
+      this.http.post('get_user_data.php', body).subscribe({                    //place where we could get user info from the server
         next: (data: any) => {
               this.IsSignedIn.Name = data[0].saxeli + ' ' + data[0].gvari;
               this.IsSignedIn.number = data[0].nomeri;

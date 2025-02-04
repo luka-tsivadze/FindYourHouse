@@ -11,10 +11,19 @@ app-favorite-properties {
     justify-content: center;
     align-items: center;
  min-height: 85vh;
- padding: 50px;
+ padding: 20px;
 width: 100%;
 font-family: 'Lato', sans-serif;
 font-size: 15px;
 font-weight: 400;
 color: #666;
+}
+
+@media screen and (max-width: 1308px){
+    app-profile, 
+    app-password-change{
+   justify-content: end;
+   
+    }
+    
 }

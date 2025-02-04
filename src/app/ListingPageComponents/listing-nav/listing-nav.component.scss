@@ -57,7 +57,7 @@ nav {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.3);
   z-index: 3;
-  padding-left: 11%;
+  padding-left: 227px;
   
   ul {
       
@@ -377,7 +377,7 @@ background-color: rgb(6, 163, 6) ;
   }
   .leftNav{
     position:fixed;
-    width: 16%;
+    width: 315px;
     z-index: 5;
     box-shadow: 0 0 20px rgba(38, 38, 38, 0.2);
     background: #1d293e;
@@ -464,14 +464,15 @@ cursor: pointer;
   }
   @media screen and (max-width:1308px){
     .leftNav{
-      width: 20%;
+width: 270px;
     }
     nav{
-      padding-left: 13%;
+      padding-left:199px;
       justify-content: space-between;
       gap: 5px;
       ul{
-      
+        gap: 4px;
+       
         li{
           p{
             font-size: 13px;
@@ -494,6 +495,7 @@ cursor: pointer;
       .navcontainer{
         padding-top: 10px;
         .settings{
+          gap: 10px;
           .links{
             padding: 0.5rem 0px;
             padding-left: 20px;
@@ -503,3 +505,27 @@ cursor: pointer;
     }
     
   }
+  @media screen and (max-width: 1070px){
+    nav{
+      ul{
+        gap: 10px;
+        .RightRow{
+             p{
+               display: none;
+             }
+            }
+      }
+        .FirstUl{
+          gap: 0;
+        }
+    .leftNav{
+      .navcontainer{
+        .settings{
+          gap: 15px;
+        }
+      }
+          
+    }
+    
+  }
+}

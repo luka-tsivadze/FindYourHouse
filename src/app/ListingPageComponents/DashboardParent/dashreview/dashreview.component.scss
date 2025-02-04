@@ -3,6 +3,7 @@
 .reviewbody{
     padding-top:30px ;
 width:620px;
+max-width: 100%;
 
 
 @include flex-container(row , space-between, flex-start,20px);

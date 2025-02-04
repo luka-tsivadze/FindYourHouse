@@ -10,7 +10,7 @@
             
         </h3>
         <p class="headerp">{{staticElements.weHaveOverMillion}} </p>
-        <div class="HeaderBtnRow">
+
     <div class="HeaderBtnRow">
   
         <button *ngFor="let el of staticElements.status; let i = index" 
@@ -24,7 +24,7 @@
            [ngClass]="arrowClass">
       </div>
           </div>
-        </div>
+   
         <div class="HeaderSearch">
             <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
               
@@ -34,8 +34,6 @@
                   <option *ngFor="let el of For.options" [value]="el">{{el}}</option>
                 </select>
               </div>
-
-
 
              
 
@@ -79,16 +77,13 @@
 
     </div>
 </div>
-<!-- <div *ngIf="loading">
-    <p>Loading featured properties...</p>
-  </div> -->
-  <!-- *ngIf="!loading" -->
+
 <div class="featuredProperties"  > 
     <h1 class="FH" [ngClass]="{'fadeIn':scrollY>750}">{{FeaturePS.Header}}</h1>
     <p  class="FP" [ngClass]="{'fadeIn':scrollY>799}">{{FeaturePS.properties}} </p>
     <div class="cardPlace">
       
-        <div class="propCard" routerLink="/allCards/{{info.id}}"  *ngFor="let info of FeatureProperties let i=index"
+        <div class="propCard"   *ngFor="let info of FeatureProperties let i=index"
         [ngStyle]="{'animation-delay': (i * 0.2) + 's'}"
         [ngClass]="{'propCardAnimationR': scrollY > 920 && i%2==0 , 'propCardAnimationL': scrollY > 920 && i%2==1 }"
         >
@@ -106,9 +101,9 @@
                   </div>
             </div>
             <div class="rightSide">
-                <a>{{info.header}}</a>
+                <a routerLink="/allCards/{{info.gncxdebis_idi}}">{{info.header}}</a>
                 <p><img src="../../assets/Imges/Header/CardImges/icons/Location.svg" alt="locationIcon">{{info.location}} </p>
-                <div class="squareFlex">
+                <div class="squareFlex" routerLink="/allCards/{{info.gncxdebis_idi}}">
 
                 <div class="element"><img src="../../assets/Imges/Header/CardImges/icons/bedroom.svg" alt="badroom"><p>{{info.bedrooms}} {{FeaturePS.BedRooms}}</p></div> 
                 <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/bathtub.svg" alt="bathroom"><p>{{info.bathrooms}} {{FeaturePS.BathRooms}}</p></div> 
@@ -116,11 +111,14 @@
                 <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/car.svg" alt=""><p>{{info.garages}} {{FeaturePS.Garage}}</p></div>
             </div>
             <div class="CardFooterRow">
-                <h1>{{info.price}}</h1> <div class="iconRow"><img src="../../assets/Imges/Header/CardImges/icons/arrow-left-right.svg" alt=""><img src="../../assets/Imges/Header/CardImges/icons/share.svg" alt=""><img class="heart" src="./../../assets/Imges/Header/CardImges/icons/heart.svg" alt=""></div>
+                <h1>{{info.price}}</h1> <div class="iconRow"><img src="../../assets/Imges/Header/CardImges/icons/arrow-left-right.svg" alt=""><img src="../../assets/Imges/Header/CardImges/icons/share.svg" alt="">
+                  <img class="heart" [src]="heartimgLinks[i]" alt=""  (click)="saveToFav(i , info)"></div>
             </div>
             </div>
         </div>
-        <button class="viewMore" routerLink="allCards"><span> {{FeaturePS.ViewDetails}}</span> <img src="../../assets/Imges/Header/CardImges/icons/arrow-right-circle-fill.svg" alt=""></button>
+        <div class="row">
+          <button class="viewMore" routerLink="allCards"><span> {{FeaturePS.ViewDetails}}</span> <img src="../../assets/Imges/Header/CardImges/icons/arrow-right-circle-fill.svg" alt=""></button>
+        </div>
     </div>
     
 

@@ -1,11 +1,11 @@
 
 <div class="innerPage">
-    <div class="header"></div>
+
     <div class="cardPlace " [ngClass]="{'active':dataState}">
    
 
         
-        <div class="propCard " [ngClass]="{'active':dataState}" (click)="routertodetailedInfo(info.id)"  *ngFor="let info of activePage let i=index"
+        <div class="propCard " [ngClass]="{'active':dataState}"   *ngFor="let info of activePage let i=index"
         [ngStyle]="{'animation-delay': (i * 0.16) + 's'}"
      
         >
@@ -17,13 +17,13 @@
                     
                 </div>
                   <div class="SecondRow">
-                    <button><img class="link" src="../../assets/Imges/Header/CardImges/icons/link.svg" alt="shareIcons"></button>
+                    <button (click)="saveToFav(i,info)"><img class="link" [src]="heartimgLinks[i]" alt="Heart"></button>
                     <button><img src="../../assets/Imges/Header/CardImges/icons/camera-video.svg" alt="camerIcon"></button>
                     <button><img src="../../assets/Imges/Header/CardImges/icons/img.svg" alt="Icon"></button>
                   </div>
                   <div class="price">{{info.price}}<span *ngIf="info.For=='For Rent'">/mo</span></div>
             </div>
-            <div class="rightSide">
+            <div class="rightSide" (click)="routertodetailedInfo(info.id)">
                 <a>{{info.header}}</a>
                 <p><img src="../../assets/Imges/Header/CardImges/icons/Location.svg" alt="locationIcon">{{info.location}} </p>
                 <div class="squareFlex">

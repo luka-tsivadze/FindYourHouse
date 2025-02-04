@@ -3,11 +3,12 @@
 .row{
   @include flex-container(row,center,center,10px);
    flex-wrap: wrap;
+   width: 100%;
   .el{
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width:49%;
+
     min-width: 289px;
     height: 94px;
     border-radius: 7px;
@@ -63,4 +64,12 @@ filter: invert(1);
     .yellow{
         background-color: rgb(255,153,17);
     }
+}
+@media screen and (max-width: 1008px){
+  .row{
+    .el{
+      width: 240px;
+    }
+  }
+  
 }

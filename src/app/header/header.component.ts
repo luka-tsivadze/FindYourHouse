@@ -7,7 +7,8 @@ import { RusService } from '../Services/Languages/rus/rus.service';
 import { AllCardsService } from '../Services/all-cards/all-cards.service';
 import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NavInfoService } from '../Services/NavService/nav-info.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class HeaderComponent {
   @ViewChild('headerElement')headerElement!: ElementRef;
 
 For=this.dataService.For;
- 
+
   list: any;
 
     counter: number = 0;
@@ -37,23 +38,24 @@ For=this.dataService.For;
     clickedIndex:number=0;
 staticElements=this.dataService.staticData.staticElements
 popularPropStatic=this.dataService.popularPlacesStatic
-
+screenWidth: number = window.innerWidth;
+allProperties: any[] = []; // Stores full dataset
     FeatureProperties;
    FeaturePS=this.dataService.featuredPropertiesStatic;
    advenced=false;
 allcardsData=this.allcard;
+index=0;
 filterForm = this.fb.group({
   Propselect: ['0'], // Default value: none selected
   locselect: ['0'], // Default value: none selected
   propstatus:['0'],
 });
-    constructor(@Inject(PLATFORM_ID) private platformId: Object, private http:HttpClient , private router:Router ,private fb: FormBuilder , private cd: ChangeDetectorRef ,private allcard:AllCardsService, private zone: NgZone, private dataService: MainPageDataService , private EngServic:EngService,  private GeoService:GeoService ,private RusService:RusService ) {
+    constructor(@Inject(PLATFORM_ID) private platformId: Object,private navserv:NavInfoService, private http:HttpClient , private router:Router ,private fb: FormBuilder , private cd: ChangeDetectorRef ,private allcard:AllCardsService, private zone: NgZone, private dataService: MainPageDataService ,
+     private EngServic:EngService,  private GeoService:GeoService ,private RusService:RusService ) {
       this.setActive(0 , 'For Sale');
     }
     onSubmit() {
       if (this.filterForm.valid) {
-        const formData = this.filterForm.value;
-
         this.allcard.formValue=this.filterForm.value;
           this.submitChildData();
    
@@ -63,16 +65,117 @@ filterForm = this.fb.group({
       }
     }
     ngOnInit(): void {
-      this.dataService.getFeaturedProperties().subscribe((data) => {
-     
-        this.FeatureProperties = data.slice(0, 6);
+      this.fetchData();
+    }
+      heartimg='../../../assets/Imges/Header/CardImges/icons/heart.svg'
+      heartFilled='./../../assets/Imges/StaticImg/StaticIcons/heart-fill - red.svg'
+      heartimgLinks=[this.heartimg,this.heartimg,this.heartimg,this.heartimg,this.heartimg,this.heartimg,this.heartimg,this.heartimg]
 
-        this.cd.detectChanges(); // Trigger UI updates here
+      saveToFav(i:number , info){
+       
+      const momxmareblis_idi= this.navserv.userId
+      const gancxadebis_idi=info.gncxdebis_idi
+      const postBody={momxmareblis_idi,gancxadebis_idi}
+      if(this.heartimgLinks[i]===this.heartimg){
+          this.heartimgLinks[i]=this.heartFilled;
+   
+
+        
+        this.http.post('save-house.php', postBody).subscribe({
+          next:(data)=>{ console.log('Response:', data)},
+          error: (error) => {
+            console.error('Error Status:', error.status);
+            console.error('Error Message:', error.message);
+            console.error('Raw Response:', error.error);
+            
+            try {
+                const errorData = JSON.parse(error.error);
+                console.error('Parsed Error:', errorData);
+            } catch (e) {
+                console.error('Response is not JSON, possibly an HTML error page');
+            }
+        },
+        
+          complete: () => console.log('Request completed') // Now shows detailed JSON error
+       
+        }
+        );
+    
+        }
+        else{// write remove function of api 
+          this.heartimgLinks[i]=this.heartimg;
+        }
+
+  }
+  
+    @HostListener('window:resize', ['$event']) 
+    onResize() {
+      this.screenWidth = window.innerWidth;
+      this.updateVisibleItems(); // Update data on screen resize
+    }
+  
+    fetchData(): void {
+      this.http.get<any[]>('get_main_houses.php').subscribe({
+        next: (data) => {
+          if (!Array.isArray(data)) {
+            console.error('API did not return an array:', data);
+            return;
+          }
+  
+          this.allProperties = data.map((item) => {
+            let images: string[] = [];
+            let firstimg: string | null = null;
+    
+            // ✅ Handle JSON errors safely
+            try {
+              images = JSON.parse(item.fotoebi || '[]');
+              firstimg = Array.isArray(images) && images.length > 0
+                ? `houses/${item.amtvirtvelis_maili}/${item.gancxadebis_saidentifikacio_kodi}/photos/${images[0]}`
+                : null;
+            } catch (error) {
+              console.error('Invalid JSON in fotoebi:', item.fotoebi);
+            }
+           
+            return {
+              featuredBtn: item.featuredBtn,
+              imgLink: firstimg,
+              gncxdebis_idi: item.idi,
+              price: item.fasi + item.fasis_valuta,
+              header: item.satauri,
+              location: item.misamarti,
+              bedrooms: item.sadzinebeli,
+              bathrooms: item.sveli_wertilebis_raodenoba,
+              area: item.fartobi,
+              garages: 0,
+              For: item.garigebis_tipi,
+              profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-6.jpg',
+              profileName: item.momxmareblis_saxeli,
+              alt: item.satauri,
+              uploadmonth: 3,
+              momxmreblis_idi: item.amtvirtvelis_idi,
+            };
+          });
+    
+          this.updateVisibleItems(); // Apply responsive limit
+        },
+        error: (error) => {
+          console.error('Error fetching properties:', error);
+        },
+        complete: () => {
+          console.log('Data fetching complete!');
+        }
       });
-      this.http.get('get_main_houses.php').subscribe((data) => {
-           console.log('this should be 8 element long data: ',data);
-      }) ;
-
+    }
+    
+    
+  
+    updateVisibleItems(): void {
+      if (this.screenWidth < 1280) {
+        this.FeatureProperties = this.allProperties.slice(0, 4); // Show 4 items
+      } else {
+        this.FeatureProperties = this.allProperties.slice(0, 8); // Show 8 items
+      }
+      this.cd.detectChanges(); // Ensure UI updates
     }
     submitChildData() {
    
@@ -162,6 +265,7 @@ filterForm = this.fb.group({
   this.arrowClass = this.arrowClassMap[index] || ''; // Set the corresponding class for Sarrow
 
 this.filterForm.patchValue({propstatus:el})
+
 }
     
 

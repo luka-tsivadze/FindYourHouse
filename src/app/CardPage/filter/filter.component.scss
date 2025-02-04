@@ -428,13 +428,9 @@ bottom: 6px;
   border-radius: 50%;
 }
 
-
 .visible{
 opacity: 0;
 }
-
-
-
 .values {
 position: absolute;
 top: 140%;
@@ -470,4 +466,25 @@ width: 100%;
   .propertyStatus{
       padding-left: 40px !important;
   }
+  }
+
+  @media screen and (max-width:1100px) {
+    main{
+      padding: 0 10px;
+      .HeaderSearch{
+      form{
+        gap: 3px;
+        .select{
+          width: 173px;
+        }
+        .advanceS{
+         width: 170px; 
+        }
+        .submit{
+          width: 100px;
+        }
+      }
+    }
+    }
+    
   }

@@ -33,6 +33,11 @@ profileInfo;
       formControlName: 'email'
     }
   ];
+  header='Profile Details';
+  agent='Agent of Property';
+  location='Location 32';
+  inquary='Request Inquary';
+  submit='Submit Request';
 
   constructor(private fb: FormBuilder, private NavService:NavInfoService) {
    this.profileInfo=this.NavService.IsSignedIn

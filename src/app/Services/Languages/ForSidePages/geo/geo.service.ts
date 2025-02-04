@@ -17,10 +17,10 @@ export class GeoService {
       firstselectName: 'აირჩიეთ სტატუსი',
       firstselect: ['იყიდება', 'ქირავდება', 'გირავდება', 'ქირავდება დღიურად', '⁠მშენებარე ბინები'],
   
-      secondselectName: 'ქონების ტიპები',
+      secondselectName: 'ქონების ტიპი',
       secondselect: ['ბინა', 'სახლი', 'კომერციული', 'გარაჟი'],
   
-      thirdselectName: 'ოთახები',
+      thirdselectName: 'ოთახების რაოდენობა',
   
       thirdTitle: 'ფასი',
       fourthTitle: 'ფართობი',
@@ -97,6 +97,42 @@ export class GeoService {
     {icon: '../../../assets/Imges/StaticImg/StaticIcons/lock-fill.svg', Text: 'პაროლის შეცვლა', upText: 'Change Password'},
     {icon: '../../../assets/Imges/StaticImg/StaticIcons/log-out.svg', Text: 'გასვლა', upText: 'Log Out'}
   ]
+  Dashboard = {
+    dash_listing: {
+      mainHeader: 'მართვა',
+      headers: ['სახელი', 'თარიღი', 'რეიტინგი', 'სტატუსი', 'რედაქტირება']
+    },
+    manage: {
+      header: 'დაშბორდის მართვა',
+      cards: [
+        { title: 'გამოქვეყნებული ქონება' },
+        { title: 'მიმოხილვები' },
+        { title: 'შეტყობინებები' },
+        { title: 'დაჯავშნულის რაოდენობა' }
+      ]
+    },
+    DashReview: {
+      header: 'მიმოხილვა'
+    },
+    PersonalInfo: {
+      staticElements: {
+        Header: 'პერსონალური ინფორმაცია',
+        updateBtn: 'განაახლეთ თქვენი პაროლი',
+        submit: 'გაგზავნა'
+      },
+      inputText: [
+        { label: 'სახელი', placeholder: 'შეიყვანეთ თქვენი სახელი' },
+        { label: 'გვარი', placeholder: 'შეიყვანეთ თქვენი გვარი' },
+        { label: 'ელ.ფოსტა', placeholder: 'შეიყვანეთ თქვენი ელ.ფოსტა' },
+        { label: 'ტელეფონის ნომერი', placeholder: 'მაგ: +1-800-7700-00' }
+      ],
+      textArea: [
+        { label: 'მისამართი', placeholder: 'დაწერეთ თქვენი მისამართი' },
+        { label: 'თქვენ შესახებ', placeholder: 'დაწერეთ თქვენ შესახებ' }
+      ]
+    }
+  }
+  
   
 
   constructor() { }

@@ -128,6 +128,7 @@ fetchDataFromApi(): Observable<any[]> {
               profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-6.jpg',
               profileName: item.momxmareblis_saxeli,
               alt: item.satauri,
+              momxmreblis_idi: item.amtvirtvelis_idi,
               uploadmonth: 3,
             };
           } catch (error) {

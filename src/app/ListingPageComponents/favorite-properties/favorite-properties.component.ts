@@ -1,4 +1,8 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { AllCardsService } from '../../Services/all-cards/all-cards.service';
+import { NavInfoService } from '../../Services/NavService/nav-info.service';
+import { error } from 'console';
 
 @Component({
   selector: 'app-favorite-properties',
@@ -30,13 +34,29 @@ favCardEl = [
 activePage=[];
 reviewIndices=[]
   pageIndices=[]
-  constructor() { 
+  constructor(private http: HttpClient, private idplace:NavInfoService) { 
 
 
   }
   ngOnInit() {
+    
+    this.fetchData(this.idplace.userId);
     this.pageFunction();
+    
   }
+
+
+  fetchData(id: number) {
+    const params = new HttpParams().set('id', id.toString());
+  
+    this.http.get('get-saved-houses.php', { params }).subscribe({
+      next: (data) => console.log('Response:', data),
+      error: (error) => console.error('Error:', error),
+      complete: () => console.log('Completed'),
+    });
+  }
+  
+
 
  removeCard(id: number) {
   

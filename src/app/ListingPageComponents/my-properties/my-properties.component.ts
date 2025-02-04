@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ListingServiceService } from '../../Services/listing-service/listing-service.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { ListingServiceService } from '../../Services/listing-service/listing-se
   templateUrl: './my-properties.component.html',
   styleUrls: ['./my-properties.component.scss']
 })
-export class MyPropertiesComponent {
+export class MyPropertiesComponent implements OnInit {
   allCardEl = [
     { id: 6, imgLink: '../../../assets/Imges/StaticImg/CardImges/fp-2.jpg', title: 'Spacious Family Home', review: 5, reviewedAmount: 7, view: 150, date: '07.10.2024', location: '135 Pine St, Chicago, IL' },
     // ... (other static elements)
@@ -26,8 +26,12 @@ export class MyPropertiesComponent {
   isLoading = true; // New loading flag
 
   constructor(private http: HttpClient ,private cdr: ChangeDetectorRef ,private sharedService:ListingServiceService) {
+
+  }
+  ngOnInit(): void {
     this.userData();
   }
+ 
 
 
 

@@ -28,6 +28,7 @@ SignedIn:any
 staticElements: any;
 Displayer=false
 @Output() valueChange = new EventEmitter<string>();
+editItemSubscription: any;
 
 
 LeftNavInfo=this.lang.chosenLang.LeftInfo;
@@ -36,7 +37,7 @@ activeElement=this.LeftNavInfo[4].Text;
   router: any;
 
 
-  constructor(  private sharedService:ListingServiceService ,private navService: NavInfoService,private lang:LanguageChooserService,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService , 
+  constructor(private cd:ChangeDetectorRef,  private sharedService:ListingServiceService ,private navService: NavInfoService,private lang:LanguageChooserService,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService , 
     @Inject(PLATFORM_ID) private platformId: Object){
       this.valueChange.emit(this.activeElement);
       this.SignedIn=this.navService.IsSignedIn;
@@ -72,22 +73,27 @@ if (isPlatformBrowser(this.platformId)) {
 
   ngOnInit(): void {
 
-    const editItemSubscription = this.sharedService.editItemId$.subscribe(() => {   //to add active class navelement when user clicks on edit in my properties
 
-  
+      // Set active element from localStorage or default to 'Add Property'
+      this.activeElement = localStorage.getItem('ActiveElement') || 'Add Property';
 
-        this.activeElement = 'Add Property';
+ 
+    
 
-  
 
-      
-    });
+    
 
+  }
+
+  ngOnDestroy(): void {
+    if (this.editItemSubscription) {
+      this.editItemSubscription.unsubscribe(); // Correctly unsubscribing
+    }
   }
   chosenLanguage(element: number){
     localStorage.removeItem('Language');
     this.navService.chosenLang=this.navLang[element];
-    console.log(this.navService.chosenLang)
+
   this.chosenLang=this.navService.chosenLang;
   localStorage.setItem('Language', this.chosenLang);
   
@@ -119,7 +125,9 @@ this.showLanguages=!this.showLanguages;
   uploadToLocal(info){
   
     localStorage.setItem('ActiveElement',info)
-    window.location.reload();
+    this.activeElement=info;
+    this.valueChange.emit(this.activeElement);
+  
 
   }
 }

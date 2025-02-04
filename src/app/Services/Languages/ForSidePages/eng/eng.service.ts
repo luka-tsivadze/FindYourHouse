@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, input } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -104,6 +104,39 @@ export class EngService {
   {icon: '../../../assets/Imges/StaticImg/StaticIcons/lock-fill.svg', Text: 'Change Password', upText: 'Change Password', },
   {icon: '../../../assets/Imges/StaticImg/StaticIcons/log-out.svg', Text: 'Log Out', upText: 'Log Out', }
 ]
+Dashboard={
+  dash_listing:{
+    mainHeader:'Dashboard',
+  headers:['Listing Name','Date','Rating','Status','Edit'],
+  },
+  manage:{
+    header:'Manage Dashboard',
+    cards:[
+      { title:'Published Property'},
+      { title:'Total Reviews'},
+      {  title:'Messages' },
+      { title:'Times Bookmarked'}
+    ]
+  },
+  DashReview:{
+header:'Review'
+  }, 
+  PersonalInfo:{
+    staticElements:{Header:'Personal Information' , updateBtn:'Update Your Password' , submit:'Submit' },
+    inputText:[
+     {label:'First Name',placeholder:'Enter Your First Name'},
+     {label:'Last Name ',placeholder:'Enter Your Last Name '},
+     {label:'Email Address',placeholder:'Enter Your Email'},
+     {label:'Phone Number',placeholder:'ex:+1-800-7700-00'}
+    ],
+    textArea:[{
+label:'Address',placeholder:'Write Your Address hare'
+    },
+  {label:'About Yourself',placeholder:'Write about Yourself 1'}
+  ]
+  }
+
+}
 
   constructor() { }
 }

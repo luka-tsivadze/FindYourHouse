@@ -1,7 +1,7 @@
 <main>
-    <h3>Personal Information</h3>
+    <h3>{{staticElements.Header}}</h3>
 
-    <form action="">
+    <form >
         
         <div class="col" *ngFor="let el of inputText">
             <label for="{{el.label}}">{{el.label}}</label>
@@ -13,13 +13,13 @@
             <label for="{{info.label}}">{{info.label}}</label>
             <textarea id="{{info.label}}" placeholder="{{info.placeholder}}"></textarea>
         </div>
-    <span class="update"> Update Your Password</span>
+    <span class="update">{{staticElements.updateBtn}}</span>
 
       
-    <div class="col" *ngFor="let el of changePassword">
+    <!-- <div class="col" *ngFor="let el of changePassword">
         <label for="{{el.label}}">{{el.label}}</label>
         <input type="{{el.type}}" id="{{el.label}}" placeholder="{{el.placeholder}}">
-    </div>
-  <button type="submit">Submit</button>
+    </div> -->
+  <button type="submit">{{staticElements.submit}}</button>
     </form>
 </main>

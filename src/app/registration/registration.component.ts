@@ -24,6 +24,7 @@ RegistrForm!: FormGroup;
 codeSegment=false;
 verification: boolean=false
 error=false;
+RError=false;
 errorText;
 regErrorText;
 verificationCode ;
@@ -129,7 +130,7 @@ constructor(private registrationService: RegistrationService, private http:HttpC
     if (this.RegistrForm.valid) {
       // Use getRawValue() to include disabled fields
       const formData = this.RegistrForm.getRawValue();
-  
+ 
       this.http.post("reg_user.php", formData).subscribe({
         next: (response: any) => {
           // Handle successful registration
@@ -141,11 +142,12 @@ constructor(private registrationService: RegistrationService, private http:HttpC
           }else if(response.message==''){}
           this.login = true;
   
-          console.log('Registration form submitted successfully:', formData);
+      
         },
         error: (error) => {
           // Handle HTTP errors
           console.error('Request failed:', error);
+          this.RError=true;
         }
       });
     } else {

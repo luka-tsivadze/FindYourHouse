@@ -39,7 +39,7 @@ name;
       garigebis_tipi: ['', Validators.required],
       tipi: ['', Validators.required],
       otaxebis_raodenoba: ['', Validators.required],
-      fasi: [' '+'₾', Validators.required],
+      fasi: [' '+'₾'+ ' ', Validators.required],
       fasis_valuta:['₾'],
       fartobi: [null, Validators.required],
       fotoebi: [null, Validators.required],

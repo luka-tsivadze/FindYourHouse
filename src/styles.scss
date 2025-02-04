@@ -10,11 +10,11 @@
 @keyframes opacity{
     0%{
         opacity: 1;
-        top: 0;
+        top: 0px;
     }
     100%{
         top: -100%;
-        opacity: 1;
+        opacity: 0.9;
         display: none;
     }
     
@@ -42,13 +42,12 @@
     background-size: 100px;
     left: 0;
     width: 100%;
-    height: 115%;
+    height: 105%;
     background-color: rgb(255, 255, 255);
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: opacity 1s forwards;
-    animation-delay: 1s;
+
 }
 .loaded{
  z-index: 99;
@@ -58,9 +57,10 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100px;
-    left: 0;
+
+    
     width: 100%;
-    height: 100%;
+    height: 105%;
     background-color: rgb(255, 255, 255);
     display: flex;
     justify-content: center;

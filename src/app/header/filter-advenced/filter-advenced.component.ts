@@ -77,6 +77,7 @@ onSubmit() {
   console.log('Merged Data to Send:', mergedData);
   this.cardDataServ.formValue = mergedData;
   this.uniter.transferData(mergedData, 1)
+  
 
 
 

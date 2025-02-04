@@ -4,7 +4,7 @@
   
     <ul class="FirstUl">  
         <img class="icon" routerLink="/" [src]="LogoLink" alt="Logo">
-        <li><p>{{staticElements.Home}}  </p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
+        <li><p>{{staticElements.Home}}  </p> 
             <div class="menuBar">
                 <div class="mainPart">
                 <div class="row" *ngFor="let i of this.NavElements.Home"><a  href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
@@ -19,7 +19,7 @@
             </div>
         </li>
      
-        <li routerLink="/allCards" ><p>{{staticElements.Property}}</p><img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
+        <li routerLink="/allCards" ><p>{{staticElements.Property}}</p>
             <div class="menuBar">
                 <div class="mainPart">
         <div class="row" *ngFor="let i of this.NavElements.Property"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">  
@@ -37,8 +37,8 @@
                 <div class="mainPart">
                 <div class="row"  *ngFor="let i of this.NavElements.Pages" (click)="navtoReg_Log(i)" [routerLink]="i.RouterLink"  [ngClass]="{'DNone':(IsSignedIn.signed==true && (i.a=='Register'||i.a=='Login') || (i.a=='User Panel'&& !IsSignedIn.signed)  )} " ><a >{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
                     <div [ngClass]="{'ArrowNav':i.Showimg==true,'DNone':i.Showimg==false}"><div class="forHover"    >
-                        <div class="aContainer" [routerLink]="i.route"   *ngFor="let subElement of i.subText" >
-                            <a  (click)="uploadToLocal(subElement.text)" >{{subElement.text}} </a> </div>
+                        <div class="aContainer" [routerLink]="i.route"  (click)="uploadToLocal(subElement.text)" *ngFor="let subElement of i.subText" >
+                            <a   >{{subElement.text}} </a> </div>
                         </div>
                     </div>
                 </div>
@@ -72,10 +72,10 @@
         
          </li>
         <li class="borders"  [ngClass]="{'DNone':IsSignedIn.signed==true}" (click)=" showRegistrForm()" ><p>{{staticElements.SignIn}}</p></li>
-        <li class="RightRow" (click)="displayEl()" [ngClass]="{'DNone':IsSignedIn.signed==false}"><div class="circle"><img src="{{IsSignedIn.imgLink}}" alt="Profile img"><div class="activebtn"></div></div> <p>Hi {{IsSignedIn.Name}}</p> <img class="bottomArrow" src="../../assets/Imges/NavImg/arrow-bottom-4.png" alt="Arrow Icon"> </li>
+        <li class="RightRow" (click)="displayEl()" [ngClass]="{'DNone':IsSignedIn.signed==false}"><div class="circle"><img src="{{IsSignedIn.imgLink}}" alt="Profile img"><div class="activebtn"></div></div> <p>{{IsSignedIn.Name}}</p> <img class="bottomArrow" src="../../assets/Imges/NavImg/arrow-bottom-4.png" alt="Arrow Icon"> </li>
         <div class="SubNav" [ngClass]="{DNone: displayElement==false}"><a *ngFor="let el of ProfileSettings"  (click)="profileSettings(el.Text)">{{el.Text}}</a></div>
-        <li><button class="listing"    routerLink="/Listing" [ngClass]="{'DNone':IsSignedIn.signed==false}"><h4>{{staticElements.AddListing}}</h4> <img src="../../assets/Imges/NavImg/Screenshot 2024-08-20 192117.png" alt=""></button></li>
-        <li><button class="listing"   (click)=" showRegistrForm()"   [ngClass]="{'DNone':IsSignedIn.signed==true}"><h4>{{staticElements.AddListing}}</h4> <img src="../../assets/Imges/NavImg/Screenshot 2024-08-20 192117.png" alt=""></button></li>
+        <li><button class="listing"   (click)="profileSettings('Add Property')"   [ngClass]="{'DNone':IsSignedIn.signed==false}"><h4>{{staticElements.AddListing}}</h4> <img src="../../assets/Imges/NavImg/Screenshot 2024-08-20 192117.png" alt=""></button></li>
+        <li><button class="listing"  (click)=" showRegistrForm()"   [ngClass]="{'DNone':IsSignedIn.signed==true}"><h4>{{staticElements.AddListing}}</h4> <img src="../../assets/Imges/NavImg/Screenshot 2024-08-20 192117.png" alt=""></button></li>
     </ul>
  
 </nav>

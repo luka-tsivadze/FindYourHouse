@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { LanguageChooserService } from '../../../Services/language-chooser/language-chooser.service';
 
 @Component({
   selector: 'app-dashreview',
   templateUrl: './dashreview.component.html',
   styleUrl: './dashreview.component.scss'
 })
-export class DashreviewComponent {
+export class DashreviewComponent implements OnInit {
 
   usersReview=[{
     name:'John Doe',
@@ -37,9 +38,16 @@ export class DashreviewComponent {
 
 
 ]
-
+ReviewHeader='Review';
   
   getStarArray(review: number): { filled: boolean }[] {
     return Array.from({ length: 5 }, (_, index) => ({ filled: index < review }));
   }
+
+  constructor(private lang:LanguageChooserService ) { }
+  ngOnInit(): void {
+ this.ReviewHeader=this.lang.chosenLang.Dashboard.DashReview.Header;
+  }
+
+
 }

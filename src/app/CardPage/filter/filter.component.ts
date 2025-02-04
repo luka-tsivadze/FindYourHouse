@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { MainPageDataService } from '../../Services/mainPageService/main-page-data.service';
 import { AllCardsService } from '../../Services/all-cards/all-cards.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -27,7 +27,7 @@ sortingOptions = [{name:'Top Selling',state:true},
   {name:'Price: Low to High',state:false}
   ,{name:'price: Hight to Low ',state:false}];
 options=false  
-constructor( private mainPageData:MainPageDataService ,private uniter:FilterDataUniterService, private cardDataServ:AllCardsService , private fb: FormBuilder) { 
+constructor( private mainPageData:MainPageDataService ,private uniter:FilterDataUniterService, private cardDataServ:AllCardsService , private fb: FormBuilder, private changeRef:ChangeDetectorRef) { 
     this.updateTrackColor_1();
     this.updateTrackColor_2();
   }
@@ -49,7 +49,7 @@ advanced(){
 }
 
 ngOnInit(): void {
-  console.log(this.filterOptions.filteredCheckBox);
+
   this.filterForm = this.fb.group({
 
     propertyType: ['0'], //ქონების ტიპი
@@ -75,6 +75,20 @@ ngOnInit(): void {
 
   });
 
+
+    this.cardDataServ.fetchDataFromApi().subscribe((data) => {
+    this.length = data.length; // Update length with the total number of cards
+  
+ 
+      this.maxPeice = Math.max(...data.map(item => item.price.replace(/\D/g, '')));
+      this.maxArea= Math.max(...data.map(item => item.area));
+      console.log('maxPeice:', this.maxPeice , 'maxArea:', this.maxArea , 'rawest back_end_data i can get:', this.cardDataServ.back_end_data);
+    
+      this.sliderTwoValue_1 = this.maxArea;
+      this.sliderTwoValue_2 = this.maxPeice;
+      this.sliderMaxValue2= this.maxPeice;
+      this.sliderMaxValue1= this.maxArea;
+  });
   this.uniter.filtredCards$.subscribe((filteredCards) => {
     if ((!filteredCards || filteredCards.length === 0) && !this.uniter.wasCalled) {
       console.log('This was called by observer');
@@ -84,19 +98,7 @@ ngOnInit(): void {
       this.length = filteredCards.length; // Update the length dynamically
 
     }
-  });
-    this.cardDataServ.fetchDataFromApi().subscribe((data) => {
-    this.length = data.length; // Update length with the total number of cards
 
- 
-      this.maxPeice = Math.max(...data.map(item => item.price.replace(/\D/g, '')));
-      this.maxArea= Math.max(...data.map(item => item.area));
-      console.log('maxPeice:', this.maxPeice , 'maxArea:', this.maxArea , 'rawest back_end_data i can get:', this.cardDataServ.back_end_data);
-      console.log('data  i get from fetchapi:', data);
-      this.sliderTwoValue_1 = this.maxArea;
-      this.sliderTwoValue_2 = this.maxPeice;
-      this.sliderMaxValue2= this.maxPeice;
-      this.sliderMaxValue1= this.maxArea;
   });
  
   
@@ -129,7 +131,7 @@ onSubmit() {
   this.filterForm.patchValue({ areaMax:  this.sliderTwoValue_1  });
   this.filterForm.patchValue({ priceMin:  this.sliderOneValue_2  });
   this.filterForm.patchValue({ priceMax:  this.sliderTwoValue_2  });
-  console.log(this.filterForm.value)
+ 
   this.uniter.transferData(this.filterForm.value, 2)
 }
   // First wrapper slider methods

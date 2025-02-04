@@ -99,6 +99,42 @@ export class RusService {
     {icon: '../../../assets/Imges/StaticImg/StaticIcons/log-out.svg', Text: 'Выйти', upText: 'Log Out'}
   ]
   
+  Dashboard ={
+    "dash_listing": {
+      "mainHeader": "Панель управления",
+      "headers": ["Название списка", "Дата", "Рейтинг", "Статус", "Редактировать"]
+    },
+    "manage": {
+      "header": "Управление панелью",
+      "cards": [
+        { "title": "Опубликованная недвижимость" },
+        { "title": "Всего отзывов" },
+        { "title": "Сообщения" },
+        { "title": "Количество в закладках" }
+      ]
+    },
+    "DashReview": {
+      "header": "Обзор 4"
+    },
+    "PersonalInfo": {
+      "staticElements": {
+        "Header": "Личная информация",
+        "updateBtn": "Обновите ваш пароль",
+        "submit": "Отправить"
+      },
+      "inputText": [
+        { "label": "Имя", "placeholder": "Введите ваше имя" },
+        { "label": "Фамилия", "placeholder": "Введите вашу фамилию" },
+        { "label": "Электронная почта", "placeholder": "Введите вашу электронную почту" },
+        { "label": "Номер телефона", "placeholder": "например: +1-800-7700-00" }
+      ],
+      "textArea": [
+        { "label": "Адрес", "placeholder": "Введите ваш адрес" },
+        { "label": "О себе", "placeholder": "Напишите о себе" }
+      ]
+    }
+  }
+  
 
   constructor() { }
 }

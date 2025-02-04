@@ -41,33 +41,36 @@ showNav;
       this.IsSignedIn=this.navService.IsSignedIn;
 this.NavElements=this.navService.MenuBar;
 this.staticElements=this.GeoService
-if (isPlatformBrowser(this.platformId)) {
-  if (localStorage.getItem('Language')) {
-    this.chosenLang = localStorage.getItem('Language');
-  }
 
-  switch (this.chosenLang) {
-    case 'GEO':
-      this.staticElements = GeoService.NavG;
-      break;
-
-    case 'ENG':
-      this.staticElements = EngService.NavE;
-      break;
-
-    case 'RUS':
-      this.staticElements = RusService.NavR;
-      break;
-
-
-  }
-}
 
 
   }
   
 
   ngOnInit() {
+
+    if (isPlatformBrowser(this.platformId)) {
+      if (localStorage.getItem('Language')) {
+        this.chosenLang = localStorage.getItem('Language');
+      }
+    
+      switch (this.chosenLang) {
+        case 'GEO':
+          this.staticElements = this.GeoService.NavG;
+          break;
+    
+        case 'ENG':
+          this.staticElements = this.EngService.NavE;
+          break;
+    
+        case 'RUS':
+          this.staticElements =this.RusService.NavR;
+          break;
+    
+    
+      }
+    }
+
     this.allCardService.fetchDataFromApi(); 
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -204,13 +207,13 @@ element.route='/'
   }
   profileSettings(el){
     if(el=='Log Out'){
-   console.log(el)
+
    localStorage.removeItem('id');
    localStorage.removeItem('ActiveElement');
    this.router.navigate(['/'])
    window.location.reload();
   }else if(el=='Edit Profile'){
-    console.log(el);
+
     localStorage.setItem('ActiveElement', 'Profile')
 
 }else if(el=='Add Property'){
