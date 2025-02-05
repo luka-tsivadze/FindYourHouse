@@ -1,4 +1,4 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -8,7 +8,7 @@ import { Router } from 'express';
 @Injectable({
   providedIn: 'root'
 })
-export class NavInfoService {
+export class NavInfoService implements OnInit {
   MenuBar = {
     Home: [  ],
   
@@ -27,7 +27,8 @@ export class NavInfoService {
     ]
   };
 
-  IsSignedIn = { signed: false, imgLink: '../../assets/Imges/NavImg/man.png', Name: '' ,number:'' ,email:'' ,gender:''};
+  IsSignedIn = { signed: false, imgLink: '../../assets/Imges/NavImg/man.png', Name: 'Not Recieved' ,number:'' ,email:'NotRecieved@gmail.com' ,gender:''};
+  public userData$ = new BehaviorSubject(this.IsSignedIn);
   Languages = ['ENG', 'RUS', 'GEO'];
   chosenLang: string | undefined;
   scrollobser = new BehaviorSubject<boolean>(false);
@@ -55,7 +56,9 @@ userId
       });
     }
   }
-
+ngOnInit(): void {
+  
+}
   updateScrollStatus(status: boolean) {
     this.scrollobser.next(status);  // Update the value
 
@@ -72,7 +75,7 @@ userId
   
       const body = { id: resolvedUserId }; // Send ID in the request body
   
-      this.http.post('get_user_data.php', body).subscribe({                    //place where we could get user info from the server
+       this.http.post('get_user_data.php', body).subscribe({                    //place where we could get user info from the server
         next: (data: any) => {
               this.IsSignedIn.Name = data[0].saxeli + ' ' + data[0].gvari;
               this.IsSignedIn.number = data[0].nomeri;
@@ -86,6 +89,7 @@ userId
                 this.IsSignedIn.imgLink = '../../assets/Imges/NavImg/girl.png';
 
               }
+              this.userData$.next(this.IsSignedIn);
         
         },
         error: (error) => {

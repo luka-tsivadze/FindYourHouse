@@ -134,6 +134,12 @@ export class RusService {
       ]
     }
   }
+  Profile = {
+    header: "Детали профиля",
+    inquary: "Запрос информации",
+    submit: "Отправить запрос",
+    input: ["Имя", "Номер телефона", "Электронная почта"]
+  }
   
 
   constructor() { }

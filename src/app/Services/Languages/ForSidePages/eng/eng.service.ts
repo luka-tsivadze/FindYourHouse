@@ -137,6 +137,12 @@ label:'Address',placeholder:'Write Your Address hare'
   }
 
 }
+Profile={
+  header:'Profile Details',
+  inquary:'Request Inquary',
+  submit:'Submit Request',
+  input:['First Name','Phone Number','Email']
+}
 
   constructor() { }
 }
