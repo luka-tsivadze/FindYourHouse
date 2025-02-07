@@ -1,8 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { AllCardsService } from '../../Services/all-cards/all-cards.service';
 import { NavInfoService } from '../../Services/NavService/nav-info.service';
 import { error } from 'console';
+import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
 @Component({
   selector: 'app-favorite-properties',
@@ -10,20 +11,7 @@ import { error } from 'console';
   styleUrl: './favorite-properties.component.scss'
 })
 export class FavoritePropertiesComponent {
-favCardEl = [
-  { id:1, imgLink: '../../../assets/Imges/StaticImg/CardImges/fp-6.jpg', title: 'Luxury Villa House', review: 4, reviewedAmount:'7',  view: '163', date: '08.14.2020', location: 'Est St, 77 - Central Park South, NYC' },
-  { id:2, imgLink: '../../../assets/Imges/StaticImg/CardImges/fp-4.jpg', title: 'Modern Apartment', review: 5,  reviewedAmount:'7', view: '200', date: '09.01.2021', location: '123 Main St, Los Angeles, CA' },
-  { id:3, imgLink: '../../../assets/Imges/StaticImg/CardImges/fp-2.jpg', title: 'Cozy Cottage', review: 3,  reviewedAmount:'7', view: '120', date: '10.15.2022', location: '456 Elm St, San Francisco, CA' },
-  { id:4, imgLink: '../../../assets/Imges/StaticImg/CardImges/fp-1.jpg', title: 'Beachfront Bungalow', review: 4, reviewedAmount:'7', view: '300', date: '05.22.2023', location: '789 Ocean Blvd, Miami, FL' },
-  { id:5, imgLink: '../../../assets/Imges/StaticImg/CardImges/fp-3.jpg', title: 'Charming Townhouse', review: 2, reviewedAmount:'7', view: '80', date: '11.30.2021', location: '321 Maple Ave, Seattle, WA' },
-  { id:6,  imgLink: '../../../assets/Imges/StaticImg/CardImges/fp-5.jpg', title: 'Spacious Family Home', review: 5, reviewedAmount:'7', view: '150', date: '07.10.2024', location: '135 Pine St, Chicago, IL' },
-  { id:7,  imgLink: '../../../assets/Imges/StaticImg/CardImges/fp-6.jpg', title: 'Luxurious Penthouse', review: 4, reviewedAmount:'7', view: '250', date: '02.18.2023', location: '246 Sunset Blvd, New York, NY' },
-  { id:8,  imgLink: '../../../assets/Imges/StaticImg/CardImges/fp-4.jpg', title: 'Rustic Cabin', review: 3, reviewedAmount:'7', view: '90', date: '12.01.2022', location: '321 Forest Rd, Denver, CO' },
-  { id:9,  imgLink: '../../../assets/Imges/StaticImg/CardImges/fp-2.jpg', title: 'Elegant Mansion', review: 5, reviewedAmount:'7', view: '400', date: '08.25.2023', location: '654 Luxury St, Beverly Hills, CA' },
-  { id:10,  imgLink: '../../../assets/Imges/StaticImg/CardImges/fp-1.jpg', title: 'Stylish Loft', review: 4, reviewedAmount:'7', view: '180', date: '04.17.2021', location: '789 Urban Way, Austin, TX' },
-  { id:11,  imgLink: '../../../assets/Imges/StaticImg/CardImges/fp-3.jpg', title: 'Historic Villa', review: 3,  reviewedAmount:'7',view: '210', date: '03.30.2024', location: '321 Heritage Rd, Savannah, GA' },
-  { id:12,  imgLink: '../../../assets/Imges/StaticImg/CardImges/fp-5.jpg', title: 'Chic Studio', review: 4, reviewedAmount:'7', view: '95', date: '06.15.2022', location: '234 Modern St, Portland, OR' },
- ];
+favCardEl = [];
 
   starObject=[{star:1},{star:2},{star:3},{star:4},{star:5}]
   pages;
@@ -34,32 +22,58 @@ favCardEl = [
 activePage=[];
 reviewIndices=[]
   pageIndices=[]
-  constructor(private http: HttpClient, private idplace:NavInfoService) { 
+  staticData={
+    Header:'Top Properties',
+    date:'Date Added',
+    Views:'Views',
+    action:'Actions',
+    rew:"Reviews",
+    Ed:'Edit',
+    ago:'Months Ago',
+    prev:'Previous',
+    next:'Next'
+  }
+  constructor(private http: HttpClient, private idplace:NavInfoService ,
+    private allCardsService:AllCardsService ,private cdr: ChangeDetectorRef, private lang:LanguageChooserService) { 
 
 
   }
   ngOnInit() {
-    
-    this.fetchData(this.idplace.userId);
-    this.pageFunction();
-    
-  }
-
-
-  fetchData(id: number) {
-    const params = new HttpParams().set('id', id.toString());
-  
-    this.http.get('get-saved-houses.php', { params }).subscribe({
-      next: (data) => console.log('Response:', data),
+    this.staticData = this.lang.chosenLang.myProp;
+    this.allCardsService.fetFavchData(this.idplace.userId).subscribe({
+      next: (filteredData) => {
+       
+        this.favCardEl = filteredData;
+        this.pageFunction();
+      },
       error: (error) => console.error('Error:', error),
-      complete: () => console.log('Completed'),
+      complete: () => console.log('Completed fetching favorite cards'),
     });
   }
+
+
   
 
 
  removeCard(id: number) {
-  
+  const postBody = { momxmareblis_idi: this.idplace.userId, gancxadebis_idi: id };
+    this.http.post('delete-saved-house.php', postBody ).subscribe({
+      next: (response) => {
+        console.log('Response:', response);
+       this.favCardEl = this.favCardEl.filter((card) => card.id !== id);
+       this.index = 0; // Reset index for pagination
+          this.finalInfo = []; // Clear pagination data
+          this.pageIndices = []; // Clear page indices 
+       this.pageFunction();
+       this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error:', error);
+      },
+      complete: () => {
+        console.log('Request completed');
+      }
+    });
 }
 
   pageFunction() {
@@ -81,6 +95,11 @@ reviewIndices=[]
       }
     this.activePage=this.finalInfo[0]
       console.log('allCardEl', this.activePage);
+    }else{
+      this.pageIndices.push(0);
+      this.finalInfo.push([...this.favCardEl]);
+      this.activePage=this.finalInfo[0]
+
     }
   }
 

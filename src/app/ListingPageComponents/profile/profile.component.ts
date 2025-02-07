@@ -8,7 +8,7 @@ import { LanguageChooserService } from '../../Services/language-chooser/language
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit , OnDestroy {
+export class ProfileComponent implements OnInit  {
   
   profileForm: FormGroup;
 profileInfo;
@@ -70,8 +70,5 @@ profileInfo;
 
   }
   
-  ngOnDestroy(){
-    this.NavService.userData$.unsubscribe();
 
-  }
   }

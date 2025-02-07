@@ -6,6 +6,7 @@ import { PropertyInformationService } from '../../Services/Property-info/propert
 import { Router } from '@angular/router';
 import { FilterDataUniterService } from '../../Services/filter-data-uniter/filter-data-uniter.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { concatMap } from 'rxjs';
 
 @Component({
   selector: 'app-all-cards',
@@ -45,26 +46,50 @@ export class AllCardsComponent {
     this.navService.scrollobser.next(true);
 
   }
+
+  heartedCards;
     ngOnInit() {
   
-      this.cardsService.fetchDataFromApi().subscribe((cards: any[]) => {
-
-        this.cards = cards;
-        this.filteredCards = cards; // Set filtered cards to all cards initially
-        this.pageFunction(); // Call pageFunction after cards are ready
-        this.heartimgLinks = new Array(this.filteredCards.length).fill(this.heartimg);
+      this.cardsService.fetFavchData(this.navService.userId).pipe(
+        concatMap((filteredData) => {
+          this.heartedCards = filteredData;
+          return this.cardsService.fetchDataFromApi();
+        })
+      ).subscribe({
+        next: (cards: any[]) => {
+          this.cards = cards;
+          this.filteredCards = cards; // Set filtered cards to all cards initially
+          this.pageFunction(); // Call pageFunction after cards are ready
+          this.heartimgLinks = new Array(this.filteredCards.length).fill(this.heartimg);
+          this.getMatchingIndexes(this.heartedCards, this.cards);
+        },
+        error: (error) => {
+          console.error('Error:', error);
+        },
+        complete: () => {
+          console.log('Request completed');
+        },
       });
+
       this.cardsService.data$.subscribe((value) => {
         this.dataState = value;
-  
- 
       });
 
         
       // this.restoreState(); // Restore the state if returning to this page
     }
 
-
+    getMatchingIndexes(savedCards: any[], allCards: any[]): void {
+      // Create a Set of saved card IDs for quick lookup
+      const savedCardIds = new Set(savedCards.map(saved => saved.id));
+    
+      allCards.forEach((card, index) => {
+        if (savedCardIds.has(card.id)) {
+          this.heartimgLinks[index] = this.heartFilled;
+       
+        }
+      });
+    }
   
 
     saveToFav(i:number , info){
@@ -90,6 +115,17 @@ export class AllCardsComponent {
     
         }
         else{// write remove function of api 
+          this.http.post('delete-saved-house.php', postBody ).subscribe({
+            next: (response) => {
+              console.log('Response:', response);
+            },
+            error: (error) => {
+              console.error('Error:', error);
+            },
+            complete: () => {
+     
+            }
+          });
           this.heartimgLinks[i]=this.heartimg;
         }
 

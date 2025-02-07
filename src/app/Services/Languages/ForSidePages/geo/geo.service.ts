@@ -88,9 +88,9 @@ export class GeoService {
   LeftInfo = [
     {icon: '../../../assets/Imges/StaticImg/StaticIcons/Location.svg', Text: 'მართვა', upText: 'Dashboard'},
     {icon: '../../../assets/Imges/StaticImg/StaticIcons/person-fill.svg', Text: 'პროფილი', upText: 'Profile'},
-    {icon: '../../../assets/Imges/StaticImg/StaticIcons/list.svg', Text: 'ჩემი ქონება', upText: 'My Properties'},
+    {icon: '../../../assets/Imges/StaticImg/StaticIcons/list.svg', Text: 'ჩემი განცხადება', upText: 'My Properties'},
     
-    {icon: '../../../assets/Imges/StaticImg/StaticIcons/heart-fill.svg', Text: 'ფავორიტი ქონება', upText: 'Favorited Properties'},
+    {icon: '../../../assets/Imges/StaticImg/StaticIcons/heart-fill.svg', Text: 'ფავორიტი განცხადება', upText: 'Favorited Properties'},
     {icon: '../../../assets/Imges/StaticImg/StaticIcons/list.svg', Text: 'ატვირტე განცხადება', upText: 'Add Property'},
     {icon: '../../../assets/Imges/StaticImg/StaticIcons/credit-card-fill.svg', Text: 'გადახდები', upText: 'Payments'},
     
@@ -103,7 +103,7 @@ export class GeoService {
       headers: ['სახელი', 'თარიღი', 'რეიტინგი', 'სტატუსი', 'რედაქტირება']
     },
     manage: {
-      header: 'დაშბორდის მართვა',
+      header: 'საინფორმაციო დაფის მართვა',
       cards: [
         { title: 'გამოქვეყნებული ქონება' },
         { title: 'მიმოხილვები' },
@@ -138,6 +138,24 @@ export class GeoService {
     submit: "გაგზავნა",
     input: ["სახელი", "ტელეფონის ნომერი", "ელ. ფოსტა"]
   }
+  ChangePassword = {
+    header: 'პაროლის შეცვლა',
+    pas: 'მიმდინარე პაროლი',
+    NewPas: 'ახალი პაროლი',
+    ConfPas: 'დაადასტურეთ თქვენი პაროლი',
+    submit: 'ცვლილებების გაგზავნა'
+  }
+   myProp = {
+    Header: 'საუკეთესო ქონება',
+    date: 'დამატების თარიღი',
+    Views: 'ნახვები',
+    action: 'მოქმედებები',
+    rew: 'მიმოხილვები',
+    Ed: 'რედაქტირება',
+    prev: 'წინა',
+    next: 'შემდეგი',
+    ago: 'თვის წინ'
+  };
   
   
 

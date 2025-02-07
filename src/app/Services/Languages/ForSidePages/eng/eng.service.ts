@@ -143,6 +143,23 @@ Profile={
   submit:'Submit Request',
   input:['First Name','Phone Number','Email']
 }
-
+ChangePassword={
+  header:'change Password',
+  pas:'Current password',
+  NewPas:'New password',
+  ConfPas:'Confirm Your password',
+  submit:'Send Changes'
+}
+myProp={
+  Header:'Top Properties',
+  date:'Date Added',
+  Views:'Views',
+  action:'Actions',
+  rew:"Reviews",
+  ago:'Months Ago',
+  Ed:'Edit',
+  prev:'Previous',
+  next:'Next'
+}
   constructor() { }
 }

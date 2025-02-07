@@ -1,7 +1,7 @@
 <main>
     <div class="topRow">
-      <h2>Top Properties</h2>
-      <div class="right"><span>Date Added</span> <span>Views</span> <span>Actions</span></div>
+      <h2>{{staticData.Header}}</h2>
+      <div class="right"><span>{{staticData.date}}</span> <span>{{staticData.Views}}</span> <span>{{staticData.action}}</span></div>
     </div>
   
     <div class="cardPage" *ngFor="let el of this.activePage let i = index">
@@ -15,7 +15,7 @@
               <div class="review" >   <span *ngFor="let star of getStarArray(el.review)" 
                 [ngClass]="{'filledStar': star.filled, 'emptyStar': !star.filled}">
           </span>
-          <span>({{ el.reviewedAmount }} Reviews)</span></div>
+          <span>({{ el.reviewedAmount }} {{staticData.rew}})</span></div>
             </div>
           </div>
         </div>
@@ -30,14 +30,12 @@
       
     </div>
   
-    <div class="bottomRow" ><button (click)="chosenPage((this.ActivePage-1))" class="prev">Previous</button>
+    <div class="bottomRow" ><button (click)="chosenPage((this.ActivePage-1))" class="prev">{{staticData.prev}}</button>
   
   
         <button class="numbers" [ngClass]="{'active':i== this.ActivePage }"  (click)="chosenPage(i)" *ngFor="let i  of this.pageIndices">{{i}} </button> 
       
   
-       <button class="prev" (click)="chosenPage((this.ActivePage+1))" >Next</button> </div>
+       <button class="prev" (click)="chosenPage((this.ActivePage+1))" >{{staticData.next}}</button> </div>
   
-
-     
       </main>

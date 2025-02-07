@@ -19,7 +19,7 @@ listing=[
 constructor(private lang:LanguageChooserService){}
 
 ngOnInit(){
-  this.Header=this.lang.chosenLang.Dashboard. dash_listing.Header;
+  this.Header=this.lang.chosenLang.Dashboard.dash_listing.Header;
   this.staticHeaders=this.lang.chosenLang.Dashboard.dash_listing.headers;
 
 }

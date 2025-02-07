@@ -45,7 +45,12 @@
             "prerender": true,
             "ssr": {
               "entry": "server.ts"
-            }
+            },
+            "allowedCommonJsDependencies": [
+              "lerc",
+              "xml-utils/get-attribute.js",
+              "xml-utils/find-tags-by-name.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -57,11 +62,15 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kb",
+                  "maximumWarning": "4.5kb",
                   "maximumError": "11kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "optimization": true,
+              "sourceMap": false,
+              "aot": true,
+              "namedChunks": false
             },
             "development": {
               "optimization": false,

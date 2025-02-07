@@ -45,6 +45,7 @@ allProperties: any[] = []; // Stores full dataset
    advenced=false;
 allcardsData=this.allcard;
 index=0;
+heartIndex;
 filterForm = this.fb.group({
   Propselect: ['0'], // Default value: none selected
   locselect: ['0'], // Default value: none selected
@@ -64,12 +65,37 @@ filterForm = this.fb.group({
         console.warn('Form is invalid');
       }
     }
+
+    heartedCards;
     ngOnInit(): void {
-      this.fetchData();
+      this.allcard.fetFavchData(this.navserv.userId).subscribe({
+        next: (filteredData) => {
+         console.log('Response:', filteredData);
+        this.heartedCards = filteredData;
+        this.fetchData();
+        },
+        error: (error) => console.error('Error:', error),
+        complete: () => console.log('Completed fetching favorite cards'),
+      });
+     
+    
     }
       heartimg='../../../assets/Imges/Header/CardImges/icons/heart.svg'
       heartFilled='./../../assets/Imges/StaticImg/StaticIcons/heart-fill - red.svg'
       heartimgLinks=[this.heartimg,this.heartimg,this.heartimg,this.heartimg,this.heartimg,this.heartimg,this.heartimg,this.heartimg]
+
+      getMatchingIndexes(savedCards: any[], allCards: any[]): void {
+        // Create a Set of saved card IDs for quick lookup
+        const savedCardIds = new Set(savedCards.map(saved => saved.id));
+      
+        allCards.forEach((card, index) => {
+          if (savedCardIds.has(card.gncxdebis_idi)) {
+            this.heartimgLinks[index] = this.heartFilled;
+          }
+        });
+      }
+      
+      
 
       saveToFav(i:number , info){
        
@@ -103,6 +129,18 @@ filterForm = this.fb.group({
     
         }
         else{// write remove function of api 
+          this.http.post('delete-saved-house.php', postBody ).subscribe({
+            next: (response) => {
+              console.log('Response:', response);
+            },
+            error: (error) => {
+              console.error('Error:', error);
+            },
+            complete: () => {
+              console.log('Request completed');
+            }
+          });
+          
           this.heartimgLinks[i]=this.heartimg;
         }
 
@@ -125,7 +163,7 @@ filterForm = this.fb.group({
           this.allProperties = data.map((item) => {
             let images: string[] = [];
             let firstimg: string | null = null;
-    
+            
             // ✅ Handle JSON errors safely
             try {
               images = JSON.parse(item.fotoebi || '[]');
@@ -154,8 +192,10 @@ filterForm = this.fb.group({
               uploadmonth: 3,
               momxmreblis_idi: item.amtvirtvelis_idi,
             };
+          
           });
-    
+        this.getMatchingIndexes(this.heartedCards, this.allProperties);
+ 
           this.updateVisibleItems(); // Apply responsive limit
         },
         error: (error) => {

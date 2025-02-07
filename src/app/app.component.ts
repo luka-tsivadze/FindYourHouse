@@ -14,6 +14,7 @@ export class AppComponent implements AfterViewInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object ,private allCardsService:AllCardsService) {}
   ngOnInit(): void {
     // Trigger the fetch as soon as the app loads
+    
     this.allCardsService.fetchDataFromApi();
   }
   ngAfterViewInit() {

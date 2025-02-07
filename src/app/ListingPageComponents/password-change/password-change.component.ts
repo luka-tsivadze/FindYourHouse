@@ -1,17 +1,28 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { error } from 'console';
+
+import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
 @Component({
   selector: 'app-password-change',
   templateUrl: './password-change.component.html',
   styleUrl: './password-change.component.scss'
 })
-export class PasswordChangeComponent {
+export class PasswordChangeComponent implements OnInit {
   passwordChangeForm:FormGroup;
   resp;
-constructor( private http:HttpClient){ 
+
+  staticData={
+    header:'change Password',
+    pas:'Current password',
+    NewPas:'New password',
+    ConfPas:'Confirm Your password',
+    submit:'Send Changes'
+
+
+  }
+constructor( private http:HttpClient ,private lang:LanguageChooserService){ 
   this.passwordChangeForm = new FormGroup({
     id: new FormControl('',Validators.required),
     dzveli_paroli:new FormControl('',Validators.required),
@@ -21,7 +32,9 @@ constructor( private http:HttpClient){
 )
 this.passwordChangeForm.patchValue({id:localStorage.getItem('id')});
 }
-
+ngOnInit(): void {
+ this.staticData=this.lang.chosenLang.ChangePassword;
+}
 
 changePassword(){
 

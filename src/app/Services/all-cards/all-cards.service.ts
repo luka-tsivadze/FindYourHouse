@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject, map, Observable, of, shareReplay, Subject, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, shareReplay, Subject, switchMap, tap } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 
@@ -11,33 +11,11 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AllCardsService {
-  getCardsInfo() {
-    throw new Error('Method not implemented.');
-  }
-  formValue;
 
- 
+  formValue;
   firstimg
   back_end_data;
  CardsInfo = [  
-   
-    {
-      featuredBtn: false, //needs to be fixed
-      For: 'For Rent',
-      imgLink: '../../assets/Imges/Header/CardImges/F6.jpg',
-      alt: 'Luxury family house villa for rent', //needs to be fixed
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,//needs to be fixed
-      price: '$ 135,000',
-      profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-6.jpg', //needs to be fixed
-      profileName: 'Maria Williams', 
-      uploadmonth: 2, //can be added by me
-      id:5
-    },
   ];
   FirstFilter={
     locations:['Tbilisi','Batumi' , 'kutaisi' , 'Rustavi','Zugdidi', 'Telavi' ,'Bakuriani','Kobuleti'],
@@ -98,7 +76,9 @@ constructor(private http: HttpClient , ) {
   this.fetchDataFromApi(); // Initialize the API call
 
 }
-
+getCardsInfo() {
+  throw new Error('Method not implemented.');
+}
 
 fetchDataFromApi(): Observable<any[]> {
   if (!this.apiResponse$) {
@@ -140,7 +120,7 @@ fetchDataFromApi(): Observable<any[]> {
         return this.CardsInfo;
       }),
       tap((cards) => {
-        console.log('Data fetched or reused:', cards);
+ 
       }),
       shareReplay(1)
     );
@@ -153,6 +133,30 @@ fetchDataFromApi(): Observable<any[]> {
 
   return this.apiResponse$;
 }
+private cachedFavCards$: Observable<any[]> | null = null; // Cache variable
+
+fetFavchData(id: number): Observable<any[]> {
+  if (this.cachedFavCards$) {
+    return this.cachedFavCards$; // Return cached response if available
+  }
+
+  const body = { momxmareblis_idi: id };
+
+  this.cachedFavCards$ = this.http.post<any[]>('get-saved-houses.php', body).pipe(
+    switchMap((data) => 
+      this.fetchDataFromApi().pipe(
+        map((alldata) => {
+          const fetchedIds = new Set(Object.values(data).map(fetchedel => fetchedel.gancxadebis_idi));
+          return alldata.filter(element => fetchedIds.has(element.id));
+        })
+      )
+    ),
+    shareReplay(1) // Cache response to avoid duplicate API calls
+  );
+
+  return this.cachedFavCards$;
+}
+
 
 
 
