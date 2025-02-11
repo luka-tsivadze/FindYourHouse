@@ -1,5 +1,5 @@
 <div class="el">
-<h3><img src="../../../assets/Imges/StaticImg/StaticIcons/calendar.svg" alt="calendarIcon">  Schedule a Tour </h3>
+<h3><img src="../../../assets/Imges/StaticImg/StaticIcons/calendar.svg" alt="calendarIcon"> {{staticData.header}} </h3>
 <div class="inputRow"><input type="date" value="2019-02-11">
   <input
   [readonly]="true"
@@ -38,9 +38,8 @@
             <div class="icon2"></div>
           </div>
           <div class="minline"></div>
-     
-      
-      </div>
+            
+          </div>
       
              
    
@@ -48,7 +47,7 @@
   
 
 
-<div class="amountText"><span>Adult</span> <span> Children</span> </div>
+<div class="amountText"><span>{{staticData.ad}}</span> <span> {{staticData.ch}}</span> </div>
 <div class="amountInput">
     <div class="custom-number-input">
     <button (click)="decrement(0)"><img src="../../../assets/Imges/StaticImg/StaticIcons/-btn-.svg" alt=""></button>
@@ -64,5 +63,5 @@
 
 
 </div>
-<input type="submit">
+<input type="submit" placeholder="{{staticData.submit}}" >
 </div>

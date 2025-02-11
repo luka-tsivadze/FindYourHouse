@@ -31,7 +31,7 @@
               <div class="select">
                 <select name="propertyType1" >
                   <option value="" disabled selected>{{For.text}}</option>
-                  <option *ngFor="let el of For.options" [value]="el">{{el}}</option>
+                  <option *ngFor="let el of For.options let i=index" [value]="el">{{For.optdisplay[i]}}</option>
                 </select>
               </div>
 
@@ -40,14 +40,14 @@
                 <div class="select">
                   <select name="propertyType" formControlName="Propselect">
                     <option value="0">{{staticElements.propertyType}}</option>
-                    <option *ngFor="let el of allcardsData.FirstFilter.PropertyTpes" [value]="el">{{el}}</option>
+                    <option *ngFor="let el of allcardsData.FirstFilter.PropertyTypes let i=index" [value]="el">{{allcardsData.FirstFilter.PropertyTypesDis[i]}}</option>
                   </select>
                 </div>
               
                 <div class="select">
                   <select name="location" formControlName="locselect">
                     <option value="0">{{staticElements.location}}</option>
-                    <option *ngFor="let el of allcardsData.FirstFilter.locations" [value]="el">{{el}}</option>
+                    <option *ngFor="let el of allcardsData.FirstFilter.locations let i=index" [value]="el">{{allcardsData.FirstFilter.locationDis[i]}}</option>
                   </select>
                 </div>
               

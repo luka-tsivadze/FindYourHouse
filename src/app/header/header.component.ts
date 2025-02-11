@@ -1,14 +1,14 @@
 import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, HostListener, Inject, NgZone, PLATFORM_ID, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, Inject, NgZone, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { MainPageDataService } from '../Services/mainPageService/main-page-data.service';
-import { EngService } from '../Services/Languages/Eng/eng.service';
-import { GeoService } from '../Services/Languages/geo/geo.service';
-import { RusService } from '../Services/Languages/rus/rus.service';
+
+
 import { AllCardsService } from '../Services/all-cards/all-cards.service';
 import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { NavInfoService } from '../Services/NavService/nav-info.service';
+
 
 
 @Component({
@@ -16,7 +16,7 @@ import { NavInfoService } from '../Services/NavService/nav-info.service';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
   popularPlacesData:{imgLink:string,cityName:string,properties:number}[]=this.dataService.popularPlacesData;
   staticData:{
@@ -51,10 +51,11 @@ filterForm = this.fb.group({
   locselect: ['0'], // Default value: none selected
   propstatus:['0'],
 });
-    constructor(@Inject(PLATFORM_ID) private platformId: Object,private navserv:NavInfoService, private http:HttpClient , private router:Router ,private fb: FormBuilder , private cd: ChangeDetectorRef ,private allcard:AllCardsService, private zone: NgZone, private dataService: MainPageDataService ,
-     private EngServic:EngService,  private GeoService:GeoService ,private RusService:RusService ) {
-      this.setActive(0 , 'For Sale');
+    constructor(@Inject(PLATFORM_ID) private platformId: Object,private navserv:NavInfoService, private http:HttpClient , private router:Router ,private fb: FormBuilder , private cd: ChangeDetectorRef ,private allcard:AllCardsService, private dataService: MainPageDataService ) {
+
     }
+
+
     onSubmit() {
       if (this.filterForm.valid) {
         this.allcard.formValue=this.filterForm.value;
@@ -68,9 +69,10 @@ filterForm = this.fb.group({
 
     heartedCards;
     ngOnInit(): void {
+      this.setActive(0 , 'For Sale');
       this.allcard.fetFavchData(this.navserv.userId).subscribe({
         next: (filteredData) => {
-         console.log('Response:', filteredData);
+      
         this.heartedCards = filteredData;
         this.fetchData();
         },
@@ -122,7 +124,7 @@ filterForm = this.fb.group({
             }
         },
         
-          complete: () => console.log('Request completed') // Now shows detailed JSON error
+          complete: () => {}// Now shows detailed JSON error
        
         }
         );
@@ -137,7 +139,7 @@ filterForm = this.fb.group({
               console.error('Error:', error);
             },
             complete: () => {
-              console.log('Request completed');
+             ;
             }
           });
           
@@ -202,7 +204,7 @@ filterForm = this.fb.group({
           console.error('Error fetching properties:', error);
         },
         complete: () => {
-          console.log('Data fetching complete!');
+         
         }
       });
     }

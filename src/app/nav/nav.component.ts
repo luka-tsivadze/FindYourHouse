@@ -1,7 +1,7 @@
 import { Component, HostListener,NgZone, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { NavInfoService } from '../Services/NavService/nav-info.service';
-import { EngService } from '../Services/Languages/Eng/eng.service';
+import { EngService } from '../Services/Languages/eng/eng.service';
 import { GeoService } from '../Services/Languages/geo/geo.service';
 import { RusService } from '../Services/Languages/rus/rus.service';
 import { RegistrationService } from '../Services/registration/registration.service';
@@ -27,7 +27,7 @@ displayElement=false;
 showLanguages=false;
 navLang=this.navService.Languages;
 chosenLang='GEO'
-ProfileSettings=[{ Text:'Edit Profile' , routes:''},{ Text:'Add Property'},{Text:'Payments'},{Text:'Change Password'},{Text:'Log Out'}]
+ProfileSettings=this.navService.MenuBar.profileSettings;
 NavElements:any
 IsSignedIn:any
 staticElements
@@ -40,8 +40,6 @@ showNav;
  
       this.IsSignedIn=this.navService.IsSignedIn;
 this.NavElements=this.navService.MenuBar;
-this.staticElements=this.GeoService
-
 
 
   }
@@ -57,14 +55,22 @@ this.staticElements=this.GeoService
       switch (this.chosenLang) {
         case 'GEO':
           this.staticElements = this.GeoService.NavG;
+          this.NavElements=this.GeoService.MenuBar;
+          
+    this.ProfileSettings=this.GeoService.MenuBar.profileSettings;
+
           break;
     
         case 'ENG':
           this.staticElements = this.EngService.NavE;
+          this.NavElements=this.EngService.MenuBar;
+          this.ProfileSettings=this.EngService.MenuBar.profileSettings;
           break;
     
         case 'RUS':
           this.staticElements =this.RusService.NavR;
+          this.NavElements=this.RusService.MenuBar;
+          this.ProfileSettings=this.RusService.MenuBar.profileSettings;
           break;
     
     
@@ -112,12 +118,13 @@ this.staticElements=this.GeoService
   chosenLanguage(element){
     localStorage.removeItem('Language');
     this.navService.chosenLang=this.navLang[element];
-    console.log(this.navService.chosenLang)
+
   this.chosenLang=this.navService.chosenLang;
   localStorage.setItem('Language', this.chosenLang);
   
   if(this.chosenLang=='GEO'){
     this.staticElements=this.GeoService.NavG
+
 
   }else if(this.chosenLang=='ENG'){
 this.staticElements=this.EngService.NavE
@@ -200,7 +207,7 @@ element.route='/'
       localStorage.removeItem('id');
   
     }
-  
+
     localStorage.setItem('ActiveElement',info)
     this.router.navigate(['Listing'])
      

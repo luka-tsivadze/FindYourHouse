@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageChooserService } from '../../../Services/language-chooser/language-chooser.service';
+import { ReviewsService } from '../../../Services/reviews/reviews.service';
+import { NavInfoService } from '../../../Services/NavService/nav-info.service';
 
 @Component({
   selector: 'app-dashreview',
@@ -17,24 +19,7 @@ export class DashreviewComponent implements OnInit {
     stars:4
 
   },
-  {
-    name:'nina Smith',
-    time:'1 h 12 Minutes ago',
-    describe:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat',
-    img:'../../../../assets/Imges/Header/CardImges/A-3.jpg',
-    type:'Apartment',
-    stars:2
 
-  },
-  {
-    name:'William Anderson',
-    time:'5 h 12 Minutes ago',
-    describe:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat',
-    img:'../../../../assets/Imges/Header/CardImges/A-1.jpg',
-    type:'Apartment',
-    stars:5
-
-  }
 
 
 ]
@@ -44,9 +29,22 @@ ReviewHeader='Review';
     return Array.from({ length: 5 }, (_, index) => ({ filled: index < review }));
   }
 
-  constructor(private lang:LanguageChooserService ) { }
+  constructor(private lang:LanguageChooserService , private review:ReviewsService ,private navServ:NavInfoService ) { }
   ngOnInit(): void {
  this.ReviewHeader=this.lang.chosenLang.Dashboard.DashReview.Header;
+
+  this.review.fetchUserReviews(this.navServ.userId).subscribe(reviews => {
+  this.usersReview = reviews.map(review => ({
+    name: review.saxeli,
+    time: review.shefasebis_tarigi_dro || '22 min ago',  //needs fix
+    describe: review.mesiji,
+    type: '',//maybe we can add type of house here
+    img:this.navServ.IsSignedIn.imgLink, 
+    stars: review.shefaseba
+  }));
+  });
+
+
   }
 
 

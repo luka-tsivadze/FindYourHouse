@@ -159,6 +159,87 @@ export class RusService {
     ago:'Месяцев назад'
   };
   
+  contact = {
+    staticText: {
+      header: 'Контакты',
+      headerH4: 'Главная  /  Контакты',
+      formH3: 'Контакты',
+      Mes:'Сообщение',
+      sub: 'Отправить',
+      cd: 'Контактные данные',
+      cp: 'Пожалуйста, найдите ниже контактные данные и свяжитесь с нами сегодня!'
+    },
+    inputs: [
+      { placeholder: 'Имя', type: 'text', FormControlname: 'saxeli' },
+      { placeholder: 'Фамилия', type: 'text', FormControlname: 'gvari' },
+      { placeholder: 'Заголовок', type: 'text', FormControlname: 'satauri' },
+      { placeholder: 'Эл. почта', type: 'email', FormControlname: 'maili' },
+    ],
+  }
+  About = {
+    headerH2: 'О нашей компании',
+    headerH4: 'Главная / О нас',
+    span1: 'О нас',
+    span2: 'Найти дома',
+    mainText: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum odio id voluptatibus incidunt cum? Atque quasi eum debitis optio ab. Esse itaque officiis tempora possimus odio rerum aperiam ratione, sunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit sunt.`,
+    btn: 'Читать далее'
+  }
+  DetailedInfo = {
+    advertismentr: 'Специальные предложения дня',
+    AgentsInfo: {
+      inputs: [
+        { type: 'text', placeholder: 'Имя', formControlName: 'firstName' },
+        { type: 'number', placeholder: 'Номер телефона', formControlName: 'phoneNumber' },
+        { type: 'email', placeholder: 'Электронная почта', formControlName: 'email' },
+      ],
+      staticValues: {
+        h3: 'Информация об агенте',
+        p: 'Агент по недвижимости',
+        req: 'Отправить запрос',
+        submit: 'Отправить',
+        textArea: 'Сообщение',
+      },
+    },
+    CardGallery1: 'Галерея',
+    parent: 'Описание',
+    Featuredpr: {
+      header: 'Рекомендуемые объекты',
+      area: 'Площадь',
+      rooms: 'Комнаты',
+      beds: 'Кровати',
+    },
+    Floorplan: 'План этажа',
+    leftAmenties: {
+      h2: 'Детали недвижимости',
+      h2a: 'Удобства',
+      propstatic: [
+        'ID недвижимости', 'Тип недвижимости', 'Статус недвижимости', 'Цена', 'Комнаты',
+        'Спальни', 'Ванная', 'Площадь', 'Год постройки'
+      ],
+    },
+    map: 'Местоположение',
+    near: 'Что рядом',
+    propvideo: 'Видео недвижимости',
+    recentStatic:'Последние объекты',
+    reviewAd: {
+      header: 'Добавить отзыв',
+      p: 'Ваш рейтинг для этого объявления',
+      placeholderN: 'Отзыв',
+      submit: 'Отправить отзыв',
+    },
+    reviews: 'Отзывы',
+    scheduled: {
+      header: 'Запланировать тур',
+      ad: 'Взрослый',
+      ch: 'Дети',
+      submit: 'Отправить',
+    },
+    simProp: 'Похожие объекты',
+    tagscomp: {
+      header: 'Популярные теги',
+      Tags: ['Дома', 'Настоящий дом', 'Ванные комнаты', 'Спальни', 'Гаражи', 'Семья', 'Недвижимость', 'Объекты', 'Местоположение', 'Цена'],
+    },
+  };
   
 
   constructor() { }

@@ -2,11 +2,12 @@ import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Inject, NgZone, Output, PLATFORM_ID } from '@angular/core';
 import { NavInfoService } from '../../Services/NavService/nav-info.service';
 
-import { EngService } from '../../Services/Languages/Eng/eng.service';
+import { EngService } from '../../Services/Languages/eng/eng.service';
 import { GeoService } from '../../Services/Languages/geo/geo.service';
 import { RusService } from '../../Services/Languages/rus/rus.service';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 import { ListingServiceService } from '../../Services/listing-service/listing-service.service';
+import { Router, NavigationEnd } from '@angular/router';
 @Component({
   selector: 'app-listing-nav',
   templateUrl: './listing-nav.component.html',
@@ -22,8 +23,8 @@ displayElement=false;
 showLanguages=false;
 navLang=this.navService.Languages;
 chosenLang='GEO'
-ProfileSettings=[{ Text:'Edit Profile'},{ Text:'Add Property'},{Text:'Payments'},{Text:'Change Password'},{Text:'Log Out'}]
-NavElements:any
+ProfileSettings=this.navService.MenuBar.profileSettings;
+NavElements:any=this.navService.MenuBar;
 SignedIn:any
 staticElements: any;
 Displayer=false
@@ -34,55 +35,57 @@ editItemSubscription: any;
 LeftNavInfo=this.lang.chosenLang.LeftInfo;
 activeElement=this.LeftNavInfo[4].Text;
 
-  router: any;
+ 
 
 
-  constructor(private cd:ChangeDetectorRef,  private sharedService:ListingServiceService ,private navService: NavInfoService,private lang:LanguageChooserService,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService , 
+  constructor(private router: Router ,private navService: NavInfoService,private lang:LanguageChooserService,private EngService:EngService 
+    ,private GeoService:GeoService ,private RusService:RusService , 
     @Inject(PLATFORM_ID) private platformId: Object){
-      this.valueChange.emit(this.activeElement);
-      this.SignedIn=this.navService.IsSignedIn;
-this.NavElements=this.navService.MenuBar;
-this.staticElements=this.GeoService
+    
 if (isPlatformBrowser(this.platformId)) {
   this.activeElement=localStorage.getItem('ActiveElement')
-
+  
   if (localStorage.getItem('Language')) {
     this.chosenLang = localStorage.getItem('Language');
   }
-
+  
   switch (this.chosenLang) {
     case 'GEO':
-      this.staticElements = GeoService.NavG;
+      this.staticElements = this.GeoService.NavG;
+      this.NavElements=this.GeoService.MenuBar;
+      this.ProfileSettings=this.GeoService.MenuBar.profileSettings;
       break;
-
+  
     case 'ENG':
-      this.staticElements = EngService.NavE;
+      this.staticElements = this.EngService.NavE;
+      this.NavElements=this.EngService.MenuBar;
+      this.ProfileSettings=this.EngService.MenuBar.profileSettings
       break;
-
+  
     case 'RUS':
-      this.staticElements = RusService.NavR;
+      this.staticElements = this.RusService.NavR;
+      this.NavElements=this.RusService.MenuBar;
+      this.ProfileSettings=this.RusService.MenuBar.profileSettings;
       break;
-
-
+  
+  
   }
-}
-
+  }
+  
+  
+  this.SignedIn=this.navService.IsSignedIn;
+        // Set active element from localStorage or default to 'Add Property'
+        this.activeElement = localStorage.getItem('ActiveElement') || 'Add Property';
+  
+   
+  
+  
 
   }
 
 
   ngOnInit(): void {
-
-
-      // Set active element from localStorage or default to 'Add Property'
-      this.activeElement = localStorage.getItem('ActiveElement') || 'Add Property';
-
- 
-    
-
-
-    
-
+    this.valueChange.emit(this.activeElement);
   }
 
   ngOnDestroy(): void {
@@ -90,6 +93,32 @@ if (isPlatformBrowser(this.platformId)) {
       this.editItemSubscription.unsubscribe(); // Correctly unsubscribing
     }
   }
+  profileSettings(el){
+    console.log(el)
+    if(el=='Log Out'){
+
+   localStorage.removeItem('id');
+   localStorage.removeItem('ActiveElement');
+   this.router.navigate(['/'])
+   window.location.reload();
+  
+  }else if(el=='Edit Profile'){
+
+    localStorage.setItem('ActiveElement', 'Profile')
+    this.activeElement='Profile';
+
+
+
+}else if(el=='Add Property'){
+localStorage.setItem('ActiveElement', 'Add Property')
+
+}else if(el=='Change Password'){
+  localStorage.setItem('ActiveElement', 'Change Password')
+  this.activeElement='Change Password';
+
+}
+this.valueChange.emit(this.activeElement); 
+}
   chosenLanguage(element: number){
     localStorage.removeItem('Language');
     this.navService.chosenLang=this.navLang[element];
@@ -116,7 +145,7 @@ this.displayElement=!this.displayElement;
 this.showLanguages=!this.showLanguages;
   }
   activedPage(element){
-
+ 
     localStorage.setItem('ActiveElement',element)
     this.activeElement=element;
     this.valueChange.emit(this.activeElement);

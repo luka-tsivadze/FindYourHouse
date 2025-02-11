@@ -6,7 +6,7 @@ width:620px;
 max-width: 100%;
 
 
-@include flex-container(row , space-between, flex-start,20px);
+@include flex-container(row , flex-start, flex-start,20px);
   .img{
     img{
     width: 80px;
@@ -17,10 +17,13 @@ max-width: 100%;
 .comment{
     @include flex-container(column, flex-start, flex-start, 11px);
     .rowtype{
-        width: 100%;
-        @include flex-container(row, space-between, center, 10px);
+    
+        position: absolute;
+        right: 10%;
+        @include flex-container(row, flex-start, center, 10px);
         .double{
             @include flex-container(row,flex-start,center,5px);
+          
             img{
                 cursor: pointer;
                 width: 20px;

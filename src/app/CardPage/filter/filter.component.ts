@@ -62,13 +62,12 @@ ngOnInit(): void {
     swimmingPool: [false], //საცურაო აუზი
     tvCable: [false], //ტელევიზია
     centralHeating: [false],//ცენტრალური გათბობა
-    dryer: [false],//საშრობი
+  
     gym: [false], //სპორტული დარბაზი
-    washer: [false], //სარეცხი მანქანა
+    // washer: [false], //სარეცხი მანქანა
     alarm: [false],//სიგნალიზაცია
     refrigerator: [false], //მაცივარი
     windowCovering: [false],//ფანჯრის საფარი
-    outdoorShower: [false], //გარე დუში
     laundryRoom: [false], //სამრეცხაო ოთახი
     microwave: [false], // მიკროტალღური ღუმელი
 
@@ -82,7 +81,7 @@ ngOnInit(): void {
  
       this.maxPeice = Math.max(...data.map(item => item.price.replace(/\D/g, '')));
       this.maxArea= Math.max(...data.map(item => item.area));
-      console.log('maxPeice:', this.maxPeice , 'maxArea:', this.maxArea , 'rawest back_end_data i can get:', this.cardDataServ.back_end_data);
+      console.log( 'rawest back_end_data i can get:', this.cardDataServ.back_end_data);
     
       this.sliderTwoValue_1 = this.maxArea;
       this.sliderTwoValue_2 = this.maxPeice;
@@ -91,7 +90,7 @@ ngOnInit(): void {
   });
   this.uniter.filtredCards$.subscribe((filteredCards) => {
     if ((!filteredCards || filteredCards.length === 0) && !this.uniter.wasCalled) {
-      console.log('This was called by observer');
+    
       return;
     }
     if (this.uniter.wasCalled) {

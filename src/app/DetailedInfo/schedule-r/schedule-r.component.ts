@@ -1,4 +1,5 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
 @Component({
   selector: 'app-schedule-r',
@@ -35,7 +36,15 @@ export class ScheduleRComponent {
 
   private isBrowser = typeof document !== 'undefined';
 
-  constructor(private renderer: Renderer2) {
+  staticData={
+    header:'Schedule a Tour',
+    ad:'Adult',
+    ch:'Children',
+    submit:'Submit'
+  }
+
+  constructor(private renderer: Renderer2 ,private lang:LanguageChooserService) {
+    this.staticData=this.lang.chosenLang.DetailedInfo.scheduled;//for language
     if (this.isBrowser) {
       this.renderer.listen('document', 'mousemove', this.onMouseMove.bind(this));
       this.renderer.listen('document', 'mouseup', this.onMouseUp.bind(this));

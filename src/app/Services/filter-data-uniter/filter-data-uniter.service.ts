@@ -42,10 +42,10 @@ this.wasCalled=false;
       this.finallData.badrooms = data.selectInputs?.[0]?.value || '0';
       this.finallData.bathrooms = data.selectInputs?.[1]?.value || '0';
   
-      if (data.selectInputs[1]?.value === "Bathrooms") {
+      if (data.selectInputs[1]?.value === "Bathrooms" || 'სააბაზანო') {
         this.finallData.bathrooms = '0';
       }
-      if (data.selectInputs[0]?.value === "Bedrooms") {
+      if (data.selectInputs[0]?.value === "Bedrooms" || 'საძინებელი') {
         this.finallData.badrooms = '0';
       }
   

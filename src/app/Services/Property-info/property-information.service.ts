@@ -3,6 +3,7 @@ import { AllCardsService } from '../all-cards/all-cards.service';
 
 import { Router } from 'express';
 import { ActivatedRoute } from '@angular/router';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -167,11 +168,27 @@ alldata;
 video;
 videoLin;
 floorimgLink;
-constructor(private route: ActivatedRoute , private allcards:AllCardsService) {
+userId;
+constructor(private route: ActivatedRoute , private allcards:AllCardsService, private http:HttpClient) {
 
-
+  if(localStorage.getItem('id')){
+    this.userId = localStorage.getItem('id');
+  }
+ 
+this.getuserReview(this.userId);
 }
 
+
+
+getuserReview(momxmareblis_id: string) {
+  const params = new HttpParams().set('momxmareblis_id', momxmareblis_id);
+
+  this.http.get<any>('get-reviews.php', { params })
+    .subscribe({
+      next: (data) => { console.log('User Reviews:', data); },
+      error: (error) => { console.error('Error fetching user reviews:', error); }
+    });
+}
 
 
 setCardId(cardId: number) {
@@ -250,28 +267,29 @@ if (Array.isArray(images) && images.length > 0) {
     };
 
     // Populate Amenities based on boolean fields
-    if (selectedCard.aivani === "true" || selectedCard.aivani === true) {
-      this.chosenCard.Amenities.push('Balcony');
-    }
-    if (selectedCard.kondincioneri === "true" || selectedCard.kondincioneri === true) {
-      this.chosenCard.Amenities.push('Heating');
-    }
-    if (selectedCard.mikrotalguri === "true" || selectedCard.mikrotalguri === true) {
-      this.chosenCard.Amenities.push('Microwave');
-    }
-    if (selectedCard.televizia_wifi === "true" || selectedCard.televizia_wifi === true) {
-      this.chosenCard.Amenities.push('WiFi');
-    }
-    if (selectedCard.sacurao_auzi === "true" || selectedCard.sacurao_auzi === true) {
-      this.chosenCard.Amenities.push('Swimming Pool');
-    }
-    if (selectedCard.sportuli_darbazi === "true" || selectedCard.sportuli_darbazi === true) {
-      this.chosenCard.Amenities.push('Gym');
-    }
-    if (selectedCard.signalizacia === "true" || selectedCard.signalizacia === true) {
-      this.chosenCard.Amenities.push('Security System');
-    }
+    const language = localStorage.getItem('Language') || 'ENG';
 
+    const amenitiesMap: { [key: string]: { ENG: string; GEO?: string; RUS?: string } } = {
+      aivani: { ENG: 'Balcony', GEO: 'აივანი', RUS: 'Балкон' },
+      kondincioneri: { ENG: 'Air Conditioning' , GEO:'კონდინციონერი', RUS: 'Кондиционер' },
+      mikrotalguri: { ENG: 'Microwave', GEO:'მიკროტალღური ღუმელი', RUS: 'Микроволновая печь' },
+      televiziai_wifi: { ENG: 'WiFi & TV'  },
+      sacurao_auzi: { ENG: 'Swimming Pool',GEO:'საცურაო აუზი', RUS: 'Бассейн' },
+      sportuli_darbazi: { ENG: 'Gym' ,GEO:'სპორტული დარბაზი', RUS: 'Спортивный зал' },
+      signalizacia: { ENG: 'Security System', GEO:'სიგნალიზაცია', RUS: 'Сигнализация' },
+      macivari: { ENG: 'Refrigerator', GEO:'მაცივარი', RUS: 'Холодильник' },
+      samrecxao_otaxi: { ENG: 'Laundry Room', GEO:'სამრეცხაო ოთახი', RUS: 'Прачечная' },
+      centrluri_gatboba: { ENG: 'Central Heating', GEO:'ცენტრალური გათბობა', RUS: 'Центральное отопление' }, //need back-end helpo
+    };
+    
+    Object.keys(amenitiesMap).forEach(key => {
+      if (selectedCard[key] === "true" || selectedCard[key] === true) {
+        this.chosenCard.Amenities.push(amenitiesMap[key][language] || amenitiesMap[key].ENG);
+      }
+    });
+    
+    
+    
     // Log the transformed card for debugging
 
   } else {

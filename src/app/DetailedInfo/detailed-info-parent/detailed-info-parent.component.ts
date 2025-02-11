@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavInfoService } from '../../Services/NavService/nav-info.service';
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
 import { ActivatedRoute } from '@angular/router';
+import { ViewsService } from '../../Services/views/views.service';
+import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
 @Component({
   selector: 'app-detailed-info-parent',
@@ -9,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './detailed-info-parent.component.scss'
 })
 export class DetailedInfoParentComponent {
-
+descH='Description';
   description=this.infoService.chosenCard.describtion;
 showPropVideo=this.infoService.video;
 floorplan=this.infoService.floorimg;
@@ -19,23 +21,20 @@ mapvalidity: boolean =
 
 
 
-  constructor(private navService:NavInfoService ,private infoService:PropertyInformationService ,  private route: ActivatedRoute,) {
-
+  constructor(private navService:NavInfoService ,private infoService:PropertyInformationService , 
+     private route: ActivatedRoute, private views:ViewsService ,private lang:LanguageChooserService) {
+    this.descH=this.lang.chosenLang.DetailedInfo.parent;
     let cardId = JSON.parse(this.route.snapshot.paramMap.get('id'));
     this.infoService.setCardId(cardId);
 
     if(infoService.chosenCard){
     this.navService.scrollobser.next(true);
    }
- console.log('Card:', this.infoService.chosenCard);
+
 
   }
   ngOnInit(): void {
-    // Extract the 'id' from the route
- console.log('map',this.mapvalidity);
-  
-    
-    // Pass the 'id' to the service
+    this.views.sendView(this.infoService.chosenCard.id); // send view to the server
   }
 
   

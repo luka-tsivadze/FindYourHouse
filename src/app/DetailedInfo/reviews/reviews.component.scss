@@ -71,6 +71,26 @@ padding-top:30px ;
 }
 }
 }
+.buttonRow{
+    position: absolute;
+    bottom: 24px;
+    button{
+        background: #ff385c;
+    cursor: pointer;
+    font-size: 16px;
+    border: none;
+    border-radius: .3rem;
+    width: 140px;
+    height: 45px;
+    color: #fff;
+    display: flex !important
+;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 0;
+    }
+}
 app-review-adder{
     width: 100%;
 }

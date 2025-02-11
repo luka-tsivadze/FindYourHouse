@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
+import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
 @Component({
   selector: 'app-recent-prop-r',
@@ -9,7 +10,9 @@ import { PropertyInformationService } from '../../Services/Property-info/propert
 export class RecentPropRComponent {
 
 Recentdata = this.cardService.RecentProp;
-  constructor(private cardService:PropertyInformationService ) {
+recentStatic='Recent Properties';
+  constructor(private cardService:PropertyInformationService ,private lang:LanguageChooserService) {
+    this.recentStatic=this.lang.chosenLang.DetailedInfo.recentStatic; 
 
    }
 }

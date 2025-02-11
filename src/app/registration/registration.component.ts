@@ -81,11 +81,7 @@ constructor(private registrationService: RegistrationService, private http:HttpC
   }
 
   chosenBtn() {
-
-    
-   
     this.login = this.registrationService.login;
-   
 
   }
 

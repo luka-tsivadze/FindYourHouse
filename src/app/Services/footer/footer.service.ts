@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EngService } from '../Languages/Eng/eng.service';
+import { EngService } from '../Languages/eng/eng.service';
 import { GeoService } from '../Languages/geo/geo.service';
 import { RusService } from '../Languages/rus/rus.service';
 import { MainPageDataService } from '../mainPageService/main-page-data.service';
@@ -18,8 +18,8 @@ export class FooterService {
   FooterData={
     FindHouse:{mainText:'New real estate buying and selling and renting portal in Georgia',
               location:'Georgia',
-              Number:'+456 875 369 208',
-              Email:'support@findhouses.com'
+              Number:'+995 32 21 14 844',
+              Email:'infofindhous@gmail.com'
     },
   Navigation:[
     {list1:'Home One',list2:'Agents Details'},
@@ -28,7 +28,7 @@ export class FooterService {
     {list1:'Property Details',list2:'Blog Details'},
     {list1:'Agents Listing' , list2:'Contact Us'}
   ],
-  TwitterFeed:[{firstWord:"FindHouses", text:'All Share Them With Me Baby Said Inspet.' , time:'about 5 days ago' }]
+  
 }
 
    staticValues = {

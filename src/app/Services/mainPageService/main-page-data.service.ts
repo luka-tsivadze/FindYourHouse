@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import {  Injectable } from '@angular/core';
 
-import { EngService } from '../Languages/Eng/eng.service';
+import { EngService } from '../Languages/eng/eng.service';
 import { GeoService } from '../Languages/geo/geo.service';
 import { RusService } from '../Languages/rus/rus.service';
 import { AllCardsService } from '../all-cards/all-cards.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Agent } from 'http';
+import { AgentsService } from '../agents/agents.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -268,6 +270,7 @@ export class MainPageDataService {
 For= {
   imgLink: '../../../assets/Imges/StaticImg/StaticIcons/icons8-home-16.png',
   text: 'Property Status',
+  optdisplay:[ 'For Rent','For Sale' ,'Pledge','Rented daily','Apartments Under Construction'],
   options: [ 'For Rent','For Sale' ,'Pledge','Rented daily','Apartments Under Construction'],
   name: 'propertyStatus', // Added name
 };
@@ -300,10 +303,19 @@ main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთ
   constructor(
 
     private allcards: AllCardsService,
+    private http: HttpClient,
+    private agentsServ:AgentsService,
     private EngService: EngService,
     private GeoService: GeoService,
     private RusService: RusService
   ) {
+ 
+    this.agentsServ.fetchAgentData().subscribe({
+      next: (data) => console.log('Agent Data:', data),
+      error: (err) => console.error('Error fetching agents:', err)
+    });
+    
+    
     this.allcards.fetchDataFromApi().subscribe((data) => {
       
       this.featuredPropSubject.next(data);
@@ -318,6 +330,8 @@ main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთ
       
       switch (this.localStorage) {
         case 'ENG':
+          this.For.optdisplay=EngService.For.optdisplay
+          this.For.text=EngService.For.text
           this.staticData = {
             headerTextList: ['Plaza', 'House', 'Apartment'], // Texts for the main page animation
             staticElements:EngService.Header
@@ -328,6 +342,9 @@ main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთ
           this.main=EngService.main
           break;
         case 'GEO':
+          this.For.optdisplay=GeoService.For.optdisplay
+          this.For.text=GeoService.For.text
+
           this.staticData = {
             headerTextList: ['პლაზა', 'სახლი', 'ბინა'], // Texts for the main page animation
             staticElements:GeoService.Header
@@ -338,6 +355,8 @@ main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთ
           break;
           
         case 'RUS':
+          this.For.optdisplay=RusService.For.optdisplay
+          this.For.text=RusService.For.text
           this.staticData = {
             headerTextList: ['Плаза', 'Дом', 'Квартира'], // Texts for the main page animation'
             staticElements:RusService.Header

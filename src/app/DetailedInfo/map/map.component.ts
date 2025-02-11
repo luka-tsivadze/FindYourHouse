@@ -14,6 +14,7 @@ import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
 import { defaults as defaultControls } from 'ol/control';
+import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
 @Component({
   selector: 'app-map',
@@ -22,14 +23,18 @@ import { defaults as defaultControls } from 'ol/control';
 })
 export class MapComponent implements OnInit, AfterViewInit {
   map: Map | undefined;
+  loc='location';
   lat = this.service.chosenCard.latitude; // Latitude from the service
   long = this.service.chosenCard.longitude; // Longitude from the service
   @ViewChild('mapContainer', { static: false }) mapContainer: ElementRef | undefined;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private service: PropertyInformationService
-  ) {}
+    private service: PropertyInformationService,
+    private lang: LanguageChooserService
+  ) {
+    this.loc=this.lang.chosenLang.DetailedInfo.map;
+  }
 
   ngOnInit(): void {}
 

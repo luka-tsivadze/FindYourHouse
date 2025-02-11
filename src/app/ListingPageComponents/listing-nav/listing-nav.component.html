@@ -38,7 +38,7 @@
                         <a >{{this.NavElements.Pages[0].a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':this.NavElements.Pages[0].Showimg==true}" alt="arrow">
                         <div [ngClass]="{'ArrowNav':this.NavElements.Pages[0].Showimg==true,'DNone':this.NavElements.Pages[0].Showimg==false}"><div class="forHover">
                             <div class="aContainer" [routerLink]="this.NavElements.Pages[0].route"   *ngFor="let subElement of this.NavElements.Pages[0].subText">
-                                <a (click)="uploadToLocal(subElement.text)" >{{subElement.text}} </a> </div>
+                                <a (click)="uploadToLocal(subElement.value)" >{{subElement.text}} </a> </div>
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
         </div>
          </li>
                  <li class="RightRow" (click)="displayEl()" ><div class="circle"><img src="{{SignedIn.imgLink}}" alt="Profile img"><div class="activebtn"></div></div> <p>Hi {{SignedIn.Name}}</p> <img class="bottomArrow" src="../../assets/Imges/NavImg/arrow-bottom-4.png" alt="Arrow Icon"> </li>
-                 <div class="SubNav" [ngClass]="{DNone: displayElement==false}"><a *ngFor="let el of ProfileSettings" href="">{{el.Text}}</a></div>
+                 <div class="SubNav" [ngClass]="{DNone: displayElement==false}"><a *ngFor="let el of ProfileSettings"  (click)="profileSettings(el.value)">{{el.Text}}</a></div>
     </ul>
 </nav>
 <div class="leftNav">

@@ -157,6 +157,87 @@ export class GeoService {
     ago: 'თვის წინ'
   };
   
+  contact = {
+    staticText: {
+      header: 'კონტაქტი',
+      headerH4: 'მთავარი  /  კონტაქტი',
+      Mes:'შეტყობინება',
+      sub: 'გაგზავნა',
+      cd: 'საკონტაქტო დეტალები',
+      cp: 'გთხოვთ იხილოთ დეტალები ქვემოთ, დაგვიკავშირდით დღესვე!'
+    },
+    inputs: [
+      { placeholder: 'სახელი', type: 'text', FormControlname: 'saxeli' },
+      { placeholder: 'გვარი', type: 'text', FormControlname: 'gvari' },
+      { placeholder: 'სათაური', type: 'text', FormControlname: 'satauri' },
+      { placeholder: 'ელ. ფოსტა', type: 'email', FormControlname: 'maili' },
+    ],
+  }
+    About = {
+    headerH2: 'ჩვენს კომპანიაზე',
+    headerH4: 'მთავარი / ჩვენ შესახებ',
+    span1: 'ჩვენს ',
+    span2: 'შესახებ',
+    mainText: `ლორემ იპსუმ დოლორ სიტ ამეტ, კონსექტეტურ ადიპისიცინგ ელიტ. ლაბორუმ ოდიო იდ ვოლუპტატიბუს ინციდენტ კუმ? ათქუე კვაზი ეუმ დებიტის ოპტიო აბ. ესე იტაკე ოფიციის ტემპორა პოსიმუს ოდიო რუმ ავერიამ ratione, სუნტ. ლორემ იპსუმ დოლორ სიტ ამეტ, კონსექტეტურ ადიპისიცინგ ელიტ სუნტ.`,
+    btn: 'წაიკითხე მეტი'
+  }
+
+  DetailedInfo = {
+    advertismentr: 'დღის სპეციალური შეთავაზებები',
+    AgentsInfo: {
+      inputs: [
+        { type: 'text', placeholder: 'სახელი', formControlName: 'firstName' },
+        { type: 'number', placeholder: 'ტელეფონის ნომერი', formControlName: 'phoneNumber' },
+        { type: 'email', placeholder: 'ელ. ფოსტა', formControlName: 'email' },
+      ],
+      staticValues: {
+        h3: 'აგენტის ინფორმაცია',
+        p: 'ქონების აგენტი',
+        req: 'ინფორმაციის მოთხოვნის',
+        submit: 'გაგზავნა',
+        textArea: 'შეტყობინება',
+      },
+    },
+    CardGallery1: 'გალერეა',
+    parent: 'აღწერა',
+    Featuredpr: {
+      header: 'რჩეული განცხადებები',
+      area: 'ფართობი',
+      rooms: 'ოთახები',
+      beds: 'საძინებლები',
+    },
+    Floorplan: 'სართულის გეგმა',
+    leftAmenties: {
+      h2: 'ქონების დეტალები',
+      h2a: 'სერვისები',
+      propstatic: [
+        'ქონების ID', 'ქონების ტიპი', 'ქონების სტატუსი', 'ფასი', 'ოთახები', 
+        'საძინებლები', 'სააბაზანო', 'ფართობი', 'აშენების წელი'
+      ],
+    },
+    map: 'ლოკაცია',
+    near: 'რა არის ახლოს',
+    propvideo: 'განცხადების ვიდეო',
+    recentStatic:'ბოლო განცხადებები',
+    reviewAd: {
+      header: 'მიმოხილვის დამატება',
+      p: 'თქვენი შეფასება ამ განცხადებისთვის',
+      placeholderN: 'მიმოხილვა',
+      submit: 'გაგზავნა',
+    },
+    reviews: 'მიმოხილვა',
+    scheduled: {
+      header: 'ტურის დაგეგმვა',
+      ad: 'ზრდასრული',
+      ch: 'ბავშვი',
+      submit: 'გაგზავნა',
+    },
+    simProp: 'მსგავსი ქონება',
+    tagscomp: {
+      header: 'პოპულარული ტეგები',
+      Tags: ['სახლები', 'რეალური სახლი', 'სააბაზანოები', 'საძინებლები', 'გარაჟი', 'ოჯახი', 'უძრავი ქონება', 'ქონება', 'ლოკაცია', 'ფასი'],
+    },
+  };
   
 
   constructor() { }

@@ -5,11 +5,37 @@ import { every } from 'rxjs';
   providedIn: 'root'
 })
 export class GeoService {
-
+  MenuBar = {
+    Home: [  ],
+  
+    Property: [ ],
+    Pages: [ 
+      { a: 'მომხმარებლის პანელი', Showimg: true, RouterLink: '', subText: [ {text: 'მართვა', value: 'Dashboard'},
+        { text: 'პროფილი', value: 'Profile' }, {text: 'ჩემი განცხადებები', value: 'My Properties'}, { text: 'შენახული განცხადებები', value: 'Favorited Properties'},
+        {text: 'განცხადების დამატება', value: 'Add Property'} ,{text: 'გადახდა', value: 'Payments'},{text: 'პაროლის შეცვლა', value: 'Change Password'}] },
+      { a: 'შესვლა', Showimg: false },
+      { a: 'რეგისტრაცია', Showimg: false, RouterLink: ''  },
+      { a: 'ჩვენ შესახებ', Showimg: false, RouterLink: '/about' },
+    ],
+    Blog: [ 
+      { a: 'ტექსტი', Showimg: true, subText: ['ტექსტი 1', 'ტექსტი 2', 'ტექსტი 3'] },
+      { a: 'ტექსტი', Showimg: false },
+      { a: 'ტექსტი', Showimg: false }
+    ],
+    profileSettings: [
+      { Text: 'პროფილის რედაქტირება', value: 'Edit Profile', routes: '' },
+      { Text: 'განცხადების დამატება', value: 'Add Property' },
+      { Text: 'გადახდები', value: 'Payments' },
+      { Text: 'პაროლის შეცვლა', value: 'Change Password' },
+      { Text: 'გასვლა', value: 'Log Out' }
+    ]
+    
+  };
+  
 
 NavG={Home:'მთავარი ' , 
     Property:'უძრავი ქონება', Pages:'გვერდები',Blog:'ბლოგი',
-    Contact:'კონტაქტი',SignIn:'რეგისტრაცია',AddListing:' სიის დამატება'}
+    Contact:'კონტაქტი',SignIn:'შესვლა',AddListing:' განცხადების ატვირთვა'}
 
     Header={FindYourHouse:'იპოვე შენი საოცნებო ' ,weHaveOverMillion:'ჩვენ გვაქვს უძრავი ქონების მილიონზე მეტი  არჩევანი, თქვენთვის' ,status:['ქირავდება','იყიდება','გირავდება','ქირავდება დღიურად',' მშენებარე ბინები'],
        KayWord:'საძიებო სიტყვა', propertyType:'ქონების ტიპი', Advanced:'გაფართოებული ძებნა', Search:'მოძებნა',location:'მდებარეობა'
@@ -92,6 +118,55 @@ form6Info = [
   { HeaderName: 'ემაილი', placeHolder: 'შეიყვანე შენი ემაილი', id: 'Email6', formControlName: 'el_fosta' },
   { HeaderName: 'ტელეფონი', placeHolder: 'შეიყვანე შენი ნომერი', id: 'Number6', formControlName: 'telefonis_nomeri' }
 ];
+For={
+  text: 'ქონების სტატუსი',
+  optdisplay:[ 'ქირავდება', 'იყიდება', 'გირავდება', 'ქირავდება ყოველდღიურად', 'მშენებარე ბინები'],
+}
+allFilter = {
+  FirstFilter: {
+    locations: ['Tbilisi', 'Batumi', 'kutaisi', 'Rustavi', 'Zugdidi', 'Telavi', 'Bakuriani', 'Kobuleti'],
+    locationDis: ['Тбилиси', 'Батуми', 'Кутаиси', 'Рустави', 'Зугдиди', 'Телави', 'Бакуриани', 'Кобулети'],
+
+    PropertyTypes: ['Apartment', 'House', 'Commercial', 'Garage'],
+    PropertyTypesDis: ['Квартира', 'Дом', 'Коммерческая', 'Гараж']
+  },
+  filter: {
+    SelectInputs: [
+      {
+        imgLink: '../../../assets/Imges/StaticImg/StaticIcons/sleeping.png',
+        text: 'საძინებელი',
+        options: ['საძინებელი', '1', '2', '3', '4', '5', '6', '7'],
+        name: 'bedrooms',
+      },
+      {
+        imgLink: '../../../assets/Imges/StaticImg/StaticIcons/bathtub.svg',
+        text: 'სააბაზანო',
+        options: ['სააბაზანო', '1', '2', '3', '4', '5'],
+        name: 'bathrooms',
+      },
+    ],
+    range: {
+      area: 'ფართობი',
+      MAmount: 'კვ.მ',
+      Price: 'ფასის დიაპაზონი'
+    },
+    filteredCheckBox: [
+      { id: '1', label: 'Air Conditioning', name: 'კონდინციონერი', formcontroller: 'airConditioning' },
+      { id: '2', label: 'Swimming Pool', name: 'აუზი', formcontroller: 'swimmingPool' },
+      { id: '3', label: 'TV Cable & wifi', name: 'ტელევიზია და ინტერნეტი', formcontroller: 'tvCable' },
+      { id: '4', label: 'Central Heating', name: 'ცენტრალური გათბობა', formcontroller: 'centralHeating' },
+      { id: '5', label: 'Laundry Room', name: 'სარეცხი ოთახი', formcontroller: 'laundryRoom' },
+      { id: '6', label: 'Microwave', name: 'მიკროტალღური ღუმელი', formcontroller: 'microwave' },
+      { id: '7', label: 'Gym', name: 'სპორტული დარბაზი', formcontroller: 'gym' },
+      { id: '8', label: 'Alarm', name: 'სიგნალიზაცია', formcontroller: 'alarm' },
+      { id: '9', label: 'Refrigerator', name: 'მაცივარი', formcontroller: 'refrigerator' },
+      { id: '10', label: 'Window Covering', name: 'სიგნალიზაცია', formcontroller: 'windowCovering' },
+    ],
+  },
+  
+
+}
+
 
 
   constructor() { }

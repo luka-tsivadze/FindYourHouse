@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
+import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
 @Component({
   selector: 'app-left-amenties',
@@ -9,12 +10,18 @@ import { PropertyInformationService } from '../../Services/Property-info/propert
 export class LeftAmentiesComponent {
 
   // Static array of property labels
-  propstatic = ['Property ID', 'Property Type', 'Property Status', 'Property Price', 'Rooms', 'Bedrooms', 'Bath', 'Area', 'Year Built'];
+ 
+  static={
+    h2:'Property Details',
+    h2a:'Amenities',
+    propstatic:['Property ID', 'Property Type', 'Property Status', 'Property Price', 'Rooms', 'Bedrooms', 'Bath', 'Area', 'Year Built']
+  }
   // Array to hold chosenCard values
   Infoelements: any[] = [];
   Amenties = this.propertyInfo.chosenCard.Amenities;
 
-  constructor(private propertyInfo: PropertyInformationService) { 
+  constructor(private propertyInfo: PropertyInformationService ,private lang:  LanguageChooserService) { 
+    this.static = this.lang.chosenLang.DetailedInfo.leftAmenties;
     // Populate Infoelements based on chosenCard data
     const chosenCard = this.propertyInfo.chosenCard;
     this.Infoelements = [

@@ -16,13 +16,13 @@
 
                 <select formControlName="propertyType">
                     <option value="0">{{staticElements.propertyType}}</option>
-                    <option  *ngFor="let el of firstFilter.PropertyTpes" value="{{el}}">{{el}}</option>
+                    <option  *ngFor="let el of firstFilter.PropertyTypes let i=index" value="{{el}}">{{firstFilter.PropertyTypesDis[i]}}</option>
               
                 </select>
          
             <select name="location"  formControlName="location"> 
                 <option value="0">{{staticElements.location}}</option>
-                <option  *ngFor="let el of firstFilter.locations" value="{{el}}">{{el}}</option>
+                <option  *ngFor="let el of firstFilter.locations let i =index" value="{{el}}">{{firstFilter.locationDis[i]}}</option>
             </select>
          
         <button class="advanceS" (click)="advanced()" ><h5>{{staticElements.Advanced}}</h5><img src="../../../assets/Imges/StaticImg/StaticIcons/ellipsis-three-vertical-squares-menu-interface-symbol-svgrepo-com.svg" alt="three dots"></button>
@@ -32,7 +32,7 @@
         <div class="selectRow"> 
 
             <div class="selectParent" *ngFor="let sel of filterOptions.SelectInputs">
-                <img class="simg" src="{{sel.imgLink}}   " alt="HomeIcon">
+                <img class="simg" src="{{sel.imgLink}}" alt="HomeIcon">
                 <select name="{{sel.text}}"  formControlName="{{sel.name}}">
                     <option value="0" disabled selected hidden>{{sel.text}}</option>
                     <option value="{{opt}}" *ngFor="let opt of sel.options">{{opt}}</option>      
@@ -46,10 +46,10 @@
     <div class="leftRange">
       <!-- First wrapper section -->
 <div class="wrapper"> 
-  <h4>Area Size</h4>
+  <h4>{{filterOptions.range.area}}</h4>
   <div class="values">
-    <span *ngIf="showSliderOne_1">{{ sliderOneValue_1 }} Sq M</span>
-    <span *ngIf="showSliderTwo_1">{{ sliderTwoValue_1 }} sq M</span>
+    <span *ngIf="showSliderOne_1">{{ sliderOneValue_1 }}{{filterOptions.range.MAmount}}</span>
+    <span *ngIf="showSliderTwo_1">{{ sliderTwoValue_1 }} {{filterOptions.range.MAmount}}</span>
   </div>
   <div class="container">
     <div class="slider-track" [ngStyle]="trackStyle_1"></div>
@@ -60,10 +60,11 @@
 
 <!-- Second wrapper section -->
 <div class="wrapper"> 
-  <h4>Price Range</h4>
+  <h4>{{filterOptions.range.Price}}</h4>
   <div class="values">
-    <span *ngIf="showSliderOne_2">${{ sliderOneValue_2 }}</span>
-    <span *ngIf="showSliderTwo_2">$ {{ sliderTwoValue_2 }} </span>
+    <span *ngIf="showSliderOne_2">{{ sliderOneValue_2 }}</span>
+    <!-- $ -->
+    <span *ngIf="showSliderTwo_2"> {{ sliderTwoValue_2 }} </span>
   </div>
   <div class="container">
     <div class="slider-track" [ngStyle]="trackStyle_2"></div>
@@ -79,8 +80,8 @@
     <div class="rightChacks"> 
                 
         <div class="row" *ngFor="let el of filterOptions.filteredCheckBox" >
-            <label for="{{el.id}}">{{el.label}}</label>
-            <input type="checkbox" name="{{el.id}}" id="{{el.id}}"[formControlName]="el.name">
+            <label for="{{el.id}}">{{el.name}}</label>
+            <input type="checkbox" name="{{el.id}}" id="{{el.id}}"[formControlName]="el.formcontroller">
 </div>
 
 </div>

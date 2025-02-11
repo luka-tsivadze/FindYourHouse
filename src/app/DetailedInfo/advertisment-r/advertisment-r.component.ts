@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
 @Component({
   selector: 'app-advertisment-r',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './advertisment-r.component.scss'
 })
 export class AdvertismentRComponent {
+h3='Specials of the day'
+
+ constructor(private lang:LanguageChooserService) {
+  this.h3=this.lang.chosenLang.DetailedInfo.advertismentr
+  }
 
 }

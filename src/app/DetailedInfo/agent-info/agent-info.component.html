@@ -1,12 +1,12 @@
 <div class="body">
     <form [formGroup]="profileForm"> <!-- Bind the form -->
-      <h3>Agent Information</h3>
+      <h3>{{staticValues.h3}}</h3>
       <div class="profile">
         <div class="imgRow">
           <img src='../../../assets/Imges/NavImg/man.png' alt="profileImg">
           <div class="text">
             <h4>{{profileInfo.profileName}}</h4>
-            <p>Agent of Property</p>
+            <p>{{staticValues.p}}</p>
           </div>
         </div>
         <div class="ngRow">
@@ -19,10 +19,10 @@
         </div>
       </div>
       <div class="form">
-        <h1>Request Inquiry</h1>
+        <h1>{{staticValues.req}}</h1>
         <input *ngFor="let inp of inputs" [type]="inp.type" [placeholder]="inp.placeholder" [formControlName]="inp.formControlName">
-        <textarea class="resizable-textarea" name="Description" id="Description" placeholder="Message" formControlName="Message" e="text"></textarea>
-        <button type="submit" (click)="onSubmit()" name="gagzavna">Submit Request</button>
+        <textarea class="resizable-textarea" name="Description" id="Description" placeholder="{{staticValues.textArea}}" formControlName="Message" e="text"></textarea>
+        <button type="submit" (click)="onSubmit()" name="gagzavna">{{staticValues.submit}}</button>
       </div>
     </form>
   </div>

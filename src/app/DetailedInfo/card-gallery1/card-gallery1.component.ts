@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AllCardsService } from '../../Services/all-cards/all-cards.service';
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
+import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
 @Component({
   selector: 'app-card-gallery1',
@@ -8,13 +9,13 @@ import { PropertyInformationService } from '../../Services/Property-info/propert
   styleUrl: './card-gallery1.component.scss'
 })
 export class CardGallery1Component {
-
+staticH2='Gallery';
  data = this.cardInfo.chosenCard;
  ForActive=0;
  priceForM=Math.round(Number(this.data.purePrice)/Number(this.data.area)) + this.data.currency || 'GEL';
  mainImg=this.cardInfo.chosenCard.img[this.ForActive];
-  constructor( private cardInfo:PropertyInformationService){
-
+  constructor( private cardInfo:PropertyInformationService ,private lang:LanguageChooserService) {
+this.staticH2=this.lang.chosenLang.DetailedInfo.CardGallery1;
    }
 
   ngOnInit(): void {

@@ -8,14 +8,14 @@ import { Router } from 'express';
 @Injectable({
   providedIn: 'root'
 })
-export class NavInfoService implements OnInit {
+export class NavInfoService {
   MenuBar = {
     Home: [  ],
-  
     Property: [ ],
     Pages: [ 
-      { a: 'User Panel', Showimg: true,  RouterLink: '', subText: [ {text:'Dashboard'},{ text:'Profile'}, {text:'My Properties'}, { text:'Favorited Properties'} ,
-         {text:'Add Property'} ,{text:'Payments'},{text:'Change Password'}] },
+      { a: 'User Panel', Showimg: true,  RouterLink: '', subText: [ {text:'Dashboard',value:'Dashboard'},
+        { text:'Profile',value:'Profile' }, {text:'My Properties',value:'My Properties'}, { text:'Favorited Properties',value:'Favorited Properties'} ,
+         {text:'Add Property',value:'Add Property'} ,{text:'Payments',value:'Payments'},{text:'Change Password',value:'Change Password'}] },
       { a: 'Login', Showimg: false },
       { a: 'Register', Showimg: false, RouterLink: ''  },
       { a: 'About Us', Showimg: false, RouterLink: '/about' },
@@ -24,13 +24,15 @@ export class NavInfoService implements OnInit {
       { a: 'text', Showimg: true, subText: ['text1', 'text2', 'text3'] },
       { a: 'text', Showimg: false },
       { a: 'text', Showimg: false }
-    ]
+    ],
+    profileSettings:[{ Text:'Edit Profile', value:'Edit Profile', routes:''},{ Text:'Add Property',value:'Add Property'}
+      ,{Text:'Payments', value:'Payments' },{Text:'Change Password', value:'Change Password'},{Text:'Log Out',value:'Log Out'}]
   };
 
   IsSignedIn = { signed: false, imgLink: '../../assets/Imges/NavImg/man.png', Name: 'Not Recieved' ,number:'' ,email:'NotRecieved@gmail.com' ,gender:''};
   public userData$ = new BehaviorSubject(this.IsSignedIn);
   Languages = ['ENG', 'RUS', 'GEO'];
-  chosenLang: string | undefined;
+  chosenLang: string | undefined; //სერვისში გამოუსადეგარია 
   scrollobser = new BehaviorSubject<boolean>(false);
   
 userId
@@ -54,11 +56,14 @@ userId
 
          }
       });
+      if(localStorage.getItem('Language')){
+        this.chosenLang = localStorage.getItem('Language');
+        
+      }
     }
+
   }
-ngOnInit(): void {
-  
-}
+
   updateScrollStatus(status: boolean) {
     this.scrollobser.next(status);  // Update the value
 

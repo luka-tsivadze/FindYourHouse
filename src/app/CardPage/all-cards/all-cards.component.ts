@@ -195,7 +195,9 @@ export class AllCardsComponent {
     this.detailedservice.setCardId(cardId);
     this.router.navigate(['/allCards', cardId]);
   }
-
+  trackByIndex(index: number): number {
+    return index;
+  }
   restoreState() {
     if (this.cards.length > 0) {
       this.filteredCards = this.cards;

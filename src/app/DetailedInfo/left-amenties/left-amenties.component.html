@@ -1,12 +1,12 @@
 <main>
     <div class="propertyDetails">
-        <h2>Property Details</h2>
+        <h2>{{static.h2}}</h2>
         <div class="mainRow">
-        <div class="el" *ngFor="let el of propstatic let i=index"><h5>{{el}}:</h5><p>{{Infoelements[i]}}</p></div>
+        <div class="el" *ngFor="let el of static.propstatic let i=index"><h5>{{el}}:</h5><p>{{Infoelements[i]}}</p></div>
 
         </div>
     </div>
-    <div class="Amenties"><h2>    Amenties  </h2>
+    <div class="Amenties"><h2>    {{static.h2a}} </h2>
         <div class="mainRow">
             <div class="el" *ngFor="let ament of Amenties"><input type="checkbox"  checked  ><label>{{ament}}</label></div>
 

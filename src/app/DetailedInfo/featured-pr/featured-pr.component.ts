@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
+import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
 @Component({
   selector: 'app-featured-pr',
@@ -9,9 +10,15 @@ import { PropertyInformationService } from '../../Services/Property-info/propert
 export class FeaturedPRComponent {
  cardData = this.featuredProp.featuredProp;
  transformIndex = 0;
+ staticvalues={
+  header:'Featured Properties',
+  area:'Area',
+  rooms:'Rooms',
+  beds:'Beds',
+ }
   
-    constructor(private featuredProp:PropertyInformationService) {
-      
+    constructor(private featuredProp:PropertyInformationService ,private lang:LanguageChooserService) {
+      this.staticvalues=this.lang.chosenLang.DetailedInfo.Featuredpr;
      }
     
 

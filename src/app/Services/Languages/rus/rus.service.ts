@@ -4,7 +4,32 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class RusService {
-
+  MenuBar = {
+    Home: [  ],
+    Property: [ ],
+    Pages: [ 
+      { a: 'Панель пользователя', Showimg: true, RouterLink: '', subText: [ {text: 'Панель управления', value: 'Dashboard'},
+        { text: 'Профиль', value: 'Profile' }, {text: 'Моя собственность', value: 'My Properties'}, { text: 'Избранная собственность', value: 'Favorited Properties'},
+        {text: 'Добавить собственность', value: 'Add Property'} ,{text: 'Платежи', value: 'Payments'},{text: 'Изменить пароль', value: 'Change Password'}] },
+      { a: 'Войти', Showimg: false },
+      { a: 'Регистрация', Showimg: false, RouterLink: ''  },
+      { a: 'О нас', Showimg: false, RouterLink: '/about' },
+    ],
+    Blog: [ 
+      { a: 'Текст', Showimg: true, subText: ['Текст 1', 'Текст 2', 'Текст 3'] },
+      { a: 'Текст', Showimg: false },
+      { a: 'Текст', Showimg: false }
+    ],
+    profileSettings: [
+      { Text: 'Редактировать профиль', value: 'Edit Profile', routes: '' },
+      { Text: 'Добавить недвижимость', value: 'Add Property' },
+      { Text: 'Платежи', value: 'Payments' },
+      { Text: 'Сменить пароль', value: 'Change Password' },
+      { Text: 'Выйти', value: 'Log Out' }
+    ]
+    
+  };
+  
 NavR={Home:'дом' ,
   Property:' недвижимость', Pages:'Страницы',Blog:'Блог',
   Contact:'Контакт',SignIn:'Регистрация', AddListing:'Добавить запись'
@@ -53,6 +78,10 @@ SFooter = {
   NewsFooterText: 'Подпишитесь на нашу информационную рассылку, чтобы получать последние обновления и предложения. Подпишитесь, чтобы получать новости на свою почту.', 
   NewsFooterBtn: 'ПОДПИСАТЬСЯ', 
   NewsFooterPlaceHolder: 'Введите ваш email'
+}
+For={
+  text: 'Статус недвижимости',
+  optdisplay:[ 'Сдается в аренду', 'Продается', 'Залог', 'Аренда посуточно', 'Строящиеся квартиры'],
 }
 
 

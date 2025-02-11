@@ -25,7 +25,7 @@ export class RegistrationService {
       this.displayer$ = this.displayerSubject.asObservable();
     
   }
-  login = false;
+  login = true;
 
   toggleLogin(isLogin: boolean): void {
     this.login = isLogin;

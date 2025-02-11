@@ -1,15 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { LanguageChooserService } from '../Services/language-chooser/language-chooser.service';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
 })
-export class ContactComponent {
+export class ContactComponent implements OnInit {
   message={text:'' , validity:false , class:'' }; 
   res;
+  staticText = {
+    header:'Contact Us',
+    headerH4:'Home  /  Contact Us',
+    Mes:'Message',
+    sub:'Submit',
+    cd:'Contact Details',
+    cp:'Please find below contact details and contact us today!'
+
+  }
   inputs = [
     { placeholder: 'First Name', type: 'text', FormControlname: 'saxeli' },
     { placeholder: 'Last Name', type: 'text', FormControlname: 'gvari' },
@@ -18,14 +28,14 @@ export class ContactComponent {
   ];
 
   contactInfo = [
-    { IconLink: '../../assets/Imges/StaticImg/StaticIcons/clock.svg', text: '+456 875 369 208' },
-    { IconLink: '../../assets/Imges/StaticImg/StaticIcons/envelope-fill.svg', text: 'support@findhouses.com' },
-    { IconLink: '../../assets/Imges/StaticImg/StaticIcons/telephone-fill.svg', text: '8:00 a.m - 9:00 p.m' },
+    { IconLink: '../../assets/Imges/StaticImg/StaticIcons/clock.svg', text: '+995 32 21 14 844' },
+    { IconLink: '../../assets/Imges/StaticImg/StaticIcons/envelope-fill.svg', text: 'infofindhous@gmail.com' },
+    { IconLink: '../../assets/Imge s/StaticImg/StaticIcons/telephone-fill.svg', text: '9:30 a.m - 7:00 p.m' },
   ];
 
   form: FormGroup;
 
-  constructor(private fb: FormBuilder , private http: HttpClient) {
+  constructor(private fb: FormBuilder , private http: HttpClient ,private lang:LanguageChooserService) {
 
     this.form = this.fb.group({
       saxeli: ['', Validators.required],
@@ -34,11 +44,13 @@ export class ContactComponent {
       maili: ['', [Validators.required, Validators.email]],
       shetyobineba: ['', Validators.required],
     });
+
   }
 
-  trackByIndex(index: number): number {
-    return index;
-  }
+ngOnInit(): void {
+ this.staticText=this.lang.chosenLang.contact.staticText;
+  this.inputs=this.lang.chosenLang.contact.inputs;
+}
 
   onSubmit(): void {
     

@@ -1,8 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 import { BehaviorSubject, map, Observable, of, shareReplay, Subject, switchMap, tap } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
+import { EngService } from '../Languages/eng/eng.service';
+import { GeoService } from '../Languages/geo/geo.service';
+import { RusService } from '../Languages/rus/rus.service';
+
 
 
 
@@ -10,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class AllCardsService {
+export class AllCardsService  {
 
   formValue;
   firstimg
@@ -19,7 +23,10 @@ export class AllCardsService {
   ];
   FirstFilter={
     locations:['Tbilisi','Batumi' , 'kutaisi' , 'Rustavi','Zugdidi', 'Telavi' ,'Bakuriani','Kobuleti'],
-    PropertyTpes:['Apartment','House','Commercial','Garage'],
+    locationDis:['Tbilisi','Batumi' , 'kutaisi' , 'Rustavi','Zugdidi', 'Telavi' ,'Bakuriani','Kobuleti'],
+   
+    PropertyTypes:['Apartment','House','Commercial','Garage'],
+    PropertyTypesDis:['Apartment','House','Commercial','Garage']
   }
   filter = {
     SelectInputs: [
@@ -39,43 +46,74 @@ export class AllCardsService {
       },
     ],
     filteredCheckBox: [
-      { id: '0', label: 'Air Conditioning', name: 'airConditioning' },
-      { id: '2', label: 'Swimming Pool', name: 'swimmingPool' },
-      { id: '3', label: 'TV Cable & wifi', name: 'tvCable' },
-      { id: '4', label: 'Central Heating', name: 'centralHeating' },
-      { id: '5', label: 'Dryer', name: 'dryer' },
-      { id: '6', label: 'Laundry Room', name: 'laundryRoom' },
-      { id: '7', label: 'Microwave', name: 'microwave' },
-      { id: '8', label: 'Gym', name: 'gym' },
-      { id: '9', label: 'Washer', name: 'washer' },
-      { id: '10', label: 'Alarm', name: 'alarm' },
-      { id: '11', label: 'Refrigerator', name: 'refrigerator' },
-      { id: '12', label: 'Window Covering', name: 'windowCovering' },
-      { id: '13', label: 'Outdoor Shower', name: 'outdoorShower' },
+      { id: '1', label: 'Air Conditioning', name: 'Air Conditioning', formcontroller:'airConditioning'},
+      { id: '2', label: 'Swimming Pool', name: 'Swimming Pool', formcontroller:'swimmingPool' },
+      { id: '3', label: 'TV Cable & wifi', name: 'TV Cable & wifi',  formcontroller:'tvCable' },
+      { id: '4', label: 'Central Heating', name: 'Central Heating',   formcontroller:'centralHeating' },
+  
+      { id: '5', label: 'Laundry Room', name: 'Laundry Room',  formcontroller:'laundryRoom' },
+      { id: '6', label: 'Microwave', name: 'Microwave', formcontroller:'microwave' },
+      { id: '7', label: 'Gym', name: 'Gym', formcontroller:'gym' },
+  
+      { id: '8', label: 'Alarm', name: 'Alarm',  formcontroller:'alarm' },
+      { id: '9', label: 'Refrigerator', name: 'Refrigerator',  formcontroller:'refrigerator' },
+      { id: '10', label: 'Window Covering', name: 'Balcony',  formcontroller:'windowCovering' },
+  
     ],
+    range:{
+      area:'Area Size',
+      MAmount:'sq M',
+     Price:'Price Range'
+    },
   };
   selectedValues: { [key: string]: string } = {};
 
    private dataSubject = new Subject<any>(); // Replace `any` with a specific type if needed.
    data$ = this.dataSubject.asObservable(); // Observable for the components to subscribe to.
- 
-   
    private apiResponse$: Observable<any[]>; 
    private submitSubject = new Subject<void>();//for filter submit
    submit$ = this.submitSubject.asObservable();
+   localStorage;
+   chosenLang;
    triggerSubmit() {
      this.submitSubject.next(); // Notify all listeners to submit
-    
-   }
+        }
+
+  
 
    // Method to send data
    setData(value: boolean) {
     this.dataSubject.next(value);
   }
-constructor(private http: HttpClient , ) { 
+constructor(private http: HttpClient , private eng: EngService , private Geo: GeoService , private rus: RusService) { 
+  if (typeof localStorage !== 'undefined' && localStorage.getItem('Language')) {
+    this.localStorage = localStorage.getItem('Language');
+  }
+    switch (this.localStorage) {
+      case 'ENG':
+        this.filter= this.eng.allFilter.filter;
+        this.FirstFilter=this.eng.allFilter.FirstFilter;
+        break;
+      case 'GEO':
+        this.filter= this.Geo.allFilter.filter;
+       this.FirstFilter= this.Geo.allFilter.FirstFilter;
+        break;
+        
+      case 'RUS':
+       this.filter= this.Geo.allFilter.filter;
+       this.FirstFilter= this.Geo.allFilter.FirstFilter;
+        break;
+        
+  
+    }
+console.log(this.filter, this.FirstFilter)
+
   this.fetchDataFromApi(); // Initialize the API call
 
 }
+
+
+
 getCardsInfo() {
   throw new Error('Method not implemented.');
 }
@@ -151,7 +189,7 @@ fetFavchData(id: number): Observable<any[]> {
         })
       )
     ),
-    shareReplay(1) // Cache response to avoid duplicate API calls
+    shareReplay(1) 
   );
 
   return this.cachedFavCards$;

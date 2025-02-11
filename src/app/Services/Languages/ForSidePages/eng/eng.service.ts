@@ -1,4 +1,7 @@
-import { Injectable, input } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { CardGallery1Component } from '../../../../DetailedInfo/card-gallery1/card-gallery1.component';
+import { scheduled } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -161,5 +164,103 @@ myProp={
   prev:'Previous',
   next:'Next'
 }
+contact={
+  staticText : {
+    header:'Contact Us',
+    headerH4:'Home  /  Contact Us',
+    Mes:'Message',
+    sub:'Submit',
+    cd:'Contact Details',
+    cp:'Please find below contact details and contact us today!'
+
+  },
+  inputs : [
+    { placeholder: 'First Name', type: 'text', FormControlname: 'saxeli' },
+    { placeholder: 'Last Name', type: 'text', FormControlname: 'gvari' },
+    { placeholder: 'Header', type: 'text', FormControlname: 'satauri' },
+    { placeholder: 'Email', type: 'email', FormControlname: 'maili' },
+  ],
+}
+About={
+  headerH2:'About Our Company',
+  headerH4:'Home / About Us',
+  span1:'About',
+  span2:'Find Houses',
+  mainText:
+`Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum odio id voluptatibus incidunt cum? 
+Atque quasi eum debitis optio ab. Esse itaque officiis tempora possimus odio rerum aperiam ratione, sunt.
+ Lorem ipsum dolor sit amet, consectetur adipisicing elit sunt.  Lorem ipsum dolor sit amet, consectetur adipisicing elit sunt.
+`,
+btn:'Read More'
+}
+DetailedInfo={
+  advertismentr:'Specials of the day',
+  AgentsInfo:{
+    inputs : [
+      {
+        type: 'text',
+        placeholder: 'First Name',
+        formControlName: 'firstName'
+      },
+      {
+        type: 'number',
+        placeholder: 'Phone Number',
+        formControlName: 'phoneNumber'
+      },
+      {
+        type: 'email',
+        placeholder: 'Email',
+        formControlName: 'email'
+      }
+    ],
+    staticValues:{
+      h3:'Agent Information',
+      p:'Agent of Property',  //could be changed to dynamic
+      req:'Request Inquiry',
+      submit:'Submit Request',
+      textArea:'Message'
+    }
+  },
+ CardGallery1:'Gallery',
+ parent:'Description',
+ Featuredpr:{
+  header:'Featured Properties',
+  area:'Area',
+  rooms:'Rooms',
+  beds:'Beds',
+ },
+ Floorplan:'Floor Plan',
+ leftAmenties:{
+    h2:'Property Details',
+    h2a:'Amenities',
+    propstatic:['Property ID', 'Property Type', 'Property Status', 'Property Price', 'Rooms', 'Bedrooms', 'Bath', 'Area', 'Year Built']
+ },
+ map:'Location',
+ near:"What's Nearby",
+ propvideo:'Property Video',
+ recentStatic:'Recent Properties',
+ reviewAd:{
+  header:'Add Review',
+  p:'your Rating For This  Listing',
+  placeholderN:'Review',
+  submit:'Submit Review'
+  
+  },
+  reviews:'Reviews',
+  scheduled:{
+    header:'Schedule a Tour',
+    ad:'Adult',
+    ch:'Children',
+    submit:'Submit'
+  },
+   simProp:'Similar Properties',
+   tagscomp:{
+    header:'Popular Tags',
+    Tags : ['Houses', 'Real Home', 'Baths', 'Beds', 'Garages', 'Family','Real Estates','Properties','Location','Price']
+  }
+}
+
   constructor() { }
+
+
 }
