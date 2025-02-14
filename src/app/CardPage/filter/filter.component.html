@@ -35,7 +35,7 @@
                 <img class="simg" src="{{sel.imgLink}}" alt="HomeIcon">
                 <select name="{{sel.text}}"  formControlName="{{sel.name}}">
                     <option value="0" disabled selected hidden>{{sel.text}}</option>
-                    <option value="{{opt}}" *ngFor="let opt of sel.options">{{opt}}</option>      
+                    <option value="{{opt}}" [disabled]="i==0" *ngFor="let opt of sel.options let i=index"  >{{opt}}</option>      
                 </select>
             </div>
 

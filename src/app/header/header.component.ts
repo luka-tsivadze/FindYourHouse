@@ -305,7 +305,7 @@ filterForm = this.fb.group({
   setActive(index: number ,el): void {
   this.activeElement = index; // Set the active button
   this.arrowClass = this.arrowClassMap[index] || ''; // Set the corresponding class for Sarrow
-
+console.log(el)
 this.filterForm.patchValue({propstatus:el})
 
 }

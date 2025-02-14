@@ -127,10 +127,10 @@ header:'Review'
   PersonalInfo:{
     staticElements:{Header:'Personal Information' , updateBtn:'Update Your Password' , submit:'Submit' },
     inputText:[
-     {label:'First Name',placeholder:'Enter Your First Name'},
-     {label:'Last Name ',placeholder:'Enter Your Last Name '},
-     {label:'Email Address',placeholder:'Enter Your Email'},
-     {label:'Phone Number',placeholder:'ex:+1-800-7700-00'}
+     {label:'First Name',placeholder:'Enter Your First Name', FormControl:'saxeli'},
+     {label:'Last Name ',placeholder:'Enter Your Last Name ', FormControl:'gvari'},
+
+     {label:'Phone Number',placeholder:'ex:+1-800-7700-00', FormControl:'phone'},
     ],
     textArea:[{
 label:'Address',placeholder:'Write Your Address hare'

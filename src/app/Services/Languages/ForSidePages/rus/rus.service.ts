@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -100,37 +101,37 @@ export class RusService {
   ]
   
   Dashboard ={
-    "dash_listing": {
-      "mainHeader": "Панель управления",
-      "headers": ["Название списка", "Дата", "Рейтинг", "Статус", "Редактировать"]
+    dash_listing: {
+      mainHeader: "Панель управления",
+      headers: ["Название списка", "Дата", "Рейтинг", "Статус", "Редактировать"]
     },
-    "manage": {
-      "header": "Управление панелью",
-      "cards": [
-        { "title": "Опубликованная недвижимость" },
-        { "title": "Всего отзывов" },
-        { "title": "Сообщения" },
-        { "title": "Количество в закладках" }
+    manage: {
+      header: "Управление панелью",
+      cards: [
+        { title: "Опубликованная недвижимость" },
+        { title: "Всего отзывов" },
+        { title: "Сообщения" },
+        { title: "Количество в закладках" }
       ]
     },
-    "DashReview": {
-      "header": "Обзор 4"
+    DashReview: {
+      header: "Обзор 4"
     },
-    "PersonalInfo": {
-      "staticElements": {
-        "Header": "Личная информация",
-        "updateBtn": "Обновите ваш пароль",
-        "submit": "Отправить"
+    PersonalInfo: {
+      staticElements: {
+        Header: "Личная информация",
+        updateBtn: "Обновите ваш пароль",
+        submit: "Отправить"
       },
-      "inputText": [
-        { "label": "Имя", "placeholder": "Введите ваше имя" },
-        { "label": "Фамилия", "placeholder": "Введите вашу фамилию" },
-        { "label": "Электронная почта", "placeholder": "Введите вашу электронную почту" },
-        { "label": "Номер телефона", "placeholder": "например: +1-800-7700-00" }
+      inputText: [
+        { labe: "Имя", placeholder: "Введите ваше имя", FormControl:'saxeli' },
+        { label: "Фамилия", placeholder: "Введите вашу фамилию", FormControl:'gvari' },
+
+        { label: "Номер телефона", placeholder: "например: +1-800-7700-00", FormControl:'phone' }
       ],
-      "textArea": [
-        { "label": "Адрес", "placeholder": "Введите ваш адрес" },
-        { "label": "О себе", "placeholder": "Напишите о себе" }
+      textArea: [
+        { label: "Адрес", placeholder: "Введите ваш адрес" , FormControl:'misamarti'},
+        { label: "О себе", placeholder: "Напишите о себе", FormControl:'aboutYourSelf' }
       ]
     }
   }

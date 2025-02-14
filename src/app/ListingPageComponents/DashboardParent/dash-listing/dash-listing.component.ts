@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LanguageChooserService } from '../../../Services/language-chooser/language-chooser.service';
+import { ListingServiceService } from '../../../Services/listing-service/listing-service.service';
 
 @Component({
   selector: 'app-dash-listing',
@@ -9,14 +10,34 @@ import { LanguageChooserService } from '../../../Services/language-chooser/langu
 export class DashListingComponent {
   Header='Listing';
  staticHeaders=['Listing Name','Date','Rating','Status','Edit'];
+ Data
 listing=[
-  {name:'Luxury Restaurant',date:'23 Jan 2020', rating:'5.0',status:'Active' },
-  {name:'Gym in Town',date:'11 Feb 2020', rating:'4.5',status:'Active' },
-  {name:'Cafe in Boston',date:'09 Jan 2020', rating:'5.0',status:'Non-Active' },
-  {name:'Car Dealer in New York',date:'24 Feb 2018', rating:'4.5',status:'Active' },
-  {name:'Luxury Restaurant',date:'23 Jan 2020', rating:'3.0',status:'Active' },
 ]
-constructor(private lang:LanguageChooserService){}
+statusi
+constructor(private lang:LanguageChooserService ,private listserv:ListingServiceService){
+
+this.listserv.userData().subscribe({
+next: (data) => { 
+this.Data=data;
+  console.log(data);
+  data.map((item) => {
+    
+   if(item.additionalInfo.statusi=='aqtiuri'){
+    this.statusi='Active';
+   }else{
+    this.statusi='Inactive';
+   }
+    this.listing.push({
+      name: item.title,
+      date: item.date,
+      rating: item.review,
+      status: this.statusi,
+    });
+  });
+},
+error: (error) => { console.error(error); }
+});
+}
 
 ngOnInit(){
   this.Header=this.lang.chosenLang.Dashboard.dash_listing.Header;
@@ -24,6 +45,11 @@ ngOnInit(){
 
 }
 
+edit(info,id){
+    localStorage.setItem('ActiveElement', 'Add Property'); // Update the active component
+    console.log(info);
+    this.listserv.setEditItemId(this.Data[id]); // Pass the ID to the shared service
+  }
 
 
 }

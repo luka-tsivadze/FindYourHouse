@@ -66,6 +66,7 @@ complete:()=>console.log('Completed fetching favorite cards'),
  
     editItem(el) {
       localStorage.setItem('ActiveElement', 'Add Property'); // Update the active component
+      console.log(el);
       this.sharedService.setEditItemId(el); // Pass the ID to the shared service
     }
 

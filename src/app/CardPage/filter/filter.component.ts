@@ -51,27 +51,26 @@ advanced(){
 ngOnInit(): void {
 
   this.filterForm = this.fb.group({
-
-    propertyType: ['0'], //ქონების ტიპი
-    location: ['0'], //მდებარეობა
-    propertyStatus: ['0'], //ქონების სტატუსი
-    bedrooms: ['0'],  //საძინებლების რაოდენობა
-    bathrooms: ['0'],//სააბაზანოს რაოდენობა
-    airConditioning: [false], //კონდიციონერი
-    wifi: [false], //ვაი-ფაი
-    swimmingPool: [false], //საცურაო აუზი
-    tvCable: [false], //ტელევიზია
-    centralHeating: [false],//ცენტრალური გათბობა
-  
-    gym: [false], //სპორტული დარბაზი
-    // washer: [false], //სარეცხი მანქანა
-    alarm: [false],//სიგნალიზაცია
-    refrigerator: [false], //მაცივარი
-    windowCovering: [false],//ფანჯრის საფარი
-    laundryRoom: [false], //სამრეცხაო ოთახი
-    microwave: [false], // მიკროტალღური ღუმელი
-
-
+    propertyType: ['0'],
+    location: ['0'],
+    propertyStatus: ['0'],
+    bedrooms: ['0'],
+    bathrooms: ['0'],
+    airConditioning: [false],
+    wifi: [false],
+    swimmingPool: [false],
+    tvCable: [false],
+    centralHeating: [false],
+    gym: [false],
+    areaMin: [0],
+    areaMax: [0],
+    priceMin: [0],
+    priceMax: [0],
+    alarm: [false],
+    refrigerator: [false],
+    windowCovering: [false],
+    laundryRoom: [false],
+    microwave: [false]
   });
 
 
@@ -130,7 +129,7 @@ onSubmit() {
   this.filterForm.patchValue({ areaMax:  this.sliderTwoValue_1  });
   this.filterForm.patchValue({ priceMin:  this.sliderOneValue_2  });
   this.filterForm.patchValue({ priceMax:  this.sliderTwoValue_2  });
- 
+  this.changeRef.detectChanges();
   this.uniter.transferData(this.filterForm.value, 2)
 }
   // First wrapper slider methods

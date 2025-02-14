@@ -47,18 +47,7 @@ form{
                 }
             }
         }
-        .FileInp{
-            font-weight: 600;
-    padding: 10px 15px;
-    @include flex-container(row,center, center);
-
-    color: #fff;
-     background-color: #FF385C;
-    border-radius: 50px;
-    font-size: 14px;
-    cursor: pointer;
-        font-family: 'Lato', sans-serif;
-        }
+        
     }
         
     input{
@@ -97,6 +86,11 @@ form{
         color: #fff;
     
         @include flex-container(row,center, center);
+    }
+    .greenmsg{
+        color: green;
+        font-size: 14px;
+        font-weight: 600;
     }
 }
 

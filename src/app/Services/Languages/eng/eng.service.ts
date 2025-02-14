@@ -10,12 +10,12 @@ export class EngService {
   
     Property: [],
     Pages: [ 
-      { a: 'User Panel', Showimg: true,  RouterLink: '', subText: [ {text:'Dashboard',value:'Dashboard'},
+      { a: 'User Panel', chack:'User Panel', Showimg: true,  RouterLink: '', subText: [ {text:'Dashboard',value:'Dashboard'},
         { text:'Profile',value:'Profile' }, {text:'My Properties',value:'My Properties'}, { text:'Favorited Properties',value:'Favorited Properties'} ,
          {text:'Add Property',value:'Add Property'} ,{text:'Payments',value:'Payments'},{text:'Change Password',value:'Change Password'}] },
-      { a: 'Login', Showimg: false },
-      { a: 'Register', Showimg: false, RouterLink: ''  },
-      { a: 'About Us', Showimg: false, RouterLink: '/about' },
+      { a: 'Login', chack:'Login', Showimg: false },
+      { a: 'Register',chack:'Register', Showimg: false, RouterLink: ''  },
+      { a: 'About Us',  Showimg: false, RouterLink: '/about' },
     ],
     Blog: [ 
       { a: 'text', Showimg: true, subText: ['text1', 'text2', 'text3'] },
@@ -71,7 +71,7 @@ export class EngService {
     RHeader: 'Clients Testimonials',
     Rptext: 'We collect reviews from our customers.',
   };
-  SFooter={headerFP:'Our Partners',pFP:'The Company That Represent Us.' , NavFooter:'Navigation', Twiter:'TwiterFeeds',NewsFooter:'Newsletters', 
+  SFooter={headerFP:'Our Partners',pFP:'The Company That Represent Us.' , NavFooter:'Navigation',NewsFooter:'Newsletters', 
     NewsFooterText:'Sign Up For Our Newsletter To Get Latest Updates And Offers. Subscribe To Receive News In Your Inbox.',NewsFooterBtn:'SUBSCRIBE',
      NewsFooterPlaceHolder:'Enter Your Email' };
 

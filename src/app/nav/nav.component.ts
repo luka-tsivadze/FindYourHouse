@@ -28,7 +28,7 @@ showLanguages=false;
 navLang=this.navService.Languages;
 chosenLang='GEO'
 ProfileSettings=this.navService.MenuBar.profileSettings;
-NavElements:any
+NavElements=this.navService.MenuBar;
 IsSignedIn:any
 staticElements
 showNav;
@@ -39,7 +39,7 @@ showNav;
 
  
       this.IsSignedIn=this.navService.IsSignedIn;
-this.NavElements=this.navService.MenuBar;
+
 
 
   }
@@ -221,12 +221,12 @@ element.route='/'
    window.location.reload();
   }else if(el=='Edit Profile'){
 
-    localStorage.setItem('ActiveElement', 'Profile')
+    localStorage.setItem('ActiveElement', 'Dashboard')
 
 }else if(el=='Add Property'){
 localStorage.setItem('ActiveElement', 'Add Property')
 
-}else if(el=='change Password'){
+}else if(el=='Change Password'){
   localStorage.setItem('ActiveElement', 'Change Password')
 }
 this.router.navigate(['/Listing'])

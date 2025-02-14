@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LanguageChooserService } from '../../../Services/language-chooser/language-chooser.service';
 import { ReviewsService } from '../../../Services/reviews/reviews.service';
 import { NavInfoService } from '../../../Services/NavService/nav-info.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashreview',
@@ -16,7 +17,8 @@ export class DashreviewComponent implements OnInit {
     describe:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat',
     type:'Family House',
     img:'../../../../assets/Imges/Header/CardImges/A-4.jpg',
-    stars:4
+    stars:4,
+    id:0
 
   },
 
@@ -29,7 +31,7 @@ ReviewHeader='Review';
     return Array.from({ length: 5 }, (_, index) => ({ filled: index < review }));
   }
 
-  constructor(private lang:LanguageChooserService , private review:ReviewsService ,private navServ:NavInfoService ) { }
+  constructor(private lang:LanguageChooserService , private review:ReviewsService ,private navServ:NavInfoService, private http:HttpClient ) { }
   ngOnInit(): void {
  this.ReviewHeader=this.lang.chosenLang.Dashboard.DashReview.Header;
 
@@ -40,11 +42,25 @@ ReviewHeader='Review';
     describe: review.mesiji,
     type: '',//maybe we can add type of house here
     img:this.navServ.IsSignedIn.imgLink, 
-    stars: review.shefaseba
+    stars: review.shefaseba,
+    id: review.idi
   }));
+
   });
 
-
+  }
+  deleteReview(id: number): void {
+    this.http.post('delete_review.php', {shefasebis_idi:id}).subscribe({
+      next: (resp) => {console.log(resp), 
+        this.usersReview = this.usersReview.filter(review => review.id !== id);
+      },
+      error: (error) => {
+        console.error(error);
+        console.log(error.error);
+      }
+    });
+    this.usersReview = this.usersReview.filter(review => review.id !== id);
+     
   }
 
 

@@ -35,41 +35,11 @@
     <div class="col Navigation">
       <h3>{{staticInfo.NavFooter}}</h3>
       <div class="NParent">
-        <div class="NRow" *ngFor="let el of footerData.Navigation"><li><a> {{el.list1}}</a></li>  <li><a>{{el.list2}}</a></li></div>
+        <div class="NRow" *ngFor="let el of footerData.Navigation"><li><a routerLink="{{el.routerLink1}}"> {{el.list1}}</a></li>  <li><a routerLink="{{el.routerLink2}}">{{el.list2}}</a></li></div>
       
       </div>
     </div>
-    <div class="col TwitterFeeds">
-      <h3>{{staticInfo.Twiter}}</h3>
-      <div class="TRow" *ngFor="let TRow of footerData.TwitterFeed">
-        <img src="../../assets/Imges/Footer/FooterIcons/twitter.svg" alt="" />
-        <div class="text">
-         <p>   <a>{{TRow.firstWord}}</a>
-         {{TRow.text}}</p>
- <a class="time">{{TRow.time}}</a>
-        </div>
-       
-      </div>
-      <div class="TRow">
-        <img src="../../assets/Imges/Footer/FooterIcons/twitter.svg" alt="" />
-        <div class="text">
-         <p>   <a>&#64;findhouses</a>
-         all share them with me baby said inspet.</p>
- <a class="time">about 5 days ago</a>
-        </div>
-       
-      </div>
-      <div class="TRow">
-        <img src="../../assets/Imges/Footer/FooterIcons/twitter.svg" alt="" />
-        <div class="text">
-         <p>   <a>&#64;findhouses</a>
-         all share them with me baby said inspet.</p>
- <a class="time">about 5 days ago</a>
-        </div>
-       
-      </div>
-      
-    </div>
+    
     <div class="col Newsletters">
       <h3>{{staticInfo.NewsFooter}}</h3>
       <p>{{staticInfo.NewsFooterText}}</p>

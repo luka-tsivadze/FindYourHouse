@@ -8,11 +8,11 @@ export class RusService {
     Home: [  ],
     Property: [ ],
     Pages: [ 
-      { a: 'Панель пользователя', Showimg: true, RouterLink: '', subText: [ {text: 'Панель управления', value: 'Dashboard'},
+      { a: 'Панель пользователя',chack:'User Panel', Showimg: true, RouterLink: '', subText: [ {text: 'Панель управления', value: 'Dashboard'},
         { text: 'Профиль', value: 'Profile' }, {text: 'Моя собственность', value: 'My Properties'}, { text: 'Избранная собственность', value: 'Favorited Properties'},
         {text: 'Добавить собственность', value: 'Add Property'} ,{text: 'Платежи', value: 'Payments'},{text: 'Изменить пароль', value: 'Change Password'}] },
-      { a: 'Войти', Showimg: false },
-      { a: 'Регистрация', Showimg: false, RouterLink: ''  },
+      { a: 'Войти',chack:'Login', Showimg: false },
+      { a: 'Регистрация', chack:'Register', Showimg: false, RouterLink: ''  },
       { a: 'О нас', Showimg: false, RouterLink: '/about' },
     ],
     Blog: [ 
@@ -38,7 +38,7 @@ Header = {
   FindYourHouse: 'Найди свою мечту ',
   weHaveOverMillion: 'У нас есть более миллиона объектов недвижимости для вас',
 
-  status:['На продажу','В аренду','Приносить присягу','Арендуется посуточно','Квартиры в стадии строительства'],
+  status:['В аренду','На продажу','Приносить присягу','Арендуется посуточно','Квартиры в стадии строительства'],
   location: 'Местоположение',
   KayWord: 'Введите ключевое слово..',
   propertyType: 'Тип недвижимости',
@@ -73,7 +73,7 @@ SFooter = {
   headerFP: 'Наши партнеры', 
   pFP: 'Компания, представляющая наши интересы.', 
   NavFooter: 'Навигация', 
-  Twiter: 'Твиттер лента', 
+
   NewsFooter: 'Информационная рассылка', 
   NewsFooterText: 'Подпишитесь на нашу информационную рассылку, чтобы получать последние обновления и предложения. Подпишитесь, чтобы получать новости на свою почту.', 
   NewsFooterBtn: 'ПОДПИСАТЬСЯ', 

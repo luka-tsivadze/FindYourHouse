@@ -4,6 +4,7 @@ import { PropertyInformationService } from '../../Services/Property-info/propert
 import { Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
+import { NavInfoService } from '../../Services/NavService/nav-info.service';
 
 @Component({
   selector: 'app-review-adder',
@@ -21,19 +22,20 @@ header:'Add Review',
 p:'your Rating For This  Listing',
 placeholderN:'Review',
 submit:'Submit Review'
-
 }
+reqSent=false;
 
-constructor(private prop:PropertyInformationService, private http:HttpClient ,private lang:LanguageChooserService ) {
+constructor(private prop:PropertyInformationService, private http:HttpClient ,private lang:LanguageChooserService 
+  , private navServ:NavInfoService) {
 this.reviewAd=this.lang.chosenLang.DetailedInfo.reviewAd;
 
  }
 ngOnInit(){
   
   this.reviewForm = new FormGroup({
-    // saxeli: new FormControl('', Validators.required),
-    // gvari: new FormControl('', Validators.required),
-    // maili: new FormControl('', Validators.required),
+    saxeli: new FormControl(''),
+    
+    maili: new FormControl('', ),
     message: new FormControl('', Validators.required),
     gancxadebis_id: new FormControl('', ),
     momxmareblis_id: new FormControl(''),
@@ -48,18 +50,26 @@ onSubmit(){
 this.reviewForm.value.shefaseba =this.shefaseba;
 this.reviewForm.value.gancxadebis_id = this.gancxadebis_id;
 this.reviewForm.value.momxmareblis_id = this.momxmareblis_id;
+this.reviewForm.value.saxeli = this.navServ.IsSignedIn.Name;
+this.reviewForm.value.maili = this.navServ.IsSignedIn.email;
+
 console.log(this.reviewForm.value);
 if(this.reviewForm.value.shefaseba && this.reviewForm.value.momxmareblis_id){
 this.http.post('save_review.php', this.reviewForm.value).subscribe({
-next: (data) => { console.log(data); },
-error: (error) => { console.log(error); }
+next: (data: { status: string }) => { console.log(data); 
+  if(data.status == "success"){
+    this.reqSent=true;
+  }},
+error: (error) => { console.error(error); }
 
 })
 }
 }
 
 rater(star){
-
+if(this.reqSent){
+  return;
+}
  
       for(let i = 0; i < star; i++){
         this.starRating[i].filled = true;

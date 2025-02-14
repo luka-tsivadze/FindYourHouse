@@ -10,12 +10,12 @@ export class GeoService {
   
     Property: [ ],
     Pages: [ 
-      { a: 'მომხმარებლის პანელი', Showimg: true, RouterLink: '', subText: [ {text: 'მართვა', value: 'Dashboard'},
+      { a: 'მომხმარებლის პანელი',chack:'User Panel', Showimg: true, RouterLink: '', subText: [ {text: 'მართვა', value: 'Dashboard'},
         { text: 'პროფილი', value: 'Profile' }, {text: 'ჩემი განცხადებები', value: 'My Properties'}, { text: 'შენახული განცხადებები', value: 'Favorited Properties'},
         {text: 'განცხადების დამატება', value: 'Add Property'} ,{text: 'გადახდა', value: 'Payments'},{text: 'პაროლის შეცვლა', value: 'Change Password'}] },
-      { a: 'შესვლა', Showimg: false },
-      { a: 'რეგისტრაცია', Showimg: false, RouterLink: ''  },
-      { a: 'ჩვენ შესახებ', Showimg: false, RouterLink: '/about' },
+      { a: 'შესვლა',chack:'Login', Showimg: false },
+      { a: 'რეგისტრაცია',chack:'Register' , Showimg: false, RouterLink: ''  },
+      { a: 'ჩვენ შესახებ',  Showimg: false, RouterLink: '/about' },
     ],
     Blog: [ 
       { a: 'ტექსტი', Showimg: true, subText: ['ტექსტი 1', 'ტექსტი 2', 'ტექსტი 3'] },
@@ -37,7 +37,7 @@ NavG={Home:'მთავარი ' ,
     Property:'უძრავი ქონება', Pages:'გვერდები',Blog:'ბლოგი',
     Contact:'კონტაქტი',SignIn:'შესვლა',AddListing:' განცხადების ატვირთვა'}
 
-    Header={FindYourHouse:'იპოვე შენი საოცნებო ' ,weHaveOverMillion:'ჩვენ გვაქვს უძრავი ქონების მილიონზე მეტი  არჩევანი, თქვენთვის' ,status:['ქირავდება','იყიდება','გირავდება','ქირავდება დღიურად',' მშენებარე ბინები'],
+    Header={FindYourHouse:'იპოვე შენი საოცნებო ' ,weHaveOverMillion:'ჩვენ გვაქვს უძრავი ქონების მილიონზე მეტი  არჩევანი, თქვენთვის' ,status:['იყიდება','ქირავდება','გირავდება','ქირავდება დღიურად',' მშენებარე ბინები'],
        KayWord:'საძიებო სიტყვა', propertyType:'ქონების ტიპი', Advanced:'გაფართოებული ძებნა', Search:'მოძებნა',location:'მდებარეობა'
     }
     popularPlaces={Header:'პოპულარული ადგილები' ,properties:'უძრავი ქონება ყველაზე პოპულარულ ადგილებში', prop:"ადგილი"} 
@@ -59,7 +59,7 @@ NavG={Home:'მთავარი ' ,
         headerFP: 'ჩვენი პარტნიორები', 
         pFP: 'კომპანიები, რომლებიც წარმოადგენენ ჩვენს ინტერესებს.', 
         NavFooter: 'ნავიგაცია', 
-        Twiter: 'ტვიტერის ფიდი', 
+      
         NewsFooter: 'საინფორმაციო მიმოწერა', 
         NewsFooterText: 'გაიარეთ რეგისტრაცია , რათა მიიღოთ უახლესი განახლებები და შეთავაზებები. გამოიწერეთ სიახლეები თქვენს ელფოსტაზე.', 
         NewsFooterBtn: 'გამოწერა', 
@@ -125,10 +125,10 @@ For={
 allFilter = {
   FirstFilter: {
     locations: ['Tbilisi', 'Batumi', 'kutaisi', 'Rustavi', 'Zugdidi', 'Telavi', 'Bakuriani', 'Kobuleti'],
-    locationDis: ['Тбилиси', 'Батуми', 'Кутаиси', 'Рустави', 'Зугдиди', 'Телави', 'Бакуриани', 'Кобулети'],
+    locationDis: ['თბილისი', 'ბათუმი', 'ქუთაისი', 'რუსთავი', 'ზუგდიდი', 'თელავი', 'ბაკურიანი', 'ქობულეთი'],
 
     PropertyTypes: ['Apartment', 'House', 'Commercial', 'Garage'],
-    PropertyTypesDis: ['Квартира', 'Дом', 'Коммерческая', 'Гараж']
+    PropertyTypesDis: ['ბინა', 'სახლი', 'კომერციული', 'ავტოფარეხი']
   },
   filter: {
     SelectInputs: [
@@ -160,7 +160,7 @@ allFilter = {
       { id: '7', label: 'Gym', name: 'სპორტული დარბაზი', formcontroller: 'gym' },
       { id: '8', label: 'Alarm', name: 'სიგნალიზაცია', formcontroller: 'alarm' },
       { id: '9', label: 'Refrigerator', name: 'მაცივარი', formcontroller: 'refrigerator' },
-      { id: '10', label: 'Window Covering', name: 'სიგნალიზაცია', formcontroller: 'windowCovering' },
+      { id: '10', label: 'Window Covering', name: 'აივანი', formcontroller: 'windowCovering' },
     ],
   },
   

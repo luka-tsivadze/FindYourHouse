@@ -270,13 +270,13 @@ export class MainPageDataService {
 For= {
   imgLink: '../../../assets/Imges/StaticImg/StaticIcons/icons8-home-16.png',
   text: 'Property Status',
-  optdisplay:[ 'For Rent','For Sale' ,'Pledge','Rented daily','Apartments Under Construction'],
-  options: [ 'For Rent','For Sale' ,'Pledge','Rented daily','Apartments Under Construction'],
+  optdisplay:[ 'For Sale','For Rent' ,'Pledge','Rented daily','Apartments Under Construction'],
+  options: [ 'For Sale','For Rent','Pledge','Rented daily','Apartments Under Construction'],
   name: 'propertyStatus', // Added name
 };
 staticData = {
   headerTextList: ['პლაზა', 'სახლი', 'ბინა'], // ტექსტები რომლებიც გამოიყენება მთავარი გვერდის ანიმაციაზე
-  staticElements:{FindYourHouse:'იპოვე შენი საოცნებო ' ,weHaveOverMillion:'ჩვენ გვაქვს უძრავი ქონების მილიონზე მეტი  არჩევანი, თქვენთვის' , status:['ქირავდება','იყიდება','გირავდება','ქირავდება დღიურად',' მშენებარე ბინები'],location:'მდებარეობა',
+  staticElements:{FindYourHouse:'იპოვე შენი საოცნებო ' ,weHaveOverMillion:'ჩვენ გვაქვს უძრავი ქონების მილიონზე მეტი  არჩევანი, თქვენთვის' , status:['იყიდება','ქირავდება','გირავდება','ქირავდება დღიურად',' მშენებარე ბინები'],location:'მდებარეობა',
     KayWord:'შეიყვანეთ საძიებო სიტყვა', propertyType:'ქონების ტიპი', Advanced:'გაფართოებული ძებნა', Search:'მოძებნა',}
 };
 popularPlacesStatic={Header:'პოპულარული ადგილები' ,properties:'უძრავი ქონება ყველაზე პოპულარულ ადგილებში', prop:'უძრავი ქონება'}

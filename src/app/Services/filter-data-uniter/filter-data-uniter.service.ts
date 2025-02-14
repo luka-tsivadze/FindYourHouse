@@ -3,54 +3,98 @@ import { AllCardsService } from '../all-cards/all-cards.service';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
+interface FilterData {
+  prop?: string;
+  local?: string;
+  areaMin?: number;
+  areaMax?: number;
+  priceMin?: number;
+  priceMax?: number;
+  statusi?: string;
+  badrooms?: string;
+  bathrooms?: string;
+  [key: string]: any;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class FilterDataUniterService {
-  private currentData: any;
+  finalData: FilterData = {};
+  allCards: any[] = [];
+  wasCalled = false;
 
-  finallData: any = {}; // Initialize finallData to prevent undefined errors
-  allcard;
-  wasCalled ;
-  cards: any[] = [];
-  private filtredCards=new BehaviorSubject<any[]>([]);
-  filtredCards$=this.filtredCards.asObservable();
-  constructor(private allcards:AllCardsService , private http: HttpClient) {
-this.wasCalled=false;  
+  private filteredCardsSubject = new BehaviorSubject<any[]>([]);
+  filtredCards$ = this.filteredCardsSubject.asObservable();
 
-  }
-  transferData(data: any, filterNumber: number) {
-    this.wasCalled=true;
-    this.finallData = {};
+  // Moved the mapping out of the function for reusability.
+  private bilingualMapping = {
+    tipi: {
+      Apartment: ['Apartment', 'ბინა'],
+      House: ['House', 'სახლი'],
+      Commercial: ['Commercial', 'კომერციული'],
+      Garage: ['Garage', 'გარაჟი'],
+    },
+    garigebis_tipi: {
+      'For Sale': ['For Sale', 'იყიდება'],
+      'For Rent': ['For Rent', 'ქირავდება'],
+      'Rented daily': ['Rented daily', 'ქირავდება დღიურად'],
+      Pledge: ['Pledge', 'გირავდება'],
+      'Apartments Under Construction': ['Apartments Under Construction', '⁠მშენებარე ბინები'],
+    },
+    citys: {
+      Tbilisi: ['Tbilisi', 'თბილისი'],
+      Batumi: ['Batumi', 'ბათუმი'],
+      Kutaisi: ['Kutaisi', 'ქუთაისი'],
+      Rustavi: ['Rustavi', 'რუსთავი'],
+      Zugdidi: ['Zugdidi', 'ზუგდიდი'],
+      Telavi: ['Telavi', 'თელავი'],
+      Bakuriani: ['Bakuriani', 'ბაკურიანი'],
+      Kobuleti: ['Kobuleti', 'ქობულეთი'],
+    },
+  };
+
+  constructor(private allCardsService: AllCardsService, private http: HttpClient) {}
+
+  transferData(data: any, filterNumber: number): void {
+    this.wasCalled = true;
+    this.finalData = {};
+
     if (filterNumber === 1) {
-      this.finallData.prop = data.Propselect || '0';
-      this.finallData.local = data.locselect || '0';
-  
+      this.finalData.prop = data.Propselect || '0';
+      this.finalData.local = data.locselect || '0';
+
       if (data.sliders && data.sliders.length >= 2) {
-        this.finallData.areaMin = data.sliders[0]?.min || 0;
-        this.finallData.areaMax = data.sliders[0]?.max || 0;
-        this.finallData.priceMin = data.sliders[1]?.min || 0;
-        this.finallData.priceMax = data.sliders[1]?.max || 0;
+        this.finalData.areaMin = data.sliders[0]?.min || 0;
+        this.finalData.areaMax = data.sliders[0]?.max || 0;
+        this.finalData.priceMin = data.sliders[1]?.min || 0;
+        this.finalData.priceMax = data.sliders[1]?.max || 0;
       } else {
-        this.finallData.areaMin = 0;
-        this.finallData.areaMax = 0;
-        this.finallData.priceMin = 0;
-        this.finallData.priceMax = 0;
+        this.finalData.areaMin = 0;
+        this.finalData.areaMax = 0;
+        this.finalData.priceMin = 0;
+        this.finalData.priceMax = 0;
       }
-  
-      this.finallData.statusi = data.propstatus || '0';
-      this.finallData.badrooms = data.selectInputs?.[0]?.value || '0';
-      this.finallData.bathrooms = data.selectInputs?.[1]?.value || '0';
-  
-      if (data.selectInputs[1]?.value === "Bathrooms" || 'სააბაზანო') {
-        this.finallData.bathrooms = '0';
+
+      this.finalData.statusi = data.propstatus || '0';
+      this.finalData.badrooms = data.selectInputs?.[0]?.value || '0';
+      this.finalData.bathrooms = data.selectInputs?.[1]?.value || '0';
+
+      // Fix conditional checks (compare both values explicitly)
+      if (
+        data.selectInputs?.[1]?.value === 'Bathrooms' ||
+        data.selectInputs?.[1]?.value === 'სააბაზანო'
+      ) {
+        this.finalData.bathrooms = '0';
       }
-      if (data.selectInputs[0]?.value === "Bedrooms" || 'საძინებელი') {
-        this.finallData.badrooms = '0';
+      if (
+        data.selectInputs?.[0]?.value === 'Bedrooms' ||
+        data.selectInputs?.[0]?.value === 'საძინებელი'
+      ) {
+        this.finalData.badrooms = '0';
       }
-  
-      // Transform checkboxes into flat properties
-      const allFeatures = [
+
+      const features = [
         'Air Conditioning',
         'Microwave',
         'Refrigerator',
@@ -65,85 +109,53 @@ this.wasCalled=false;
         'Dryer',
         'Washer',
       ];
-  
-      allFeatures.forEach((feature) => {
-        this.finallData[feature] = !!(data.checkboxes || []).find((box: any) => box.name === feature && box.checked);
+      features.forEach((feature) => {
+        this.finalData[feature] = (data.checkboxes || []).some(
+          (box: any) => box.name === feature && box.checked
+        );
       });
+    } else if (filterNumber === 2) {
+      this.finalData.prop = data.propertyType || '0';
+      this.finalData.local = data.location || '0';
 
-    }else if (filterNumber === 2) {
-        this.finallData.prop = data.propertyType || '0';
-        this.finallData.local = data.location || '0';
-      
-        this.finallData.areaMin = data.areaMin || 0;
-        this.finallData.areaMax = data.areaMax || 0;
-        this.finallData.priceMin = data.priceMin || 0;
-        this.finallData.priceMax = data.priceMax || 0;
-      
-        this.finallData.statusi = data.propertyStatus || '0';
-        this.finallData.badrooms = data.bedrooms !== 0 ? data.bedrooms : '0';
-        this.finallData.bathrooms = data.bathrooms !== 0 ? data.bathrooms : '0';
-      
-        // Transform features into flat properties
-        const allFeatures = [
-          'airConditioning',
-          'wifi',
-          'swimmingPool',
-          'tvCable',
-          'centralHeating',
-          'dryer',
-          'gym',
-          'washer',
-          'alarm',
-          'refrigerator',
-          'windowCovering',
-          'outdoorShower',
-          'laundryRoom',
-          'microwave',
-        ];
-      
-        allFeatures.forEach((feature) => {
-          this.finallData[feature] = data[feature] || false; // Use the value from the form group
-        });
-      
- 
-      }
-      
-      this.allcard=this.allcards.back_end_data
-console.log('finall filtred Data',this.finallData);
-    console.log('allcard',this.allcard);
-    const filtered = this.filterCards(this.allcard, this.finallData);
-    this.filtredCards.next(filtered);
-    
+      this.finalData.areaMin = data.areaMin || 0;
+      this.finalData.areaMax = data.areaMax || 0;
+      this.finalData.priceMin = data.priceMin || 0;
+      this.finalData.priceMax = data.priceMax || 0;
 
-  
+      this.finalData.statusi = data.propertyStatus || '0';
+      this.finalData.badrooms = data.bedrooms !== 0 ? data.bedrooms : '0';
+      this.finalData.bathrooms = data.bathrooms !== 0 ? data.bathrooms : '0';
+
+      const features = [
+        'airConditioning',
+        'wifi',
+        'swimmingPool',
+        'tvCable',
+        'centralHeating',
+        'dryer',
+        'gym',
+        'washer',
+        'alarm',
+        'refrigerator',
+        'windowCovering',
+        'outdoorShower',
+        'laundryRoom',
+        'microwave',
+      ];
+      features.forEach((feature) => {
+        this.finalData[feature] = data[feature] || false;
+      });
+    }
+
+    this.allCards = this.allCardsService.back_end_data;
+    // console.log('final filtered Data', this.finalData);
+    // console.log('allCards', this.allCards);
+    const filtered = this.filterCards(this.allCards, this.finalData);
+    this.filteredCardsSubject.next(filtered);
   }
-  filterCards(allCard: any[], filter: any): any[] {
-    const bilingualMapping = {
-      tipi: {
-        Apartment: ["Apartment", "ბინა"],
-        House: ["House", "სახლი"],
-        Commercial: ["Commercial", "კომერციული"],
-        Garage: ["Garage", "გარაჟი"],
-      },
-      garigebis_tipi: {
-        "For Sale": ["For Sale", "იყიდება"],
-        "For Rent": ["For Rent", "ქირავდება"],
-        "Rented daily": ["Rented daily", "ქირავდება დღიურად"],
-        "Pledge": ["Pledge", "გირავდება"],
-        "Apartments Under Construction": ["Apartments Under Construction", "აპარტამენტები მშენებლობით"],
-      },
-      citys: {
-        Tbilisi: ["Tbilisi", "თბილისი"],
-        Batumi: ["Batumi", "ბათუმი"],
-        Kutaisi: ["Kutaisi", "ქუთაისი"],
-        Rustavi: ["Rustavi", "რუსთავი"],
-        Zugdidi: ["Zugdidi", "ზუგდიდი"],
-        Telavi: ["Telavi", "თელავი"],
-        Bakuriani: ["Bakuriani", "ბაკურიანი"],
-        Kobuleti: ["Kobuleti", "ქობულეთი"],
-      },
-    };
-  
+
+  filterCards(allCards: any[], filter: FilterData): any[] {
     const normalizeValue = (value: string, map: Record<string, string[]>): string | undefined => {
       if (!value) return undefined;
       const lowerValue = value.toLowerCase();
@@ -151,40 +163,56 @@ console.log('finall filtred Data',this.finallData);
         map[key].some((mappedValue) => mappedValue.toLowerCase() === lowerValue)
       );
     };
-  
-    return allCard.filter((card) => {
-      const normalizedTipi = normalizeValue(card.tipi, bilingualMapping.tipi) || card.tipi;
+
+    return allCards.filter((card) => {
+      const normalizedTipi =
+        normalizeValue(card.tipi, this.bilingualMapping.tipi) || card.tipi;
       const normalizedGarigebisTipi =
-        normalizeValue(card.garigebis_tipi, bilingualMapping.garigebis_tipi) || card.garigebis_tipi;
-      const normalizedCity = normalizeValue(card.qalaqi, bilingualMapping.citys) || card.qalaqi;
-  
+        normalizeValue(card.garigebis_tipi, this.bilingualMapping.garigebis_tipi) ||
+        card.garigebis_tipi;
+      const normalizedCity =
+        normalizeValue(card.qalaqi, this.bilingualMapping.citys) || card.qalaqi;
+
       const matchesPropertyStatus =
-        filter.statusi === "0" || bilingualMapping.garigebis_tipi[filter.statusi]?.includes(normalizedGarigebisTipi);
+        filter.statusi === '0' ||
+        this.bilingualMapping.garigebis_tipi[filter.statusi]?.includes(
+          normalizedGarigebisTipi
+        );
       const matchesPropertyType =
-        filter.prop === "0" || bilingualMapping.tipi[filter.prop]?.includes(normalizedTipi);
-      const matchesLocation = filter.local === "0" || bilingualMapping.citys[filter.local]?.includes(normalizedCity);
-      const matchesBedrooms = filter.badrooms === "0" || card.sadzinebeli === filter.badrooms;
-      const matchesBathrooms = filter.bathrooms === "0" || card.sveli_wertilebis_raodenoba === filter.bathrooms;
+        filter.prop === '0' ||
+        this.bilingualMapping.tipi[filter.prop]?.includes(normalizedTipi);
+      const matchesLocation =
+        filter.local === '0' ||
+        this.bilingualMapping.citys[filter.local]?.includes(normalizedCity);
+      const matchesBedrooms =
+        filter.badrooms === '0' || card.sadzinebeli === filter.badrooms;
+      const matchesBathrooms =
+        filter.bathrooms === '0' ||
+        card.sveli_wertilebis_raodenoba === filter.bathrooms;
+
+      const cardArea = parseInt(card.fartobi, 10) || 0;
+      const cardPrice = parseInt(card.fasi, 10) || 0;
       const matchesArea =
-        parseInt(card.fartobi) >= (filter.areaMin || 0) && parseInt(card.fartobi) <= (filter.areaMax || Infinity);
+        cardArea >= (filter.areaMin || 0) &&
+        cardArea <= (filter.areaMax || Infinity);
       const matchesPrice =
-        parseInt(card.fasi) >= (filter.priceMin || 0) && parseInt(card.fasi) <= (filter.priceMax || Infinity);
-  
+        cardPrice >= (filter.priceMin || 0) &&
+        cardPrice <= (filter.priceMax || Infinity);
+
       const checkboxFilters = [
-        { key: "airConditioning", field: "kondincioneri" },
-        { key: "swimmingPool", field: "sacurao_auzi" },
-        { key: "centralHeating", field: "centraluri_gatboba" },
-        { key: "washer", field: "samrecxao_otaxi" },
-        { key: "gym", field: "sportuli_darbazi" },
-        { key: "alarm", field: "signalizacia" },
-        { key: "tvCable", field: "televizia_wifi" },
-        { key: "microwave", field: "mikrotalguri" },
+        { key: 'airConditioning', field: 'kondincioneri' },
+        { key: 'swimmingPool', field: 'sacurao_auzi' },
+        { key: 'centralHeating', field: 'centraluri_gatboba' },
+        { key: 'washer', field: 'samrecxao_otaxi' },
+        { key: 'gym', field: 'sportuli_darbazi' },
+        { key: 'alarm', field: 'signalizacia' },
+        { key: 'tvCable', field: 'televizia_wifi' },
+        { key: 'microwave', field: 'mikrotalguri' },
       ];
-  
       const matchesCheckboxes = checkboxFilters.every(({ key, field }) => {
-        return !filter[key] || card[field] === "true";
+        return !filter[key] || card[field] === 'true';
       });
-  
+
       return (
         matchesPropertyStatus &&
         matchesPropertyType &&
@@ -197,27 +225,4 @@ console.log('finall filtred Data',this.finallData);
       );
     });
   }
-  
-  
-  
-  
-  
-  // Helper function for normalization
-  normalizeValue(value: string, mapping: { [key: string]: string[] }): string | null {
-    for (const [key, synonyms] of Object.entries(mapping)) {
-      if (synonyms.includes(value)) {
-        return key; // Return the normalized key
-      }
-    }
-    return value; // Return original value if no match found
-  }
-  
-  
-  
-  
-  
 }
-
-
-
-

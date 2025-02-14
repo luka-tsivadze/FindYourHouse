@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -91,7 +92,7 @@ export class GeoService {
     {icon: '../../../assets/Imges/StaticImg/StaticIcons/list.svg', Text: 'ჩემი განცხადება', upText: 'My Properties'},
     
     {icon: '../../../assets/Imges/StaticImg/StaticIcons/heart-fill.svg', Text: 'ფავორიტი განცხადება', upText: 'Favorited Properties'},
-    {icon: '../../../assets/Imges/StaticImg/StaticIcons/list.svg', Text: 'ატვირტე განცხადება', upText: 'Add Property'},
+    {icon: '../../../assets/Imges/StaticImg/StaticIcons/list.svg', Text: 'ატვირთე განცხადება', upText: 'Add Property'},
     {icon: '../../../assets/Imges/StaticImg/StaticIcons/credit-card-fill.svg', Text: 'გადახდები', upText: 'Payments'},
     
     {icon: '../../../assets/Imges/StaticImg/StaticIcons/lock-fill.svg', Text: 'პაროლის შეცვლა', upText: 'Change Password'},
@@ -118,17 +119,17 @@ export class GeoService {
       staticElements: {
         Header: 'პერსონალური ინფორმაცია',
         updateBtn: 'განაახლეთ თქვენი პაროლი',
-        submit: 'გაგზავნა'
+        submit: 'შენახვა'
       },
       inputText: [
-        { label: 'სახელი', placeholder: 'შეიყვანეთ თქვენი სახელი' },
-        { label: 'გვარი', placeholder: 'შეიყვანეთ თქვენი გვარი' },
-        { label: 'ელ.ფოსტა', placeholder: 'შეიყვანეთ თქვენი ელ.ფოსტა' },
-        { label: 'ტელეფონის ნომერი', placeholder: 'მაგ: +1-800-7700-00' }
+        { label: 'სახელი', placeholder: 'შეიყვანეთ თქვენი სახელი', FormControl:'saxeli'},
+        { label: 'გვარი', placeholder: 'შეიყვანეთ თქვენი გვარი' , FormControl:'gvari'}, 
+    
+        { label: 'ტელეფონის ნომერი', placeholder: 'მაგ: +1-800-7700-00', FormControl:'nomeri'}
       ],
       textArea: [
-        { label: 'მისამართი', placeholder: 'დაწერეთ თქვენი მისამართი' },
-        { label: 'თქვენ შესახებ', placeholder: 'დაწერეთ თქვენ შესახებ' }
+        { label: 'მისამართი', placeholder: 'დაწერეთ თქვენი მისამართი' , FormControl:'misamarti'},
+        { label: 'თქვენ შესახებ', placeholder: 'დაწერეთ თქვენ შესახებ' , FormControl:'aboutYourSelf'}
       ]
     }
   }

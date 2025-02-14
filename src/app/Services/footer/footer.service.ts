@@ -22,11 +22,11 @@ export class FooterService {
               Email:'infofindhous@gmail.com'
     },
   Navigation:[
-    {list1:'Home One',list2:'Agents Details'},
-    {list1:'Properties Right',list2:'About Us'},
-    {list1:'Properties List',list2:'Blog Default'},
-    {list1:'Property Details',list2:'Blog Details'},
-    {list1:'Agents Listing' , list2:'Contact Us'}
+    {list1:'Home One',list2:'Agents Details' ,routerLink1:'' , routerLink2:''},
+    {list1:'Properties Right',list2:'About Us' , routerLink1:'',routerLink2:'/about' },
+    {list1:'Properties List',list2:'Blog Default' , routerLink1:'/allCards',routerLink2:'/**'  },
+    {list1:'Property Details',list2:'Blog Details', routerLink1:'/allCards',routerLink2:''},
+    {list1:'Agents Listing' , list2:'Contact Us', routerLink1:'',routerLink2:'/contact' },
   ],
   
 }
@@ -35,7 +35,7 @@ export class FooterService {
     headerFP: 'ჩვენი პარტნიორები', 
     pFP: 'კომპანიები, რომლებიც წარმოადგენენ ჩვენს ინტერესებს.', 
     NavFooter: 'ნავიგაცია', 
-    Twiter: 'ტვიტერის ფიდი', 
+  
     NewsFooter: 'საინფორმაციო მიმოწერა', 
     NewsFooterText: 'გაიარეთ რეგისტრაცია , რათა მიიღოთ უახლესი განახლებები და შეთავაზებები. გამოიწერეთ სიახლეები თქვენს ელფოსტაზე.', 
     NewsFooterBtn: 'გამოწერა', 
