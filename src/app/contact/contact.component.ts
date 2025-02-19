@@ -30,7 +30,7 @@ export class ContactComponent implements OnInit {
   contactInfo = [
     { IconLink: '../../assets/Imges/StaticImg/StaticIcons/clock.svg', text: '+995 32 21 14 844' },
     { IconLink: '../../assets/Imges/StaticImg/StaticIcons/envelope-fill.svg', text: 'infofindhous@gmail.com' },
-    { IconLink: '../../assets/Imge s/StaticImg/StaticIcons/telephone-fill.svg', text: '9:30 a.m - 7:00 p.m' },
+    { IconLink: '../../assets/Imges/StaticImg/StaticIcons/telephone-fill.svg', text: '9:30 a.m - 7:00 p.m' },
   ];
 
   form: FormGroup;

@@ -15,7 +15,7 @@
               <div class="review" >   <span *ngFor="let star of getStarArray(el.review)" 
                 [ngClass]="{'filledStar': star.filled, 'emptyStar': !star.filled}">
           </span>
-          <span>({{ el.reviewedAmount }} {{staticData.rew}})</span></div>
+          <span class="revAmount"> ({{ el.reviewedAmount }} {{staticData.rew}})</span></div>
             </div>
           </div>
         </div>

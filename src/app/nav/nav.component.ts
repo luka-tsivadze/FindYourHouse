@@ -32,6 +32,7 @@ NavElements=this.navService.MenuBar;
 IsSignedIn:any
 staticElements
 showNav;
+showRespNav={bool:false ,iconSrc:'../../assets/Imges/NavImg/list-outline.svg'};
 
 
   constructor(private router: Router , private navService: NavInfoService,private ngZone: NgZone,private EngService:EngService ,private GeoService:GeoService ,private RusService:RusService ,private allCardService:AllCardsService , private  Registration: RegistrationService,
@@ -231,8 +232,19 @@ localStorage.setItem('ActiveElement', 'Add Property')
 }
 this.router.navigate(['/Listing'])
 }
-}
 
+  showResponsiveNav(){
+
+    if(this.showRespNav.bool){
+      this.showRespNav.bool=false;
+      this.showRespNav.iconSrc='../../assets/Imges/NavImg/list-outline.svg'
+  }else{
+    this.showRespNav.bool=true;  
+
+        this.showRespNav.iconSrc='../../assets/Imges/StaticImg/StaticIcons/x.svg'
+  }
+}
+}
 
 
 

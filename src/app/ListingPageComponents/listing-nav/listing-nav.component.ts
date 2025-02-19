@@ -16,8 +16,9 @@ import { Router, NavigationEnd } from '@angular/router';
 export class ListingNavComponent {
 
   scrollY: number=0
-
-
+ 
+  showLeftNav=false;
+ 
 ShowImg=false;
 displayElement=false;
 showLanguages=false;
@@ -35,7 +36,7 @@ editItemSubscription: any;
 LeftNavInfo=this.lang.chosenLang.LeftInfo;
 activeElement=this.LeftNavInfo[4].Text;
 
- 
+showRespNav={bool:false ,iconSrc:'../../../assets/Imges/NavImg/list-outline.svg'};
 
 
   constructor(private router: Router ,private navService: NavInfoService,private lang:LanguageChooserService,private EngService:EngService 
@@ -94,7 +95,7 @@ if (isPlatformBrowser(this.platformId)) {
     }
   }
   profileSettings(el){
-    console.log(el)
+ 
     if(el=='Log Out'){
 
    localStorage.removeItem('id');
@@ -159,4 +160,15 @@ this.showLanguages=!this.showLanguages;
   
 
   }
+  showResponsiveNav(){
+
+    if(this.showRespNav.bool){
+      this.showRespNav.bool=false;
+      this.showRespNav.iconSrc='../../assets/Imges/NavImg/list-outline.svg'
+  }else{
+    this.showRespNav.bool=true;  
+
+        this.showRespNav.iconSrc='../../assets/Imges/StaticImg/StaticIcons/x.svg'
+  }
+}
 }

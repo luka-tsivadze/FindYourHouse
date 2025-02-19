@@ -154,7 +154,7 @@ button{
   border: 0;
   border-radius: 5px;
   height: 50px;
-  line-height: 50px;
+
   padding: 0 35px;
   position: relative;
   display: block;
@@ -630,15 +630,14 @@ z-index: -1;
 
 @media  (max-width:1254px) {
 .HeaderBtnRow{
-gap: 6px;
+gap: 6px !important;
 button{
   padding: 0 20px;
 }
 }
 .HeaderSearch{
-padding: 30px 9px;
- padding-left: 2px;
-  padding-right: 2px;
+  padding: 15px 2px !important;
+
    form{
     gap: 11px;
    .select{
@@ -653,6 +652,9 @@ select{
   background-color: transparent !important;
 }
    }
+  }
+  button{
+    font-size: 13px;
   }
   }
 
@@ -689,4 +691,12 @@ select{
          }
   }
 }
+}
+@media screen and (max-width:1000px) {
+  .HeaderBtnRow{
+    display: none !important;
+  } 
+  .popularPlaces{
+    padding: 30px 1% !important;
+  }
 }

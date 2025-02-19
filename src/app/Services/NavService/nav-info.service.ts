@@ -29,7 +29,7 @@ export class NavInfoService {
       ,{Text:'Payments', value:'Payments' },{Text:'Change Password', value:'Change Password'},{Text:'Log Out',value:'Log Out'}]
   };
 
-  IsSignedIn = { signed: false, imgLink: '../../assets/Imges/NavImg/man.png', Name: 'Not Recieved' ,number:'' ,email:'NotRecieved@gmail.com' ,gender:''};
+  IsSignedIn = { signed: false, imgLink: '../../assets/Imges/NavImg/man.png', Name: 'Not Recieved' ,number:'' ,email:'NotRecieved@gmail.com' ,gender:'' ,code:''};
   public userData$ = new BehaviorSubject(this.IsSignedIn);
   Languages = ['ENG', 'RUS', 'GEO'];
   chosenLang: string | undefined; //სერვისში გამოუსადეგარია 
@@ -79,20 +79,23 @@ userId
       }
   
       const body = { id: resolvedUserId }; // Send ID in the request body
-  
+                 //place where we could get user info from the server
+
        this.http.post('get_user_data.php', body).subscribe({                    //place where we could get user info from the server
         next: (data: any) => {
+          console.log('this is user information',data);
               this.IsSignedIn.Name = data[0].saxeli + ' ' + data[0].gvari;
               this.IsSignedIn.number = data[0].nomeri;
               this.IsSignedIn.email = data[0].maili;
               this.IsSignedIn.gender = data[0].sqesi;
-              if(data[0].img_link){
-                this.IsSignedIn.imgLink = data[0].img_link;
+              this.IsSignedIn.code = data[0].saidentifikacio_kodi;
+                if (data[0].foto !== '' && data[0].foto) {
+                this.IsSignedIn.imgLink = `users/${data[0].maili}/${data[0].saidentifikacio_kodi}/${data[0].foto}`; 
               }else if(data[0].sqesi=='male'){
                 this.IsSignedIn.imgLink = '../../assets/Imges/NavImg/man.png';
               }else if(data[0].sqesi=='famale'){
                 this.IsSignedIn.imgLink = '../../assets/Imges/NavImg/girl.png';
-
+              
               }
               this.userData$.next(this.IsSignedIn);
         

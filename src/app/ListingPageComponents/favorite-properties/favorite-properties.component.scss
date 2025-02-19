@@ -186,19 +186,108 @@ main {
         }
     }
 }
-@media screen and (max-width: 1068px) {
+
+
+
+
+@media screen and (max-width: 1318px) {
     main {
+        left: 0;
+        transform: translate(0);
         .right{
             div{
                 width: 90px !important;
             }
         }
         .topRow{
-            .right span{
-                width: 110px !important;
+            .right{
+                display: flex;
+                gap: 10px;
+             span{
+                width: unset !important;
+       
             
+                
             }
         }
+    }
+}   
+}
+
+@media screen and (max-width:1070px) {
+    main {
+        width: 100%;
+        left: 0;
+        transform: translate(0);
+
+    }
+}
+@media screen and (max-width:750px) {
+    main{
+        padding: 0.4rem;
+        .right{
+            gap: 20px;
+            div{
+                font-size: 10px;
+                width: unset !important;
+            }
+            .removeBtn{
+                width: 10px;
+                img{
+                    width: 100% ;
+                }
+            }
+            button{
+                font-size: 10px;
+            }
+        }
+        .left{
+            gap: 3px !important;
+            .mainImg{
+                width: 65px !important;
+            }
+            h3{
+                font-size: 11px !important;
+            }
+            p{
+                font-size: 9px !important;
+            }
+            .reviewRow{
+                margin-top: 0px !important;
+                justify-content: start !important;
+                .review{
+                    padding-bottom:15px ;
+                    position: relative;
+                    gap: 0px;
+                    span{
+                        width: 9px !important;
+                        height: 9px !important;
+                    }
+                    span{
+                        font-size: 9px !important;
+                        margin-left: 4px !important;
+                    }
+                    .revAmount{
+                        position: absolute;
+                       left: 0;
+                       width: max-content !important;
+                       bottom: 2px;
+                    }
+                }
+            }
+        }
+        .topRow{
+            padding: 10px;
+            .right{
+                display: flex;
+                gap: 8px;
+                span{
+                    width: unset !important;
+                    font-size: 9px;
+                    
+                }
+            }
+    }
     }
     
 }

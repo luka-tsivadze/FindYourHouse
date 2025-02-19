@@ -35,14 +35,14 @@ console.log(formData);
       console.error('There was an error!', error);
     }
   });
-  
+
 }
 }
 
   onFileSelected(event: any) {
     this.UserMessage.fileSelected=true;
     const file = event.target.files[0]; 
-    if (file && file.type.startsWith('image/')) { // Check if the file is an image
+    if (file && file.type.startsWith('image/')){ 
       this.Form.get('foto')?.setValue(file); 
       this.UserMessage.error=false;
       this.UserMessage.text='Your Information has been updated successfully Click save to save changes';
@@ -57,3 +57,5 @@ console.log(formData);
     }
   }
 }
+
+

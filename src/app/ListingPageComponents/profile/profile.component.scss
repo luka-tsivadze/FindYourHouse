@@ -1,7 +1,7 @@
 form{
     border-radius: 6px;
     padding: 1.5rem;
-min-height: 60vh;
+min-height: 50vh;
 margin-left: 50px;
 width: 600px;
 background: #ffffff;
@@ -139,11 +139,23 @@ padding-bottom: 0px;
     border: 1px solid #dae2e9;
     }
 }
-@media  (max-width: 1168px) {
+@media  (max-width: 1078px) {
     form{
-        margin-left: 151px;
+    
         width: 570px;
-        padding: 1.2rem;
+        padding: 0.4rem;
+        margin-left: 0px;
+    }
+    
+}
+@media screen and (max-width: 648px) {
+    form{
+        width: 98vw;
+        padding: 0.2rem;
+        min-height: 30vh;
+    .form{
+        padding: 5px;
+    }
     }
     
 }

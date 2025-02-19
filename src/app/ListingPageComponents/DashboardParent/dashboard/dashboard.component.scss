@@ -24,3 +24,13 @@
  @include flex-container(column, center, start, 20px);
 
 }
+
+@media screen and (max-width: 1070px){
+    .body{
+        padding: 1rem 10px;
+    }
+    ::ng-deep main{
+        padding: 20px 10px !important;
+    }
+    
+}

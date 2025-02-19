@@ -74,7 +74,7 @@ onSubmit() {
     ...collectedData,
   };
 
-  console.log('Merged Data to Send:', mergedData);
+
   this.cardDataServ.formValue = mergedData;
   this.uniter.transferData(mergedData, 1)
   
@@ -93,8 +93,8 @@ ngOnInit() {
  
     this.maxPeice = Math.max(...data.map(item => item.price.replace(/\D/g, '')));
     this.maxArea= Math.max(...data.map(item => item.area));
-    console.log('maxPeice:', this.maxPeice , 'maxArea:', this.maxArea , 'rawest back_end_data i can get:', this.cardDataServ.back_end_data);
-    console.log('data  i get from fetchapi:', data);
+    console.log( 'rawest back_end_data i can get:', this.cardDataServ.back_end_data);
+    
     this.sliderTwoValue_1 = this.maxArea;
     this.sliderTwoValue_2 = this.maxPeice;
     this.sliderMaxValue2= this.maxPeice;

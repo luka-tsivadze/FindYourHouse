@@ -125,10 +125,10 @@ export class GeoService {
         { label: 'სახელი', placeholder: 'შეიყვანეთ თქვენი სახელი', FormControl:'saxeli'},
         { label: 'გვარი', placeholder: 'შეიყვანეთ თქვენი გვარი' , FormControl:'gvari'}, 
     
-        { label: 'ტელეფონის ნომერი', placeholder: 'მაგ: +1-800-7700-00', FormControl:'nomeri'}
+        { label: 'ტელეფონის ნომერი', placeholder: 'მაგ: +1-800-7700-00', FormControl:'nomeri'},
+        { label: 'მისამართი', placeholder: 'დაწერეთ თქვენი მისამართი' , FormControl:'misamarti'}
       ],
       textArea: [
-        { label: 'მისამართი', placeholder: 'დაწერეთ თქვენი მისამართი' , FormControl:'misamarti'},
         { label: 'თქვენ შესახებ', placeholder: 'დაწერეთ თქვენ შესახებ' , FormControl:'aboutYourSelf'}
       ]
     }

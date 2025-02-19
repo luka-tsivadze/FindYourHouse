@@ -5,7 +5,7 @@ import { EngService } from '../Languages/eng/eng.service';
 import { GeoService } from '../Languages/geo/geo.service';
 import { RusService } from '../Languages/rus/rus.service';
 import { AllCardsService } from '../all-cards/all-cards.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { Agent } from 'http';
 import { AgentsService } from '../agents/agents.service';
 @Injectable({
@@ -16,55 +16,58 @@ export class MainPageDataService {
     throw new Error('Method not implemented.');
   }
   localStorage
+  private popularPlacesSubject = new BehaviorSubject<any>([ {
+    imgLink: '../../assets/Imges/Header/CardImges/Tbilisi.jpg',
+    alt: 'Tbilisi City ',
+    cityName: 'Tbilisi',
+    properties: 203,
+  },
+  {
+    imgLink: '../../assets/Imges/Header/CardImges/batumi.jpg',
+    alt: 'Los Angeles cityscape',
+    cityName: 'batumi',
+    properties: 215,
+  },
+  {
+    imgLink: '../../assets/Imges/Header/CardImges/kutaisi.jpg',
+    alt: 'kutaisi city view',
+    cityName: 'Kutaisi',
+    properties: 409,
+  },
+  {
+    imgLink: '../../assets/Imges/Header/CardImges/rustavi.jpg',
+    alt: 'rustavi city view',
+    cityName: 'Rustavi',
+    properties: 409,
+  },
+  {
+    imgLink: '../../assets/Imges/Header/CardImges/zugdidi.jpg',
+    alt: 'Zugdidi view',
+    cityName: 'Zugdidi',
+    properties: 145,
+  },
+  {
+    imgLink: '../../assets/Imges/Header/CardImges/telavi.jpg',
+    alt: 'telavi skyline',
+    cityName: 'telavi',
+    properties: 112,
+  },
+  {
+    imgLink: '../../assets/Imges/Header/CardImges/Bakuriani.jpg',
+    alt: 'Bakurian cityscape',
+    cityName: 'Bakurian',
+    properties: 254,
+  },
+  {
+    imgLink: '../../assets/Imges/Header/CardImges/kobuleti.jpg',
+    alt: 'Kobuleti city view',
+    cityName: 'Kobuleti',
+    properties: 254,
+  },]);
+
+  popularPlacesData$ = this.popularPlacesSubject.asObservable();
   popularPlacesData = [
-    {
-      imgLink: '../../assets/Imges/Header/CardImges/Tbilisi.jpg',
-      alt: 'Tbilisi City ',
-      cityName: 'Tbilisi',
-      properties: 203,
-    },
-    {
-      imgLink: '../../assets/Imges/Header/CardImges/batumi.jpg',
-      alt: 'Los Angeles cityscape',
-      cityName: 'batumi',
-      properties: 215,
-    },
-    {
-      imgLink: '../../assets/Imges/Header/CardImges/kutaisi.jpg',
-      alt: 'kutaisi city view',
-      cityName: 'Kutaisi',
-      properties: 409,
-    },
-    {
-      imgLink: '../../assets/Imges/Header/CardImges/rustavi.jpg',
-      alt: 'rustavi city view',
-      cityName: 'Rustavi',
-      properties: 409,
-    },
-    {
-      imgLink: '../../assets/Imges/Header/CardImges/zugdidi.jpg',
-      alt: 'Zugdidi view',
-      cityName: 'Zugdidi',
-      properties: 145,
-    },
-    {
-      imgLink: '../../assets/Imges/Header/CardImges/telavi.jpg',
-      alt: 'telavi skyline',
-      cityName: 'telavi',
-      properties: 112,
-    },
-    {
-      imgLink: '../../assets/Imges/Header/CardImges/Bakuriani.jpg',
-      alt: 'Bakurian cityscape',
-      cityName: 'Bakurian',
-      properties: 254,
-    },
-    {
-      imgLink: '../../assets/Imges/Header/CardImges/kobuleti.jpg',
-      alt: 'Kobuleti city view',
-      cityName: 'Kobuleti',
-      properties: 254,
-    },
+   
   ];
   
 
@@ -309,22 +312,18 @@ main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთ
     private GeoService: GeoService,
     private RusService: RusService
   ) {
- 
+
     this.agentsServ.fetchAgentData().subscribe({
       next: (data) => console.log('Agent Data:', data),
       error: (err) => console.error('Error fetching agents:', err)
-    });
-    
+    }); //maybe move to component
+        
     
     this.allcards.fetchDataFromApi().subscribe((data) => {
       
       this.featuredPropSubject.next(data);
     });
-  
-  
-  
-    // Language setup logic here
-    
+      // Language setup logic here  
     if (typeof localStorage !== 'undefined' && localStorage.getItem('Language')) {
       this.localStorage = localStorage.getItem('Language');
       
@@ -369,8 +368,40 @@ main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთ
     
       }
     }
-    
+     
     }
+
+    cityAmount() {
+      this.http.get<{ [key: string]: string }>('get-cities-counted-data.php').subscribe({
+        next: (apiData) => {
+          console.log('City Data from API:', apiData);
+    
+          const nameMap: { [key: string]: string } = {
+            "Tbilisi": "tbilisi",
+            "batumi": "batumi",
+            "Kutaisi": "qutaisi", // Fix spelling
+            "Rustavi": "rustavi",
+            "Zugdidi": "zugdidi",
+            "telavi": "telavi",
+            "Bakurian": "bakuriani", // Fix typo
+            "Kobuleti": "kobuleti"
+          };
+    
+          const updatedData = this.popularPlacesSubject.getValue().map(staticItem => {
+            const backendKey = nameMap[staticItem.cityName]; // Convert name
+            return {
+              ...staticItem,
+              properties: backendKey && apiData[backendKey] ? parseInt(apiData[backendKey], 10) : 0
+            };
+          });
+    
+          this.popularPlacesSubject.next(updatedData); // ✅ Emit latest data
+        },
+        error: (err) => console.error('Error fetching city data:', err)
+      });
+    }
+    
+  
     getFeaturedProperties(): Observable<any[]> {
       return this.featuredPropSubject.asObservable();
     }

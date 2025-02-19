@@ -196,7 +196,7 @@ setCardId(cardId: number) {
 
   // Find the selected card from the backend data
   const selectedCard = this.allcards.back_end_data.find((card) => card.idi == this.cardId);
-console.log('Selected Card:', selectedCard);
+
 const images = JSON.parse(selectedCard.fotoebi);
 
 try {
@@ -229,6 +229,7 @@ if (Array.isArray(images) && images.length > 0) {
 
   if (selectedCard) {
     // Transform the backend data into the desired format for chosenCard
+    console.log('Selected card:', selectedCard);
     this.chosenCard = {
       featuredBtn: true, // Static value as per requirements
       For: selectedCard.garigebis_tipi || 'Unknown',

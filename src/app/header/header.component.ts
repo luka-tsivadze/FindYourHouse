@@ -18,7 +18,8 @@ import { NavInfoService } from '../Services/NavService/nav-info.service';
 })
 export class HeaderComponent implements OnInit {
 
-  popularPlacesData:{imgLink:string,cityName:string,properties:number}[]=this.dataService.popularPlacesData;
+  popularPlacesData:{imgLink:string,cityName:string,properties:number}[]=[];
+
   staticData:{
 [x: string]: any;headerTextList:string[]
 }=this.dataService.staticData  
@@ -50,9 +51,10 @@ filterForm = this.fb.group({
   Propselect: ['0'], // Default value: none selected
   locselect: ['0'], // Default value: none selected
   propstatus:['0'],
+
 });
     constructor(@Inject(PLATFORM_ID) private platformId: Object,private navserv:NavInfoService, private http:HttpClient , private router:Router ,private fb: FormBuilder , private cd: ChangeDetectorRef ,private allcard:AllCardsService, private dataService: MainPageDataService ) {
-
+ this.dataService.cityAmount(); 
     }
 
 
@@ -69,7 +71,7 @@ filterForm = this.fb.group({
 
     heartedCards;
     ngOnInit(): void {
-      this.setActive(0 , 'For Sale');
+      // this.setActive(0 , 'For Sale');
       this.allcard.fetFavchData(this.navserv.userId).subscribe({
         next: (filteredData) => {
       
@@ -79,6 +81,12 @@ filterForm = this.fb.group({
         error: (error) => console.error('Error:', error),
         complete: () => console.log('Completed fetching favorite cards'),
       });
+      this.dataService.popularPlacesData$.subscribe(data => {
+        this.popularPlacesData = data;
+    
+      });
+  
+      this.dataService.cityAmount();
      
     
     }
@@ -291,8 +299,8 @@ filterForm = this.fb.group({
     }
 
 
-    activeElement:number | null = 0; // this does not matter change submit in construction 
-    arrowClass: string = ''; // Class to apply to the Sarrow div
+    activeElement:number | null = -1; // this does not matter change submit in construction 
+    arrowClass: string = 'dNone'; // Class to apply to the Sarrow div
 
     // Map button indices to specific classes
     arrowClassMap: { [key: number]: string } = {
@@ -303,18 +311,21 @@ filterForm = this.fb.group({
       4: 'right-1'  
     };
   setActive(index: number ,el): void {
-  this.activeElement = index; // Set the active button
-  this.arrowClass = this.arrowClassMap[index] || ''; // Set the corresponding class for Sarrow
-console.log(el)
+  this.activeElement = index; 
+  this.arrowClass = this.arrowClassMap[index] || '';
+
 this.filterForm.patchValue({propstatus:el})
 
 }
-    
+onSelectChange(event: Event): void {
+  const selectedValue = (event.target as HTMLSelectElement).value;
+  this.filterForm.patchValue({propstatus:selectedValue})
+}
 
  
   @HostListener('window:scroll', ['$event'])
 onScroll(event: Event): void {
-    this.scrollY = window.scrollY || window.pageYOffset; // Get the current scroll position
+    this.scrollY = window.scrollY || window.pageYOffset; 
 }
 
 }

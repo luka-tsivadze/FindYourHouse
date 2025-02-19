@@ -1,7 +1,69 @@
 
 <nav>
-  
-    <ul class="FirstUl">  
+    <ul class="FirstUl mobileresp" >
+        <li   (click)="showResponsiveNav()" ><img [src]="showRespNav.iconSrc" class="{{showRespNav.bool}} burger" alt="Burger"></li> 
+       
+        <div class="navcol" *ngIf="showRespNav.bool">
+            <li routerLink="/"><p>{{staticElements.Home}}  </p> 
+                <div class="menuBar">
+                    <div class="mainPart">
+                    <div class="row" *ngFor="let i of this.NavElements.Home"><a  href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
+                        <div [ngClass]="{'ArrowNav':i.Showimg==true,'DNone':i.Showimg==false}"><div class="forHover">
+                            <div class="aContainer" *ngFor="let subElement of i.subText">
+                                <a  >{{subElement}}</a> </div>
+                            </div>
+                        </div>
+                
+                    </div>
+                    </div>
+                </div>
+            </li>
+            <li routerLink="/allCards" ><p>{{staticElements.Property}}</p>
+                <div class="menuBar">
+                    <div class="mainPart">
+            <div class="row" *ngFor="let i of this.NavElements.Property"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">  
+                <div [ngClass]="{'ArrowNav':i.Showimg==true,'DNone':i.Showimg==false}"><div class="forHover">
+                    <div class="aContainer" *ngFor="let subElement of i.subText">
+                        <a href="" >{{subElement}}</a> </div>
+                    </div>
+                </div>
+        </div>
+                    </div>
+                </div>
+            </li>
+            <li><p>{{staticElements.Pages}}</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
+                <div class="menuBar">
+                    <div class="mainPart">
+                        <div class="row">
+                            <a >{{this.NavElements.Pages[0].a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':this.NavElements.Pages[0].Showimg==true}" alt="arrow">
+                            <div [ngClass]="{'ArrowNav':this.NavElements.Pages[0].Showimg==true,'DNone':this.NavElements.Pages[0].Showimg==false}"><div class="forHover">
+                                <div class="aContainer" [routerLink]="this.NavElements.Pages[0].route"   *ngFor="let subElement of this.NavElements.Pages[0].subText">
+                                    <a (click)="uploadToLocal(subElement.value)" >{{subElement.text}} </a> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li><p>{{staticElements.Blog}}</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
+                <div class="menuBar">
+                    <div class="mainPart">
+                    <div class="row" *ngFor="let i of this.NavElements.Blog"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
+                        <div [ngClass]="{'ArrowNav':i.Showimg==true,'DNone':i.Showimg==false}"><div class="forHover">
+                            <div class="aContainer" *ngFor="let subElement of i.subText">
+                                <a href="" >{{subElement}}</a> </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div></li>
+            <li class="contact"  routerLink="/contact"><p>{{staticElements.Contact}}</p></li>
+      
+       
+    
+        </div>
+       </ul>
+    <ul class="FirstUl pcresp">  
         <img class="icon"  src="../../../assets/Imges/StaticImg/StaticIcons/ListingLogo.svg" alt="Logo">
         <li ><p>{{staticElements.Home}}</p>
             <div class="menuBar">
@@ -73,13 +135,15 @@
                  <div class="SubNav" [ngClass]="{DNone: displayElement==false}"><a *ngFor="let el of ProfileSettings"  (click)="profileSettings(el.value)">{{el.Text}}</a></div>
     </ul>
 </nav>
-<div class="leftNav">
+<div class="leftNav" [ngClass]="{'DNoneresp':!showLeftNav , 'leftNavAnimation':showLeftNav}"> 
  <div class="logo" routerLink="/"><img src="../../../assets/Imges/StaticImg/StaticIcons/ListingLogo.svg" alt=""></div>
+ <div class="leftNavIconClose" *ngIf="showLeftNav" (click)="showLeftNav=!showLeftNav"><img src="../../../assets/Imges/StaticImg/StaticIcons/chevron-left.svg" alt=""></div>
 <div class="navcontainer">
   <div class="profileImg">
     <img src="{{SignedIn.imgLink}}" alt="">
     <h4>{{SignedIn.Name}}</h4>
   </div>
+
   <div class="settings">
    <div class="links" *ngFor="let el of LeftNavInfo"  (click)="activedPage(el.upText)"[routerLink]="['/Listing']" [ngClass]="{'active': el.upText === activeElement}" >
        <a><img src="{{el.icon}}" alt=""><span>{{el.Text}}</span></a>
@@ -89,3 +153,5 @@
   </div>
 </div>
 </div>
+<div class="leftNavIcon" (click)="showLeftNav=!showLeftNav"><img src="../../../assets/Imges/StaticImg/StaticIcons/chevron-right.svg" alt=""></div>
+<div class="navcover" (click)="showLeftNav=!showLeftNav" *ngIf="showLeftNav"></div>

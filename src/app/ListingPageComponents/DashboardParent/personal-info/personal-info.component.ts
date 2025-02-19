@@ -22,10 +22,11 @@ export class PersonalInfoComponent implements OnInit {
 
   {
     label:'Phone Number',placeholder:'ex:+1-800-7700-00',type:'text', FormControlName:'phone',
-  }
+  },
+  {label:'Address',placeholder:'Write Your Address hare',FormControlName:'misamarti'},
 ]
 textArea=[
-  {label:'Address',placeholder:'Write Your Address hare',FormControlName:'misamarti'},
+
   {label:'About Yourself',placeholder:'Write about Yourself',FormControlName:'qalaqi'},
 ]
 // changePassword=[{label:'New Password',placeholder:'Write New Password',type:'password',FormControlName:'axaliparoli'},

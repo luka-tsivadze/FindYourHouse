@@ -127,10 +127,10 @@ export class RusService {
         { labe: "Имя", placeholder: "Введите ваше имя", FormControl:'saxeli' },
         { label: "Фамилия", placeholder: "Введите вашу фамилию", FormControl:'gvari' },
 
-        { label: "Номер телефона", placeholder: "например: +1-800-7700-00", FormControl:'phone' }
+        { label: "Номер телефона", placeholder: "например: +1-800-7700-00", FormControl:'phone' },
+        { label: "Адрес", placeholder: "Введите ваш адрес" , FormControl:'misamarti'}
       ],
       textArea: [
-        { label: "Адрес", placeholder: "Введите ваш адрес" , FormControl:'misamarti'},
         { label: "О себе", placeholder: "Напишите о себе", FormControl:'aboutYourSelf' }
       ]
     }

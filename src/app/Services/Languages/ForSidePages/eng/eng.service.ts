@@ -131,10 +131,9 @@ header:'Review'
      {label:'Last Name ',placeholder:'Enter Your Last Name ', FormControl:'gvari'},
 
      {label:'Phone Number',placeholder:'ex:+1-800-7700-00', FormControl:'phone'},
+     {label:'Address',placeholder:'Write Your Address hare'},
     ],
-    textArea:[{
-label:'Address',placeholder:'Write Your Address hare'
-    },
+    textArea:[
   {label:'About Yourself',placeholder:'Write about Yourself 1'}
   ]
   }

@@ -106,7 +106,7 @@ constructor(private http: HttpClient , private eng: EngService , private Geo: Ge
         
   
     }
-console.log(this.filter, this.FirstFilter)
+
 
   this.fetchDataFromApi(); // Initialize the API call
 

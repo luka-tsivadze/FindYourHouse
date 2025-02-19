@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { title } from 'node:process';
 import { LanguageChooserService } from '../../../Services/language-chooser/language-chooser.service';
 import { DashboardService } from '../../../Services/dashboard/dashboard.service';
@@ -31,9 +31,17 @@ ngOnInit(){
     
   
     }))
-this.dashServ.fetchDashboardData();
-this.back_end=this.dashServ.signalData();
-console.log('data is fsl', this.back_end);
+this.dashServ.fetchDashboardData().subscribe(data=>{
+
+ this.cards[0].amount=data.gancxadebebi;
+  this.cards[1].amount=data.shefasebebi;
+  this.cards[2].amount=data.shetyobineba;
+  this.cards[3].amount=data.dajavshnulebi;
+
+
+});
+
+
 }
 
 }

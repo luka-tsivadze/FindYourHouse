@@ -382,7 +382,7 @@ label {
 
 .center {
   border: 2px dashed $secondary-color;
-  z-index: 99;
+  z-index: 3;
 
   min-width: 80%;
   max-width: 100%;
@@ -440,6 +440,10 @@ label {
 }
 @media screen and (max-width: 1450px) {
   .FormParent {
+    .center[_ngcontent-ng-c2408448896] .change[_ngcontent-ng-c2408448896] {
+      right: 12% !important;
+      top: 142px !important;
+    }
     form{
         padding: 30px 15px;
         .text{
@@ -502,6 +506,7 @@ label {
             }
         }
     }
+
     .form3{
       .flexWrap{
         justify-content: center;
@@ -532,4 +537,65 @@ label {
       }
     }
   }
+}
+
+@media screen and (max-width:1070px) {
+  .FormParent{
+   padding: 1rem 10px 1rem 1rem;;
+   form{
+    .text{
+      padding: 0 3px;
+    
+    }
+   }
+   .form1{
+    .text{
+      .selectRow{
+        gap: 10px;
+       select {
+       width: 100%;
+   }
+ }
+    }
+   }
+   .form2{
+
+     .imgrow{
+
+      .img[_ngcontent-ng-c2408448896] .uploadedimg {
+       width: 100px;
+       height: 100px;
+      }
+    }
+    }
+  }
+}
+@media screen and (max-width:650px) {
+  .FormParent{
+    .form2 {
+      .center{
+       width: 100%;
+      }
+       label{
+         width: 100%;
+         padding: 20px;
+         p{
+        font-size: 12px;
+         }
+       }
+     }
+  .form5{
+    .text {
+      .flexWrap {
+        grid-template-columns: repeat(2, 1fr);
+        .row{
+          max-width: 130px;
+        label{
+          font-size: 9px;
+        }
+        }
+      }
+    }
+  }
+}
 }

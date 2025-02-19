@@ -19,7 +19,7 @@ constructor(private lang:LanguageChooserService ,private listserv:ListingService
 this.listserv.userData().subscribe({
 next: (data) => { 
 this.Data=data;
-  console.log(data);
+
   data.map((item) => {
     
    if(item.additionalInfo.statusi=='aqtiuri'){

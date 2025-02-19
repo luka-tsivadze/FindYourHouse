@@ -21,9 +21,18 @@ color: #666;
 
 @media screen and (max-width: 1308px){
     app-profile, 
-    app-password-change{
+    app-password-change,app-my-properties, 
+    app-favorite-properties{
    justify-content: end;
    
     }
     
+}
+@media screen and (max-width: 1070px){
+    app-profile, 
+    app-password-change,app-my-properties, 
+    app-favorite-properties{
+        justify-content: center;
+        padding: 10px;
+    }
 }

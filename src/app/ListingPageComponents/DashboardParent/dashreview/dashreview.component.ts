@@ -36,6 +36,7 @@ ReviewHeader='Review';
  this.ReviewHeader=this.lang.chosenLang.Dashboard.DashReview.Header;
 
   this.review.fetchUserReviews(this.navServ.userId).subscribe(reviews => {
+    console.log('do we have an issue ?',reviews);  
   this.usersReview = reviews.map(review => ({
     name: review.saxeli,
     time: review.shefasebis_tarigi_dro || '22 min ago',  //needs fix

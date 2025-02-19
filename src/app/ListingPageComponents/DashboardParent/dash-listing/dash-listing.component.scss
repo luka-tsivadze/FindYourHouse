@@ -45,3 +45,17 @@
           background-color: white;   
     }
 }
+@media screen and (max-width: 770px){
+    .table{
+        .row{
+          p{
+            font-size: 9px;
+            text-align: center;
+          }
+          h4{
+            font-size: 10px;
+          }
+        }
+    }
+    
+}
