@@ -10,7 +10,7 @@ export class ViewsService {
 
   
   sendView(id:number){
-    this.http.post('counter_views.php', {id:id}).subscribe({
+    this.http.post('counter_views.php', {gancxadebis_idi:id}).subscribe({
     next: (resp) => { console.log(resp); },
     error: (err) => {
       console.error('Error occurred while sending view:', err.message);

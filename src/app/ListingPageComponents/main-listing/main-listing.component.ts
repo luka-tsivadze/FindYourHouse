@@ -7,6 +7,7 @@ import { first } from 'rxjs';
 import { log } from 'node:console';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 import { ListingServiceService } from '../../Services/listing-service/listing-service.service';
+import { MainPageDataService } from '../../Services/mainPageService/main-page-data.service';
 
 @Component({
   selector: 'app-main-listing',
@@ -29,10 +30,15 @@ maxFiles = 7;
 index=0;
 
 allForms=this.lang.chosenLang.allForms;
+city={
+  input:this.lang.chosenLang.allForms.City, 
+  options:{optDis:this.mainServ.LangMainData.allFilter.FirstFilter.locationDis ,optValue:this.mainServ.LangMainData.allFilter.FirstFilter.locations}};
 name;
 
-  constructor( private sharedService:ListingServiceService,  private fb: FormBuilder , private http: HttpClient ,private navservice: NavInfoService ,private lang:LanguageChooserService) { 
-    // Initialize the form
+  constructor( private sharedService:ListingServiceService,  private fb: FormBuilder , 
+    private http: HttpClient ,private navservice: NavInfoService ,private lang:LanguageChooserService ,private mainServ:MainPageDataService) { 
+     //post api request should be in service not here
+    console.log('so this supposed to be city select values',this.city);
     this.listingForm = this.fb.group({
       satauri: ['', Validators.required],
       mokle_agwera: ['', Validators.required],

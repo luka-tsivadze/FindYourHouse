@@ -81,7 +81,7 @@ export class EngService {
   }
  allFilter={
   FirstFilter:{
-    locations:['Tbilisi','Batumi' , 'kutaisi' , 'Rustavi','Zugdidi', 'Telavi' ,'Bakuriani','Kobuleti'],
+    locations:['Tbilisi','Batumi' , 'Kutaisi' , 'Rustavi','Zugdidi', 'Telavi' ,'Bakuriani','Kobuleti'],
     locationDis:['Tbilisi','Batumi' , 'kutaisi' , 'Rustavi','Zugdidi', 'Telavi' ,'Bakuriani','Kobuleti'],
 
     PropertyTypes:['Apartment','House','Commercial','Garage'],

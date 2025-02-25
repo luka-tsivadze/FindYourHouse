@@ -14,6 +14,7 @@ import { LanguageChooserService } from '../../Services/language-chooser/language
 export class AgentInfoComponent {
   profileForm: FormGroup;
 profileInfo;
+infoSent=[{bol:false, message:'please Fill in the required fields'},{bol:false, message:'Your request has been sent'}];
  
   staticValues={
     h3:'Agent Information',
@@ -57,13 +58,31 @@ this.inputs=this.lang.chosenLang.DetailedInfo.AgentsInfo.inputs;
 
   ngOnInit() {
     this.profileForm = this.fb.group({
-      firstName: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      saxeli: ['', Validators.required],
+      nomeri: ['+995', [Validators.required , Validators.minLength(9)]],
       email: ['', [Validators.required, Validators.email]],
       Message: ['', Validators.required]
     });
   }
   onSubmit() {
-    console.log(this.profileForm.value);
+    this.infoSent[0].bol=true;
+    this.infoSent[1].bol=false;
+    if(this.profileForm.invalid){
+      return;
+    }
+    console.log(this.profileForm.value , this.profileForm.valid);
+    this.propService.SendUserMessage(this.profileForm.value).subscribe((data)=>{
+      console.log(data);
+      if(data !== null && data){
+        this.infoSent[0].bol=false;
+        this.infoSent[1].bol=true;
+        this.profileForm.reset();
+      }else{
+        this.infoSent[0].message='Something went wrong, please try again';
+        this.infoSent[0].bol=true;
+        this.infoSent[1].bol=false;
+      }
+      
+    });
   }
 }

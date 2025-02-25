@@ -11,10 +11,16 @@ export class AppComponent implements AfterViewInit {
   title = 'FindYourHouse';
   loaded = false;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object ,private allCardsService:AllCardsService) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object ,private allCardsService:AllCardsService) {
+
+
+  }
   ngOnInit(): void {
     // Trigger the fetch as soon as the app loads
-    
+        
+    if(localStorage.getItem('Language') === null) {
+      localStorage.setItem('Language','GEO');
+  }
     this.allCardsService.fetchDataFromApi();
   }
   ngAfterViewInit() {

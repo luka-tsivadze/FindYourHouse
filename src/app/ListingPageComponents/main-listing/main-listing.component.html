@@ -75,11 +75,19 @@
        
             <div class="text">
  <div class="flexWrap">
+    <div class="LabledInputs">
+        <label for={{city.input.id}}>{{city.input.HeaderName}}</label>
+        <select name="City" id="{{city.input.id}}" formControlName="{{city.input.formControlName}}" >
+            <option value="" disabled selected hidden>{{city.input.placeHolder}}</option>
+            <option *ngFor="let option of city.options.optDis let i=index" value="{{city.options.optValue[i]}}">{{option}}</option>
+          
+        </select>
+    </div>
                 <div class="LabledInputs" *ngFor="let element of allForms.form3Info">
                     <label for={{element.id}}>{{element.HeaderName}}</label>
                     <input type="{{element.type}}" formControlName="{{element.formControlName}}" name={{element.id}} id={{element.id}} placeholder={{element.placeHolder}}>
                 </div>
-             
+           
             </div>
          </div>
        

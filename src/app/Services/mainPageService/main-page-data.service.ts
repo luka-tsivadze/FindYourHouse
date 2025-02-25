@@ -12,9 +12,7 @@ import { AgentsService } from '../agents/agents.service';
   providedIn: 'root',
 })
 export class MainPageDataService {
-  static getData(): any {
-    throw new Error('Method not implemented.');
-  }
+
   localStorage
   private popularPlacesSubject = new BehaviorSubject<any>([ {
     imgLink: '../../assets/Imges/Header/CardImges/Tbilisi.jpg',
@@ -298,7 +296,7 @@ featuredPropertiesStatic = {
 main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთავაზობთ სრულ სერვისს ყოველ ნაბიჯზე ' ,popularPropertys:'აღმოაჩინე პოპულარული ქონება' , AgentsH:'შეხვდით ჩვენს აგენტებს' , 
   AgentsP:'ჩვენ ყოველთვის მზად ვართ რომ დაგეხმაროთ' ,RHeader:'კლიენტების შეფასებები',Rptext:'ჩვენ ვაგროვებთ შეფასებებს ჩვენი მომხმარებლებისგან.'}
 
-
+LangMainData ;
 
 
   private featuredPropSubject = new BehaviorSubject<any[]>([]);
@@ -329,6 +327,7 @@ main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთ
       
       switch (this.localStorage) {
         case 'ENG':
+          this.LangMainData = EngService
           this.For.optdisplay=EngService.For.optdisplay
           this.For.text=EngService.For.text
           this.staticData = {
@@ -341,6 +340,7 @@ main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთ
           this.main=EngService.main
           break;
         case 'GEO':
+          this.LangMainData = GeoService
           this.For.optdisplay=GeoService.For.optdisplay
           this.For.text=GeoService.For.text
 
@@ -354,6 +354,8 @@ main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთ
           break;
           
         case 'RUS':
+          this.LangMainData = RusService
+          
           this.For.optdisplay=RusService.For.optdisplay
           this.For.text=RusService.For.text
           this.staticData = {
@@ -378,11 +380,11 @@ main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთ
     
           const nameMap: { [key: string]: string } = {
             "Tbilisi": "tbilisi",
-            "batumi": "batumi",
+            "Batumi": "batumi",
             "Kutaisi": "qutaisi", // Fix spelling
             "Rustavi": "rustavi",
             "Zugdidi": "zugdidi",
-            "telavi": "telavi",
+            "Telavi": "telavi",
             "Bakurian": "bakuriani", // Fix typo
             "Kobuleti": "kobuleti"
           };

@@ -4,6 +4,7 @@ import { AllCardsService } from '../../Services/all-cards/all-cards.service';
 import { NavInfoService } from '../../Services/NavService/nav-info.service';
 import { error } from 'console';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
+import { ListingServiceService } from '../../Services/listing-service/listing-service.service';
 
 @Component({
   selector: 'app-favorite-properties',
@@ -34,7 +35,7 @@ reviewIndices=[]
     next:'Next'
   }
   constructor(private http: HttpClient, private idplace:NavInfoService ,
-    private allCardsService:AllCardsService ,private cdr: ChangeDetectorRef, private lang:LanguageChooserService) { 
+    private allCardsService:AllCardsService ,private cdr: ChangeDetectorRef, private lang:LanguageChooserService , private sharedService:ListingServiceService) { 
 
 
   }
@@ -47,7 +48,14 @@ reviewIndices=[]
         this.pageFunction();
       },
       error: (error) => console.error('Error:', error),
-      complete: () => console.log('Completed fetching favorite cards'),
+      complete:()=>{
+        this.sharedService.views(this.favCardEl).subscribe({
+          next:(data)=>{
+            this.favCardEl = data;
+            this.pageFunction(); 
+          }
+        });
+      },
     });
   }
 
@@ -59,24 +67,23 @@ reviewIndices=[]
   const postBody = { momxmareblis_idi: this.idplace.userId, gancxadebis_idi: id };
     this.http.post('delete-saved-house.php', postBody ).subscribe({
       next: (response) => {
-        console.log('Response:', response);
+       
        this.favCardEl = this.favCardEl.filter((card) => card.id !== id);
-       this.index = 0; // Reset index for pagination
-          this.finalInfo = []; // Clear pagination data
-          this.pageIndices = []; // Clear page indices 
+     // Clear page indices 
        this.pageFunction();
        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error:', error);
       },
-      complete: () => {
-        console.log('Request completed');
-      }
+   
     });
 }
 
   pageFunction() {
+    this.index = 0; // Reset index for pagination
+    this.finalInfo = []; // Clear pagination data
+    this.pageIndices = [];
     if (this.favCardEl.length > 6) {
       console.log('No favorite properties');
      

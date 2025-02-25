@@ -65,13 +65,14 @@
               
         </div>
     </div>
-<div class="popularPlaces">
-    <h1 [ngClass]="{'fadeIn':scrollY>160}">{{popularPropStatic.Header}}</h1>
-    <p [ngClass]="{'fadeIn':scrollY>210}"  class="headerP">{{popularPropStatic.properties}} </p>
+<div class="popularPlaces"  >
+    <h1 [ngClass]="{'fadeIn':scrollY>150}">{{popularPropStatic.Header}}</h1>
+    <p [ngClass]="{'fadeIn':scrollY>200}"  class="headerP">{{popularPropStatic.properties}} </p>
     <div class="cardPlace">
-<div  *ngFor="let card of popularPlacesData let i=index"
+<div  *ngFor="let card of popularPlacesData let i=index" (click)="goToCity(card.cityName)"
+  class="cityCard"
 [ngStyle]="{'animation-delay': (i * 0.2) + 's'}"
-  [ngClass]="{'CardAnimation': scrollY > 200 , 'cityCard': scrollY<=200}"
+  [ngClass]="{'CardAnimation': scrollY > 190 , 'cityCard': scrollY<=200}"
 >
 
     <img src={{card.imgLink}} alt=""> <div class="textSide"><h2 class="cityName">{{card.cityName}}</h2> <p>{{card.properties}} {{popularPropStatic.prop}}</p></div>

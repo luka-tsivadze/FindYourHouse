@@ -73,4 +73,32 @@ private cachedmyCards$: Observable<any[]> | null = null;
 
     return this.cachedmyCards$;
   }
+
+  private Views$ = new BehaviorSubject<any>([]);
+  views(activePage: any[]): BehaviorSubject<any> {  
+    const gancxadebisIds = activePage.map((element: any) => element.id).join(',');
+
+    if (!gancxadebisIds) {
+      return this.Views$; // Avoid unnecessary API calls
+    }
+
+    this.http.get(`get-views-counted-data.php`, { params: { gancxadebis_ids: gancxadebisIds } }).subscribe({
+      next: (data: any) => {
+        console.log('Views data:', data);
+
+        activePage = activePage.map((item: any) => ({
+          ...item,
+          view: data[item.id] || 0 // Assign API result or default to 0
+        }));
+        this.Views$.next(activePage);
+      },
+      error: (error) => {
+        console.error('Error fetching views:', error);
+        this.Views$.next(activePage);
+      },
+    });
+
+    return this.Views$;
+  }
+   
 }

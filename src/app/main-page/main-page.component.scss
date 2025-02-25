@@ -21,21 +21,20 @@
   }
 }
 
-p{
-  font-family: 'Lato', sans-serif;
+p {
+  font-family: "Lato", sans-serif;
   font-size: 15px;
   font-weight: 400;
   color: #666;
 }
 
-.dNone{
+.dNone {
   opacity: 0 !important;
 }
-.FadeInUp{
+.FadeInUp {
   animation: fadeInUp 1s forwards;
 }
-main{
-
+main {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,30 +43,30 @@ main{
   width: 100%;
 
   z-index: 2;
-  .whyChoose{
+  .whyChoose {
     display: flex;
-    
+
     flex-direction: column;
     justify-content: center;
-  gap: 30px;
+    gap: 30px;
     align-items: center;
     width: 100%;
     min-height: 500px;
     background-color: rgb(255, 255, 255);
     padding: 50px 20px;
-    .headerTextChoose{
+    .headerTextChoose {
       display: flex;
-    gap: 0;
+      gap: 0;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      h2{
+      h2 {
         color: #111;
         font-weight: 600;
         text-transform: capitalize;
-        font-family: 'Montserrat', sans-serif;
-      }    
-      p{
+        font-family: "Montserrat", sans-serif;
+      }
+      p {
         margin-top: 13px;
         text-align: center;
         margin-left: auto;
@@ -78,15 +77,15 @@ main{
         max-width: 550px;
       }
     }
-    .WhyCardRow{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  
-  .whyCard{
-    opacity: 0;
+    .WhyCardRow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+
+      .whyCard {
+        opacity: 0;
         padding: 1.5rem;
         overflow: hidden;
         position: relative;
@@ -100,309 +99,297 @@ main{
         height: 300px;
         gap: 20px;
         text-align: center;
-        img{
+        img {
           width: 100px;
-  
         }
-        p{
+        p {
           color: #666;
           line-height: 26px;
-     
         }
-        h3{
+        h3 {
           color: #222;
-          font-family: 'Montserrat', sans-serif;
+          font-family: "Montserrat", sans-serif;
           font-size: 18px;
-      
+
           font-weight: 600;
         }
       }
     }
   }
-  .popularProperties{
+  .popularProperties {
     width: 100%;
-  padding:50px 0;
-    background-color: #FF385C;
+    padding: 50px 0;
+    background-color: #ff385c;
     display: flex;
     flex-direction: column;
     gap: 0px;
-justify-content: center;
-align-items: center;
-.PH2{
-  opacity: 0;
-  font-family: 'Montserrat', sans-serif;
-  color: white;
-  font-weight: 600;
- font-size: 2rem;
-  text-transform: capitalize;
-}
-.PP{
-  opacity: 0;
-  color: white;
-  margin-top: 13px;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 16px;
-  font-weight: 400;
-}
-.scrollParent{
-  
-  width: 79%;
-  overflow: hidden;
-  .first{
-    transform: translate3d(-2.5%, 0px, 0px);
-  
-  }
-  .second{
-    transform: translate3d(-13%, 0px, 0px);
-  
-  }
-  .third{
-    transform: translate3d(-23.6%, 0px, 0px);
-  
-  }
-  .fourth{
-    transform: translate3d(-34.4%, 0px, 0px);
-    
-  }
-  .fifth{
-    transform: translate3d(-45%, 0px, 0px);
-  
-  }
-  .cardParent{
- transition: 0.5s;
-    display: flex;
-    width: max-content;
-
     justify-content: center;
     align-items: center;
-    gap: 30px;
-    padding:30px  100px; 
-    
-    .propCard{
-        opacity: 0;
-        position: relative;
+    .PH2 {
+      opacity: 0;
+      font-family: "Montserrat", sans-serif;
+      color: white;
+      font-weight: 600;
+      font-size: 2rem;
+      text-transform: capitalize;
+    }
+    .PP {
+      opacity: 0;
+      color: white;
+      margin-top: 13px;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 16px;
+      font-weight: 400;
+    }
+    .scrollParent {
+      width: 79%;
+      overflow: hidden;
+      .first {
+        transform: translate3d(-2.5%, 0px, 0px);
+      }
+      .second {
+        transform: translate3d(-13%, 0px, 0px);
+      }
+      .third {
+        transform: translate3d(-23.6%, 0px, 0px);
+      }
+      .fourth {
+        transform: translate3d(-34.4%, 0px, 0px);
+      }
+      .fifth {
+        transform: translate3d(-45%, 0px, 0px);
+      }
+      .cardParent {
+        transition: 0.5s;
         display: flex;
-     flex-direction: column;
+        width: max-content;
+
+        justify-content: center;
         align-items: center;
-        gap: 1px;
-        width: 350px;
-        overflow: hidden;
-        height: 490px;
-        border-radius: 10px;
-        background-color: white;
-        border: 1px solid #e7e7e7;
-        
-      .leftSide{
-        width: 100%;
-        height: 50%;
-       
-        background-size: cover;
-        background-repeat: no-repeat;
-        position: relative;
-        background-position: center;
-        display: flex;
-        flex-direction: column;
-        
-      .FirstRow{
-        display: flex;
-        padding: 15px;
-        justify-content: space-between;
-        align-items: center;
-        .whiteBg{
-            background-color: rgba(74,74,76,0.7) !important;
-         }
-        button{
-          font-weight: 600;
-          padding: 10px 18px;
-          border-radius: 2px;
-          color: #fff;
-          border: none;
-          background-color: #FF385C;
-          display: inline-block;
-        
+        gap: 30px;
+        padding: 30px 100px;
+
+        .propCard {
+          opacity: 0;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1px;
+          width: 350px;
+          overflow: hidden;
+          height: 490px;
+          border-radius: 10px;
+          background-color: white;
+          border: 1px solid #e7e7e7;
+
+          .leftSide {
+            width: 100%;
+            height: 50%;
+
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: relative;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+
+            .FirstRow {
+              display: flex;
+              padding: 15px;
+              justify-content: space-between;
+              align-items: center;
+              .whiteBg {
+                background-color: rgba(74, 74, 76, 0.7) !important;
+              }
+              button {
+                font-weight: 600;
+                padding: 10px 18px;
+                border-radius: 2px;
+                color: #fff;
+                border: none;
+                background-color: #ff385c;
+                display: inline-block;
+              }
+            }
+            .SecondRow {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 15px;
+              position: absolute;
+              right: 10px;
+              bottom: 14px;
+              button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #fff;
+                box-shadow: none;
+                padding: 0;
+                border: unset;
+                border-radius: 8px;
+                width: 36px;
+                height: 36px;
+                line-height: 33px;
+                background: rgba(74, 74, 76, 0.7);
+                img {
+                  filter: invert(1);
+                }
+                .link {
+                  width: 55%;
+                  transform: rotate(50deg);
+                }
+              }
+            }
+          }
+          .rightSide {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            justify-content: center;
+            align-items: start;
+            padding: 20px;
+            width: 100%;
+            height: 50%;
+            a {
+              cursor: pointer;
+              color: #333;
+              font-weight: 600;
+              font-size: 1.1rem;
+            }
+            a:hover {
+              color: #ff385c;
+            }
+            p {
+              display: flex;
+              gap: 10px;
+              font-size: 13px;
+              font-weight: 400;
+              margin: 0 0 1px;
+              text-decoration: none;
+              color: #666;
+            }
+            .squareFlex {
+              display: flex;
+              padding: 5px 0px;
+              padding-right: 20px;
+              align-items: center;
+              flex-wrap: wrap;
+              justify-content: space-between;
+              gap: 10px 30px;
+              border-bottom: 1px solid #e8e8e8;
+              .element {
+                display: flex;
+                gap: 9px;
+                width: 120px;
+                img {
+                  width: 20px;
+                  height: 20px;
+                }
+              }
+            }
+            .CardFooterRow {
+              display: flex;
+              justify-content: space-between;
+              width: 100%;
+              padding-top: 10px;
+              align-items: center;
+              h1 {
+                color: #333;
+                font-size: 1.1rem;
+                font-weight: 600;
+              }
+              .iconRow {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+                .heart {
+                  filter: contrast(0.1);
+                }
+              }
+            }
+          }
         }
       }
-      .SecondRow{
+      .btnRow {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 15px;
-        position: absolute;
-        right: 10px;
-        bottom: 14px;
-        button{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        color: #fff;
-        box-shadow: none;
-        padding: 0;
-        border: unset;
-        border-radius: 8px;
-        width: 36px;
-        height: 36px;
-        line-height: 33px;
-        background: rgba(74,74,76,0.7);
-        img{
-        
-      filter: invert(1) ;
-    
-        }
-        .link{
-          width: 55%;
-          transform: rotate(50deg);
-        }
-        }
-      }
-      }
-      .rightSide{
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-       justify-content: center;
-       align-items: start;
-       padding: 20px;
-        width: 100%;
-        height: 50%;
-        a{
+        gap: 10px;
+        padding: 20px;
+        button {
+          width: 16px;
+          height: 16px;
+          opacity: 0;
           cursor: pointer;
-          color: #333;
-          font-weight: 600;
-        font-size: 1.1rem;
+          border-radius: 50%;
+          background-color: #00000000;
+          border: none;
+          border: 4px solid rgba(255, 255, 255, 0.685);
+          display: inline-block;
         }
-        a:hover{
-          color: #FF385C;
+        .active {
+          transition: 0.1s;
+          background-color: #fff;
         }
-        p{
-          display: flex;
-          gap: 10px;
-          font-size: 13px;
-          font-weight: 400;
-          margin: 0 0 1px;
-          text-decoration: none;
-          color: #666;
-        }
-        .squareFlex{
-          display: flex;
-        padding:5px 0px;
-        padding-right: 20px;
-          align-items: center;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          gap:10px 30px;
-          border-bottom: 1px solid #e8e8e8;
-          .element{
-            display: flex;
-            gap: 9px;
-            width:120px;
-          img{
-            width: 20px;
-            height: 20px;
-          }
-        }
-        }
-        .CardFooterRow{
-          display: flex;
-          justify-content: space-between;
-          width: 100%;
-          padding-top:10px ;
-          align-items: center;
-          h1{
-            color: #333;
-            font-size: 1.1rem;
-            font-weight: 600;
-          }
-          .iconRow{
+      }
+    }
+  }
+  .Agents {
+    width: 100%;
     display: flex;
-    gap: 20px;
-    align-items: center;
-    .heart{
-      filter: contrast(0.1);
-    }
-    
-          }
-        }
-      }
-      }
-    }
-    .btnRow{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      padding: 20px;
-      button{
-        width: 16px;
-        height: 16px;
-  opacity: 0;
-cursor: pointer;
-        border-radius: 50%;
-      background-color: #00000000;
-        border: none;
-       border: 4px solid rgba(255, 255, 255, 0.685);
-        display: inline-block;
-      }
-      .active{
-        transition: 0.1s;
-        background-color: #fff;
-      }
-    }
-  }
-  }
-  .Agents{
-width: 100%;
-display: flex;
     flex-direction: column;
-    gap:20px;
+    gap: 20px;
     align-items: center;
     padding: 50px 0;
     background-color: #ffffff;
     justify-content: center;
 
-    .AHeader{
+    .AHeader {
       color: #444;
-      font-weight: 600;      
+      font-weight: 600;
       font-size: 2rem;
     }
-    .AP{
+    .AP {
       font-size: 16px;
       font-weight: 400;
       color: #666;
       margin-bottom: 40px;
     }
-    .cardParent{
+    .cardParent {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 20px;
       width: 94%;
-      .cardTypeAgent{
+      .cardTypeAgent {
         position: relative;
         opacity: 0;
         width: 230px;
         height: 310px;
         box-shadow: 0px 0px 2px #e7e7e7;
         border: 1px solid #e7e7e7;
-      
-        .Top{
+
+        .Top {
           height: 75%;
           background-color: red;
           width: 100%;
-          img{
+          img {
             width: 100%;
             height: 100%;
             object-fit: cover;
           }
-          .ShareRow{
+          .ShareRow {
             position: absolute;
             display: flex;
             flex-direction: column;
             gap: 0px;
             right: 1px;
             top: 1px;
-            a{
+            a {
               cursor: pointer;
               color: #fff;
               font-size: 13px;
@@ -414,33 +401,33 @@ display: flex;
               justify-content: center;
               align-items: center;
               border-bottom: 1px solid #d4cfcf;
-              img{
-               width: max-content;
+              img {
+                width: max-content;
                 height: 20px;
                 filter: invert(1);
               }
             }
-            a:last-child{
+            a:last-child {
               border-bottom: unset;
             }
           }
         }
-        .bottom{
+        .bottom {
           display: flex;
           justify-content: center;
           align-items: center;
           gap: 5px;
           flex-direction: column;
           height: 25%;
-          h3{
-            font-family: 'Montserrat', sans-serif;
+          h3 {
+            font-family: "Montserrat", sans-serif;
             background-color: transparent;
             color: #000;
             font-size: 18px;
             font-weight: 600;
             line-height: 1.2em;
           }
-          p{
+          p {
             color: #666;
             font-size: 16px;
             font-weight: 400;
@@ -448,149 +435,318 @@ display: flex;
             text-transform: capitalize;
           }
         }
-    }
       }
     }
-    .Reviews{
-      width: 100%;
-      height: 600px;
-      padding: 40px;
+  }
+  .Reviews {
+    width: 100%;
+    height: 600px;
+    padding: 40px;
 
-      display: flex;
-      justify-content: start;
-      align-items: center;
-      gap: 15px;
-      flex-direction: column;
-      background: #f5f7fb;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 15px;
+    flex-direction: column;
+    background: #f5f7fb;
 
- 
- .ForOverflow{
-  width: 82%;
-  height: max-content;
-  overflow: hidden;
-      .cardPlace{
-       width: max-content;
+    .ForOverflow {
+      width: 92%;
+      height: max-content;
+      overflow: hidden;
+      .cardPlace {
+        width: max-content;
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 15px;
         transform: translate3d(0px, 0px, 0px);
         transition: 1s;
-cursor:move;
-        .ReviewCard{
-        width: 500px;
-      
-        height: 300px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 40px;
-        padding: 20px 70px;
-        background-color: #fff ;
-        box-shadow: 0px 0px 2px #e7e7e7;
-        border: 1px solid #e7e7e7;
-        .Top{
-          p{
-            letter-spacing: 0.32px;
-            line-height: 26px;
-          }
-        }
-        .Bottom{
+        cursor: move;
+        .ReviewCard {
+          width: 500px;
+
+          height: 300px;
           display: flex;
-    width: 100%;  
-          gap: 15px;
-          h3{
-            font-size: 19px;
-    line-height: 28px;
-    letter-spacing: 0.38px;
-    color: #444;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 40px;
+          padding: 20px 70px;
+          background-color: #fff;
+          box-shadow: 0px 0px 2px #e7e7e7;
+          border: 1px solid #e7e7e7;
+          .Top {
+            p {
+              letter-spacing: 0.32px;
+              line-height: 26px;
+            }
           }
-          p{
-            line-height: 22px;   
-             color: #666;
-            font-size: 15px;
-        
-          }
-          .col{
+          .Bottom {
             display: flex;
-            flex-direction: column;
-            gap: 0px;
-            justify-content: center;
-            align-items: start;
-        
-          }
-          .STATICiCON{
-            position: absolute;
-            right: 80px;
-          }
-          span{
- 
-            background: linear-gradient(90deg, rgba(240, 71, 134, 0.75) 0%, rgba(255, 56, 92, 0.75) 100%);
-            width: 68px;
-            height: 68px;
-            padding: 4px;
-            position: relative;
-            border-radius: 50%;
-            overflow: hidden;
-            img{
-              width: 90%;
-              height: 90%;
-              border-radius: 50%;
+            width: 100%;
+            gap: 15px;
+            h3 {
+              font-size: 19px;
+              line-height: 28px;
+              letter-spacing: 0.38px;
+              color: #444;
+            }
+            p {
+              line-height: 22px;
+              color: #666;
+              font-size: 15px;
+            }
+            .col {
+              display: flex;
+              flex-direction: column;
+              gap: 0px;
+              justify-content: center;
+              align-items: start;
+            }
+            .STATICiCON {
               position: absolute;
-              left: 50%;
-              top: 50%;
-              transform: translate(-50%, -50%);
-              object-fit:cover;
+              right: 80px;
+            }
+            span {
+              background: linear-gradient(
+                90deg,
+                rgba(240, 71, 134, 0.75) 0%,
+                rgba(255, 56, 92, 0.75) 100%
+              );
+              width: 68px;
+              height: 68px;
+              padding: 4px;
+              position: relative;
+              border-radius: 50%;
+              overflow: hidden;
+              img {
+                width: 90%;
+                height: 90%;
+                border-radius: 50%;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                object-fit: cover;
+              }
             }
           }
         }
-        }
       }
     }
-    .btnRow{
+    .btnRow {
       margin-top: 30px;
       width: 95px;
       height: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      button{
+      button {
         text-align: center;
-    width: 43px;
-    height: 43px;
-    border: 2px solid #ddd;
-    border-radius: 50%;
-    font-size: 18px;
-    color: #70778b;
-    line-height: 43px;
-    background: transparent;
-    -webkit-tap-highlight-color: transparent;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-
+        width: 43px;
+        height: 43px;
+        border: 2px solid #ddd;
+        border-radius: 50%;
+        font-size: 18px;
+        color: #70778b;
+        line-height: 43px;
+        background: transparent;
+        -webkit-tap-highlight-color: transparent;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
       }
-      button:hover{
+      button:hover {
         background-color: #ff0000;
-        img{
+        img {
           filter: invert(1);
-        
         }
       }
-
     }
+  }
 }
-}
-app-partners-footer{
+app-partners-footer {
   width: 100%;
 }
-app-footer{
+app-footer {
   width: 100%;
-
 }
-@media screen and (max-width:1300px) {
-  .cardParent{
+@media screen and (max-width: 1300px) {
+  .cardParent {
     flex-wrap: wrap;
     width: 98%;
+  }
+}
+@media screen and (max-width: 900px) {
+  main {
+    .popularProperties {
+      .PH2 {
+        font-size: 16px;
+      }
+      .PP {
+        font-size: 12px;
+      }
+      .scrollParent {
+        width: 97%;
+        .cardParent {
+          gap: 5px;
+          .propCard {
+            width: 260px;
+            height: 380px;
+            .rightSide {
+              gap: 4px;
+              padding: 12px;
+              .squareFlex {
+                padding: 5px;
+                padding-left: 0px;
+                gap: 4px;
+              }
+              a {
+                font-size: 0.8rem;
+              }
+              p {
+                font-size: 10px;
+              }
+            }
+            .leftSide {
+              .FirstRow {
+                button {
+                  padding: 6px 14px;
+                  font-size: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .whyChoose {
+      .WhyCardRow {
+        .whyCard {
+          width: 200px;
+          height: 200px;
+          padding: 0.5rem;
+          img {
+            width: 50px;
+          }
+          p {
+            line-height: normal;
+            font-size: 10px;
+          }
+        }
+      }
+    }
+    .Agents {
+      .cardParent {
+        width: 100%;
+      }
+    }
+  }
+}
+@media screen and (max-width: 700px) {
+  main {
+    .Reviews {
+      .HText{
+        font-size: 1.1rem;
+      }
+      .HP{
+        font-size: 12px;
+      }
+      .ForOverflow {
+        width: 100%;
+        .cardPlace {
+          .ReviewCard {
+            width: 300px;
+            height: 230px;
+            padding: 15px 25px;
+            gap: 20px;
+            .Top {
+              p {
+                font-size: 12px;
+                line-height: 20px;
+              }
+            }
+            .Bottom {
+              .STATICiCON {
+                right: 30px;
+                width: 45px;
+              }
+              span {
+                width: 45px;
+                height: 45px;
+              }
+              .col {
+                h3 {
+                  font-size: 14px;
+                }
+                p {
+                  font-size: 12px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 500px) {
+  main {
+    .whyChoose {
+      padding: 50px 10px;
+      .WhyCardRow {
+        gap: 10px;
+        .whyCard {
+          width: 150px;
+          height: 150px;
+          padding: 0.3rem;
+          gap: 5px;
+          img {
+            width: 30px;
+          }
+          h3 {
+            font-size: 12px;
+          }
+          p {
+            line-height: normal;
+            font-size: 9px;
+          }
+        }
+      }
+    }
+    .Agents {
+      gap: 5px;
+      .cardParent {
+        .cardTypeAgent {
+          width: 150px;
+          height: 230px;
+          .top {
+            .ShareRow {
+              a {
+                width: 27px;
+                height: 24px;
+                img {
+                  height: 13px;
+                }
+              }
+            }
+          }
+          .bottom {
+            h3 {
+              font-size: 14px;
+            }
+            p {
+              font-size: 12px;
+            }
+          }
+        }
+      }
+      .AHeader {
+        font-size: 1rem;
+      }
+      .AP {
+        font-size: 11px;
+      }
+    }
   }
 }

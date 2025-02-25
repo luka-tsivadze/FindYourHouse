@@ -10,17 +10,22 @@
 }
 @keyframes opacitiesOFF {
     0% {
-     
+       
         opacity: 1;
         
     }
-    90% {
+    99% {
    
         opacity: 0;
+        visibility: hidden;
+        
     }
     100%{
         opacity: 0;
-        display: none;
+        height: 0;
+        overflow: hidden; /* Prevents extra space */
+        padding: 0; /* Ensures no padding remains */
+        margin: 0;     
     }
 }
 @keyframes scale {

@@ -67,6 +67,7 @@ main {
             border-bottom: 1px solid #f3f3f3;
 
             .left {
+                cursor: pointer;
                 @include flex-center;
                 gap: 20px;
 

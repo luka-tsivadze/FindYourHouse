@@ -57,10 +57,10 @@ export class GeoService {
         formControlName: 'sveli_wertilebis_raodenoba'
       }
     ],
-  
+    City:{ HeaderName: 'ქალაქი', placeHolder: 'შეიყვანეთ თქვენი ქალაქი', id: 'City', formControlName: 'qalaqi', type: 'text' },
     form3Info: [
       { HeaderName: 'მისამართი', placeHolder: 'შეიყვანეთ თქვენი მისამართი', id: 'adress', formControlName: 'misamarti', type: 'text' },
-      { HeaderName: 'ქალაქი', placeHolder: 'შეიყვანეთ თქვენი ქალაქი', id: 'City', formControlName: 'qalaqi', type: 'text' },
+   
   
       { HeaderName: 'Google Map გრძედი', placeHolder: 'შეიყვანეთ Google Map გრძედი', id: 'mapa', formControlName: 'mapis_grdzedi', type: 'number' },
       { HeaderName: 'Google Map განედი', placeHolder: 'შეიყვანეთ Google Map განედი', id: 'mapo', formControlName: 'mapis_ganedi', type: 'number' }
@@ -135,7 +135,7 @@ export class GeoService {
   }
   Profile = {
     header: "პროფილის დეტალები",
-    inquary: "ინფორმაციის მოთხოვნა",
+    inquary: "შეტყობინების გაგზავნა",
     submit: "გაგზავნა",
     input: ["სახელი", "ტელეფონის ნომერი", "ელ. ფოსტა"]
   }
@@ -187,8 +187,8 @@ export class GeoService {
     advertismentr: 'დღის სპეციალური შეთავაზებები',
     AgentsInfo: {
       inputs: [
-        { type: 'text', placeholder: 'სახელი', formControlName: 'firstName' },
-        { type: 'number', placeholder: 'ტელეფონის ნომერი', formControlName: 'phoneNumber' },
+        { type: 'text', placeholder: 'სახელი', formControlName: 'saxeli' },
+        { type: 'number', placeholder: 'ტელეფონის ნომერი', formControlName: 'nomeri' },
         { type: 'email', placeholder: 'ელ. ფოსტა', formControlName: 'email' },
       ],
       staticValues: {

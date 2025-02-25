@@ -41,23 +41,50 @@ export class MyPropertiesComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.gotuserData()
+    this.getuserData()
     this.staticData=this.lang.chosenLang.myProp;
+
   }
- gotuserData(){
+ getuserData(){
 this.sharedService.userData().subscribe({
 next:(data)=>{
   this.allCardEl=data;
   this.isLoading = false; // Data loading completed
-  this.pageFunction(); // Recalculate pages after data is updated
+
 },
 error:(error)=>console.error('Error:',error),
-complete:()=>console.log('Completed fetching favorite cards'),
+complete:()=>{
+  this.sharedService.views(this.allCardEl).subscribe({
+    next:(data)=>{
+      this.allCardEl = data;
+      this.pageFunction(); // Recalculate pages after data is updated
+    }
+  });
+},
 
 });
-  
-
  }
+
+ views() {  //move to listing-service.service.ts
+  const gancxadebisIds = this.activePage.map(element => element.id).join(',');
+
+  if (!gancxadebisIds) {
+    return; // Avoid unnecessary API calls
+  }
+
+  this.http.get(`get-views-counted-data.php`, { params: { gancxadebis_ids: gancxadebisIds } }).subscribe({
+    next: (data: any) => {
+      console.log('Views data:', data);
+
+      this.activePage = this.activePage.map(item => ({
+        ...item,
+        view: data[item.id] || 0 // Assign API result or default to 0
+      }));
+    },
+    error: (error) => console.error('Error fetching views:', error),
+  });
+}
+
 
 
 
@@ -72,6 +99,10 @@ complete:()=>console.log('Completed fetching favorite cards'),
 
   
   pageFunction() {
+    this.finalInfo = [];
+    this.pageIndices = [];
+    this.index = 0;
+    
     if (this.allCardEl.length > 0) {
       this.pages = Math.ceil(this.allCardEl.length / 6);
 

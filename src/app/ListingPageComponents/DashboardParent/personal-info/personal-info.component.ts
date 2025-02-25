@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LanguageChooserService } from '../../../Services/language-chooser/language-chooser.service';
 import { text } from 'node:stream/consumers';
+import { NavInfoService } from '../../../Services/NavService/nav-info.service';
 
 
 @Component({
@@ -21,24 +22,41 @@ export class PersonalInfoComponent implements OnInit {
   },
 
   {
-    label:'Phone Number',placeholder:'ex:+1-800-7700-00',type:'text', FormControlName:'phone',
+    label:'Phone Number',placeholder:'ex:+1-800-7700-00',type:'text', FormControlName:'nomeri',
   },
-  {label:'Address',placeholder:'Write Your Address hare',FormControlName:'misamarti'},
+  {label:'Address',placeholder:'Write Your Address hare',FormControlName:'sacxovrebeli_adgili'},
+  
+]
+UserSelect=[
+  {label:'Account type', placeholder:'Choose Acaunt Type' ,options:{dis:['Sales Manager','User'], val:['Sales Manager','User'] },FormControlName:'angarishis_tipi'},
+   {label:'Gender',placeholder:'Choose Gender' ,options:{dis:['Male', 'Female'],val:['Male', 'Female'] },FormControlName:'sqesi'}
 ]
 textArea=[
 
-  {label:'About Yourself',placeholder:'Write about Yourself',FormControlName:'qalaqi'},
+  {label:'About Yourself',placeholder:'Write about Yourself',FormControlName:'chems_shesaxeb'},
 ]
-// changePassword=[{label:'New Password',placeholder:'Write New Password',type:'password',FormControlName:'axaliparoli'},
-//   {label:'Repeat Password',placeholder:'Confirm Password',type:'password',FormControlName:'parolisdamtkiceba'}]
+
 Form:FormGroup ;
   selectedFile!: File;
-constructor(private langServ:LanguageChooserService , private fb:FormBuilder){
+constructor(private langServ:LanguageChooserService , private fb:FormBuilder , private navServ:NavInfoService) {
   this.Form=this.fb.group({
-    file:new FormControl(null),
+   
+    saxeli:[''],
+    gvari:[''],
+    nomeri:[''],
+    sacxovrebeli_adgili:[''],
+    chems_shesaxeb:[''],
+    momxmareblis_idi:[''],
+    angarishis_tipi:[''],
+    sqesi:[''],
+  
+    
+
   });
 }
 submit(){
+  this.Form.get('momxmareblis_idi')?.setValue(this.navServ.userId);
+  
   console.log(this.Form.value);
 }
 ngOnInit(){
@@ -52,19 +70,6 @@ this.staticElements=this.langServ.chosenLang.Dashboard.PersonalInfo.staticElemen
 
   
 }
-onFileSelected(event: any) {
-  this.UserMessage.fileSelected=true;
-  const file = event.target.files[0]; // Get the first selected file
-  if (file && file.type.startsWith('image/')) { // Check if the file is an image
-    this.Form.get('file')?.setValue(file); // Set the file in the FormControl
-    this.UserMessage.error=false;
-    this.UserMessage.text='Your Information has been updated successfully Click save to save changes';
-  } else {
-    this.UserMessage.error=true;
-    this.UserMessage.text='Only image files are allowed. upload Failed';
-    alert('Only image files are allowed.');
-    this.Form.get('file')?.setValue(null); 
-  }
-}
+
 
 }

@@ -80,16 +80,22 @@ export class AllCardsComponent {
     }
 
     getMatchingIndexes(savedCards: any[], allCards: any[]): void {
-      // Create a Set of saved card IDs for quick lookup
       const savedCardIds = new Set(savedCards.map(saved => saved.id));
     
-      allCards.forEach((card, index) => {
-        if (savedCardIds.has(card.id)) {
+      // Optimize: Initialize `heartimgLinks` only once
+      if (!this.heartimgLinks.length) {
+        this.heartimgLinks = new Array(allCards.length).fill(this.heartimg);
+      }
+    
+      // Optimize: Loop only through saved cards instead of all cards
+      savedCards.forEach(savedCard => {
+        const index = allCards.findIndex(card => card.id === savedCard.id);
+        if (index !== -1) {
           this.heartimgLinks[index] = this.heartFilled;
-       
         }
       });
     }
+    
   
 
     saveToFav(i:number , info){
@@ -187,10 +193,11 @@ export class AllCardsComponent {
     if (this.finalInfo[index]) {
       this.activePage = this.finalInfo[index];
       this.ActivePage = index;
-  
+      
+
     }
   }
-
+  
   routertodetailedInfo(cardId: number): void {
     this.detailedservice.setCardId(cardId);
     this.router.navigate(['/allCards', cardId]);

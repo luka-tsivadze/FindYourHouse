@@ -68,7 +68,7 @@ constructor(private registrationService: RegistrationService, private http:HttpC
       nomeri: new FormControl({ value: '+995', disabled: false}, [Validators.required, Validators.minLength(9), Validators.maxLength(13),  Validators.pattern('^\\+?[0-9]*$') ]),
       verificationInput: new FormControl('', Validators.required),
       sqesi: new FormControl('', Validators.required),
-      dabadebis_weli: new FormControl('', Validators.required),
+   
       buttonSub: new FormControl('register'),
     });
   }

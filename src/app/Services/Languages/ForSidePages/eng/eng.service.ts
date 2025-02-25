@@ -65,10 +65,11 @@ export class EngService {
         formControlName: 'sveli_wertilebis_raodenoba'
       }
     ],
+    City:{ HeaderName: 'City', placeHolder: 'Enter Your city', id: 'City', formControlName: 'qalaqi' , type:'text'},
     
     form3Info : [
       { HeaderName: 'Address', placeHolder: 'Enter Your Address', id: 'adress', formControlName: 'misamarti' , type:'text'},
-      { HeaderName: 'City', placeHolder: 'Enter Your city', id: 'City', formControlName: 'qalaqi' , type:'text'},
+     
     
     
       { HeaderName: 'Google Map Latitude', placeHolder: 'Google Map Latitude', id: 'mapa', formControlName: 'mapis_grdzedi' ,type:'number' },
@@ -199,12 +200,12 @@ DetailedInfo={
       {
         type: 'text',
         placeholder: 'First Name',
-        formControlName: 'firstName'
+        formControlName:'saxeli'
       },
       {
         type: 'number',
         placeholder: 'Phone Number',
-        formControlName: 'phoneNumber'
+        formControlName: 'nomeri'
       },
       {
         type: 'email',

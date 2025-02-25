@@ -8,6 +8,7 @@ import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { NavInfoService } from '../Services/NavService/nav-info.service';
+import { FilterDataUniterService } from '../Services/filter-data-uniter/filter-data-uniter.service';
 
 
 
@@ -53,7 +54,11 @@ filterForm = this.fb.group({
   propstatus:['0'],
 
 });
-    constructor(@Inject(PLATFORM_ID) private platformId: Object,private navserv:NavInfoService, private http:HttpClient , private router:Router ,private fb: FormBuilder , private cd: ChangeDetectorRef ,private allcard:AllCardsService, private dataService: MainPageDataService ) {
+    constructor(@Inject(PLATFORM_ID) private platformId: Object,private navserv:NavInfoService, 
+    private http:HttpClient , private router:Router ,private fb: FormBuilder , private cd: ChangeDetectorRef 
+   ,private uniter:FilterDataUniterService
+    ,private allcard:AllCardsService, private dataService: MainPageDataService )
+     {
  this.dataService.cityAmount(); 
     }
 
@@ -95,15 +100,17 @@ filterForm = this.fb.group({
       heartimgLinks=[this.heartimg,this.heartimg,this.heartimg,this.heartimg,this.heartimg,this.heartimg,this.heartimg,this.heartimg]
 
       getMatchingIndexes(savedCards: any[], allCards: any[]): void {
-        // Create a Set of saved card IDs for quick lookup
         const savedCardIds = new Set(savedCards.map(saved => saved.id));
       
-        allCards.forEach((card, index) => {
-          if (savedCardIds.has(card.gncxdebis_idi)) {
+        // Filter only matching cards to reduce iteration
+        allCards
+          .map((card, index) => ({ card, index }))
+          .filter(({ card }) => savedCardIds.has(card.gncxdebis_idi))
+          .forEach(({ index }) => {
             this.heartimgLinks[index] = this.heartFilled;
-          }
-        });
+          });
       }
+      
       
       
 
@@ -326,6 +333,15 @@ onSelectChange(event: Event): void {
   @HostListener('window:scroll', ['$event'])
 onScroll(event: Event): void {
     this.scrollY = window.scrollY || window.pageYOffset; 
+}
+
+goToCity(location: string): void {
+  if (!location || location === '0') {
+    return; // If the location is 0 (default), do nothing
+  }
+
+  this.uniter.transferData({ locselect: location }, 1);
+  this.router.navigate(['/allCards']);
 }
 
 }

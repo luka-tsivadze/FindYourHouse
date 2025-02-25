@@ -39,7 +39,8 @@ ngOnInit(){
     message: new FormControl('', Validators.required),
     gancxadebis_id: new FormControl('', ),
     momxmareblis_id: new FormControl(''),
-    shefaseba: new FormControl('')
+    shefaseba: new FormControl(''),
+    adresatis_idi: new FormControl(''),
   });
 
 }
@@ -52,6 +53,7 @@ this.reviewForm.value.gancxadebis_id = this.gancxadebis_id;
 this.reviewForm.value.momxmareblis_id = this.momxmareblis_id;
 this.reviewForm.value.saxeli = this.navServ.IsSignedIn.Name;
 this.reviewForm.value.maili = this.navServ.IsSignedIn.email;
+this.reviewForm.value.adresatis_idi = this.prop.chosenCard.momxmareblis_id; ;
 
 console.log(this.reviewForm.value);
 if(this.reviewForm.value.shefaseba && this.reviewForm.value.momxmareblis_id){

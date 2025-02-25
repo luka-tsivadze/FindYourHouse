@@ -57,10 +57,10 @@ export class RusService {
         formControlName: 'sveli_wertilebis_raodenoba'
       }
     ],
-    
+    City:{ HeaderName: 'Город', placeHolder: 'Введите ваш город', id: 'City', formControlName: 'qalaqi' , type:'text'},
     form3Info : [
       { HeaderName: 'Адрес', placeHolder: 'Введите ваш адрес', id: 'adress', formControlName: 'misamarti' , type:'text'},
-      { HeaderName: 'Город', placeHolder: 'Введите ваш город', id: 'City', formControlName: 'qalaqi' , type:'text'},
+      
     
       { HeaderName: 'Широта Google Map', placeHolder: 'Широта Google Map', id: 'mapa', formControlName: 'mapis_grdzedi' ,type:'number' },
       { HeaderName: 'Долгота Google Map', placeHolder: 'Долгота Google Map', id: 'mapo', formControlName: 'mapis_ganedi' , type:'number' }
@@ -189,8 +189,8 @@ export class RusService {
     advertismentr: 'Специальные предложения дня',
     AgentsInfo: {
       inputs: [
-        { type: 'text', placeholder: 'Имя', formControlName: 'firstName' },
-        { type: 'number', placeholder: 'Номер телефона', formControlName: 'phoneNumber' },
+        { type: 'text', placeholder: 'Имя', formControlName: 'saxeli' },
+        { type: 'number', placeholder: 'Номер телефона', formControlName: 'nomeri' },
         { type: 'email', placeholder: 'Электронная почта', formControlName: 'email' },
       ],
       staticValues: {

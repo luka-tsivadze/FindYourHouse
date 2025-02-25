@@ -83,7 +83,48 @@ For={
   text: 'Статус недвижимости',
   optdisplay:[ 'Сдается в аренду', 'Продается', 'Залог', 'Аренда посуточно', 'Строящиеся квартиры'],
 }
+allFilter = {
+  FirstFilter: {
+    locations: ['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Zugdidi', 'Telavi', 'Bakuriani', 'Kobuleti'],
+    locationDis: ['Тбилиси', 'Батуми', 'Кутаиси', 'Рустави', 'Зугдиди', 'Телави', 'Бакуриани', 'Кобулети'],
 
+    PropertyTypes: ['Apartment', 'House', 'Commercial', 'Garage'],
+    PropertyTypesDis: ['Квартира', 'Дом', 'Коммерческая', 'Гараж']
+  },
+  filter: {
+    SelectInputs: [
+      {
+        imgLink: '../../../assets/Imges/StaticImg/StaticIcons/sleeping.png',
+        text: 'Спальня',
+        options: ['Спальня', '1', '2', '3', '4', '5', '6', '7'],
+        name: 'bedrooms',
+      },
+      {
+        imgLink: '../../../assets/Imges/StaticImg/StaticIcons/bathtub.svg',
+        text: 'Ванная',
+        options: ['Ванная', '1', '2', '3', '4', '5'],
+        name: 'bathrooms',
+      },
+    ],
+    range: {
+      area: 'Площадь',
+      MAmount: 'кв.м',
+      Price: 'Ценовой диапазон'
+    },
+    filteredCheckBox: [
+      { id: '1', label: 'Air Conditioning', name: 'Кондиционер', formcontroller: 'airConditioning' },
+      { id: '2', label: 'Swimming Pool', name: 'Бассейн', formcontroller: 'swimmingPool' },
+      { id: '3', label: 'TV Cable & wifi', name: 'Телевидение и интернет', formcontroller: 'tvCable' },
+      { id: '4', label: 'Central Heating', name: 'Центральное отопление', formcontroller: 'centralHeating' },
+      { id: '5', label: 'Laundry Room', name: 'Прачечная', formcontroller: 'laundryRoom' },
+      { id: '6', label: 'Microwave', name: 'Микроволновая печь', formcontroller: 'microwave' },
+      { id: '7', label: 'Gym', name: 'Спортзал', formcontroller: 'gym' },
+      { id: '8', label: 'Alarm', name: 'Сигнализация', formcontroller: 'alarm' },
+      { id: '9', label: 'Refrigerator', name: 'Холодильник', formcontroller: 'refrigerator' },
+      { id: '10', label: 'Window Covering', name: 'Балкон', formcontroller: 'windowCovering' },
+    ],
+  },
+}
 
   constructor() { }
 }

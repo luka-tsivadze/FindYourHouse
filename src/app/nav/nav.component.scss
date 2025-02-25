@@ -423,16 +423,11 @@ nav {
 }
 
 @media screen and (max-width: 1340px) {
-  .nav {
-    .FirstUl {
-      img {
-        width: 50px;
-        height: 44px;
-      }
-    }
-  }
+
   nav {
-    padding: 2%, 5px;
+    padding: 2% 5px;
+  
+    }
     ul {
       gap: 5px;
       .RightRow {
@@ -459,7 +454,7 @@ nav {
       }
     }
   }
-}
+
 @media screen and (max-width: 1070px) {
   nav {
     ul {
@@ -492,12 +487,26 @@ nav {
     .pcresp{
       display: none;
     }
+    ul{
+      .row{
+        .onClick{
+        
+          img{
+            width: 19px;
+            height: unset;
+          }
+          p{
+            font-size: 11px;
+          }
+        }
+      }
+    }
     .FirstUl{
       width: 100%;
       justify-content: start;
       .Navicon{
-       margin-left: 20px;
-        width: 45px;
+       margin-left: 10px;
+        width: 40px;
       }
       .navcol{
    position: absolute;
@@ -526,12 +535,82 @@ nav {
   }
   
 }
+
+
 @media screen and (max-width: 600px) {
   nav{
-  
+    padding: 2% 1px;
+    
+  .FirstUl{
+    .Navicon{
+      width: 24px;
+      margin-left: 10px;
+    }
+    .burger{
+      img{
+        width: 24px !important;
+        height: max-content !important;
+      }
+    }
+  }
+
+  ul{
+    gap: 5px;
+    .listing{
+      padding: 10px 0px;
+      width: 113px;
+      font-size: 10px;
+      height: unset ;
+      h4{
+        font-size: 10px;
+      }
+    }
+    .RightRow{
+      gap: 5px;
+      .circle{
+        width: 30px;
+        height: 30px;
+      }
+    }
+    .row{
+      .onClick{
+        gap: 2px;
+        p{
+          font-size: 10px;
+        }
+      }
+    }
+    li{
+      .menuBar{
+        .mainPart{
+          .row{
+            a{
+              font-size: 12px;
+            }
+         
+          }
+          .row:hover{
+            margin-right:2px;
+            .ArrowNav{
+              left: 90%;
+              padding-left:3px;
+              .forHover{
+                .aContainer{
+                a{
+                  font-size: 10px;
+                }
+              }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   .mobileresp{
-  .navcol{ 
-    position: fixed;
+  
+    .navcol{ 
+    position: absolute;
     max-width: 100vw;
     flex-wrap: wrap;
     padding: 10px;

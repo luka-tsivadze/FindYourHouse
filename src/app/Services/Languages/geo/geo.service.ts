@@ -124,7 +124,7 @@ For={
 }
 allFilter = {
   FirstFilter: {
-    locations: ['Tbilisi', 'Batumi', 'kutaisi', 'Rustavi', 'Zugdidi', 'Telavi', 'Bakuriani', 'Kobuleti'],
+    locations: ['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Zugdidi', 'Telavi', 'Bakuriani', 'Kobuleti'],
     locationDis: ['თბილისი', 'ბათუმი', 'ქუთაისი', 'რუსთავი', 'ზუგდიდი', 'თელავი', 'ბაკურიანი', 'ქობულეთი'],
 
     PropertyTypes: ['Apartment', 'House', 'Commercial', 'Garage'],

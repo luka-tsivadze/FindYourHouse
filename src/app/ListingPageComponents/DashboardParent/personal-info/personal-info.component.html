@@ -1,17 +1,24 @@
 <main>
     <h3>{{staticElements.Header}}</h3>
 
-    <form >
+    <form  [formGroup]="Form" (ngSubmit)="submit()">
         
         <div class="col" *ngFor="let el of inputText">
             <label for="{{el.label}}">{{el.label}}</label>
-            <input type="{{el.type}}" id="{{el.label}}" placeholder="{{el.placeholder}}">
+            <input formControlName="{{el.FormControlName}}" type="{{el.type}}" id="{{el.label}}" placeholder="{{el.placeholder}}">
         </div>
-      
+       <div class="col" *ngFor="let el of UserSelect">
+           <label for="{{el.label}}">{{el.label}}</label>
+           <select formControlName="{{el.FormControlName}}" id="{{el.label}}">
+                <option value="" disabled selected hidden>{{el.placeholder}}</option> 
+               <option *ngFor="let option of el.options.dis let i =index" [value]="el.options.val[i]">{{option}}</option>
+           </select>
+
+       </div>
    
         <div class="col-100" *ngFor="let info of textArea">
             <label for="{{info.label}}">{{info.label}}</label>
-            <textarea id="{{info.label}}" placeholder="{{info.placeholder}}"></textarea>
+            <textarea formControlName="{{info.FormControlName}}"  id="{{info.label}}" placeholder="{{info.placeholder}}"></textarea>
         </div>
 
         

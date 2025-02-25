@@ -4,6 +4,7 @@ import { AllCardsService } from '../all-cards/all-cards.service';
 import { Router } from 'express';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -34,13 +35,14 @@ cardId;
     uploadmonth: 2,
     YearBuilt: '2010/06/23',
     id: 0,
+    momxmareblis_id: 1,
    latitude:  41.82143000, 
    longitude: 41.77921000,
     Rooms: 8,
     Reviews:[
       {name:'Mary Smith',date:'May 30 2020', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero luctus tincidunt. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero',ProfileimgLink:'/assets/Imges/Header/CardImges/A-4.jpg', review:3, postedimgesLinks:{isimg:false, imgUrl:[]} },
      {name:'Lisa Williams',date:'jul 12 2020', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero luctus tincidunt. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero',ProfileimgLink:'/assets/Imges/Header/CardImges/A-2.jpg', review:5, postedimgesLinks:{isimg:false} },
-    ],
+    ],//alreafy recievied from back
 
    
       Amenities: ['Pool', 'Heating', 'Laundry Room', 'Fridge', 'Parking', 'Cable TV', 'Internet', 'Microwave', 'Dryer', 'barbeque', 'Lawn', 'Dish Washer'],
@@ -159,7 +161,8 @@ cardId;
   profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-3.jpg',
   profileName: 'Martina Williams',
   uploadmonth: 4,
-  id:2
+  id:2,
+
 },]
 
 imgLink=[];
@@ -265,6 +268,7 @@ if (Array.isArray(images) && images.length > 0) {
       floorPlan: this.floorimgLink || false, // Static placeholder
       videoLink: this.videoLin || false, // Static placeholder
       describtion: selectedCard.mokle_agwera, 
+      momxmareblis_id: selectedCard.amtvirtvelis_idi,
     };
 
     // Populate Amenities based on boolean fields
@@ -308,4 +312,18 @@ extractYears(rangeStr: string): number {
   }
 }
 
+Sendresp=new BehaviorSubject<any>(false);
+SendUserMessage(form):BehaviorSubject<any> {
+  this.http.post('send_user_message.php', form)
+  .subscribe({
+    next: (data) => { console.log('Message sent:', data);
+      this.Sendresp.next(data);
+     },
+    error: (error) => { console.error('Error sending message:', error);
+    
+     }
+  });
+return this.Sendresp;
+
+}
 }

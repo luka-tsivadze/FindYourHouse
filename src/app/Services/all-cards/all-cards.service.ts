@@ -68,15 +68,15 @@ export class AllCardsService  {
   };
   selectedValues: { [key: string]: string } = {};
 
-   private dataSubject = new Subject<any>(); // Replace `any` with a specific type if needed.
-   data$ = this.dataSubject.asObservable(); // Observable for the components to subscribe to.
+   private dataSubject = new Subject<any>(); 
+   data$ = this.dataSubject.asObservable(); 
    private apiResponse$: Observable<any[]>; 
    private submitSubject = new Subject<void>();//for filter submit
    submit$ = this.submitSubject.asObservable();
    localStorage;
    chosenLang;
    triggerSubmit() {
-     this.submitSubject.next(); // Notify all listeners to submit
+     this.submitSubject.next(); 
         }
 
   
@@ -86,6 +86,8 @@ export class AllCardsService  {
     this.dataSubject.next(value);
   }
 constructor(private http: HttpClient , private eng: EngService , private Geo: GeoService , private rus: RusService) { 
+  
+  this.fetchDataFromApi(); // Initialize the API call
   if (typeof localStorage !== 'undefined' && localStorage.getItem('Language')) {
     this.localStorage = localStorage.getItem('Language');
   }
@@ -108,15 +110,12 @@ constructor(private http: HttpClient , private eng: EngService , private Geo: Ge
     }
 
 
-  this.fetchDataFromApi(); // Initialize the API call
 
 }
 
 
 
-getCardsInfo() {
-  throw new Error('Method not implemented.');
-}
+
 
 fetchDataFromApi(): Observable<any[]> {
   if (!this.apiResponse$) {
@@ -143,7 +142,7 @@ fetchDataFromApi(): Observable<any[]> {
               area: item.fartobi,
               garages: 0,
               For: item.garigebis_tipi,
-              profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-6.jpg',
+              // profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-6.jpg',
               profileName: item.momxmareblis_saxeli,
               alt: item.satauri,
               momxmreblis_idi: item.amtvirtvelis_idi,

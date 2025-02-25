@@ -83,36 +83,28 @@ element.classList.add('active');
 this.lastEl=element;
 
   }
-  ReviewMover(event:Event){
+    ReviewMover(event:Event){
+      const element = event.target as HTMLElement;
+      const elementClass = element.className;
+      const screenWidth = window.innerWidth;
+      const cardWidth = screenWidth < 700 ? 316 : 515;
+      const cardScreenCount =  screenWidth < 1000 ? 1 : screenWidth < 1400 ? 2 : 3;
 
-    const element = event.target as HTMLElement;
-  const elementClass = element.className;
+      if(elementClass==='LeftBtn'|| elementClass=== 'Left'){ 
+        this.transform += cardWidth;
+      } else if(elementClass==='RightBtn' || elementClass=== 'Right'){
+        this.transform -= cardWidth;
+      }
 
-  if(elementClass==='LeftBtn'|| elementClass=== 'Left'){ 
-    this.transform+=515;
+      if(this.transform <= -(this.ReviewsData.length - cardScreenCount) * cardWidth){ 
+        this.transform = 0;
+      } else if(this.transform > 0){
+        this.transform = -(this.ReviewsData.length - cardScreenCount) * cardWidth;
+      }
 
-  }else if(elementClass==='RightBtn' || elementClass=== 'Right'){
-    this.transform-=515;
-    
-  
-
-  }
-  if(this.transform<=-(this.ReviewsData.length-2)*515){//თუ 3 ქარდი ჩანს ეკრანზე თუ 2 იქნება 1 ს გამოაკლებ 2 ის მაგივრად 
-
-      this.transform=0;
-
-  
-  }else if(this.transform>0){
-
-    this.transform=-(this.ReviewsData.length-3)*515;
-    
-
-   
-  }
       console.log(this.transform);
-  this.Relement.nativeElement.style.transform=`translate3d( ${this.transform}px, 0px, 0px)`;
-
-  }
+      this.Relement.nativeElement.style.transform = `translate3d(${this.transform}px, 0px, 0px)`;
+    }
   @HostListener('window:scroll', ['$event'])
 onScroll(event: Event): void {
     this.scrollY = window.scrollY || window.pageYOffset; // Get the current scroll position
