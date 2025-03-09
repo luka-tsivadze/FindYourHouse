@@ -51,6 +51,7 @@ import { PersonalInfoComponent } from './ListingPageComponents/DashboardParent/p
 import { DashreviewComponent } from './ListingPageComponents/DashboardParent/dashreview/dashreview.component';
 import { FilterAdvencedComponent } from './header/filter-advenced/filter-advenced.component';
 import { UploadImageComponent } from './ListingPageComponents/DashboardParent/upload-image/upload-image.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { UploadImageComponent } from './ListingPageComponents/DashboardParent/up
     PersonalInfoComponent,
     DashreviewComponent,
     FilterAdvencedComponent,
-    UploadImageComponent
+    UploadImageComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

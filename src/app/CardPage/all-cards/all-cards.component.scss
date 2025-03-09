@@ -51,6 +51,7 @@ $transition-duration: 0.5s;
           gap: 20px;
           padding-bottom: 10px;
           .element {
+            align-items: center;
             width: 40%;
           }
         }
@@ -92,6 +93,7 @@ $transition-duration: 0.5s;
           padding: 15px;
           width: 100%;
           @include flex-container(row, space-between, center);
+          flex-wrap: wrap;
           .whiteBg {
             background-color: rgba(74, 74, 76, 0.7) !important;
           }
@@ -111,7 +113,9 @@ $transition-duration: 0.5s;
           left: 10px;
           font-family: "Lato", sans-serif;
           color: #ffffff;
-          background-color: rgba(0, 0, 0, 0.175);
+          background-color: #000000ad;
+          border-radius: 5px;
+          padding: 4px;
           font-size: 20px;
           font-weight: 500;
         }
@@ -120,7 +124,7 @@ $transition-duration: 0.5s;
           gap: 15px;
           position: absolute;
           right: 10px;
-          bottom: 14px;
+          bottom: 10px;
           button {
             @include flex-container(row, center, center);
             color: #fff;
@@ -178,6 +182,7 @@ $transition-duration: 0.5s;
           border-bottom: 1px solid #e8e8e8;
           .element {
             display: flex;
+            align-items: center;
             gap: 9px;
             width: 120px;
             img {
@@ -266,11 +271,5 @@ $transition-duration: 0.5s;
 app-filter {
   width: 100%;
 }
-@media screen and (max-width: 1040px) {
-  .innerPage {
-    padding: 30px 10px 20px;
-    .cardPlace {
-      padding: 30px 0px;
-    }
-  }
-}
+ 
+@import './Cards-responsive.scss';

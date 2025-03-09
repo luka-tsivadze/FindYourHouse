@@ -1,4 +1,4 @@
-  import { Component, AfterViewInit, Inject, PLATFORM_ID, viewChild, ElementRef, ViewChild } from '@angular/core';
+  import { Component, AfterViewInit, Inject, PLATFORM_ID, viewChild, ElementRef, ViewChild, OnInit } from '@angular/core';
   import { isPlatformBrowser } from '@angular/common';
   import { NgZone } from '@angular/core';
   import { MainPageDataService } from '../Services/mainPageService/main-page-data.service';
@@ -8,12 +8,13 @@ import { AllCardsService } from '../Services/all-cards/all-cards.service';
   @Component({
     selector: 'app-main-page',
     templateUrl: './main-page.component.html',
-    styleUrls: ['./main-page.component.scss']
+    styleUrls: ['./main-page.component.scss'],
+  
   })
-  export class MainPageComponent  {
+  export class MainPageComponent implements OnInit {
 [x: string]: any;
 
-    popularPlacesData:{imgLink:string,cityName:string,properties:number}[]=this.dataService.popularPlacesData;
+    // popularPlacesData:{imgLink:string,cityName:string,properties:number}[]=this.dataService.popularPlacesData;
   staticData:{headerTextList:string[]}=this.dataService.staticData  
 
 
@@ -48,21 +49,21 @@ DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
     
 
     }
-        
-  // ngOnInit(): void {
-  //   this.allCardsService.data$.subscribe((data) => {
-  //     console.log('Received data in component:', data);
-  //       // Use the data as needed
-  //   });
-  // }
 
-  
+  ngOnInit(): void {
+    this.dataService.getDiscoveredProperties().subscribe(
+      (data) => {
+     
+   this.DiscoverPopularPlaces=data;
+      }
+    );
+  }
 
     ngOnDestroy(): void {
       if (this.intervalId) {
         clearInterval(this.intervalId);
       }
-      
+  
     }
 
   activeRight(){
@@ -80,6 +81,7 @@ this.lastEl.classList.remove('active');
     }
     this.clickedIndex=index;
 element.classList.add('active');
+// this.Relement.nativeElement.style.transform = `translate3d(${this.transform}px, 0px, 0px)`;
 this.lastEl=element;
 
   }
@@ -102,7 +104,7 @@ this.lastEl=element;
         this.transform = -(this.ReviewsData.length - cardScreenCount) * cardWidth;
       }
 
-      console.log(this.transform);
+     
       this.Relement.nativeElement.style.transform = `translate3d(${this.transform}px, 0px, 0px)`;
     }
   @HostListener('window:scroll', ['$event'])
@@ -143,10 +145,10 @@ onDrag(event: MouseEvent) {
 onDragEnd() {
   if (!this.isDragging) return;
   this.isDragging = false;
-  this.TransformCof = Math.round(this.transform / 515); // Rounds to nearest integer
+  this.TransformCof = Math.round(this.transform / 515); 
 
   if(this.LC!==1){
-    console.log(this.TransformCof , this.LC);
+
   if(this.LC>this.TransformCof){
     this.TransformCof=this.TransformCof-1;
 
@@ -157,7 +159,7 @@ onDragEnd() {
 }
 this.LC=this.TransformCof;
 
-  // Apply transform with animation
+
   this.transform = this.TransformCof * 515;
   if(this.transform>0){
     this.transform=-(this.ReviewsData.length-3)*515;

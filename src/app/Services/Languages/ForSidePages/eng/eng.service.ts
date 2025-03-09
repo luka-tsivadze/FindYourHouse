@@ -200,17 +200,17 @@ DetailedInfo={
       {
         type: 'text',
         placeholder: 'First Name',
-        formControlName:'saxeli'
+         formControlName: 'gamgzavnis_saxeli'
       },
       {
-        type: 'number',
+        type: 'text',
         placeholder: 'Phone Number',
-        formControlName: 'nomeri'
+       formControlName: 'gamgzavnis_tel_nomeri'
       },
       {
         type: 'email',
         placeholder: 'Email',
-        formControlName: 'email'
+        formControlName: 'gamgzavnis_maili'
       }
     ],
     staticValues:{

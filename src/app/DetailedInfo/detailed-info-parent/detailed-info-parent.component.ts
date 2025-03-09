@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavInfoService } from '../../Services/NavService/nav-info.service';
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ViewsService } from '../../Services/views/views.service';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
@@ -12,6 +12,7 @@ import { LanguageChooserService } from '../../Services/language-chooser/language
 })
 export class DetailedInfoParentComponent {
 descH='Description';
+displayR=false;
   description=this.infoService.chosenCard.describtion;
 showPropVideo=this.infoService.video;
 floorplan=this.infoService.floorimg;
@@ -22,7 +23,7 @@ mapvalidity: boolean =
 
 
   constructor(private navService:NavInfoService ,private infoService:PropertyInformationService , 
-     private route: ActivatedRoute, private views:ViewsService ,private lang:LanguageChooserService) {
+     private route: ActivatedRoute, private views:ViewsService ,private lang:LanguageChooserService ,private navigation:Router) {
     this.descH=this.lang.chosenLang.DetailedInfo.parent;
     let cardId = JSON.parse(this.route.snapshot.paramMap.get('id'));
     this.infoService.setCardId(cardId);
@@ -34,8 +35,12 @@ mapvalidity: boolean =
 
   }
   ngOnInit(): void {
+
     this.views.sendView(this.infoService.chosenCard.id); // send view to the server
   }
-
+  
+  ActiveD(){
+  this.displayR=!this.displayR;
+}
   
 }

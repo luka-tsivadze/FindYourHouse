@@ -221,3 +221,24 @@ header{
     }
   }
   }
+  @media screen and (max-width:500px) {
+
+        main{
+   padding: 20px;
+      .leftside{
+      width:100%;
+      .row{
+        button{
+          padding: 10px;
+          font-size: 11px;
+        width: unset;
+
+        }
+        img{
+          width: 150px;
+        }
+      }
+    }
+
+  }
+  }

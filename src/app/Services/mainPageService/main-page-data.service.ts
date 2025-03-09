@@ -5,7 +5,7 @@ import { EngService } from '../Languages/eng/eng.service';
 import { GeoService } from '../Languages/geo/geo.service';
 import { RusService } from '../Languages/rus/rus.service';
 import { AllCardsService } from '../all-cards/all-cards.service';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, ReplaySubject, shareReplay } from 'rxjs';
 import { Agent } from 'http';
 import { AgentsService } from '../agents/agents.service';
 @Injectable({
@@ -64,54 +64,13 @@ export class MainPageDataService {
   },]);
 
   popularPlacesData$ = this.popularPlacesSubject.asObservable();
-  popularPlacesData = [
-   
-  ];
+
   
 
   
   DiscoverPopularPlaces = [  
     {
       featuredBtn: true,
-      For: 'For Sale',
-      imgLink: '../../assets/Imges/Header/CardImges/F1.jpg',
-      alt: 'Luxury family house villa for sale',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 110,000',
-    },
-    {
-      featuredBtn: false,
-      For: 'For Rent',
-      imgLink: '../../assets/Imges/Header/CardImges/F2.jpg',
-      alt: 'Luxury family house villa for rent',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-    },
-    {
-      featuredBtn: false,
-      For: 'For Sale',
-      imgLink: '../../assets/Imges/Header/CardImges/F3.jpg',
-      alt: 'Another luxury family house villa for sale',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-    },
-    {
-      featuredBtn: true,
       For: 'For Rent',
       imgLink: '../../assets/Imges/Header/CardImges/F4.jpg',
       alt: 'Featured luxury family house villa for rent',
@@ -136,58 +95,7 @@ export class MainPageDataService {
       garages: 2,
       price: '$ 150,000',
     },
-    {
-      featuredBtn: false,
-      For: 'For Rent',
-      imgLink: '../../assets/Imges/Header/CardImges/F6.jpg',
-      alt: 'Luxury family house villa for rent',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-    },
-    {
-      featuredBtn: false,
-      For: 'For Sale',
-      imgLink: '../../assets/Imges/Header/CardImges/F3.jpg',
-      alt: 'Another luxury family house villa for sale',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-    },
-    {
-      featuredBtn: true,
-      For: 'For Rent',
-      imgLink: '../../assets/Imges/Header/CardImges/F4.jpg',
-      alt: 'Featured luxury family house villa for rent',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-    },
-    {
-      featuredBtn: true,
-      For: 'For Sale',
-      imgLink: '../../assets/Imges/Header/CardImges/F5.jpg',
-      alt: 'Featured luxury family house villa for sale',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-    },
+
   ];
 
   WhyCards = [   //მხოლოდ 4 ელემენტისგან უნდა შედგებოდეს არც მეტი არც ნაკლები
@@ -376,7 +284,7 @@ LangMainData ;
     cityAmount() {
       this.http.get<{ [key: string]: string }>('get-cities-counted-data.php').subscribe({
         next: (apiData) => {
-          console.log('City Data from API:', apiData);
+          
     
           const nameMap: { [key: string]: string } = {
             "Tbilisi": "tbilisi",
@@ -408,8 +316,64 @@ LangMainData ;
       return this.featuredPropSubject.asObservable();
     }
 
-  Data() {
-this.staticData
- return this.popularPlacesData;
+
+  DiscoverPopularPlaces$=new BehaviorSubject<any[]>(null)
+  getDiscoveredProperties(): BehaviorSubject<any[]> {
+    if (this.DiscoverPopularPlaces$.getValue() !== null) {
+      return this.DiscoverPopularPlaces$; // ✅ Return cached value if available
+    }
+  
+    this.http.get<any[]>('get-popular-houses.php').pipe(
+      catchError((error) => {
+        console.error('Error fetching discovered properties:', error);
+        console.log('Falling back to static data:', this.DiscoverPopularPlaces);
+  
+        this.DiscoverPopularPlaces$.next(this.DiscoverPopularPlaces); // ✅ Use static data directly
+        return of(null); // ✅ Return null to indicate fallback was used
+      })
+    ).subscribe((data) => {
+      if (!data) return; // ❌ Skip if fallback was used
+  
+      console.log('Discovered properties from API:', data);
+  
+      const transformedData = data.map((item) => {
+        let images: string[] = [];
+        let firstimg: string | null = null;
+  
+        try {
+          images = JSON.parse(item.fotoebi || '[]');
+          firstimg = Array.isArray(images) && images.length > 0
+            ? `houses/${item.amtvirtvelis_maili}/${item.gancxadebis_saidentifikacio_kodi}/photos/${images[0]}`
+            : null;
+        } catch (error) {
+          console.error('Invalid JSON in fotoebi:', item.fotoebi);
+        }
+  
+        return {
+          featuredBtn: item.featuredBtn,
+          imgLink: firstimg,
+          gncxdebis_idi: item.idi,
+          price: item.fasi + item.fasis_valuta,
+          header: item.satauri,
+          location: item.misamarti,
+          bedrooms: item.sadzinebeli,
+          bathrooms: item.sveli_wertilebis_raodenoba,
+          area: item.fartobi,
+          garages: 0,
+          For: item.garigebis_tipi,
+          profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-6.jpg',
+          profileName: item.momxmareblis_saxeli,
+          alt: item.satauri,
+          uploadmonth: 3,
+          momxmreblis_idi: item.amtvirtvelis_idi,
+        };
+      });
+  
+      this.DiscoverPopularPlaces$.next(transformedData); // ✅ Update with transformed API data
+    });
+  
+    return this.DiscoverPopularPlaces$;
   }
+  
+  
 }

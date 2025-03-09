@@ -24,6 +24,7 @@
         
   
   <button type="submit">{{staticElements.submit}}</button>
+  <span *ngIf="UserMessage.load" [ngClass]="{'error':UserMessage.error, 'success':!UserMessage.error }">{{UserMessage.text}}</span>
     </form>
 
 

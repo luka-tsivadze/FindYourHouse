@@ -29,7 +29,9 @@ export class NavInfoService {
       ,{Text:'Payments', value:'Payments' },{Text:'Change Password', value:'Change Password'},{Text:'Log Out',value:'Log Out'}]
   };
 
-  IsSignedIn = { signed: false, imgLink: '../../assets/Imges/NavImg/man.png', Name: 'Not Recieved' ,number:'' ,email:'NotRecieved@gmail.com' ,gender:'' ,code:''};
+  IsSignedIn = { signed: false,
+     imgLink: '../../assets/Imges/NavImg/man.png', Name: 'Not Recieved' ,number:'' ,email:'NotRecieved@gmail.com' ,gender:'' ,code:'', location:''
+    };
   public userData$ = new BehaviorSubject(this.IsSignedIn);
   Languages = ['ENG', 'RUS', 'GEO'];
   chosenLang: string | undefined; //სერვისში გამოუსადეგარია 
@@ -89,7 +91,8 @@ userId
               this.IsSignedIn.email = data[0].maili;
               this.IsSignedIn.gender = data[0].sqesi;
               this.IsSignedIn.code = data[0].saidentifikacio_kodi;
-                if (data[0].foto !== '' && data[0].foto) {
+             this.IsSignedIn.location=data[0].sacxovrebeli_adgili
+              if (data[0].foto !== '' && data[0].foto) {
                 this.IsSignedIn.imgLink = `users/${data[0].maili}/${data[0].saidentifikacio_kodi}/${data[0].foto}`; 
               }else if(data[0].sqesi=='male'){
                 this.IsSignedIn.imgLink = '../../assets/Imges/NavImg/man.png';

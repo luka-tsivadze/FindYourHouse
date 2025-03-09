@@ -189,9 +189,9 @@ export class RusService {
     advertismentr: 'Специальные предложения дня',
     AgentsInfo: {
       inputs: [
-        { type: 'text', placeholder: 'Имя', formControlName: 'saxeli' },
-        { type: 'number', placeholder: 'Номер телефона', formControlName: 'nomeri' },
-        { type: 'email', placeholder: 'Электронная почта', formControlName: 'email' },
+        { type: 'text', placeholder: 'Имя',  formControlName: 'gamgzavnis_saxeli'},
+        { type: 'text', placeholder: 'Номер телефона',  formControlName: 'gamgzavnis_tel_nomeri'},
+        { type: 'email', placeholder: 'Электронная почта',    formControlName: 'gamgzavnis_maili' },
       ],
       staticValues: {
         h3: 'Информация об агенте',

@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { subscribe } from 'node:diagnostics_channel';
+import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,19 @@ export class ReviewsService {
     );
   }
 
-
+  cardReview$=new BehaviorSubject<any[]>([]);
+  fetchCardReviews(gancxadebis_idi: number): Observable<any[]> {
+     this.http.post<any[]>('get_reviews_list.php', {gancxadebis_idi:gancxadebis_idi}).subscribe({
+      next: (data) =>{
+        console.log( 'review Cards !!', data);
+        this.cardReview$.next(data);
+      },
+      error: (error) => {
+        console.error('Error fetching reviews', error);
+          this.cardReview$.next([]);
+    }
+    });
+      return this.cardReview$;
+  }
 
 }

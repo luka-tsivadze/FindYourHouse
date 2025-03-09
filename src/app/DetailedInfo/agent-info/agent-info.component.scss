@@ -138,3 +138,8 @@ padding-bottom: 0px;
     border: 1px solid #dae2e9;
     }
 }
+@media screen and (max-width:500px) {
+    form{
+        padding: 0.5rem;
+    }
+}

@@ -39,10 +39,11 @@ cardId;
    latitude:  41.82143000, 
    longitude: 41.77921000,
     Rooms: 8,
-    Reviews:[
+     Reviews:[
+      
       {name:'Mary Smith',date:'May 30 2020', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero luctus tincidunt. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero',ProfileimgLink:'/assets/Imges/Header/CardImges/A-4.jpg', review:3, postedimgesLinks:{isimg:false, imgUrl:[]} },
      {name:'Lisa Williams',date:'jul 12 2020', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero luctus tincidunt. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero',ProfileimgLink:'/assets/Imges/Header/CardImges/A-2.jpg', review:5, postedimgesLinks:{isimg:false} },
-    ],//alreafy recievied from back
+    ], 
 
    
       Amenities: ['Pool', 'Heating', 'Laundry Room', 'Fridge', 'Parking', 'Cable TV', 'Internet', 'Microwave', 'Dryer', 'barbeque', 'Lawn', 'Dish Washer'],

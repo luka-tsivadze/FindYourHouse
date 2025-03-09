@@ -16,7 +16,7 @@
 
    
     </div>
-    <div class="rightSide">
+    <div class="rightSide" [ngClass]="{'displayR':displayR}" >
         <app-schedule-r/>
         <app-agent-info/>
         <app-recent-prop-r/>
@@ -25,5 +25,11 @@
        <app-tags-r/>
        
     </div>
+
+   <div class="icon" [ngClass]="{'actived':displayR , }">
+       <div  class="arrows" [ngClass]="{'exit':displayR , 'ActiveD':!displayR}" (click)="ActiveD()"></div>
+    </div>
+    <div class="cover" (click)="ActiveD()" *ngIf="displayR"></div>
+
 </div>
 <app-footer></app-footer>

@@ -187,9 +187,9 @@ export class GeoService {
     advertismentr: 'დღის სპეციალური შეთავაზებები',
     AgentsInfo: {
       inputs: [
-        { type: 'text', placeholder: 'სახელი', formControlName: 'saxeli' },
-        { type: 'number', placeholder: 'ტელეფონის ნომერი', formControlName: 'nomeri' },
-        { type: 'email', placeholder: 'ელ. ფოსტა', formControlName: 'email' },
+        { type: 'text', placeholder: 'სახელი',   formControlName: 'gamgzavnis_saxeli' },
+        { type: 'text', placeholder: 'ტელეფონის ნომერი',  formControlName: 'gamgzavnis_tel_nomeri' },
+        { type: 'email', placeholder: 'ელ. ფოსტა',  formControlName: 'gamgzavnis_maili' },
       ],
       staticValues: {
         h3: 'აგენტის ინფორმაცია',

@@ -38,16 +38,16 @@ name;
   constructor( private sharedService:ListingServiceService,  private fb: FormBuilder , 
     private http: HttpClient ,private navservice: NavInfoService ,private lang:LanguageChooserService ,private mainServ:MainPageDataService) { 
      //post api request should be in service not here
-    console.log('so this supposed to be city select values',this.city);
+  
     this.listingForm = this.fb.group({
       satauri: ['', Validators.required],
       mokle_agwera: ['', Validators.required],
       garigebis_tipi: ['', Validators.required],
       tipi: ['', Validators.required],
       otaxebis_raodenoba: ['', Validators.required],
-      fasi: [' '+'₾'+ ' ', Validators.required],
+      fasi: [' '+'₾'+ ' ', [Validators.required, Validators.maxLength(8)]],
       fasis_valuta:['₾'],
-      fartobi: [null, Validators.required],
+      fartobi: [null,[Validators.required, Validators.maxLength(8)]],
       fotoebi: [null, Validators.required],
       video: ['',], 
       binis_naxazi: ['', ],
@@ -60,9 +60,6 @@ name;
       sveli_wertilebis_raodenoba : ['', Validators.required],
       kondincioneri: [false],
       sacurao_auzi: [false],
-  
-  
-      
       centrluri_gatboba: [false],
       samrecxao_otaxi: [false],
       sportuli_darbazi: [false],
@@ -74,7 +71,6 @@ name;
       momxmareblis_saxeli: [this.navservice.IsSignedIn.Name, Validators.required],
       telefonis_nomeri: [this.navservice.IsSignedIn.number, Validators.required],
       el_fosta: [this.navservice.IsSignedIn.email, [Validators.required, Validators.email]],
-
       amtvirtvelis_maili: [''],
       id : ['']
     });
@@ -238,6 +234,10 @@ name;
   }
   
   onSubmit(): void {
+    if (this.listingForm.invalid) {
+      this.scrollToFirstInvalidControl();
+      return;
+    }
     console.log(this.listingForm.value);
     if (!this.selectedFile && (!this.imgRowlink.length && !this.videoRowlink)) {
       console.error('No file selected');
@@ -306,7 +306,19 @@ name;
     });
   }
   
-
+  private scrollToFirstInvalidControl(): void {
+    
+    for (const key of Object.keys(this.listingForm.controls)) {
+      if (this.listingForm.controls[key].invalid) {
+        const invalidControl = document.getElementById(key);
+        if (invalidControl) {
+          invalidControl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          invalidControl.focus();
+        }
+        break; // Stop after the first invalid control is found
+      }
+    }
+  }
    
 
   

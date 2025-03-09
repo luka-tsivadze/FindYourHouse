@@ -69,9 +69,7 @@ filterForm = this.fb.group({
           this.submitChildData();
    
         // Process formData as needed
-      } else {
-        console.warn('Form is invalid');
-      }
+      } 
     }
 
     heartedCards;
@@ -84,7 +82,7 @@ filterForm = this.fb.group({
         this.fetchData();
         },
         error: (error) => console.error('Error:', error),
-        complete: () => console.log('Completed fetching favorite cards'),
+   
       });
       this.dataService.popularPlacesData$.subscribe(data => {
         this.popularPlacesData = data;

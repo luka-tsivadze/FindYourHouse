@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavInfoService } from '../../Services/NavService/nav-info.service';
-import { AllCardsService } from '../../Services/all-cards/all-cards.service';
-import { info } from 'console';
+
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
@@ -33,17 +32,17 @@ infoSent=[{bol:false, message:'please Fill in the required fields'},{bol:false, 
     {
       type: 'text',
       placeholder: 'First Name',
-      formControlName: 'firstName'
+      formControlName: 'gamgzavnis_saxeli'
     },
     {
-      type: 'number',
+      type: 'text',
       placeholder: 'Phone Number',
-      formControlName: 'phoneNumber'
+      formControlName: 'gamgzavnis_tel_nomeri'
     },
     {
       type: 'email',
       placeholder: 'Email',
-      formControlName: 'email'
+      formControlName: 'gamgzavnis_maili'
     }
   ];
   
@@ -57,22 +56,35 @@ this.inputs=this.lang.chosenLang.DetailedInfo.AgentsInfo.inputs;
   }
 
   ngOnInit() {
+ if(this.NavService.IsSignedIn.signed){
+
     this.profileForm = this.fb.group({
-      saxeli: ['', Validators.required],
-      nomeri: ['+995', [Validators.required , Validators.minLength(9)]],
-      email: ['', [Validators.required, Validators.email]],
-      Message: ['', Validators.required]
+      gamgzavnis_saxeli: new FormControl(`${this.NavService.IsSignedIn.Name}`, Validators.required),
+      gamgzavnis_tel_nomeri: new FormControl(`${this.NavService.IsSignedIn.number}`, Validators.required),
+      gamgzavnis_maili: new FormControl(`${this.NavService.IsSignedIn.email}`, [Validators.required, Validators.email]),
+      adresatis_idi: new FormControl(''),
+      shetyobinebis_teqsti: new FormControl('', Validators.required)
+    });
+  }else{
+    this.profileForm = this.fb.group({
+      gamgzavnis_saxeli: new FormControl(``, Validators.required),
+      gamgzavnis_tel_nomeri: new FormControl(`+995`, [Validators.required, Validators.minLength(9)]),
+      gamgzavnis_maili: new FormControl(``, [Validators.required, Validators.email]),
+      adresatis_idi: new FormControl(''),
+      shetyobinebis_teqsti: new FormControl('', Validators.required)
     });
   }
+}
   onSubmit() {
     this.infoSent[0].bol=true;
     this.infoSent[1].bol=false;
     if(this.profileForm.invalid){
       return;
     }
+    this.profileForm.get('adresatis_idi').setValue(this.profileInfo.momxmareblis_id);
     console.log(this.profileForm.value , this.profileForm.valid);
     this.propService.SendUserMessage(this.profileForm.value).subscribe((data)=>{
-      console.log(data);
+   
       if(data !== null && data){
         this.infoSent[0].bol=false;
         this.infoSent[1].bol=true;

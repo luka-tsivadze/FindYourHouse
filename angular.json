@@ -62,9 +62,10 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "11.5kb",
-                  "maximumError": "20kb"
+                  "maximumWarning": "15.5kb",
+                  "maximumError": "30kb"
                 }
+                
               ],
               "outputHashing": "all",
               "optimization": true,
@@ -89,6 +90,7 @@
             "development": {
               "buildTarget": "FindYourHouse:build:development"
             }
+            
           },
           "defaultConfiguration": "development"
         },

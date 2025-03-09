@@ -74,6 +74,26 @@ private cachedmyCards$: Observable<any[]> | null = null;
     return this.cachedmyCards$;
   }
 
+  
+  private changeUserDataSubject = new BehaviorSubject<any>(null);
+  changeUserData$ = this.changeUserDataSubject.asObservable();
+
+  ChangeUserData(data: any): Observable<any> {
+    this.cachedmyCards$ = null;
+    this.http.post('change_user_data.php', data).subscribe({
+      next: (response) => {
+        console.log('Update response:', response);
+        this.changeUserDataSubject.next(response);
+      },
+      error: (error) => {
+        console.error('Error updating data:', error);
+        this.changeUserDataSubject.next(null);
+      }
+    });
+    this.userData();
+    return this.changeUserData$;
+  }
+
   private Views$ = new BehaviorSubject<any>([]);
   views(activePage: any[]): BehaviorSubject<any> {  
     const gancxadebisIds = activePage.map((element: any) => element.id).join(',');

@@ -14,6 +14,7 @@ const routes: Routes = [
 
   { path: '', component:MainPageComponent},
   { path: 'Home', component:MainPageComponent},
+
   {path: 'Listing', component:ListingParentComponent ,canActivate: [authGuard]},
   {path: 'allCards', component:MainCardsComponent},
   {path: 'allCards/:id', component:DetailedInfoParentComponent},
