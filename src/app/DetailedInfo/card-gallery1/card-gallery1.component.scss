@@ -12,7 +12,7 @@
     @include flex-container(row, space-between, center);
     width: 100%;
     h2{
-        font-weight: 500;
+     
         color: #222;
         font-size: 28px;
         text-transform: capitalize;
@@ -115,4 +115,39 @@ transform: translate(-50% , -50%);
         }
     }
 
+}
+@media screen and (max-width:650px) {
+    .firstRow{
+        .row{
+            h2{
+                font-size: 13px;
+                button{
+                    font-size: 10px;
+                    padding: 5px 7px;
+                    margin-left: 5px;
+                }
+            }
+            h2:after{
+                margin-top: 0px;
+                width: 40px;
+                height: 3px;
+
+            }
+            span{
+                font-size: 12px;
+            }
+            p{
+                font-size: 11px;
+                img{
+                    margin-right: 2px;
+                    width: 10px;
+                    
+                }
+            }
+            h4{
+                font-size: 12px;
+            }
+        }
+    }
+    
 }

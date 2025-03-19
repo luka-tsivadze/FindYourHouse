@@ -108,30 +108,12 @@ export class AllCardsComponent {
           this.heartimgLinks[i]=this.heartFilled;
    
             
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+     this.cardsService.sendFavoriteCards(postBody)
         
-        this.http.post('https://findhouse.ge/save-house.php', postBody, { headers }).subscribe({
-          next:(data)=>{ console.log('Response:', data)},
-          error:(error) =>{console.error('Error:', error.error)}, 
-          complete: () => console.log('Request completed') // Now shows detailed JSON error
-          
-          // Now shows detailed JSON error
-        }
-        );
     
         }
         else{// write remove function of api 
-          this.http.post('delete-saved-house.php', postBody ).subscribe({
-            next: (response) => {
-              console.log('Response:', response);
-            },
-            error: (error) => {
-              console.error('Error:', error);
-            },
-            complete: () => {
-     
-            }
-          });
+             this.cardsService.DeleteFavoriteCards(postBody);
           this.heartimgLinks[i]=this.heartimg;
         }
 
@@ -199,8 +181,7 @@ export class AllCardsComponent {
   }
   
   routertodetailedInfo(cardId: number): void {
-    this.detailedservice.setCardId(cardId);
-    this.router.navigate(['/allCards', cardId]);
+    this.detailedservice.navigateToCard(cardId);
   }
   trackByIndex(index: number): number {
     return index;

@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ListingServiceService } from '../../Services/listing-service/listing-service.service';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
+import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-properties',
@@ -36,8 +38,8 @@ export class MyPropertiesComponent implements OnInit {
     prev:'Previous',
     next:'Next'
   }
-  constructor(private http: HttpClient ,private cdr: ChangeDetectorRef ,private sharedService:ListingServiceService 
-    ,private lang:LanguageChooserService) {
+  constructor(private http: HttpClient ,private cdr: ChangeDetectorRef, private route:Router ,private sharedService:ListingServiceService 
+    ,private lang:LanguageChooserService ,private PropinfoService:PropertyInformationService) {
 
   }
   ngOnInit(): void {
@@ -45,6 +47,11 @@ export class MyPropertiesComponent implements OnInit {
     this.staticData=this.lang.chosenLang.myProp;
 
   }
+  navigate(id){
+    this.PropinfoService.navigateToCard(id);
+  }
+
+
  getuserData(){
 this.sharedService.userData().subscribe({
 next:(data)=>{
@@ -93,7 +100,7 @@ complete:()=>{
  
     editItem(el) {
       localStorage.setItem('ActiveElement', 'Add Property'); // Update the active component
-      console.log(el);
+   
       this.sharedService.setEditItemId(el); // Pass the ID to the shared service
     }
 
@@ -127,27 +134,26 @@ complete:()=>{
   }
 
   removeitem(index: number) {
-    this.http.post('del_my_house.php', { id_2: index }).subscribe((data: any) => {
-      console.log('Remove item response:', data);
-  
+    this.sharedService.DeleteItem(index).subscribe((data) => {
       if (data?.status === 'success') {
-        // Remove the item from allCardEl
         const globalIndex = this.allCardEl.findIndex((card) => card.id === index);
         if (globalIndex !== -1) {
           this.allCardEl.splice(globalIndex, 1);
   
-          // Update activePage based on the current active page
           const activeIndex = this.activePage.findIndex((card) => card.id === index);
           if (activeIndex !== -1) {
             this.activePage.splice(activeIndex, 1);
           }
   
-          // Recalculate pagination if necessary
-          this.index = 0; // Reset index for pagination
-          this.finalInfo = []; // Clear pagination data
-          this.pageIndices = []; // Clear page indices
-          this.pageFunction(); // Recreate pagination
-          this.cdr.detectChanges(); // Manually trigger change detection
+          // ✅ Update BehaviorSubject so UI reflects changes
+          this.sharedService.updateItems([...this.allCardEl]);
+  
+          // ✅ Refresh pagination
+          this.index = 0;
+          this.finalInfo = [];
+          this.pageIndices = [];
+          this.pageFunction();
+          this.cdr.detectChanges();
         } else {
           console.error('Item not found in global list');
         }

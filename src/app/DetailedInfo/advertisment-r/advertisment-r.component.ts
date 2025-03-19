@@ -7,7 +7,7 @@ import { LanguageChooserService } from '../../Services/language-chooser/language
   styleUrl: './advertisment-r.component.scss'
 })
 export class AdvertismentRComponent {
-h3='Specials of the day'
+h3='advertisment'
 
  constructor(private lang:LanguageChooserService) {
   this.h3=this.lang.chosenLang.DetailedInfo.advertismentr

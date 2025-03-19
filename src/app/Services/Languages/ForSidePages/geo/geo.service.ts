@@ -184,7 +184,7 @@ export class GeoService {
   }
 
   DetailedInfo = {
-    advertismentr: 'დღის სპეციალური შეთავაზებები',
+    advertismentr: 'რეკლამა',
     AgentsInfo: {
       inputs: [
         { type: 'text', placeholder: 'სახელი',   formControlName: 'gamgzavnis_saxeli' },

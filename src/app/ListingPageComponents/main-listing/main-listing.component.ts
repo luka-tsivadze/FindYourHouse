@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavInfoService } from '../../Services/NavService/nav-info.service';
-import { GeoService } from '../../Services/Languages/geo/geo.service';
-import { first } from 'rxjs';
-import { log } from 'node:console';
+
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 import { ListingServiceService } from '../../Services/listing-service/listing-service.service';
 import { MainPageDataService } from '../../Services/mainPageService/main-page-data.service';
@@ -29,19 +27,22 @@ editItemId: number | null = null;
 maxFiles = 7;
 index=0;
 
+calledFromEdit = false;
+isLoadingFiles = true;
 allForms=this.lang.chosenLang.allForms;
 city={
   input:this.lang.chosenLang.allForms.City, 
   options:{optDis:this.mainServ.LangMainData.allFilter.FirstFilter.locationDis ,optValue:this.mainServ.LangMainData.allFilter.FirstFilter.locations}};
 name;
 
-  constructor( private sharedService:ListingServiceService,  private fb: FormBuilder , 
+  constructor( private sharedService:ListingServiceService,  private fb: FormBuilder , private cd: ChangeDetectorRef ,
     private http: HttpClient ,private navservice: NavInfoService ,private lang:LanguageChooserService ,private mainServ:MainPageDataService) { 
      //post api request should be in service not here
   
     this.listingForm = this.fb.group({
       satauri: ['', Validators.required],
       mokle_agwera: ['', Validators.required],
+      gancxadebis_id: [''],
       garigebis_tipi: ['', Validators.required],
       tipi: ['', Validators.required],
       otaxebis_raodenoba: ['', Validators.required],
@@ -90,12 +91,51 @@ name;
     });
   }
 
-    loadItemData(data) {
-      // Fetch the data for the given ID and populate the form
-      console.log(data);
-      if(data){
+  async loadItemData(data) {
+    console.log('Loading item data:', data);
+    this.calledFromEdit = true;
+    this.isLoadingFiles = true; // ✅ Start loading
+  
+    try {
+      // ✅ Convert images
+      const images = data.additionalInfo.fotoebi ? JSON.parse(data.additionalInfo.fotoebi) : [];
+      this.imgRowlink = images.map((img) => `houses/${data.additionalInfo.amtvirtvelis_maili}/${data.additionalInfo.gancxadebis_saidentifikacio_kodi}/photos/${img}`);
+      this.index = this.imgRowlink.length;
+  
+      // Convert images in parallel
+      const imageFilesPromise = Promise.all(
+        this.imgRowlink.map((link, i) => this.urlToFile(link, `image${i + 1}.jpg`, 'image/jpeg'))
+      );
+  
+      // ✅ Convert video (process in parallel)
+      const videoArray = data.additionalInfo.video ? JSON.parse(data.additionalInfo.video) : [];
+      const video = videoArray[0];
+      this.videoRowlink = video ? `houses/${data.additionalInfo.amtvirtvelis_maili}/${data.additionalInfo.gancxadebis_saidentifikacio_kodi}/video/${video}` : null;
+  
+      const videoFilePromise = this.videoRowlink
+        ? this.urlToFile(this.videoRowlink, 'video.mp4', 'video/mp4')
+        : null;
+  
+      // ✅ Convert blueprint (binis_naxazi) (process in parallel)
+      const naxaziArray = data.additionalInfo.binis_naxazi ? JSON.parse(data.additionalInfo.binis_naxazi) : [];
+      const naxazi = naxaziArray[0];
+      this.binisNaxazi = naxazi ? `houses/${data.additionalInfo.amtvirtvelis_maili}/${data.additionalInfo.gancxadebis_saidentifikacio_kodi}/blueprints/${naxazi}` : null;
+  
+      const naxaziFilePromise = this.binisNaxazi
+        ? this.urlToFile(this.binisNaxazi, 'blueprint.jpg', 'image/jpeg')
+        : null;
+  
+      // ✅ Wait for all file conversions to complete in parallel
+      this.fotofiles = await imageFilesPromise;
+      this.videoFiles = videoFilePromise ? [await videoFilePromise] : [];
+      this.naxaziFiles = naxaziFilePromise ? [await naxaziFilePromise] : [];
+  
+      // ✅ Now update the form after all files are processed
+      if (data) {
         this.listingForm.patchValue({
           satauri: data.title,
+          gancxadebis_id: data.id,
+          id: this.navservice.userId,
           mokle_agwera: data.additionalInfo.mokle_agwera,
           garigebis_tipi: data.additionalInfo.garigebis_tipi,
           tipi: data.additionalInfo.tipi,
@@ -103,9 +143,7 @@ name;
           fasi: data.additionalInfo.fasi,
           fasis_valuta: data.additionalInfo.fasis_valuta,
           fartobi: data.additionalInfo.fartobi,
-          fotoebi: data.additionalInfo.fotoebi,
-          video: data.additionalInfo.video|| '',
-          binis_naxazi: data.additionalInfo.binis_naxazi || '',
+          fotoebi: this.fotofiles,
           misamarti: data.location,
           qalaqi: data.additionalInfo.qalaqi,
           mapis_grdzedi: data.additionalInfo.mapis_grdzedi,
@@ -113,28 +151,49 @@ name;
           asaki: data.additionalInfo.asaki,
           sadzinebeli: data.additionalInfo.sadzinebeli,
           sveli_wertilebis_raodenoba: data.additionalInfo.sveli_wertilebis_raodenoba,
-          kondincioneri: data.additionalInfo.kondincioneri,
-          sacurao_auzi: data.additionalInfo.sacurao_auzi,
+          kondincioneri: data.additionalInfo.kondincioneri || false,
+          sacurao_auzi: data.additionalInfo.sacurao_auzi || false,
           centrluri_gatboba: data.additionalInfo.centrluri_gatboba || false,
-          samrecxao_otaxi: data.additionalInfo.samrecxao_otaxi,
-          sportuli_darbazi: data.additionalInfo.sportuli_darbazi,
-          signalizacia: data.additionalInfo.signalizacia,
-          aivani: data.additionalInfo.aivani,
-          macivari: data.additionalInfo.macivari,
-          televizia_wifi: data.additionalInfo.televizia_wifi,
-          microtalguri: data.additionalInfo.microtalguri,
+          samrecxao_otaxi: data.additionalInfo.samrecxao_otaxi || false,
+          sportuli_darbazi: data.additionalInfo.sportuli_darbazi || false,
+          signalizacia: data.additionalInfo.signalizacia || false,
+          aivani: data.additionalInfo.aivani || false,
+          macivari: data.additionalInfo.macivari || false,
+          televizia_wifi: data.additionalInfo.televizia_wifi || false,
+          microtalguri: data.additionalInfo.microtalguri || false,
           momxmareblis_saxeli: data.additionalInfo.momxmareblis_saxeli,
           telefonis_nomeri: data.additionalInfo.telefonis_nomeri,
           el_fosta: data.additionalInfo.el_fosta,
           amtvirtvelis_maili: data.additionalInfo.amtvirtvelis_maili,
-          id: data.id
         });
-
       }
-    
-
-      // Add your data-fetching logic here
+    } catch (error) {
+      console.error('Error loading item data:', error);
+    } finally {
+      // ✅ Ensure `isLoadingFiles` is always set to false, even if an error happens
+      this.isLoadingFiles = false;
     }
+  }
+  
+  // ✅ Helper function remains unchanged
+  async urlToFile(url: string, filename: string, p0: string): Promise<File> {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const detectedMimeType = blob.type;
+  
+    console.log(`Converted file from URL: ${filename}, Detected MIME type: ${detectedMimeType}`);
+  
+    // Force correct MIME type if necessary
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    const forcedMimeType = allowedTypes.includes(detectedMimeType) ? detectedMimeType : 'image/jpeg';
+  
+    return new File([blob], filename, { type: forcedMimeType });
+  }
+  
+  
+
+    
+  
   
   
   remover(inputElement?: HTMLInputElement): void {
@@ -152,6 +211,7 @@ name;
     }else{ 
       this.index-=1;
     }
+    console.log('index',index);
       
       this.imgRowlink.splice(index, 1);
       this.fotofiles.splice(index, 1);
@@ -170,7 +230,7 @@ name;
   
   
   
-  
+
   onFileChange(event: Event, type: 'image' | 'video' | 'image1'): void {
     const input = event.target as HTMLInputElement;
   
@@ -191,9 +251,9 @@ name;
         // Validate file type
         let validTypes: string[] = [];
         if (type === 'image' || type === 'image1') {
-          validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+          validTypes = ['image/jpeg', 'image/png', 'image/jpg' , 'image/webp'];
         } else if (type === 'video') {
-          validTypes = ['video/mp4', 'video/avi', 'video/mkv'];
+          validTypes = ['video/mp4', 'video/avi', 'video/mkv','video/webm'];
         } else {
           alert('Invalid file type');
           input.value = ''; // Clear the input
@@ -235,6 +295,7 @@ name;
   
   onSubmit(): void {
     if (this.listingForm.invalid) {
+      console.error('Invalid form:', this.listingForm.value);
       this.scrollToFirstInvalidControl();
       return;
     }
@@ -284,16 +345,22 @@ name;
       formData.append('binis_naxazi[]', file);
     });
 
- 
-  
+
     this.http.post('upload_house.php', formData).subscribe({
       next: (response: any) => {
         console.log('Form submitted successfully:', response);
         
         if (response.status === 'success' && response.message === 'gancxadeba-aitvirta-warmatebit') {
-          window.location.href = '/allCards';
+          
+          if(this.calledFromEdit){
+            console.log('Edit mode', this.listingForm.value);  
+
+            this.sharedService.DeleteItem(this.listingForm.value.gancxadebis_id).subscribe();
+           }          
           this.SendingAnimation = false;
-    
+          window.location.href = '/allCards';
+
+
         } else {
           this.SendingAnimation = false
           console.error('Error:', response.message , response);
@@ -302,7 +369,7 @@ name;
       error: (error) => {
         console.error('Error submitting form:', error);
       },
-      complete: () => console.log('Form submission completed'),
+  
     });
   }
   

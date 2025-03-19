@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
@@ -7,7 +7,7 @@ import { LanguageChooserService } from '../../Services/language-chooser/language
   templateUrl: './recent-prop-r.component.html',
   styleUrl: './recent-prop-r.component.scss'
 })
-export class RecentPropRComponent {
+export class RecentPropRComponent implements OnInit {
 
 Recentdata = this.cardService.RecentProp;
 recentStatic='Recent Properties';
@@ -15,4 +15,11 @@ recentStatic='Recent Properties';
     this.recentStatic=this.lang.chosenLang.DetailedInfo.recentStatic; 
 
    }
+   ngOnInit(): void {
+    this.cardService.getRecentProp().subscribe((data)=>{
+      if(data){
+        // this.Recentdata=data
+    }
+   })
+}
 }

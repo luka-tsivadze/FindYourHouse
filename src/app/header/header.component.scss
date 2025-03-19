@@ -391,6 +391,7 @@ header {
       opacity: 0;
     }
     h1 {
+      max-width: 85%;
       position: relative;
       color: #111;
       font-weight: 540;
@@ -398,6 +399,7 @@ header {
       font-family: "Montserrat", sans-serif;
     }
     p {
+      max-width: 85%;
       font-family: "Lato", sans-serif;
       color: #666;
       font-size: 15px;

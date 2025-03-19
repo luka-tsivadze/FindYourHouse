@@ -230,3 +230,20 @@ h3::after{
     }
     
 }
+@media screen and (max-width: 568px){
+    footer{
+        .bottomPart{
+           gap: 15%;
+            padding: 10px;
+            height: unset;
+            p{
+                font-size: 13px;
+            }
+        }
+        .footerRow{
+            padding-bottom: 55px;
+        }
+     
+    }
+    
+}

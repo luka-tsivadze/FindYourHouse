@@ -22,7 +22,8 @@ export class ReviewsService {
 
   cardReview$=new BehaviorSubject<any[]>([]);
   fetchCardReviews(gancxadebis_idi: number): Observable<any[]> {
-     this.http.post<any[]>('get_reviews_list.php', {gancxadebis_idi:gancxadebis_idi}).subscribe({
+    console.log('Fetching reviews for card Id:', gancxadebis_idi);
+     this.http.post<any[]>('get_house_reviews.php ', {gancxadebis_idi:gancxadebis_idi}).subscribe({
       next: (data) =>{
         console.log( 'review Cards !!', data);
         this.cardReview$.next(data);

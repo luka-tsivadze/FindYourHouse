@@ -6,7 +6,7 @@
   
     <div class="cardPage" *ngFor="let el of this.activePage let i = index">
       <div class="card">
-        <div class="left" routerLink="/allCards/{{el.id}}"><img class="mainImg" src="{{el.imgLink}}" alt="">
+        <div class="left" routerLink="/allCards/{{el.id}}" (click)="navigate(el.id)"><img class="mainImg" src="{{el.imgLink}}" alt="">
           <div class="leftCol">
             <h3>
              {{ el.title}}</h3>

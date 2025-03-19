@@ -10,14 +10,15 @@ import { DetailedInfoParentComponent } from './DetailedInfo/detailed-info-parent
 import { ContactComponent } from './contact/contact.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { authGuard } from './auth.guard';
+import { CardsResolverGuard } from './Guards/card-resolver-guard.guard';
 const routes: Routes = [ 
 
-  { path: '', component:MainPageComponent},
+  { path: '', component:MainPageComponent, resolve: { data: CardsResolverGuard } },
   { path: 'Home', component:MainPageComponent},
 
-  {path: 'Listing', component:ListingParentComponent ,canActivate: [authGuard]},
-  {path: 'allCards', component:MainCardsComponent},
-  {path: 'allCards/:id', component:DetailedInfoParentComponent},
+  {path: 'Listing', component:ListingParentComponent ,canActivate: [authGuard], resolve: { data: CardsResolverGuard }},
+  {path: 'allCards', component:MainCardsComponent, resolve: { data: CardsResolverGuard }},
+  {path: 'allCards/:id', component:DetailedInfoParentComponent, resolve: { data: CardsResolverGuard }},
   {path: 'contact', component:ContactComponent},
   {path: 'about', component:AboutUsComponent},
   {path: '**', component:ErrorPageComponent},

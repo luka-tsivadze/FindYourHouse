@@ -17,7 +17,6 @@
     @include flex-container(row,start, center);
     gap: 0.8rem;
  flex-wrap: wrap;
-    width: 150%;
 
     .propCard{
         opacity: 0;
@@ -182,4 +181,37 @@
 }
 .dNone{
     display: none;
+}
+@media screen and (max-width:500px) {
+  .cardPlace{
+justify-content: center !important;
+  .propCard {
+    width: 260px;
+    height: 380px;
+    .rightSide {
+      gap: 4px;
+      padding: 11px;
+      .squareFlex {
+        padding: 5px;
+        padding-left: 0px;
+        gap: 0px;
+     
+      }
+      a {
+        font-size: 0.9rem;
+      }
+      p {
+        font-size: 10px;
+      }
+    }
+    .leftSide {
+      .FirstRow {
+        button {
+          padding: 6px 11px;
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}
 }

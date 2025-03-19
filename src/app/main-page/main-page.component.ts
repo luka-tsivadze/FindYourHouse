@@ -4,6 +4,10 @@
   import { MainPageDataService } from '../Services/mainPageService/main-page-data.service';
   import { HostListener } from '@angular/core';
 import { AllCardsService } from '../Services/all-cards/all-cards.service';
+import { PropertyInformationService } from '../Services/Property-info/property-information.service';
+import { NavInfoService } from '../Services/NavService/nav-info.service';
+import { concatMap } from 'rxjs';
+import { AgentsService } from '../Services/agents/agents.service';
 
   @Component({
     selector: 'app-main-page',
@@ -38,28 +42,132 @@ import { AllCardsService } from '../Services/all-cards/all-cards.service';
     clickedIndex:number=0;
 Languages=this.dataService
   WhyCards=this.dataService.WhyCards;
-  AgentsInfo=this.dataService.AgentsInfo;
+  AgentsInfo=this.dataService.AgentsInfo; //defoult value
   lastEl:any;
 ReviewsData=this.dataService.ReviewData;
 DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
 
 
-    constructor(@Inject(PLATFORM_ID) private platformId: Object,private allCardsService: AllCardsService, private zone: NgZone, private dataService: MainPageDataService) {
+    constructor(@Inject(PLATFORM_ID) private platformId: Object,
+    private allCardsService: AllCardsService,
+     private navService:NavInfoService,
+    private Propinfo:PropertyInformationService ,
+    private agentsServ:AgentsService, private dataService: MainPageDataService) {
       
     
 
     }
+    heartimg='../../assets/Imges/Header/CardImges/icons/heart.svg'
+    heartimgLinks=[ this.heartimg ,  this.heartimg, this.heartimg,  this.heartimg, this.heartimg, this.heartimg, this.heartimg, this.heartimg, this.heartimg];
+  heartFilled='../../assets/Imges/StaticImg/StaticIcons/heart-fill - red.svg'
+  heartedCards;
 
   ngOnInit(): void {
-    this.dataService.getDiscoveredProperties().subscribe(
-      (data) => {
-     
-   this.DiscoverPopularPlaces=data;
+    this.dataService.getDiscoveredProperties().pipe(
+      concatMap((data) => {
+      this.DiscoverPopularPlaces = data;
+      return this.allCardsService.fetFavchData(this.navService.userId);
+      })
+    ).subscribe({
+      next: (cards: any[]) => {
+      this.heartedCards = cards;
+      // this.heartimgLinks = new Array(this.DiscoverPopularPlaces.length).fill(this.heartimg);
+      this.getMatchingIndexes(this.heartedCards, this.DiscoverPopularPlaces);
+      },
+      error: (error) => {
+      console.error('Error:', error);
+      },
+      complete: () => {
+      console.log('Request completed');
+      },
+    });
+
+    this.agentsServ.fetchAgentData().subscribe({
+      next: (data) => {
+        this.AgentsInfo=[];
+        data.map((item,index)=>{
+ const imgLink = item.foto ? `users/${item.maili}/${item.saidentifikacio_kodi}/${item.foto}` : '../../assets/Imges/Header/CardImges/A-1.jpg';
+
+          this.AgentsInfo.push({
+// `users/${data[0].maili}/${data[0].saidentifikacio_kodi}/${data[0].foto}
+  mainalt:item.angarishis_tipi || 'AgentsCard',
+
+    imgLink:imgLink,
+
+  Name: `${item.saxeli} ${item.gvari}` || 'Carls Issue',
+  status:item.angarishis_tipi == 'gayidvebis_menejeri'?  'Real Estate Agent' : 'Real Estate Manager', 
+  sociaslLinks:[
+    ...(item.facebook_linki ? [{alt:'facebook' ,href:item.facebook_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/icons8-facebook.svg'}] : []),
+    ...(item.twitter_linki ? [{alt:'twitter' ,href:item.twitter_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/twitter.svg'}] : []),
+    ...(item.instagram_linki ? [{alt:'Instagram' ,href:item.instagram_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/instagram.svg'}] : []),
+    ...(item.linkedin_linki ? [{alt:'linkdIn' ,href:item.linkedin_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/LinkedIn.png'}] : []),
+    ...(item.whatsapp_linki ? [{alt:'twitter' ,href:item.twitter_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/twitter.svg'}] : []), 
+  ]
+})
+
+})
+
+      },
+      error: (err) => console.error('Error fetching agents:', err)
+    }); 
+    } 
+
+
+    getMatchingIndexes(savedCards: any[], allCards: any[]): void {
+      console.log('saved:', savedCards, 'allcards:', allCards);
+    
+      // ✅ Prevent errors by waiting until allCards is loaded
+      if (!allCards || !Array.isArray(allCards) || allCards.length === 0) {
+        console.warn('getMatchingIndexes skipped: allCards is empty or not loaded yet.');
+        return;
       }
-    );
+    
+      if (!savedCards || !Array.isArray(savedCards)) {
+        console.error('Error: savedCards is null or not an array', savedCards);
+        return;
+      }
+    
+      if (!this.heartimgLinks.length) {
+        this.heartimgLinks = new Array(allCards.length).fill(this.heartimg);
+      }
+    
+      savedCards.forEach(savedCard => {
+        const index = allCards.findIndex(card => card.gncxdebis_idi == savedCard.id);
+        if (index !== -1) {
+          this.heartimgLinks[index] = this.heartFilled;
+        }
+      });
+    }
+    
+    
+  navigate(id){
+    this.Propinfo.navigateToCard(id);
   }
 
-    ngOnDestroy(): void {
+
+  saveToFav(i:number , info){  
+ 
+    const momxmareblis_idi= this.navService.userId
+    const gancxadebis_idi=info.gncxdebis_idi
+    const postBody={momxmareblis_idi,gancxadebis_idi}
+    if(this.heartimgLinks[i]===this.heartimg){
+        this.heartimgLinks[i]=this.heartFilled;
+ 
+          
+   this.allCardsService.sendFavoriteCards(postBody)
+      
+  
+      }
+      else{// write remove function of api 
+        this.allCardsService.DeleteFavoriteCards(postBody);
+        this.heartimgLinks[i]=this.heartimg;
+      }
+
+}
+
+ 
+
+ngOnDestroy(): void {
       if (this.intervalId) {
         clearInterval(this.intervalId);
       }

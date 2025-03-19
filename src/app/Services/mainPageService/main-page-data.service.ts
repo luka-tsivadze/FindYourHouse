@@ -23,7 +23,7 @@ export class MainPageDataService {
   {
     imgLink: '../../assets/Imges/Header/CardImges/batumi.jpg',
     alt: 'Los Angeles cityscape',
-    cityName: 'batumi',
+    cityName: 'Batumi',
     properties: 215,
   },
   {
@@ -47,7 +47,7 @@ export class MainPageDataService {
   {
     imgLink: '../../assets/Imges/Header/CardImges/telavi.jpg',
     alt: 'telavi skyline',
-    cityName: 'telavi',
+    cityName: 'Telavi',
     properties: 112,
   },
   {
@@ -70,6 +70,7 @@ export class MainPageDataService {
   
   DiscoverPopularPlaces = [  
     {
+      gncxdebis_idi:21,
       featuredBtn: true,
       For: 'For Rent',
       imgLink: '../../assets/Imges/Header/CardImges/F4.jpg',
@@ -83,6 +84,7 @@ export class MainPageDataService {
       price: '$ 150,000',
     },
     {
+      gncxdebis_idi:50,
       featuredBtn: true,
       For: 'For Sale',
       imgLink: '../../assets/Imges/Header/CardImges/F5.jpg',
@@ -130,31 +132,7 @@ export class MainPageDataService {
     {alt:'twitter' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/twitter.svg'},
     {alt:'Instagram' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/instagram.svg' },{alt:'linkdIn' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/LinkedIn.png' }] 
   },
-  {imgLink:'../../assets/Imges/Header/CardImges/A-2.jpg',Name:'Arling Tracy', status:'Real Estate Agent',sociaslLinks:[
-    {alt:'facebook' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/icons8-facebook.svg' },
-    {alt:'twitter' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/twitter.svg' },
-    {alt:'Instagram' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/instagram.svg' },
-    {alt:'linkdIn' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/LinkedIn.png' }]}
-  ,  {imgLink:'../../assets/Imges/Header/CardImges/A-3.jpg',Name:'Mark Web', status:'Real Estate Agent',sociaslLinks:[
-    {alt:'facebook' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/icons8-facebook.svg' },
-    {alt:'twitter' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/twitter.svg' },
-    {alt:'Instagram' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/instagram.svg' },
-    {alt:'linkdIn' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/LinkedIn.png' }]},
-    {imgLink:'../../assets/Imges/Header/CardImges/A-4.jpg',Name:'Katy Grace', status:'Real Estate Agent',sociaslLinks:[
-      {alt:'facebook' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/icons8-facebook.svg' },
-      {alt:'twitter' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/twitter.svg' },
-      {alt:'Instagram' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/instagram.svg' },
-      {alt:'linkdIn' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/LinkedIn.png' }]},
-      {imgLink:'../../assets/Imges/Header/CardImges/A-5.jpg',Name:'Chris Melo', status:'Real Estate Agent',sociaslLinks:[
-        {alt:'facebook' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/icons8-facebook.svg' },
-        {alt:'twitter' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/twitter.svg' },
-        {alt:'Instagram' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/instagram.svg' },
-        {alt:'linkdIn' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/LinkedIn.png' }]},
-        {imgLink:'../../assets/Imges/Header/CardImges/A-6.jpg',Name:'Nina Thomas', status:'Real Estate Agent',sociaslLinks:[
-          {alt:'facebook' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/icons8-facebook.svg' },
-          {alt:'twitter' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/twitter.svg' },
-          {alt:'Instagram' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/instagram.svg' },
-          {alt:'linkdIn' ,href:'',IconLink:'../../assets/Imges/Header/CardImges/icons/LinkedIn.png' }]}
+
   ]
   ReviewData=[
     {Name:'Jonh Doe',imgLink:'../../assets/Imges/Header/CardImges/A-6.jpg', Place:'Houston',Review:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
@@ -219,10 +197,7 @@ LangMainData ;
     private RusService: RusService
   ) {
 
-    this.agentsServ.fetchAgentData().subscribe({
-      next: (data) => console.log('Agent Data:', data),
-      error: (err) => console.error('Error fetching agents:', err)
-    }); //maybe move to component
+   //maybe move to component
         
     
     this.allcards.fetchDataFromApi().subscribe((data) => {
@@ -282,34 +257,30 @@ LangMainData ;
     }
 
     cityAmount() {
-      this.http.get<{ [key: string]: string }>('get-cities-counted-data.php').subscribe({
+      this.http.get<{ [key: string]: number }>('get-cities-counted-data.php').subscribe({
         next: (apiData) => {
-          
-    
           const nameMap: { [key: string]: string } = {
-            "Tbilisi": "tbilisi",
+            "Tbilisi": "Tbilisi",
             "Batumi": "batumi",
-            "Kutaisi": "qutaisi", // Fix spelling
-            "Rustavi": "rustavi",
-            "Zugdidi": "zugdidi",
-            "Telavi": "telavi",
-            "Bakurian": "bakuriani", // Fix typo
-            "Kobuleti": "kobuleti"
+            "Kutaisi": "Kutaisi",
+            "Rustavi": "Rustavi",
+            "Zugdidi": "Zugdidi",
+            "Telavi": "Telavi",
+            "Bakurian": "Bakuriani", // Fix typo
+            "Kobuleti": "Kobuleti"
           };
     
-          const updatedData = this.popularPlacesSubject.getValue().map(staticItem => {
-            const backendKey = nameMap[staticItem.cityName]; // Convert name
-            return {
-              ...staticItem,
-              properties: backendKey && apiData[backendKey] ? parseInt(apiData[backendKey], 10) : 0
-            };
-          });
+          const updatedData = this.popularPlacesSubject.getValue().map(staticItem => ({
+            ...staticItem,
+            properties: apiData[nameMap[staticItem.cityName]] ?? -1 // ✅ Use correct backend key, default to 4 if missing
+          }));
     
-          this.popularPlacesSubject.next(updatedData); // ✅ Emit latest data
+          this.popularPlacesSubject.next(updatedData);
         },
         error: (err) => console.error('Error fetching city data:', err)
       });
     }
+    
     
   
     getFeaturedProperties(): Observable<any[]> {

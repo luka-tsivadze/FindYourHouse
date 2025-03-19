@@ -1,7 +1,6 @@
 
 
   
-<div [ngClass]="{ 'preLoader':loaded==false , 'loaded':loaded==true }"></div>
+<app-loader></app-loader>
+<router-outlet *ngIf="loaded"></router-outlet>
 
-<router-outlet></router-outlet>
-  

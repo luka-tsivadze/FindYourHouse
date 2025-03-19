@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { NavInfoService } from '../Services/NavService/nav-info.service';
 import { FilterDataUniterService } from '../Services/filter-data-uniter/filter-data-uniter.service';
+import { PropertyInformationService } from '../Services/Property-info/property-information.service';
 
 
 
@@ -55,7 +56,7 @@ filterForm = this.fb.group({
 
 });
     constructor(@Inject(PLATFORM_ID) private platformId: Object,private navserv:NavInfoService, 
-    private http:HttpClient , private router:Router ,private fb: FormBuilder , private cd: ChangeDetectorRef 
+    private http:HttpClient ,private Propinfo:PropertyInformationService ,private router:Router ,private fb: FormBuilder , private cd: ChangeDetectorRef 
    ,private uniter:FilterDataUniterService
     ,private allcard:AllCardsService, private dataService: MainPageDataService )
      {
@@ -122,39 +123,11 @@ filterForm = this.fb.group({
    
 
         
-        this.http.post('save-house.php', postBody).subscribe({
-          next:(data)=>{ console.log('Response:', data)},
-          error: (error) => {
-            console.error('Error Status:', error.status);
-            console.error('Error Message:', error.message);
-            console.error('Raw Response:', error.error);
-            
-            try {
-                const errorData = JSON.parse(error.error);
-                console.error('Parsed Error:', errorData);
-            } catch (e) {
-                console.error('Response is not JSON, possibly an HTML error page');
-            }
-        },
-        
-          complete: () => {}// Now shows detailed JSON error
-       
-        }
-        );
+        this.allcard.sendFavoriteCards(postBody);
     
         }
         else{// write remove function of api 
-          this.http.post('delete-saved-house.php', postBody ).subscribe({
-            next: (response) => {
-              console.log('Response:', response);
-            },
-            error: (error) => {
-              console.error('Error:', error);
-            },
-            complete: () => {
-             ;
-            }
-          });
+    this.allcard.DeleteFavoriteCards(postBody);
           
           this.heartimgLinks[i]=this.heartimg;
         }
@@ -222,7 +195,9 @@ filterForm = this.fb.group({
       });
     }
     
-    
+    navigate(id){
+      this.Propinfo.navigateToCard(id);
+    }
   
     updateVisibleItems(): void {
       if (this.screenWidth < 1280) {

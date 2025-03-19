@@ -21,9 +21,16 @@
             display: none;
           }
         }
-        li {
-          p {
-            font-size: 13px;
+        .navcol{
+
+          li {
+            padding: 5px !important;
+            p {
+              font-size: 13px;
+            }
+            img{width: 20px !important;
+              height: 20px !important;
+            }
           }
           .bottomArrow {
             margin-left: 1px;

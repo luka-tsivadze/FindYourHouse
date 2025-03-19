@@ -1,6 +1,6 @@
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, Observable, of, shareReplay } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, shareReplay, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +9,31 @@ export class ListingServiceService {
   private editItemIdSubject = new BehaviorSubject<number | null>(null);
   editItemId$ = this.editItemIdSubject.asObservable();
 private cachedmyCards$: Observable<any[]> | null = null;
+
+ SubmitEdited$ = new BehaviorSubject<any>(null);
+
   setEditItemId(el) {
     this.editItemIdSubject.next(el);
   }
 
+  private itemsSubject = new BehaviorSubject<any[]>([]);
+  items$ = this.itemsSubject.asObservable(); 
+  updateItems(newItems: any[]): void {
+    this.itemsSubject.next(newItems); // Emit new list
+  }
+
+  DelResponse$=new BehaviorSubject<any>(null);
+  DeleteItem(id: number): Observable<any> {
+    console.log('Deleting item:', id);
+    return this.http.post('del_my_house.php', { id_2: id }).pipe(
+      tap((response) => console.log('Delete response:', response)), // ✅ Log response
+      catchError((error) => {
+        console.error('Error deleting item:', error);
+        return of(null); // ✅ Return a safe value instead of throwing an error
+      })
+    );
+  }
+  
   getEditItemId(): number | null {
     return this.editItemIdSubject.getValue();
   }
@@ -80,6 +101,7 @@ private cachedmyCards$: Observable<any[]> | null = null;
 
   ChangeUserData(data: any): Observable<any> {
     this.cachedmyCards$ = null;
+    console.log('Updating data:', data);
     this.http.post('change_user_data.php', data).subscribe({
       next: (response) => {
         console.log('Update response:', response);

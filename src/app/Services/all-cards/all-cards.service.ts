@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 
 import { BehaviorSubject, map, Observable, of, shareReplay, Subject, switchMap, tap } from 'rxjs';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EngService } from '../Languages/eng/eng.service';
 import { GeoService } from '../Languages/geo/geo.service';
 import { RusService } from '../Languages/rus/rus.service';
@@ -85,9 +85,33 @@ export class AllCardsService  {
    setData(value: boolean) {
     this.dataSubject.next(value);
   }
+  sendFavoriteCards(postBody) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        
+    this.http.post('https://findhouse.ge/save-house.php', postBody, { headers }).subscribe({
+      next:(data)=>{ console.log('Response:', data)},
+      error:(error) =>{console.error('Error:', error.error)}, 
+      complete: () => console.log('Request completed') // Now shows detailed JSON error
+      
+      // Now shows detailed JSON error
+    });
+  }
+  DeleteFavoriteCards(postBody) {
+    this.http.post('delete-saved-house.php', postBody ).subscribe({
+      next: (response) => {
+        console.log('Response:', response);
+      },
+      error: (error) => {
+        console.error('Error:', error);
+      },
+      complete: () => {
+
+      }
+    });
+  }
 constructor(private http: HttpClient , private eng: EngService , private Geo: GeoService , private rus: RusService) { 
   
-  this.fetchDataFromApi(); // Initialize the API call
+// Initialize the API call
   if (typeof localStorage !== 'undefined' && localStorage.getItem('Language')) {
     this.localStorage = localStorage.getItem('Language');
   }
@@ -122,7 +146,7 @@ fetchDataFromApi(): Observable<any[]> {
     this.apiResponse$ = this.http.get<any[]>('get_houses.php').pipe(
       map((data: any[]) => {
         this.back_end_data = data;
-        this.CardsInfo = data.map((item: any) => {
+        const processedData = data.map((item: any) => {
           try {
             const images = JSON.parse(item.fotoebi || '[]');
             const firstimg =
@@ -142,7 +166,6 @@ fetchDataFromApi(): Observable<any[]> {
               area: item.fartobi,
               garages: 0,
               For: item.garigebis_tipi,
-              // profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-6.jpg',
               profileName: item.momxmareblis_saxeli,
               alt: item.satauri,
               momxmreblis_idi: item.amtvirtvelis_idi,
@@ -150,26 +173,23 @@ fetchDataFromApi(): Observable<any[]> {
             };
           } catch (error) {
             console.error('Error processing item:', item, error);
-            return null; // Skip invalid items
+            return null;
           }
         }).filter((item) => item !== null);
 
-        return this.CardsInfo;
+        this.CardsInfo = processedData; // ✅ Update CardsInfo  
+        return processedData;
       }),
-      tap((cards) => {
- 
-      }),
-      shareReplay(1)
+      shareReplay(1) 
     );
   }
 
-  // Repopulate CardsInfo even when using cached data
-  this.apiResponse$.subscribe((data) => {
-    this.CardsInfo = data;
-  });
-
-  return this.apiResponse$;
+  // ✅ Ensure CardsInfo updates even when using cached data  
+  return this.apiResponse$.pipe(
+    tap((data) => { this.CardsInfo = data; }) // Ensures CardsInfo is set correctly
+  );
 }
+
 private cachedFavCards$: Observable<any[]> | null = null; // Cache variable
 
 fetFavchData(id: number): Observable<any[]> {

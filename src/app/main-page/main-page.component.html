@@ -38,9 +38,9 @@
                   </div>
             </div>
             <div class="rightSide">
-                <a>{{info.header}}</a>
+                <a  (click)="navigate(info.gncxdebis_idi)" >{{info.header}}</a>
                 <p><img src="../../assets/Imges/Header/CardImges/icons/Location.svg" alt="">{{info.location}} </p>
-                <div class="squareFlex">
+                <div class="squareFlex" (click)="navigate(info.gncxdebis_idi)">
 
                 <div class="element"><img src="../../assets/Imges/Header/CardImges/icons/bedroom.svg" alt=""><p>{{info.bedrooms}} {{Languages.featuredPropertiesStatic.BedRooms}}</p></div> 
                 <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/bathtub.svg" alt=""><p>{{info.bathrooms}} {{Languages.featuredPropertiesStatic.BathRooms}}</p></div> 
@@ -48,7 +48,7 @@
                 <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/car.svg" alt=""><p>{{info.garages}} {{Languages.featuredPropertiesStatic.Garage}}</p></div>
             </div>
             <div class="CardFooterRow">
-                <h1>{{info.price}}</h1> <div class="iconRow"><img src="../../assets/Imges/Header/CardImges/icons/arrow-left-right.svg" alt=""><img src="../../assets/Imges/Header/CardImges/icons/share.svg" alt=""><img class="heart" src="./../../assets/Imges/Header/CardImges/icons/heart.svg" alt=""></div>
+                <h1>{{info.price}}</h1> <div class="iconRow"><img [src]="heartimgLinks[i]"  (click)="saveToFav(i , info)" alt=""></div>
             </div>
             </div>
         </div>

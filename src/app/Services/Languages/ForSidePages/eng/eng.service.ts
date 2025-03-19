@@ -194,7 +194,7 @@ Atque quasi eum debitis optio ab. Esse itaque officiis tempora possimus odio rer
 btn:'Read More'
 }
 DetailedInfo={
-  advertismentr:'Specials of the day',
+  advertismentr:'advertisment',
   AgentsInfo:{
     inputs : [
       {

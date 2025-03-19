@@ -186,7 +186,7 @@ export class RusService {
     btn: 'Читать далее'
   }
   DetailedInfo = {
-    advertismentr: 'Специальные предложения дня',
+    advertismentr: 'Реклама',
     AgentsInfo: {
       inputs: [
         { type: 'text', placeholder: 'Имя',  formControlName: 'gamgzavnis_saxeli'},

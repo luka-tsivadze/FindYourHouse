@@ -20,10 +20,25 @@
             <label for="{{info.label}}">{{info.label}}</label>
             <textarea formControlName="{{info.FormControlName}}"  id="{{info.label}}" placeholder="{{info.placeholder}}"></textarea>
         </div>
-
-        
-  
-  <button type="submit">{{staticElements.submit}}</button>
+        <label for="soc" style="width: 100%;">{{ Allnetworks.Header }}</label>
+        <div class="col" *ngFor="let item of Allnetworks.elements">
+            <select [formControlName]="item.FormControlbtn">
+              <option *ngFor="let el of item.networks; let i = index" [value]="el.value" > 
+                {{ el.name }}
+              </option>
+            </select>
+            <input type="text" placeholder="Write your Profile link here" [formControlName]="item.FormControlHref">
+          </div>
+         
+          <div class="row">
+              <button type="button" *ngIf="plusbtn " (click)="addNetwork()">+</button>
+              <button type="button" *ngIf="Allnetworks.elements.length > 1" (click)="removeNetwork()">-</button>
+            </div>
+          
+          <button type="submit">Submit</button>
+          
+          
+          
   <span *ngIf="UserMessage.load" [ngClass]="{'error':UserMessage.error, 'success':!UserMessage.error }">{{UserMessage.text}}</span>
     </form>
 

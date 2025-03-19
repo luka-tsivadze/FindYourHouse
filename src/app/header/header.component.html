@@ -105,9 +105,9 @@
                   </div>
             </div>
             <div class="rightSide">
-                <a routerLink="/allCards/{{info.gncxdebis_idi}}">{{info.header}}</a>
+                <a (click)="navigate(info.gncxdebis_idi)">{{info.header}}</a>
                 <p><img src="../../assets/Imges/Header/CardImges/icons/Location.svg" alt="locationIcon">{{info.location}} </p>
-                <div class="squareFlex" routerLink="/allCards/{{info.gncxdebis_idi}}">
+                <div class="squareFlex" (click)="navigate(info.gncxdebis_idi)">
 
                 <div class="element"><img src="../../assets/Imges/Header/CardImges/icons/bedroom.svg" alt="badroom"><p>{{info.bedrooms}} {{FeaturePS.BedRooms}}</p></div> 
                 <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/bathtub.svg" alt="bathroom"><p>{{info.bathrooms}} {{FeaturePS.BathRooms}}</p></div> 

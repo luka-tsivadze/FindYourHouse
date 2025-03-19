@@ -1,10 +1,11 @@
 import { Injectable, Type } from '@angular/core';
 import { AllCardsService } from '../all-cards/all-cards.service';
 
-import { Router } from 'express';
-import { ActivatedRoute } from '@angular/router';
+
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -173,7 +174,7 @@ video;
 videoLin;
 floorimgLink;
 userId;
-constructor(private route: ActivatedRoute , private allcards:AllCardsService, private http:HttpClient) {
+constructor(private route:Router , private allcards:AllCardsService, private http:HttpClient) {
 
   if(localStorage.getItem('id')){
     this.userId = localStorage.getItem('id');
@@ -182,7 +183,10 @@ constructor(private route: ActivatedRoute , private allcards:AllCardsService, pr
 this.getuserReview(this.userId);
 }
 
-
+navigateToCard(id: number) {
+  this.setCardId(id);
+this.route.navigate(['/allCards', id]);
+}
 
 getuserReview(momxmareblis_id: string) {
   const params = new HttpParams().set('momxmareblis_id', momxmareblis_id);
@@ -204,16 +208,11 @@ setCardId(cardId: number) {
 const images = JSON.parse(selectedCard.fotoebi);
 
 try {
-  this.floorimg = selectedCard.binis_naxazi 
-    ? JSON.parse(selectedCard.binis_naxazi) 
-    : false;
-
+  this.floorimg = selectedCard.binis_naxazi ? JSON.parse(selectedCard.binis_naxazi) : false;
 } catch (error) {
   console.error("Invalid JSON in binis_naxazi:", error);
   this.floorimg = false;
 }
-
-
 try {
   this.video = JSON.parse(selectedCard.video) || false;
 } catch (e) {
@@ -326,5 +325,15 @@ SendUserMessage(form):BehaviorSubject<any> {
   });
 return this.Sendresp;
 
+}
+
+
+RecentProp$=new BehaviorSubject<any>(false);
+getRecentProp():Observable<any>{
+  this.http.get('get_new_houses.php').subscribe({
+    next: (data) => { console.log('Recent Properties:', data); this.RecentProp$.next(data); },
+    error: (error) => { console.error('Error fetching recent properties:', error); }
+})
+return this.RecentProp$;
 }
 }
