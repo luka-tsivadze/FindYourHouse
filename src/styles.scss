@@ -33,9 +33,27 @@ body
     font-weight: 400;
     margin-top: 5px;
   }
+  
   .succes{
     color: green;
     font-size: 1.2rem;
     font-weight: 400;
     margin-top: 5px;
+  }
+  #preloader {
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    background-image: url(./assets/Imges/PreLoading/preloader.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
   }

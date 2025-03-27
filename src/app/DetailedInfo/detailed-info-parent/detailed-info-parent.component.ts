@@ -13,15 +13,13 @@ import { LanguageChooserService } from '../../Services/language-chooser/language
 export class DetailedInfoParentComponent {
 descH='Description';
 displayR=false;
-  description=this.infoService.chosenCard.describtion;
+chosenCard;
+  description;
 showPropVideo=this.infoService.video;
 floorplan=this.infoService.floorimg;
 scrollPosition = 0;
-mapvalidity: boolean = 
-  !isNaN(parseFloat(this.infoService.chosenCard.latitude.toString())) &&
-  !isNaN(parseFloat(this.infoService.chosenCard.longitude.toString()));
-
-
+mapvalidity: boolean = false;
+ShowNearBy: boolean = false;
 
   constructor(private navService:NavInfoService ,private infoService:PropertyInformationService , 
      private route: ActivatedRoute, private views:ViewsService ,private lang:LanguageChooserService ,private navigation:Router) {
@@ -32,17 +30,41 @@ mapvalidity: boolean =
   
   
   ngOnInit(): void {
-
-
-    this.descH=this.lang.chosenLang.DetailedInfo.parent;
-    let cardId = JSON.parse(this.route.snapshot.paramMap.get('id'));
-    console.log(cardId);
+    let cardId = JSON.parse(this.route.snapshot.paramMap.get('id')); 
     this.infoService.setCardId(cardId);
+this.infoService.chosenCard.subscribe((card) => {
+  this.chosenCard = card;
+  this.description = card.describtion;
+})
+     
+    this.descH=this.lang.chosenLang.DetailedInfo.parent;
+   this.mapvalidity = 
+    !isNaN(parseFloat(this.chosenCard.latitude.toString())) &&
+    !isNaN(parseFloat(this.chosenCard.longitude.toString())) &&
+    this.chosenCard.latitude !== null &&
+    this.chosenCard.longitude !== null;
+    const fieldsToCheck = [
+      'saavadmyofos_dasaxeleba_1', 'saavadmyofos_dasaxeleba_2', 'saavadmyofos_dasaxeleba_3',
+      'saavadmyofos_distancia_1', 'saavadmyofos_distancia_2', 'saavadmyofos_distancia_3',
+      'skolis_dasaxeleba_1', 'skolis_dasaxeleba_2', 'skolis_dasaxeleba_3',
+      'skolis_distancia_1', 'skolis_distancia_2', 'skolis_distancia_3',
+      'transportis_dasaxeleba_1', 'transportis_dasaxeleba_2', 'transportis_dasaxeleba_3',
+      'transportis_distancia_1', 'transportis_distancia_2', 'transportis_distancia_3'
+    ];
+    
+    this.ShowNearBy = fieldsToCheck.some(field => {
+      const value = this.chosenCard[field];  // Get field value
+      return value !== null && value !== undefined && value !== ''; // Check if it's valid
+    });
+    console.log("Field Values:", this.chosenCard,fieldsToCheck.map(field => ({ [field]: this.chosenCard[field] })));
 
+    console.log("ShowNearBy:", this.ShowNearBy);
+    
+    
     if(this.infoService.chosenCard){
     this.navService.scrollobser.next(true);
    }
-    this.views.sendView(this.infoService.chosenCard.id); // send view to the server
+    this.views.sendView(this.chosenCard.id); // send view to the server
 
     window.addEventListener('scroll', () => {
       this.scrollPosition = window.scrollY;

@@ -20,9 +20,12 @@ export class EngService {
     
     firstselectName: 'Select Status',
     firstselect:['For Sale', 'For Rent', 'Pledge','rented daily','Apartments under construction'],
-    
+    firstselectValues: ['For Rent', 'For Sale', 'For Pledge', 'For Daily Rent', 'New Development'],
+
+
     secondselectName: 'Property Types',
     secondselect:['Apartment', 'House', 'Commercial', 'Garage'],
+    secondselectValues: ['Apartment', 'House', 'Commercial', 'Garage'],
     
     upPict:'click Hare To Upload Pictures',
     upVid:'click Hare  To Upload Video',
@@ -50,18 +53,21 @@ export class EngService {
         FormControlName: 'asaki',
         firstOption: 'Select Age',
         options: ['0-1 Years', '0-5 Years', '0-10 Years', '0-15 Years', '0-20 Years', '0-50 Years', '50+ Years'],
+        optionsValues: ['0-1 Year', '0-5 Year', '0-10 Year', '0-15 Year', '0-20 Year', '0-50 Year', '50+ Year'],
         formControlName: 'asaki'
       },
       {
         id: 'badrooms',
         firstOption: 'Bedrooms',
         options: ['1', '2', '3', '4', '5', '6'],
+        optionsValues: ['1', '2', '3', '4', '5', '6'],
         formControlName: 'sadzinebeli'
       },
       {
         id: 'bathroom',
         firstOption: 'Bathrooms',
         options: ['1', '2', '3', '4', '5', '6'],
+        optionsValues: ['1', '2', '3', '4', '5', '6'],
         formControlName: 'sveli_wertilebis_raodenoba'
       }
     ],

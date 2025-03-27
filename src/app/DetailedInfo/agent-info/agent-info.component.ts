@@ -48,14 +48,20 @@ infoSent=[{bol:false, message:'please Fill in the required fields'},{bol:false, 
   
    constructor(private fb: FormBuilder, private NavService:NavInfoService ,private propService:PropertyInformationService
     , private lang:LanguageChooserService) {
-   this.profileInfo = this.propService.chosenCard;
-   this.forNgRow[0].text = this.profileInfo.Nomeri;
-   this.forNgRow[1].text = this.profileInfo.email;
+
+
 this.staticValues=this.lang.chosenLang.DetailedInfo.AgentsInfo.staticValues;
 this.inputs=this.lang.chosenLang.DetailedInfo.AgentsInfo.inputs;
   }
-
+chosenCard;
   ngOnInit() {
+    this.propService.chosenCard.subscribe((card) => {
+      this.chosenCard = card;
+    this.profileInfo = this.chosenCard;
+    })
+    this.forNgRow[0].text = this.profileInfo.Nomeri;
+    this.forNgRow[1].text = this.profileInfo.email;
+    
  if(this.NavService.IsSignedIn.signed){
 
     this.profileForm = this.fb.group({

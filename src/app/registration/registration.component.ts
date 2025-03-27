@@ -1,3 +1,4 @@
+
 import { Component, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { Subscription, take } from 'rxjs';
 import { RegistrationService } from '../Services/registration/registration.service';
@@ -5,6 +6,7 @@ import { FormControl, FormGroup, Validators , FormsModule} from '@angular/forms'
 
 import { ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { NavInfoService } from '../Services/NavService/nav-info.service';
 
 
 @Component({
@@ -32,7 +34,7 @@ public RememberMe = new FormControl(false);
 @ViewChild('loginName') loginName!: ElementRef;
 @ViewChild('registName') registName!: ElementRef;
  
-constructor(private registrationService: RegistrationService, private http:HttpClient) {
+constructor(private registrationService: RegistrationService, private http:HttpClient ,private navServ:NavInfoService) {
  
 }
 
@@ -71,6 +73,10 @@ constructor(private registrationService: RegistrationService, private http:HttpC
    
       buttonSub: new FormControl('register'),
     });
+
+
+
+
   }
 
   makeDisplayFlse() {
@@ -87,6 +93,7 @@ constructor(private registrationService: RegistrationService, private http:HttpC
 
   ngOnDestroy() {
     // Unsubscribe to avoid memory leaks
+    
     if (this.displayerSubscription) {
       this.displayerSubscription.unsubscribe();
     }
@@ -98,7 +105,8 @@ constructor(private registrationService: RegistrationService, private http:HttpC
         next: (response: any) => {
        
         localStorage.setItem('id', response.id)
-         
+         this.navServ.getUserInfo(response.id).subscribe({});
+         this.makeDisplayFlse();   //just change Nav component to work 
           window.location.reload();
         },
         error: (error) => {
@@ -123,19 +131,33 @@ constructor(private registrationService: RegistrationService, private http:HttpC
    
   }
   onSubmitR(): void {
-    if (this.RegistrForm.valid) {
-      // Use getRawValue() to include disabled fields
+    if (!this.RegistrForm.invalid) {
+      
+      
+      
+      console.log('Registration form submitted:', this.RegistrForm.value);
+ 
       const formData = this.RegistrForm.getRawValue();
  
       this.http.post("reg_user.php", formData).subscribe({
         next: (response: any) => {
+          
           // Handle successful registration
-          console.log('Registration successful:', response);
-          if(response.message=='email-already-in-use'){
-           this.regErrorText='email already in use';
-          }else if(response.message=='nomeri-arasworia'){
+          console.log('Registration successful:', response , );
+      if(response.message=='nomeri-arasworia'){
             this.regErrorText='phone number is incorrect';
-          }else if(response.message==''){}
+            this.RError=true;
+            return;
+          }else if(response.message=='email-already-in-use'){
+            this.regErrorText='email already in use';
+            this.RError=true;
+            return;
+          }else if(response.status=='error'){
+          this.regErrorText='there is a problem with the server try agein later';
+          this.RError=true;
+          return;
+          }
+          this.RError=false;
           this.login = true;
   
       
@@ -151,8 +173,36 @@ constructor(private registrationService: RegistrationService, private http:HttpC
     }
   }
   
+
+  onCodeInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.value.length === 4) {
+      console.log('Verification code chacked:', input.value);
+      this.checkCode();
+    }
+  }
+  
   sendCode() {
     this.codeSegment = true;
+    
+    let phoneNumber = this.RegistrForm.controls['nomeri'].value;
+
+
+    if (phoneNumber.length === 9) {
+      phoneNumber = '+995' + phoneNumber; 
+    } else if (phoneNumber.startsWith('995')) {
+      phoneNumber = '+' + phoneNumber;
+    } else if (phoneNumber.startsWith('99')) {
+      phoneNumber = '+995' + phoneNumber.substring(2);
+    }else if (phoneNumber.startsWith('95')) {
+      phoneNumber = '+995' + phoneNumber.substring(2);
+    }else if (phoneNumber.startsWith('5')) {
+      phoneNumber = '+995' + phoneNumber.substring(1);
+    }else if (phoneNumber.startsWith('+95')) {
+      phoneNumber = '+995' + phoneNumber.substring(3);
+    }
+    // Update form value before submission
+    this.RegistrForm.controls['nomeri'].setValue(phoneNumber);
   
     // Helper function to generate a random 4-digit code
     const generateRandomCode = (length: number): string => {
@@ -169,31 +219,34 @@ constructor(private registrationService: RegistrationService, private http:HttpC
     this.verificationCode = verificationCode;
   
     // Validate phone number (international format)
-    const nomeri = this.RegistrForm.value.nomeri;
+    const nomeri = phoneNumber;
     if (!/^\+[0-9]{7,15}$/.test(nomeri)) {
       console.error('Invalid phone number format');
       return;
     }
   
 
+
   
     // Send the verification code to the backend
-  
-    this.http.post('send_code.php', { nomeri, random_kodi: verificationCode }).subscribe({
-      next: (response) => {
-        console.log('Verification code sent successfully:');
-      },
-      error: (error) => {
-        console.error('Failed to send verification code:', error);
-      }
-    });
+console.log(verificationCode);
+    // this.http.post('send_code.php', { nomeri, random_kodi: verificationCode }).subscribe({
+    //   next: (response) => {
+    //     console.log('Verification code sent successfully:' , response);
+    // this.RegistrForm.get('nomeri')?.disable();
+    
+    //   },
+    //   error: (error) => {
+    //     console.error('Failed to send verification code:', error);
+    //   }
+    // });
   }
   
   checkCode(){
  
     if (this.RegistrForm.value.verificationInput === this.verificationCode) {
       this.verification = true;
-      this.RegistrForm.get('nomeri')?.disable();
+
     
     }
   }

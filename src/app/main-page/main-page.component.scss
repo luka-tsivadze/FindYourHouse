@@ -323,7 +323,7 @@ main {
         button {
           width: 16px;
           height: 16px;
-          opacity: 0;
+   
           cursor: pointer;
           border-radius: 50%;
           background-color: #00000000;
@@ -571,7 +571,7 @@ app-partners-footer {
 app-footer {
   width: 100%;
 }
-.cover{
+.cover {
   position: fixed;
   width: 100%;
   top: 0;
@@ -581,6 +581,7 @@ app-footer {
   background-size: cover;
   filter: brightness(0.7);
   z-index: 1;
+  
 }
 
 @import './MainResponsive.scss';

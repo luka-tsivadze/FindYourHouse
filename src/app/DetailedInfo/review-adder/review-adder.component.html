@@ -16,8 +16,8 @@
 <!-- <input type="text" placeholder="First Name" formControlName="saxeli">
 <input type="text" placeholder=" Last Name" formControlName="gvari"> -->
 <!-- <input type="email" placeholder="Email" formControlName="maili">  -->
-<textarea [disabled]="reqSent" class="resizable-textarea" name="Description" id="Desc" placeholder="{{reviewAd.placeholderN}}" type="text" formControlName="message"></textarea>
-<button type="submit" [disabled]="reviewForm.invalid" *ngIf="!reqSent">{{reviewAd.submit}}</button>
+<textarea  class="resizable-textarea" name="Description" id="Desc" placeholder="{{reviewAd.placeholderN}}" type="text" formControlName="message"></textarea>
+<button type="submit" [disabled]="reviewForm.invalid" >{{reviewAd.submit}}</button>
 <span *ngIf="reqSent" class="greenmsg"> Your message is Uploaded</span>
 
 </form>

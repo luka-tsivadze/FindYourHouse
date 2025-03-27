@@ -2,6 +2,9 @@
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
+    overflow-y: scroll;
+    height: 306px;
+    width: 100%;
     .card{
         display: flex;
         gap: 1rem;

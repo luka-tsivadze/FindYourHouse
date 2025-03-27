@@ -1,6 +1,5 @@
   import { Component, AfterViewInit, Inject, PLATFORM_ID, viewChild, ElementRef, ViewChild, OnInit } from '@angular/core';
-  import { isPlatformBrowser } from '@angular/common';
-  import { NgZone } from '@angular/core';
+
   import { MainPageDataService } from '../Services/mainPageService/main-page-data.service';
   import { HostListener } from '@angular/core';
 import { AllCardsService } from '../Services/all-cards/all-cards.service';
@@ -18,7 +17,7 @@ import { AgentsService } from '../Services/agents/agents.service';
   export class MainPageComponent implements OnInit {
 [x: string]: any;
 
-    // popularPlacesData:{imgLink:string,cityName:string,properties:number}[]=this.dataService.popularPlacesData;
+
   staticData:{headerTextList:string[]}=this.dataService.staticData  
 
 
@@ -26,6 +25,8 @@ import { AgentsService } from '../Services/agents/agents.service';
 
   //for Line 114
   @ViewChild('cardPlace') cardRow: ElementRef;
+  @ViewChild('cardParent') Discover: ElementRef;
+  
   isDragging = false;
   startX = 0;
   scrollLeft = 0;  
@@ -34,7 +35,7 @@ import { AgentsService } from '../Services/agents/agents.service';
 //before 114 line
 
   transform:number=0;
-
+   PropButtons=[{class:true},{class:false},{class:false},{class:false},{class:false}];
     intervalId: any;
     booleanLeft=true;
     booleanRight=false;
@@ -77,19 +78,18 @@ DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
       error: (error) => {
       console.error('Error:', error);
       },
-      complete: () => {
-      console.log('Request completed');
-      },
+ 
     });
 
     this.agentsServ.fetchAgentData().subscribe({
       next: (data) => {
         this.AgentsInfo=[];
+        console.log('Agents data:', data);
         data.map((item,index)=>{
  const imgLink = item.foto ? `users/${item.maili}/${item.saidentifikacio_kodi}/${item.foto}` : '../../assets/Imges/Header/CardImges/A-1.jpg';
 
           this.AgentsInfo.push({
-// `users/${data[0].maili}/${data[0].saidentifikacio_kodi}/${data[0].foto}
+
   mainalt:item.angarishis_tipi || 'AgentsCard',
 
     imgLink:imgLink,
@@ -98,10 +98,10 @@ DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
   status:item.angarishis_tipi == 'gayidvebis_menejeri'?  'Real Estate Agent' : 'Real Estate Manager', 
   sociaslLinks:[
     ...(item.facebook_linki ? [{alt:'facebook' ,href:item.facebook_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/icons8-facebook.svg'}] : []),
-    ...(item.twitter_linki ? [{alt:'twitter' ,href:item.twitter_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/twitter.svg'}] : []),
+    ...(item.telegram_linki ? [{alt:'telegram' ,href:item.telegram_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/telegram.svg'}] : []),
     ...(item.instagram_linki ? [{alt:'Instagram' ,href:item.instagram_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/instagram.svg'}] : []),
     ...(item.linkedin_linki ? [{alt:'linkdIn' ,href:item.linkedin_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/LinkedIn.png'}] : []),
-    ...(item.whatsapp_linki ? [{alt:'twitter' ,href:item.twitter_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/twitter.svg'}] : []), 
+    ...(item.whatsapp_linki ? [{alt:'whatsapp' ,href:item.whatsapp_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/whatsapp.svg'}] : []),
   ]
 })
 
@@ -114,7 +114,7 @@ DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
 
 
     getMatchingIndexes(savedCards: any[], allCards: any[]): void {
-      console.log('saved:', savedCards, 'allcards:', allCards);
+ 
     
       // ✅ Prevent errors by waiting until allCards is loaded
       if (!allCards || !Array.isArray(allCards) || allCards.length === 0) {
@@ -138,7 +138,99 @@ DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
         }
       });
     }
+
+
+  dragged=false
+  PstartX=0;
+  transformer=0;
+  startTransform=0;
+  popularDragStart(event: MouseEvent | TouchEvent) {
+    this.dragged = true;
+  
+    // Extract correct X position for both mouse and touch events
+    const clientX = (event as TouchEvent).touches
+      ? (event as TouchEvent).touches[0].pageX
+      : (event as MouseEvent).pageX;
+  
+    this.PstartX = clientX;
+    this.startTransform = this.transformer || 0;
+    document.body.style.userSelect = "none";
+  
+    // Add event listeners for both mouse and touch
+    document.addEventListener("mouseup", this.popularDragEnd as EventListener);
+    document.addEventListener("touchend", this.popularDragEnd as EventListener);
+  }
+  
+  popularDrag(event: MouseEvent | TouchEvent) {
+    if (!this.dragged) return;
+    event.preventDefault();
+  
+    // Extract correct X position
+    const clientX = (event as TouchEvent).touches
+      ? (event as TouchEvent).touches[0].pageX
+      : (event as MouseEvent).pageX;
+  
+    const moveX = clientX - this.PstartX;
+    const newTransform = this.startTransform + moveX * 1.6;
+    const elementwidth=this.Discover.nativeElement.offsetWidth;
     
+  
+    // ✅ Prevent dragging too far left or right
+    const minTransform = 0;
+    const maxTransform = -this.Discover.nativeElement.offsetWidth + 600;
+  
+    this.transformer = Math.max(Math.min(newTransform, minTransform), maxTransform);
+
+    this.buttons(true,this.transformer,elementwidth);
+    this.Discover.nativeElement.style.transform = `translateX(${this.transformer}px)`;
+  }
+  
+  popularDragEnd(event: MouseEvent | TouchEvent) {
+    this.dragged = false;
+    document.body.style.userSelect = "";
+  
+    // Remove event listeners after dragging stops
+    document.removeEventListener("mouseup", this.popularDragEnd as EventListener);
+    document.removeEventListener("touchend", this.popularDragEnd as EventListener);
+  }
+  buttons(bool: boolean, index: number, Elwidth?): void {
+    if(bool==true){
+  index=-index;
+  if(index==0){
+    this.PropButtons.forEach((item,i)=>{
+      item.class=false;
+    })
+    this.PropButtons[0].class=true;
+
+  }
+const element= Elwidth/5;
+for(let i=0;i<5;i++){
+  let cardindex=element*i;
+  if(index>cardindex && index<cardindex+element){
+    this.PropButtons.forEach((item,i)=>{
+      item.class=false;
+    })
+    this.PropButtons[i].class=true;
+  }
+}
+
+
+
+} else{ 
+  this.PropButtons.forEach((item,i)=>{
+    item.class=false;
+  })
+  let tr=18;
+  tr=tr*index;
+if(index==0){
+  this.Discover.nativeElement.style.transform = `translateX(${tr}px)`;
+}else{
+  this.Discover.nativeElement.style.transform = `translateX(${-tr}%)`;
+}
+  this.PropButtons[index].class=true;
+}
+  }
+
     
   navigate(id){
     this.Propinfo.navigateToCard(id);
@@ -183,16 +275,7 @@ ngOnDestroy(): void {
     this.booleanRight=false;
    
   }
-  buttons(element:any , index):void {
-    if(this.lastEl){
-this.lastEl.classList.remove('active');
-    }
-    this.clickedIndex=index;
-element.classList.add('active');
-// this.Relement.nativeElement.style.transform = `translate3d(${this.transform}px, 0px, 0px)`;
-this.lastEl=element;
 
-  }
     ReviewMover(event:Event){
       const element = event.target as HTMLElement;
       const elementClass = element.className;

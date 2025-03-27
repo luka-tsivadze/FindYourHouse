@@ -40,19 +40,38 @@ Form: FormGroup;
 FormControls = [{ btn: 'Btn1', Href: 'Href1' }];
 selectedNetworks: Set<string> = new Set(); // ✅ Track used networks
 plusbtn=true;
+displayLinks=false;
 Allnetworks = {
   Header: 'Social Networks',
   elements: [
     {
-      FormControlbtn: 'Btn1',
-      FormControlHref: 'Href1',
-      networks: [
-        { name: 'Facebook', value: 'Facebook' },
-        { name: 'Instagram', value: 'Instagram' },
-        { name: 'Twitter', value: 'Twitter' },
-        { name: 'LinkedIn', value: 'LinkedIn' }
-      ]
+      
+      FormControlHref: 'facebook_linki',
+     name: 'Facebook', 
+     value:'Facebook'
+    },
+    {
+      
+      FormControlHref: 'instagram_linki',
+  name: 'Instagram', value:'Instagram'
+    },
+    {
+      
+      FormControlHref: 'telegram_linki',
+name: 'Telegram', value: 'Telegram'
+    },
+    {
+      
+      FormControlHref: 'linkedin_linki',
+     name: 'LinkedIn', value: 'LinkedIn'
+    },
+    {
+      FormControlHref: 'whatsapp_linki',
+     name: 'WhatsApp',
+     value:'WhatsApp'
     }
+
+   
   ]
 };
 
@@ -63,87 +82,52 @@ constructor(private langServ:LanguageChooserService , private fb:FormBuilder , p
     gvari: [this.navServ.IsSignedIn.Name.split(' ')[1] ,  Validators.required],
     nomeri: [this.navServ.IsSignedIn.number , Validators.required],
     sacxovrebeli_adgili: [this.navServ.IsSignedIn.location],
-    chems_shesaxeb: [''],
+    chems_shesaxeb: [this.navServ.IsSignedIn.AboutMe],
     momxmareblis_idi: [''],                          
-    angarishis_tipi: [''],
-    sqesi: [''],
-    Btn1: [''],
-    Href1: ['']
+    angarishis_tipi: [this.navServ.IsSignedIn.type],
+    sqesi: [this.navServ.IsSignedIn.gender],
+    linkedin_linki: [this.navServ.IsSignedIn.links.linkdIn],
+    facebook_linki: [this.navServ.IsSignedIn.links.facebook],
+    instagram_linki: [this.navServ.IsSignedIn.links.instagram],
+    whatsapp_linki: [this.navServ.IsSignedIn.links.whatsapp],
+
+    telegram_linki: [this.navServ.IsSignedIn.links.telegram],
+
+
+ 
   });
+  if(this.navServ.IsSignedIn.type=='gayidvebis_menejeri'){
+    this.displayLinks=true;
+}else{
+  this.displayLinks=false;
 }
-addNetwork() {
-  const index = this.Allnetworks.elements.length + 1;
-  const newBtn = `Btn${index}`;
-  const newHref = `Href${index}`;
-
-  // ✅ Get the first selected value instead of last one
-  const firstSelectedValue = this.Form.get('Btn1')?.value || '';
-
-  // ✅ Prevent adding duplicate networks
-  if (this.selectedNetworks.has(firstSelectedValue)) {
-    alert(`${firstSelectedValue} is already added. You can only add one per network.`);
-    return;
   }
+change($event){
 
-  this.selectedNetworks.add(firstSelectedValue); // ✅ Track added network
-
-  // ✅ Add new form controls
-  this.Form.addControl(newBtn, new FormControl(firstSelectedValue));
-  this.Form.addControl(newHref, new FormControl(this.Form.get('Href1')?.value || ''));
-
-  // ✅ Add only the first selected value (no other options)
-  this.Allnetworks.elements.push({
-    FormControlbtn: newBtn,
-    FormControlHref: newHref,
-    networks: [{ name: firstSelectedValue, value: firstSelectedValue }] // ✅ Keep only the selected option
-  });
-if(this.Allnetworks.elements[0].networks.length>1){
-  this.Allnetworks.elements[0].networks 
-  = this.Allnetworks.elements[0].networks.filter(({ value }) => value !== firstSelectedValue); // ✅ Remove the selected option from the first network
-}
-if(this.Allnetworks.elements[0].networks.length < 2){
-this.plusbtn=false;
-}
-if (!this.Form.get('Btn1')?.value) {
-  this.plusbtn = false;
-}
-}
-removeNetwork() {
-  if (this.Allnetworks.elements.length > 1) {
-    const removed = this.Allnetworks.elements.pop();
-
-    if (removed) {
-      const removedNetwork = this.Form.get(removed.FormControlbtn)?.value; //  Get value before removing control
-
-      //  Remove from selectedNetworks correctly
-      if (removedNetwork) {
-        this.selectedNetworks.delete(removedNetwork);
-      }
-
-      //  Add back the removed network to available options
-      this.Allnetworks.elements[0].networks = this.Allnetworks.elements[0].networks.concat(removed.networks);
-      this.plusbtn = true;
-
-      //  Remove from form controls
-      this.Form.removeControl(removed.FormControlbtn);
-      this.Form.removeControl(removed.FormControlHref);
-    }
+  if($event.value=='gayidvebis_menejeri'){
+    this.displayLinks=true;
+  }else{
+    this.displayLinks=false;
   }
 }
 
 submit(){
   this.Form.get('momxmareblis_idi')?.setValue(this.navServ.userId);
-  this.listingServ.ChangeUserData(this.Form.value).subscribe((data)=>{
+  this.listingServ.ChangeUserData(this.Form.value).subscribe((data: { status: string })=>{
 
 
     if(data.status=="success"){
       this.UserMessage={text:'Your Information has been updated successfully',error:false ,load:true }
+this.navServ.getUserInfo().subscribe((data)=>{
+
+}); // Update the user info
+
   }else {
     this.UserMessage={text:'Information was not updated',error:true ,load:true }
   }
 });
   
-  console.log(this.Form.value);
+
 }
 ngOnInit(){
 this.staticElements=this.langServ.chosenLang.Dashboard.PersonalInfo.staticElements;

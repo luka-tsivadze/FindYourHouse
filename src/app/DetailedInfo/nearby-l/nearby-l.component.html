@@ -2,11 +2,9 @@
     <h2>{{near}}</h2>
 
     <div class="Section" *ngFor="let el of info">
-        <h5  ngClass="{{el[0].class}}" ><img src="{{el[0].imgLink}}" alt="icon"> <span>{{el[0].headerName}}</span></h5>
-        <div class="row" *ngFor="let row of el "><div class="left"><h4>{{row.name}}</h4><span>({{row.distance}})</span></div>
-       <div class="right">  <span *ngFor="let star of getStarArray(row.review)" 
-        [ngClass]="{'filledStar': star.filled, 'emptyStar': !star.filled}">
-  </span>  </div> 
+        <h5 *ngIf="el.data.lenght>0" ngClass="{{el.class}}" ><img src="{{el.imgLink}}" alt="icon"> <span>{{el.headerName}}</span></h5>
+        <div class="row" *ngFor="let row of el.data "><div class="left"><h4>{{row.name}}</h4><span>({{row.distance}})</span></div>
+     
      </div>
     </div>
 </main>

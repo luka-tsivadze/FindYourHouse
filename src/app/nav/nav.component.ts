@@ -172,9 +172,13 @@ this.showRegistrForm()
  }else if(element.a=='User Panel' && !this.IsSignedIn.signed){
 this.showRegistrForm()
 element.route='/'
-
 }
+if(element.chack){
 
+}else{
+  console.log(element)
+  this.router.navigate([element.RouterLink])
+}
 }
   
   scrollToTop(duration: number = 600): void {
@@ -207,11 +211,10 @@ element.route='/'
     if (localStorage.getItem('ActiveElement') =='Log Out'){ 
       localStorage.removeItem('id');
   
-    }
-
+    } 
+    this.router.navigate(['/Listing'])
     localStorage.setItem('ActiveElement',info)
-    this.router.navigate(['Listing'])
-     
+ console.log(info)
   }
   profileSettings(el){
     if(el=='Log Out'){

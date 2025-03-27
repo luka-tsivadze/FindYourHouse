@@ -12,50 +12,11 @@ import { Observable } from 'rxjs';
 })
 export class PropertyInformationService {
 cardId;
-  chosenCard = {
-    featuredBtn: true,
-    For: 'For Sale',
-    Nomeri:'',
-    email:'',
-    videoLink:'../../../assets/Video/VID_20220810_175242.mp4',
-    Type: 'Villa',
-    imgLink: '../../assets/Imges/Header/CardImges/F1.j',
-    alt: 'Luxury family house villa for sale',
-    header: 'Real Luxury Family House Villa',
-    location: 'Est St, 77 - Central Park South, NYC',
-    bedrooms: 6,
-    bathrooms: 3,
-    purePrice:'50',
-    currency:'$',
-    area: 720,
-    garages: 2,
-    floorPlan: '../../../assets/Imges/StaticImg/CardImges/fp-1.jpg',
-    price: '$110,000',
-    profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-4.jpg',
-    profileName: 'john Doe',
-    uploadmonth: 2,
-    YearBuilt: '2010/06/23',
-    id: 0,
-    momxmareblis_id: 1,
-   latitude:  41.82143000, 
-   longitude: 41.77921000,
-    Rooms: 8,
-     Reviews:[
-      
-      {name:'Mary Smith',date:'May 30 2020', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero luctus tincidunt. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero',ProfileimgLink:'/assets/Imges/Header/CardImges/A-4.jpg', review:3, postedimgesLinks:{isimg:false, imgUrl:[]} },
-     {name:'Lisa Williams',date:'jul 12 2020', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero luctus tincidunt. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero',ProfileimgLink:'/assets/Imges/Header/CardImges/A-2.jpg', review:5, postedimgesLinks:{isimg:false} },
-    ], 
-
-   
-      Amenities: ['Pool', 'Heating', 'Laundry Room', 'Fridge', 'Parking', 'Cable TV', 'Internet', 'Microwave', 'Dryer', 'barbeque', 'Lawn', 'Dish Washer'],
-    img: ['../../../assets/Imges/StaticImg/CardImges/fp-5.jpg', '../../../assets/Imges/StaticImg/CardImges/fp-1.jpg',
-      '../../../assets/Imges/StaticImg/CardImges/fp-2.jpg', '../../../assets/Imges/StaticImg/CardImges/fp-4.jpg'],
-    describtion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero luctus tincidunt. Nulla convallis pulvinar vestibulum. Donec sed ligula sit amet felis. Sed sed erat ut libero'
-  }
+chosenCard = new BehaviorSubject<any>(null);
   RecentProp = [{
     img: '../../../assets/Imges/StaticImg/CardImges/fp-1.jpg',
     type: 'Family House',
-    price: '$1,200,000'
+    price: '1,200,000'
   }
     , {
     img: '../../../assets/Imges/StaticImg/CardImges/fp-2.jpg',
@@ -97,22 +58,41 @@ cardId;
     area: '120',
     rooms: '4',
     bedrooms: '1',
+  },
+  {
+    img: '../../../assets/Imges/StaticImg/CardImges/fp-1.jpg',
+    type: 'Family House',
+    price: '$200,000',
+    For: 'For Sale',
+    locationCity: 'New York',
+    area: '720',
+    rooms: '8',
+    bedrooms: '3',
+  },
+  {
+    img: '../../../assets/Imges/StaticImg/CardImges/fp-2.jpg',
+    type: 'luxury House',
+    price: '$900,000',
+    For: 'For Sale',
+    locationCity: 'New York',
+    area: '420',
+    rooms: '6',
+    bedrooms: '2',
+  },
+  {
+    img: '../../../assets/Imges/StaticImg/CardImges/fp-3.jpg',
+    type: 'Family House',
+    price: '$10,000',
+    For: 'For Rent',
+    locationCity: 'New York',
+    area: '120',
+    rooms: '4',
+    bedrooms: '1',
   }
 
   ]
 
-  nearbyProp = [[{ headerName:'Education', class: 'first', imgLink: '../../../assets/Imges/CardDetailed/Icons/mortarboard-fill.svg',//static Info in this row don't change it!!
-     review: 4, name: 'Education Mandarin', distance: '15.6 km' }, { review: 3, name: "Marry's Education", distance: '11.6 km' },
-  { review: 5, name: 'The Kaplan', distance: '7.6 km' }],
-
-  [{ headerName:'Health & Medical', class: 'second', imgLink: '../../../assets/Imges/CardDetailed/Icons/doctor-svgrepo-com.svg',//static Info in this row don't change it!!
-     review: 4, name: 'Natural Market', distance: '13.6 km' },{ review: 3, name: 'Food For Health', distance: '2.26 km' },
-  { review: 2, name: 'A Matter of Health', distance: '0.6 km' }],
-
-  [{  headerName:'Transportation', class: 'third', imgLink: '../../../assets/Imges/CardDetailed/Icons/car-front-fill.svg',//static Info in this row don't change it!!
-     review: 5, name: 'Airport Transportation', distance: '11.36 km'},
-    { review: 4, name: 'NYC Executive Limo', distance: '11.6 km' },{ review: 3, name: 'Empire Limousine', distance: '11.52 km' }],
-  ]
+  
  similarProp = [   {
   featuredBtn: true,
   For: 'For Sale',
@@ -131,41 +111,7 @@ cardId;
   id:0,
   
 },
-{
-  featuredBtn: false,
-  For: 'For Rent',
-  imgLink: '../../assets/Imges/Header/CardImges/F2.jpg',
-  alt: 'Luxury family house villa for rent',
-  header: 'Real Luxury Family House Villa',
-  location: 'Est St, 77 - Central Park South, NYC',
-  bedrooms: 6,
-  bathrooms: 3,
-  area: 720,
-  garages: 2,
-  price: '$ 150,000',
-  profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-6.jpg',
-  profileName: 'Maria Williams',
-  uploadmonth: 2,
-  id:1
-},
-{
-  featuredBtn: false,
-  For: 'For Sale',
-  imgLink: '../../assets/Imges/Header/CardImges/F3.jpg',
-  alt: 'Another luxury family house villa for sale',
-  header: 'Real Luxury Family House Villa',
-  location: 'Est St, 77 - Central Park South, NYC',
-  bedrooms: 6,
-  bathrooms: 3,
-  area: 720,
-  garages: 2,
-  price: '$ 150,000',
-  profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-3.jpg',
-  profileName: 'Martina Williams',
-  uploadmonth: 4,
-  id:2,
-
-},]
+]
 
 imgLink=[];
 floorimg;
@@ -203,6 +149,7 @@ setCardId(cardId: number) {
   this.cardId = cardId;
 
   // Find the selected card from the backend data
+  
   const selectedCard = this.allcards.back_end_data.find((card) => card.idi == this.cardId);
 
 const images = JSON.parse(selectedCard.fotoebi);
@@ -233,7 +180,7 @@ if (Array.isArray(images) && images.length > 0) {
   if (selectedCard) {
     // Transform the backend data into the desired format for chosenCard
     console.log('Selected card:', selectedCard);
-    this.chosenCard = {
+    const temp= {
       featuredBtn: true, // Static value as per requirements
       For: selectedCard.garigebis_tipi || 'Unknown',
       email: selectedCard.amtvirtvelis_maili || 'Unknown',
@@ -262,15 +209,42 @@ if (Array.isArray(images) && images.length > 0) {
       latitude:  selectedCard.mapis_grdzedi, // Static placeholder
       longitude: selectedCard.mapis_ganedi, // Static placeholder
       Rooms: parseInt(selectedCard.otaxebis_raodenoba) || 0,
-      Reviews: [], // Placeholder
+
       Amenities: [],
       img: this.imgLink,
       floorPlan: this.floorimgLink || false, // Static placeholder
       videoLink: this.videoLin || false, // Static placeholder
       describtion: selectedCard.mokle_agwera, 
       momxmareblis_id: selectedCard.amtvirtvelis_idi,
-    };
 
+      saavadmyofos_dasaxeleba_1: selectedCard.saavadmyofos_dasaxeleba_1 || null,
+      saavadmyofos_dasaxeleba_2: selectedCard.saavadmyofos_dasaxeleba_2 || null,
+      saavadmyofos_dasaxeleba_3: selectedCard.saavadmyofos_dasaxeleba_3 || null,
+      saavadmyofos_distancia_1: selectedCard.saavadmyofos_distancia_1 || null,
+      saavadmyofos_distancia_2: selectedCard.saavadmyofos_distancia_2 || null,
+      saavadmyofos_distancia_3: selectedCard.saavadmyofos_distancia_3 || null,
+
+      skolis_dasaxeleba_1: selectedCard.skolis_dasaxeleba_1 || null,
+      skolis_dasaxeleba_2: selectedCard.skolis_dasaxeleba_2 || null,
+      skolis_dasaxeleba_3: selectedCard.skolis_dasaxeleba_3 || null,
+      skolis_distancia_1: selectedCard.skolis_distancia_1 || null,
+      skolis_distancia_2: selectedCard.skolis_distancia_2 || null,
+      skolis_distancia_3: selectedCard.skolis_distancia_3 || null,
+
+      transportis_dasaxeleba_1: selectedCard.transportis_dasaxeleba_1 || null,
+      transportis_dasaxeleba_2: selectedCard.transportis_dasaxeleba_2 || null,
+      transportis_dasaxeleba_3: selectedCard.transportis_dasaxeleba_3 || null,
+      transportis_distancia_1: selectedCard.transportis_distancia_1 || null,
+      transportis_distancia_2: selectedCard.transportis_distancia_2 || null,
+      transportis_distancia_3: selectedCard.transportis_distancia_3 || null,
+      similarProp: [],
+
+ 
+    };
+    this.getSimilarProp(selectedCard).subscribe((data) => {
+      console.log('Similar properties:', data);
+      temp.similarProp = data;
+    });
     // Populate Amenities based on boolean fields
     const language = localStorage.getItem('Language') || 'ENG';
 
@@ -289,10 +263,12 @@ if (Array.isArray(images) && images.length > 0) {
     
     Object.keys(amenitiesMap).forEach(key => {
       if (selectedCard[key] === "true" || selectedCard[key] === true) {
-        this.chosenCard.Amenities.push(amenitiesMap[key][language] || amenitiesMap[key].ENG);
+        temp.Amenities.push(amenitiesMap[key][language] || amenitiesMap[key].ENG);
       }
     });
-    
+
+
+    this.chosenCard.next(temp);
     
     
     // Log the transformed card for debugging
@@ -316,7 +292,7 @@ Sendresp=new BehaviorSubject<any>(false);
 SendUserMessage(form):BehaviorSubject<any> {
   this.http.post('send_user_message.php', form)
   .subscribe({
-    next: (data) => { console.log('Message sent:', data);
+    next: (data) => { ;
       this.Sendresp.next(data);
      },
     error: (error) => { console.error('Error sending message:', error);
@@ -331,9 +307,33 @@ return this.Sendresp;
 RecentProp$=new BehaviorSubject<any>(false);
 getRecentProp():Observable<any>{
   this.http.get('get_new_houses.php').subscribe({
-    next: (data) => { console.log('Recent Properties:', data); this.RecentProp$.next(data); },
+    next: (data) => { this.RecentProp$.next(data); },
     error: (error) => { console.error('Error fetching recent properties:', error); }
 })
 return this.RecentProp$;
+}
+
+getSimilarProp(chosenCard): Observable<any> {
+  const body = {
+    garigebis_tipi: chosenCard.garigebis_tipi,
+    qalaqi: chosenCard.qalaqi,
+    fasi: chosenCard.fasi,
+    // fasi: chosenCard.fasi + chosenCard.fasis_valuta,
+    fartobi: chosenCard.fartobi
+  };
+
+  return new Observable((observer) => {
+    this.http.post('get_similar_houses.php', body).subscribe({
+      next: (data) => {
+        observer.next(data);
+        observer.complete();
+      },
+      error: (error) => {
+        console.error('Error fetching similar properties:', error);
+        observer.next(this.similarProp);
+        observer.complete();
+      }
+    });
+  });
 }
 }

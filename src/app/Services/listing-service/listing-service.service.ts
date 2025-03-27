@@ -1,6 +1,6 @@
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, Observable, of, shareReplay, tap } from 'rxjs';
+import { BehaviorSubject, catchError, forkJoin, map, Observable, of, shareReplay, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -117,30 +117,43 @@ private cachedmyCards$: Observable<any[]> | null = null;
   }
 
   private Views$ = new BehaviorSubject<any>([]);
+
   views(activePage: any[]): BehaviorSubject<any> {  
+    console.log('Fetching views for:', activePage);
     const gancxadebisIds = activePage.map((element: any) => element.id).join(',');
-
+  const gancxadebisArray=activePage.map((element: any) => element.id);
     if (!gancxadebisIds) {
-      return this.Views$; // Avoid unnecessary API calls
+      return this.Views$; // ✅ Avoid unnecessary API calls
     }
-
-    this.http.get(`get-views-counted-data.php`, { params: { gancxadebis_ids: gancxadebisIds } }).subscribe({
-      next: (data: any) => {
-        console.log('Views data:', data);
-
-        activePage = activePage.map((item: any) => ({
+  
+    forkJoin({
+      get: this.http.get<any>(`get-views-counted-data.php`, { params: { gancxadebis_ids: gancxadebisIds } })
+        .pipe(catchError(error => {
+          console.error('GET request failed:', error);
+          return of({}); 
+        })),
+        
+      post: this.http.post<any>('get-revews-count.php', { gancxadebis_ids: gancxadebisArray })
+        .pipe(catchError(error => {
+          console.error('POST request failed:', error);
+          return of({}); 
+        }))
+    }).subscribe({
+      next: ({ get, post }) => {
+        console.log('GET response:', get);
+        console.log('POST response:', post);
+  
+        const combinedData = { ...get, ...post }; // ✅ Merge available responses
+  
+        this.Views$.next(activePage.map((item: any) => ({
           ...item,
-          view: data[item.id] || 0 // Assign API result or default to 0
-        }));
-        this.Views$.next(activePage);
-      },
-      error: (error) => {
-        console.error('Error fetching views:', error);
-        this.Views$.next(activePage);
-      },
+          view: combinedData[item.id] || 0 // ✅ Assign merged API result or default to 0
+        })));
+      }
     });
-
+  
     return this.Views$;
   }
+  
    
 }

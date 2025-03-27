@@ -24,6 +24,12 @@ export class AppComponent implements AfterViewInit {
       this.loaded = loading;
       
     });
+
+      const preloader = document.getElementById('preloader');
+      if (preloader) {
+        preloader.style.display = 'none';
+      }
+
     this.navigate.events.subscribe(event => {
       if (event instanceof NavigationError) {
         this.navigate.navigate(['/']);

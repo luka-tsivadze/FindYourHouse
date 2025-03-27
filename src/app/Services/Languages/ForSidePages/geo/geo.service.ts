@@ -17,9 +17,11 @@ export class GeoService {
   
       firstselectName: 'აირჩიეთ სტატუსი',
       firstselect: ['იყიდება', 'ქირავდება', 'გირავდება', 'ქირავდება დღიურად', '⁠მშენებარე ბინები'],
-  
+      firstselectValues: ['For Rent', 'For Sale', 'For Pledge', 'For Daily Rent', 'New Development'],
+      
       secondselectName: 'ქონების ტიპი',
       secondselect: ['ბინა', 'სახლი', 'კომერციული', 'გარაჟი'],
+      secondselectValues: ['Apartment', 'House', 'Commercial', 'Garage'],
   
       thirdselectName: 'ოთახების რაოდენობა',
   
@@ -42,18 +44,21 @@ export class GeoService {
         FormControlName: 'asaki',
         firstOption: 'აირჩიე ასაკი',
         options: ['0-1 წელი', '0-5 წელი', '0-10 წელი', '0-15 წელი', '0-20 წელი', '0-50 წელი', '50+ წელი'],
+        optionsValues: ['0-1 Year', '0-5 Year', '0-10 Year', '0-15 Year', '0-20 Year', '0-50 Year', '50+ Year'],
         formControlName: 'asaki'
       },
       {
         id: 'badrooms',
         firstOption: 'საძინებელი',
         options: ['1', '2', '3', '4', '5', '6'],
+        optionsValues: ['1', '2', '3', '4', '5', '6'],
         formControlName: 'sadzinebeli'
       },
       {
         id: 'bathroom',
         firstOption: 'სააბაზანო',
         options: ['1', '2', '3', '4', '5', '6'],
+        optionsValues: ['1', '2', '3', '4', '5', '6'],
         formControlName: 'sveli_wertilebis_raodenoba'
       }
     ],

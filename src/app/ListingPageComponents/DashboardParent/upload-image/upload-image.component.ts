@@ -30,6 +30,7 @@ console.log(formData);
   this.http.post('change_profile_image.php', formData ).subscribe({
     next: data => {
       console.log(data);
+      this.navServ.getUserInfo().subscribe(()=>{  }); // Update the user info
     },
     error: error => {
       console.error('There was an error!', error);

@@ -43,7 +43,59 @@ $gap: 20px;
       display: flex;
       flex-direction: column;
       gap: $gap;
+      .educationCol{
+        @include flex-container(column, center, center);
+    gap: 10px;
+    label{
+      width: 100%;
+    }
+.row{   
+   justify-content: start;
+.input{
+  position: relative;
+  width: 31%;
+  @include flex-container(row,center, center);
+  gap: 2px;
+  input{
 
+
+    height: 50px;
+
+    border: 1px solid #ddd;
+    font-size: 12px;
+  }
+  input::placeholder {
+    font: 600 11px $font-primary;
+    color: #7f7f7f;
+  }
+  .Place{
+    padding: 10px;
+  }
+  .Distance{
+    width:95px;
+    padding: 10px 5px;
+  }
+}
+}
+.buttonPlace{
+width: 100%;
+@include flex-container(row, start, center);
+gap: 20px;
+
+button{
+  background: $primary-color;
+  color: #fff;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  font: 16px $font-primary;
+  font-weight: 400;
+  transition: all 0.4s ease;
+  text-transform: capitalize;
+}
+}
+  
+     }
       .row {
         display: flex;
         width: 100%;
@@ -447,171 +499,4 @@ label {
     left: 46%;
   }
 }
-@media screen and (max-width: 1450px) {
-  .FormParent {
-    .center[_ngcontent-ng-c2408448896] .change[_ngcontent-ng-c2408448896] {
-      right: 12% !important;
-      top: 142px !important;
-    }
-    form{
-        padding: 30px 15px;
-        .text{
-            padding: 0 30px;
-        }
-    }
-    .form3{
-      .flexWrap{
-        justify-content: center;
-        .LabledInputs{
-          input{
-            width: 350px;
-          }
-          select{
-            width: 350px;
-          }
-        }
-      }
-    }
-    .form1{
-        .text{
-         
-            .selectRow{
-                justify-content: center;
-                gap: 10px;
-                select{
-                    width: 250px;
-                }
-            }
-        }
-    }
-    .form4{
-        .text{
-            .selectRow{
-              select{
-                width: 241px;
-
-              }
-            }
-        }
-    }
-    .form5 {
-      .text {
-        .flexWrap {
-          grid-template-columns: repeat(4, 1fr);
-        }
-      }
-    }
-  }
-}
-@media (max-width: 1160px) {
-  .FormParent {
-
-    .form1{
-        .text{
-    
-            .selectRow{
-            
-                gap: 22px;
-                select{
-                    width: 250px;
-                }
-            }
-        }
-    }
-
-    .form3{
-      .flexWrap{
-        justify-content: center;
-        .LabledInputs{
-          width: 100% !important;
-          input{
-            width: 100%;
-          }
-          select{
-            width: 100%;
-          }
-        }
-      }
-    
-    }
-    .form4{
-      .text{
-          .selectRow{
-            select{
-              width: 100%;
-              
-            }
-          }
-      }
-  }
-
-    .form5 {
-      .text {
-        .flexWrap {
-          grid-template-columns: repeat(3, 1fr);
-        }
-      }
-    }
-  }
-}
-
-@media screen and (max-width:1070px) {
-  .FormParent{
-   padding: 1rem 10px 1rem 1rem;;
-   form{
-    .text{
-      padding: 0 3px;
-    
-    }
-   }
-   .form1{
-    .text{
-      .selectRow{
-        gap: 10px;
-       select {
-       width: 100%;
-   }
- }
-    }
-   }
-   .form2{
-
-     .imgrow{
-
-      .img[_ngcontent-ng-c2408448896] .uploadedimg {
-       width: 100px;
-       height: 100px;
-      }
-    }
-    }
-  }
-}
-@media screen and (max-width:650px) {
-  .FormParent{
-    .form2 {
-      .center{
-       width: 100%;
-      }
-       label{
-         width: 100%;
-         padding: 20px;
-         p{
-        font-size: 12px;
-         }
-       }
-     }
-  .form5{
-    .text {
-      .flexWrap {
-        grid-template-columns: repeat(2, 1fr);
-        .row{
-          max-width: 130px;
-        label{
-          font-size: 9px;
-        }
-        }
-      }
-    }
-  }
-}
-}
+@import 'ListingResponsive.scss' 

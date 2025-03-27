@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EngService } from '../Languages/eng/eng.service';
 import { GeoService } from '../Languages/geo/geo.service';
 import { RusService } from '../Languages/rus/rus.service';
+import { NavInfoService } from '../NavService/nav-info.service';
 
 
 
@@ -89,9 +90,11 @@ export class AllCardsService  {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         
     this.http.post('https://findhouse.ge/save-house.php', postBody, { headers }).subscribe({
-      next:(data)=>{ console.log('Response:', data)},
+      next:(data)=>{ 
+        this.fetFavchData(this.navServ.userId).subscribe({}); 
+        console.log('Response:', data);},
       error:(error) =>{console.error('Error:', error.error)}, 
-      complete: () => console.log('Request completed') // Now shows detailed JSON error
+  
       
       // Now shows detailed JSON error
     });
@@ -100,6 +103,7 @@ export class AllCardsService  {
     this.http.post('delete-saved-house.php', postBody ).subscribe({
       next: (response) => {
         console.log('Response:', response);
+        this.fetFavchData(this.navServ.userId).subscribe({})
       },
       error: (error) => {
         console.error('Error:', error);
@@ -109,7 +113,7 @@ export class AllCardsService  {
       }
     });
   }
-constructor(private http: HttpClient , private eng: EngService , private Geo: GeoService , private rus: RusService) { 
+constructor(private http: HttpClient , private eng: EngService , private Geo: GeoService , private rus: RusService , private allCardsService: AllCardsService , private navServ:NavInfoService) { 
   
 // Initialize the API call
   if (typeof localStorage !== 'undefined' && localStorage.getItem('Language')) {
@@ -143,6 +147,7 @@ constructor(private http: HttpClient , private eng: EngService , private Geo: Ge
 
 fetchDataFromApi(): Observable<any[]> {
   if (!this.apiResponse$) {
+  
     this.apiResponse$ = this.http.get<any[]>('get_houses.php').pipe(
       map((data: any[]) => {
         this.back_end_data = data;
@@ -192,15 +197,15 @@ fetchDataFromApi(): Observable<any[]> {
 
 private cachedFavCards$: Observable<any[]> | null = null; // Cache variable
 
-fetFavchData(id: number): Observable<any[]> {
-  if (this.cachedFavCards$) {
-    return this.cachedFavCards$; // Return cached response if available
-  }
-
+fetFavchData(id: number ,bool?:boolean): Observable<any[]> {
   const body = { momxmareblis_idi: id };
 
+  if (this.cachedFavCards$ && !bool) {
+    return this.cachedFavCards$;
+  }
+
   this.cachedFavCards$ = this.http.post<any[]>('get-saved-houses.php', body).pipe(
-    switchMap((data) => 
+    switchMap((data) =>
       this.fetchDataFromApi().pipe(
         map((alldata) => {
           const fetchedIds = new Set(Object.values(data).map(fetchedel => fetchedel.gancxadebis_idi));
@@ -208,15 +213,15 @@ fetFavchData(id: number): Observable<any[]> {
         })
       )
     ),
-    shareReplay(1) 
+    shareReplay(1)
   );
 
   return this.cachedFavCards$;
 }
 
-
-
-
+// FetFavReviews(id: number): Observable<any[]> {
+// return  
+// }
 
 
 }

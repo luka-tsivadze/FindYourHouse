@@ -10,36 +10,42 @@ import { LanguageChooserService } from '../../Services/language-chooser/language
 })
 export class CardGallery1Component {
 staticH2='Gallery';
- data = this.cardInfo.chosenCard;
+ data;
  ForActive=0;
- priceForM=Math.round(Number(this.data.purePrice)/Number(this.data.area)) + this.data.currency || 'GEL';
- mainImg=this.cardInfo.chosenCard.img[this.ForActive];
+ chosenCard;
+ priceForM;
+ mainImg;
   constructor( private cardInfo:PropertyInformationService ,private lang:LanguageChooserService) {
 this.staticH2=this.lang.chosenLang.DetailedInfo.CardGallery1;
    }
-
   ngOnInit(): void {
+    this.cardInfo.chosenCard.subscribe((card) => {
+      this.chosenCard = card;
+   this.data=this.chosenCard;
+    this.priceForM=Math.round(Number(this.data.purePrice)/Number(this.data.area)) + this.data.currency || 'GEL';
+    this.mainImg=this.chosenCard.img[this.ForActive];
+    })
   }
   setIndex(index){
     this.ForActive=index;
-    this.mainImg=this.cardInfo.chosenCard.img[this.ForActive];
+    this.mainImg=this.chosenCard.img[this.ForActive];
   }
 incriment(){
-  if(this.ForActive<this.cardInfo.chosenCard.img.length-1){
+  if(this.ForActive<this.chosenCard.img.length-1){
     this.ForActive++;
-    this.mainImg=this.cardInfo.chosenCard.img[this.ForActive];
+    this.mainImg=this.chosenCard.img[this.ForActive];
   }else{
     this.ForActive=0;
-    this.mainImg=this.cardInfo.chosenCard.img[this.ForActive];
+    this.mainImg=this.chosenCard.img[this.ForActive];
   }
 }
 decriment(){
   if(this.ForActive>0){
     this.ForActive--;
-    this.mainImg=this.cardInfo.chosenCard.img[this.ForActive];
+    this.mainImg=this.chosenCard.img[this.ForActive];
   }else{
-    this.ForActive=this.cardInfo.chosenCard.img.length-1;
-    this.mainImg=this.cardInfo.chosenCard.img[this.ForActive];
+    this.ForActive=this.chosenCard.img.length-1;
+    this.mainImg=this.chosenCard.img[this.ForActive];
   }
 }
 

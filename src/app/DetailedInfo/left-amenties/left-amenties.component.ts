@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
@@ -7,7 +7,7 @@ import { LanguageChooserService } from '../../Services/language-chooser/language
   templateUrl: './left-amenties.component.html',
   styleUrls: ['./left-amenties.component.scss']
 })
-export class LeftAmentiesComponent {
+export class LeftAmentiesComponent implements OnInit {
 
   // Static array of property labels
  
@@ -18,12 +18,23 @@ export class LeftAmentiesComponent {
   }
   // Array to hold chosenCard values
   Infoelements: any[] = [];
-  Amenties = this.propertyInfo.chosenCard.Amenities;
+  Amenties ;
+
+
+
 
   constructor(private propertyInfo: PropertyInformationService ,private lang:  LanguageChooserService) { 
     this.static = this.lang.chosenLang.DetailedInfo.leftAmenties;
     // Populate Infoelements based on chosenCard data
-    const chosenCard = this.propertyInfo.chosenCard;
+
+  }
+  chosenCard;
+  ngOnInit(): void {
+    this.propertyInfo.chosenCard.subscribe((card) => {
+      this.chosenCard = card;
+      this.Amenties = card.Amenities;
+    })
+    const chosenCard = this.chosenCard;
     this.Infoelements = [
       chosenCard.id,
       chosenCard.For,
@@ -36,4 +47,5 @@ export class LeftAmentiesComponent {
       chosenCard.YearBuilt
     ];
   }
+  
 }

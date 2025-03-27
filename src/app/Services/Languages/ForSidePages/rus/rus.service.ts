@@ -17,10 +17,11 @@ export class RusService {
     
       firstselectName: 'Выберите статус',
       firstselect:['На продажу', 'В аренду', 'Залог','сдаётся посуточно','Квартиры в строящемся доме'],
-    
+      firstselectValues: ['For Rent', 'For Sale', 'For Pledge', 'For Daily Rent', 'New Development'],
       secondselectName: 'Типы недвижимости',
       secondselect:['Квартира', 'Дом', 'Коммерческая недвижимость', 'Гараж'],
-    
+      secondselectValues: ['Apartment', 'House', 'Commercial', 'Garage'],
+
       thirdselectName: 'Комнаты',
     
       thirdTitle: 'Цена',
@@ -42,18 +43,21 @@ export class RusService {
         FormControlName: 'asaki',
         firstOption: 'Выберите возраст',
         options: ['0-1 год', '0-5 лет', '0-10 лет', '0-15 лет', '0-20 лет', '0-50 лет', '50+ лет'],
+        optionsValues: ['0-1 Year', '0-5 Year', '0-10 Year', '0-15 Year', '0-20 Year', '0-50 Year', '50+ Year'],
         formControlName: 'asaki'
       },
       {
         id: 'badrooms',
         firstOption: 'Спальни',
         options: ['1', '2', '3', '4', '5', '6'],
+        optionsValues: ['1', '2', '3', '4', '5', '6'],
         formControlName: 'sadzinebeli'
       },
       {
         id: 'bathroom',
         firstOption: 'Санузлы',
         options: ['1', '2', '3', '4', '5', '6'],
+        optionsValues: ['1', '2', '3', '4', '5', '6'],
         formControlName: 'sveli_wertilebis_raodenoba'
       }
     ],

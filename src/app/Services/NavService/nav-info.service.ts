@@ -4,6 +4,7 @@ import { BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { text } from 'stream/consumers';
 import { Router } from 'express';
+import { A } from 'ol/renderer/webgl/FlowLayer';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class NavInfoService {
     Home: [  ],
     Property: [ ],
     Pages: [ 
-      { a: 'User Panel',chack:'User Panel', Showimg: true,  RouterLink: '', subText: [ {text:'Dashboard',value:'Dashboard'},
+      { a: 'User Panel',chack:'User Panel', Showimg: true,  RouterLink: '/Listing', subText: [ {text:'Dashboard',value:'Dashboard'},
         { text:'Profile',value:'Profile' }, {text:'My Properties',value:'My Properties'}, { text:'Favorited Properties',value:'Favorited Properties'} ,
          {text:'Add Property',value:'Add Property'} ,{text:'Payments',value:'Payments'},{text:'Change Password',value:'Change Password'}] },
       { a: 'Login', chack:'Login', Showimg: false },
@@ -30,7 +31,10 @@ export class NavInfoService {
   };
 
   IsSignedIn = { signed: false,
-     imgLink: '../../assets/Imges/NavImg/man.png', Name: 'Not Recieved' ,number:'' ,email:'NotRecieved@gmail.com' ,gender:'' ,code:'', location:''
+     imgLink: '../../assets/Imges/NavImg/man.png', Name: 'Not Recieved' ,number:''
+      ,email:'NotRecieved@gmail.com' ,gender:'' ,code:'', location:'' ,type:'',
+      AboutMe:'',
+      links: { facebook: '', instagram: '', telegram: '' ,linkdIn:'', whatsapp:''}
     };
   public userData$ = new BehaviorSubject(this.IsSignedIn);
   Languages = ['ENG', 'RUS', 'GEO'];
@@ -93,12 +97,22 @@ userId
 
         console.log('User information fetched:', data);
         
-        this.IsSignedIn.Name = `${data[0].saxeli} ${data[0].gvari}`;
-        this.IsSignedIn.number = data[0].nomeri;
-        this.IsSignedIn.email = data[0].maili;
-        this.IsSignedIn.gender = data[0].sqesi;
-        this.IsSignedIn.code = data[0].saidentifikacio_kodi;
-        this.IsSignedIn.location = data[0].sacxovrebeli_adgili;
+      
+        this.IsSignedIn.Name = data[0] && data[0].saxeli && data[0].gvari ? `${data[0].saxeli} ${data[0].gvari}` : '';
+        this.IsSignedIn.number = data[0] && data[0].nomeri ? data[0].nomeri : '';
+        this.IsSignedIn.email = data[0] && data[0].maili ? data[0].maili : '';
+        this.IsSignedIn.gender = data[0] && data[0].sqesi ? data[0].sqesi : '';
+        this.IsSignedIn.code = data[0] && data[0].saidentifikacio_kodi ? data[0].saidentifikacio_kodi : '';
+        this.IsSignedIn.location = data[0] && data[0].sacxovrebeli_adgili ? data[0].sacxovrebeli_adgili : '';
+        this.IsSignedIn.type = data[0] && data[0].angarishis_tipi ? data[0].angarishis_tipi : 'User';
+        this.IsSignedIn.AboutMe = data[0] && data[0].chems_shesaxeb ? data[0].chems_shesaxeb : '';
+        
+        this.IsSignedIn.links.facebook = data[0] && data[0].facebook_linki ? data[0].facebook_linki : '';
+        this.IsSignedIn.links.instagram = data[0] && data[0].instagram_linki ? data[0].instagram_linki : '';
+        this.IsSignedIn.links.telegram = data[0] && data[0].telegram_linki ? data[0].telegram_linki : '';
+        this.IsSignedIn.links.linkdIn = data[0] && data[0].linkedin_linki ? data[0].linkedin_linki : '';  
+        this.IsSignedIn.links.whatsapp = data[0] && data[0].whatsapp_linki ? data[0].whatsapp_linki : '';
+
 
         if (data[0].foto) {
           this.IsSignedIn.imgLink = `users/${data[0].maili}/${data[0].saidentifikacio_kodi}/${data[0].foto}`;

@@ -4,6 +4,7 @@ import { PropertyInformationService } from '../../Services/Property-info/propert
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 import { RegistrationService } from '../../Services/registration/registration.service';
 import { ReviewsService } from '../../Services/reviews/reviews.service';
+import e from 'express';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { ReviewsService } from '../../Services/reviews/reviews.service';
   styleUrl: './reviews.component.scss'
 })
 export class ReviewsComponent implements OnInit {
-  Reviewinfo=this.service.chosenCard.Reviews;
+  Reviewinfo=[];
 userid=this.service.userId;
   reviews='Reviews'
 
@@ -22,13 +23,28 @@ userid=this.service.userId;
    
            
   }
+  chosenCard;
   ngOnInit(): void {
-this.reviewServ.fetchCardReviews(this.service.chosenCard.id).subscribe(
+    this.service.chosenCard.subscribe((card) => {
+      this.chosenCard = card;
+  
+    })
+this.reviewServ.fetchCardReviews(this.chosenCard.id).subscribe();
+this.reviewServ.cardReview$.subscribe(
   (data) => {
     console.log('review data i recieved in detail Info ',data);
     if(data){
-    // this.Reviewinfo=data;
-    console.log('review data i recieved in detail Info 2 ',this.Reviewinfo);
+    this.Reviewinfo=data.map((element,index)=>{
+      return {
+        postedimgesLinks:{isimg:false},
+        ProfileimgLink: '../../../assets/Imges/NavImg/man.png',
+        date: data[index].shefasebis_tarigi_dro,
+        description: data[index].mesiji,
+        review: data[index].shefaseba,
+        name: data[index].saxeli
+      };
+    });
+  
     }
   }
 );
@@ -42,4 +58,13 @@ this.reviewServ.fetchCardReviews(this.service.chosenCard.id).subscribe(
        this.Registration.setDisplayer(true);
        window.document.body.style.overflow = "hidden";
   }
+  
+// ngOnDestroy(): void {
+//   if (this.service.chosenCard) {
+//     this.service.chosenCard.unsubscribe();
+//   }
+//   if (this.reviewServ.cardReview$) {
+//     this.reviewServ.cardReview$.unsubscribe();
+//   }
+// }
 }

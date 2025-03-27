@@ -200,8 +200,24 @@
     }
   }
   @media screen and (max-width: 580px) {
+    .popularPlaces {
+      h1{
+        font-size: 12px;
+      }
+      p{
+        font-size: 10px;
+      }
+    }
+
+
     .featuredProperties {
       padding: 30px 1%;
+      .FH{
+        font-size: 12px;
+      }
+      .FP{
+        font-size: 10px;
+      }
       .cardPlace {
   
         .propCard {
@@ -241,6 +257,7 @@
         }
       }
     }
+    
   }
   @media screen and (max-width:450px) {
     header{

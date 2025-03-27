@@ -33,6 +33,7 @@ constructor( private http:HttpClient ,private lang:LanguageChooserService){
 this.passwordChangeForm.patchValue({id:localStorage.getItem('id')});
 }
 ngOnInit(): void {
+  // this.test();
  this.staticData=this.lang.chosenLang.ChangePassword;
 }
 
@@ -63,4 +64,11 @@ changePassword(){
     alert('ახალი პაროლები არ ემთხვევა')
   }
 }
+// test(){
+//   this.http.get('get_keywords.php').subscribe({
+//     next:(data)=>{
+//       console.log('kayWords', data);
+//     }
+//   });
+// }
 }

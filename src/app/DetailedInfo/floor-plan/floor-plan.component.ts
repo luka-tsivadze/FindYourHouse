@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
@@ -7,13 +7,15 @@ import { LanguageChooserService } from '../../Services/language-chooser/language
   templateUrl: './floor-plan.component.html',
   styleUrl: './floor-plan.component.scss'
 })
-export class FloorPlanComponent {
-floorplan=this.infoService.chosenCard.floorPlan;
+export class FloorPlanComponent implements OnInit {
+floorplan;
 header='Floor Plan';
   constructor( private infoService:PropertyInformationService ,  private lang:  LanguageChooserService) {
     this.header=this.lang.chosenLang.DetailedInfo.Floorplan; 
-  
-
-    
+  }
+  ngOnInit(): void {
+    this.infoService.chosenCard.subscribe((card) => {
+      this.floorplan = card.floorPlan;
+    })
   }
 }

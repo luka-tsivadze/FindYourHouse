@@ -6,6 +6,7 @@ import { NavInfoService } from '../../Services/NavService/nav-info.service';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 import { ListingServiceService } from '../../Services/listing-service/listing-service.service';
 import { MainPageDataService } from '../../Services/mainPageService/main-page-data.service';
+import { distance } from 'ol/coordinate';
 
 @Component({
   selector: 'app-main-listing',
@@ -30,6 +31,28 @@ index=0;
 calledFromEdit = false;
 isLoadingFiles = true;
 allForms=this.lang.chosenLang.allForms;
+
+NearbyProperties=[{
+  header:'Education',
+  FormControls:[{name:'FirstPlace_Education', Distance:'FirstDistance_Education'},{name:'SecondPlace_Education',Distance:'SecondDistance_Education'},
+    {name:'ThirdPlace_Education',Distance:'ThirdDistance_Education'}],
+  inputs:[{placeController:'FirstPlace_Education', DistanceController:'FirstDistance_Education'} ]
+},
+{
+  header:'Health & Medical',
+  FormControls:[{name:'FirstPlace_Health',  Distance:'FirstDistance_Health' },{name:'SecondPlace_Health', Distance:'SecondDistance_Health' }
+    ,{name:'ThirdPlace_Health',Distance:'ThirdDistance_Health'},  ],
+  inputs:[{placeController:'FirstPlace_Health', DistanceController:'FirstDistance_Health'} ]
+},
+{
+  header:'Transportation',
+  FormControls:[{name:'FirstPlace_Transportation', Distance:'FirstDistance_Transportation'   },
+    {name:'SecondPlace_Transportation', Distance:'SecondDistance_Transportation'  },
+    {name:'ThirdPlace_Transportation', Distance:'ThirdDistance_Transportation'  }],
+  inputs:[{placeController:'FirstPlace_Transportation', DistanceController:'FirstDistance_Transportation'}]
+}
+]
+
 city={
   input:this.lang.chosenLang.allForms.City, 
   options:{optDis:this.mainServ.LangMainData.allFilter.FirstFilter.locationDis ,optValue:this.mainServ.LangMainData.allFilter.FirstFilter.locations}};
@@ -73,7 +96,38 @@ name;
       telefonis_nomeri: [this.navservice.IsSignedIn.number, Validators.required],
       el_fosta: [this.navservice.IsSignedIn.email, [Validators.required, Validators.email]],
       amtvirtvelis_maili: [''],
-      id : ['']
+      id : [''],
+
+      //nearby properties
+
+      //განათლება
+      FirstPlace_Education:[''],
+      FirstDistance_Education:[''],
+      SecondPlace_Education:[''],
+      SecondDistance_Education:[''],
+      ThirdPlace_Education:[''],
+      ThirdDistance_Education:[''],
+
+      dzveli_atvirtvis_tarigi :[''],
+      moqmedeba:['atvirtva'],
+
+      //ჯანმრთელობა
+      FirstPlace_Health:[''],
+      FirstDistance_Health:[''],
+      SecondPlace_Health:[''],
+      SecondDistance_Health:[''],
+      ThirdPlace_Health:[''],
+      ThirdDistance_Health:[''],
+
+      //ტრანსპორტი
+      FirstPlace_Transportation:[''],
+      FirstDistance_Transportation:[''],
+      SecondPlace_Transportation:[''],
+      SecondDistance_Transportation:[''],
+      ThirdPlace_Transportation:[''],
+      ThirdDistance_Transportation:[''],
+      
+      
     });
  
   }
@@ -91,10 +145,28 @@ name;
     });
   }
 
+  nearbyError:any=[{bol:false , message:''} ,{bol:false , message:''},{bol:false , message:''}];
+  addInput(header , index:number){
+    if(this.NearbyProperties[index].inputs.length==3){
+this.nearbyError[index].message='You can add 3  properties Max';
+this.nearbyError[index].bol=true;
+
+      return;
+    }else{
+      this.nearbyError[index].bol=false;
+    }
+console.log('input to add ',this.NearbyProperties[index].FormControls[header.length]);
+    this.NearbyProperties[index].inputs.push({placeController:this.NearbyProperties[index].FormControls[header.length].name,
+       DistanceController:this.NearbyProperties[index].FormControls[header.length].Distance});
+
+  }
+
   async loadItemData(data) {
     console.log('Loading item data:', data);
     this.calledFromEdit = true;
     this.isLoadingFiles = true; // ✅ Start loading
+  this.listingForm.patchValue({ dzveli_atvirtvis_tarigi: data});
+    this.listingForm.patchValue({ moqmedeba: 'shecvla'});
   
     try {
       // ✅ Convert images
@@ -295,11 +367,12 @@ name;
   
   onSubmit(): void {
     if (this.listingForm.invalid) {
-      console.error('Invalid form:', this.listingForm.value);
+      console.error('Invalid form:', this.listingForm.value); 
       this.scrollToFirstInvalidControl();
       return;
     }
-    console.log(this.listingForm.value);
+    console.log('Form submitted:', this.listingForm.value);
+
     if (!this.selectedFile && (!this.imgRowlink.length && !this.videoRowlink)) {
       console.error('No file selected');
       return;

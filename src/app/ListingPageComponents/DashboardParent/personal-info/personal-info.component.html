@@ -9,7 +9,7 @@
         </div>
        <div class="col" *ngFor="let el of UserSelect">
            <label for="{{el.label}}">{{el.label}}</label>
-           <select formControlName="{{el.FormControlName}}" id="{{el.label}}">
+           <select formControlName="{{el.FormControlName}}" id="{{el.label}}" (change)="change($event.target)">
                 <option value="" disabled selected hidden>{{el.placeholder}}</option> 
                <option *ngFor="let option of el.options.dis let i =index" [value]="el.options.val[i]">{{option}}</option>
            </select>
@@ -21,25 +21,20 @@
             <textarea formControlName="{{info.FormControlName}}"  id="{{info.label}}" placeholder="{{info.placeholder}}"></textarea>
         </div>
         <label for="soc" style="width: 100%;">{{ Allnetworks.Header }}</label>
-        <div class="col" *ngFor="let item of Allnetworks.elements">
-            <select [formControlName]="item.FormControlbtn">
-              <option *ngFor="let el of item.networks; let i = index" [value]="el.value" > 
-                {{ el.name }}
-              </option>
-            </select>
-            <input type="text" placeholder="Write your Profile link here" [formControlName]="item.FormControlHref">
+ 
+        <ng-container *ngIf="displayLinks">
+          <div class="col" *ngFor="let item of Allnetworks.elements">
+            <label for="{{item.name}}">{{item.value}}</label>
+            <input type="text" id="{{item.name}}" placeholder="Write your Profile link here" [formControlName]="item.FormControlHref">
           </div>
-         
+        </ng-container>
+        
+  
           <div class="row">
-              <button type="button" *ngIf="plusbtn " (click)="addNetwork()">+</button>
-              <button type="button" *ngIf="Allnetworks.elements.length > 1" (click)="removeNetwork()">-</button>
-            </div>
-          
-          <button type="submit">Submit</button>
-          
-          
-          
-  <span *ngIf="UserMessage.load" [ngClass]="{'error':UserMessage.error, 'success':!UserMessage.error }">{{UserMessage.text}}</span>
+
+            <button type="submit">Submit</button>
+            <span *ngIf="UserMessage.load" [ngClass]="{'error':UserMessage.error, 'succes':!UserMessage.error }">{{UserMessage.text}}</span>
+          </div>
     </form>
 
 

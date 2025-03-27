@@ -50,10 +50,10 @@
 
                 <label for="mobile">mobile Number*
                     <img class="sendIcon" *ngIf="RegistrForm.controls['nomeri'].valid && !verification" src="../../assets/Imges/StaticImg/StaticIcons/send-plus-fill.svg" alt="send btn" (click)="sendCode()" >
-                   <button class="code" type="button" *ngIf="codeSegment && RegistrForm.controls['nomeri'].valid && !verification" (click)=checkCode() >chack</button>
+                   <!-- <button class="code" type="button" *ngIf="codeSegment && RegistrForm.controls['nomeri'].valid && !verification" (click)=checkCode() >chack</button> -->
                 </label>
-                <input type="tel" id="mobile"  formControlName="nomeri" required >
-                <input type="tel" *ngIf="codeSegment && RegistrForm.controls['nomeri'].valid &&  !verification"  placeholder="Enter the code you received on your phone" name="verificationInput" formControlName="verificationInput">
+                <input type="tel" id="mobile" formControlName="nomeri"  inputmode="numeric" onwheel="this.blur()" onkeydown="if(event.key==='e'||event.key==='E'||event.key==='-'){event.preventDefault();}">
+                <input type="tel" *ngIf="codeSegment && !RegistrForm.controls['nomeri'].invalid &&  !verification"  placeholder="Enter the code you received on your phone" name="verificationInput"  (input)="onCodeInput($event)" formControlName="verificationInput">
                 <div class="notification" *ngIf="codeSegment && verification" > verification ended succsesfully </div>
                 <div class="error" *ngIf="verification==false && RegistrForm.controls['verificationInput'].touched" >write correct Code</div>
                 <div class="error" *ngIf="RegistrForm.controls['nomeri'].invalid && RegistrForm.controls['nomeri'].touched"  >
@@ -76,7 +76,7 @@
                     Gender is required.
                 </div>
                 <button type="submit" name="registracia"  #registName [disabled]="!RegistrForm.valid ">Register</button>
-                <div class="error" *ngIf="RError" >Registration Was No succsesfull</div>
+                <div class="error" *ngIf="RError" >{{regErrorText}}</div>
             </form>
 
             <!-- Login Form -->

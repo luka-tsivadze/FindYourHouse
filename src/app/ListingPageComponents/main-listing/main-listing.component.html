@@ -12,9 +12,9 @@
                 <label for="mokle_agwera">{{allForms.form1info.secondTitle}}</label>
                 <textarea class="resizable-textarea" type="text" name="Description" id="mokle_agwera" placeholder="{{allForms.form1info.secondplaceHolder}}"  formControlName="mokle_agwera"></textarea>
                 </div>
-                <div class="selectRow"><select   id="garigebis_tipi"  formControlName="garigebis_tipi">  <option value="" disabled selected hidden>{{allForms.form1info.firstselectName}}</option> <option *ngFor="let el of allForms.form1info.firstselect" value="{{el}}">{{el}}</option></select> 
+                <div class="selectRow"><select   id="garigebis_tipi"  formControlName="garigebis_tipi">  <option value="" disabled selected hidden>{{allForms.form1info.firstselectName}}</option> <option *ngFor="let el of allForms.form1info.firstselect let i =index" value="{{ allForms.form1info.firstselectValues[i]}}">{{el}}</option></select> 
                     <select  id="tipi"  formControlName="tipi"><option value="" disabled selected hidden>{{allForms.form1info.secondselectName}}</option> 
-                        <option *ngFor="let opt of allForms.form1info.secondselect" value="{{opt}}">{{opt}}</option></select> 
+                        <option *ngFor="let opt of allForms.form1info.secondselect let i =index" value="{{allForms.form1info.secondselectValues[i]}}">{{opt}}</option></select> 
                     <select  id="otaxebis_raodenoba"  formControlName="otaxebis_raodenoba"><option value="" disabled selected hidden>{{allForms.form1info.thirdselectName}}</option>
                     <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
                     </select>
@@ -98,8 +98,19 @@
             <div class="selectRow">
 
                 <select *ngFor="let form4 of  allForms.form4Info" id={{form4.formControlName}} formControlName="{{form4.formControlName}}"  ><option value="" disabled selected hidden>{{form4.firstOption}}</option>
-                    <option *ngFor="let option of form4.options" value="{{option}}">{{option}}</option>
+                    <option *ngFor="let option of form4.options let i=index" value="{{form4.optionsValues[i]}}">{{option}}</option>
                 </select>
+            </div>
+             <h3 >Nearby Properties</h3>
+            <div class="educationCol" *ngFor="let prop of NearbyProperties let i =index">
+        
+               <label > {{prop.header}} </label>
+               <div class="row">  
+                 <div class="input" *ngFor="let inp of prop.inputs"> <input [formControlName]="inp.placeController" type="text" class="Place" placeholder="write Place Name:"> <input class="Distance" type="number" [formControlName]="inp.DistanceController"  placeholder="Distance(km)"> </div> </div>
+              <div class="buttonPlace">
+                  <button type="button" (click)="addInput(prop.inputs , i)">+</button>
+                  <span class="error" *ngIf="nearbyError[i].bol">{{nearbyError[i].message}}</span>
+              </div> 
             </div>
         </div>
     </form>

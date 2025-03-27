@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
@@ -7,16 +7,21 @@ import { LanguageChooserService } from '../../Services/language-chooser/language
   templateUrl: './propvideo-l.component.html',
   styleUrl: './propvideo-l.component.scss'
 })
-export class PropvideoLComponent {
+export class PropvideoLComponent implements OnInit {
   showCover = true; // Controls the visibility of the cover
   @ViewChild('videoPlayer') videoPlayer: any;
   // Play video and hide the cover
-videoLink=this.propertyService.chosenCard.videoLink;
+videoLink;
 propvideo='Property Video';
  constructor( private propertyService:PropertyInformationService,private lang:LanguageChooserService) {
     this.propvideo=this.lang.chosenLang.DetailedInfo.propvideo;
 
  }
+  ngOnInit(): void {
+    this.propertyService.chosenCard.subscribe((card) => {
+      this.videoLink = card.videoLink;
+    })
+  }
   playVideo() {
     const videoElement = this.videoPlayer.nativeElement;
    console.log('videurl', this.videoLink);

@@ -41,7 +41,7 @@ reviewIndices=[]
   }
   ngOnInit() {
     this.staticData = this.lang.chosenLang.myProp;
-    this.allCardsService.fetFavchData(this.idplace.userId).subscribe({
+    this.allCardsService.fetFavchData(this.idplace.userId ,true).subscribe({
       next: (filteredData) => {
        
         this.favCardEl = filteredData;
@@ -51,6 +51,7 @@ reviewIndices=[]
       complete:()=>{
         this.sharedService.views(this.favCardEl).subscribe({
           next:(data)=>{
+            console.log('data',data);
             this.favCardEl = data;
             this.pageFunction(); 
           }
@@ -69,7 +70,8 @@ reviewIndices=[]
       next: (response) => {
        
        this.favCardEl = this.favCardEl.filter((card) => card.id !== id);
-     // Clear page indices 
+
+     this.allCardsService.fetFavchData(this.idplace.userId ,true).subscribe({});
        this.pageFunction();
        this.cdr.detectChanges();
       },

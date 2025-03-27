@@ -73,6 +73,20 @@
   @media screen and (max-width: 700px) {
     
     main {
+      .popularProperties{
+        .scrollParent {
+          
+               overflow-x: scroll;
+          .cardParent{
+            padding: 20px 74px;
+            padding-left: 180px;
+          }
+               .btnRow{
+                  display: none !important;
+               }
+      
+        }
+      }
       .Reviews {
         .HText{
           font-size: 1.1rem;

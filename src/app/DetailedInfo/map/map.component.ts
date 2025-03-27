@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
-import * as ol from 'ol';
+
 import 'ol/ol.css';
 import { OSM } from 'ol/source';
 import { View } from 'ol';
@@ -13,7 +13,7 @@ import { Icon, Style } from 'ol/style';
 import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
-import { defaults as defaultControls } from 'ol/control';
+
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
 @Component({
@@ -24,8 +24,8 @@ import { LanguageChooserService } from '../../Services/language-chooser/language
 export class MapComponent implements OnInit, AfterViewInit {
   map: Map | undefined;
   loc='location';
-  lat = this.service.chosenCard.latitude; // Latitude from the service
-  long = this.service.chosenCard.longitude; // Longitude from the service
+  lat; // Latitude from the service
+  long; // Longitude from the service
   @ViewChild('mapContainer', { static: false }) mapContainer: ElementRef | undefined;
 
   constructor(
@@ -36,7 +36,12 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.loc=this.lang.chosenLang.DetailedInfo.map;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.service.chosenCard.subscribe((card) => {
+      this.lat = card.latitude;
+      this.long = card.longitude;
+    })
+  }
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {

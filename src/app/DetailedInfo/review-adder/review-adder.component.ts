@@ -5,6 +5,7 @@ import { Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 import { NavInfoService } from '../../Services/NavService/nav-info.service';
+import { ReviewsService } from '../../Services/reviews/reviews.service';
 
 @Component({
   selector: 'app-review-adder',
@@ -14,7 +15,7 @@ import { NavInfoService } from '../../Services/NavService/nav-info.service';
 export class ReviewAdderComponent  implements OnInit {
 starRating = [{id:0, filled:true }, {id: 1, filled:true}, {id: 2, filled:true}, {id:3 ,filled:true},{id: 4 ,filled:true}];
 reviewForm:FormGroup;
-gancxadebis_id=this.prop.chosenCard.id;
+gancxadebis_id;
 momxmareblis_id=this.prop.userId;
 shefaseba:number;
 reviewAd={
@@ -26,12 +27,16 @@ submit:'Submit Review'
 reqSent=false;
 
 constructor(private prop:PropertyInformationService, private http:HttpClient ,private lang:LanguageChooserService 
-  , private navServ:NavInfoService) {
+  , private navServ:NavInfoService , private reviewServ:ReviewsService) {
 this.reviewAd=this.lang.chosenLang.DetailedInfo.reviewAd;
 
  }
+adresati_idi;
 ngOnInit(){
-  
+  this.prop.chosenCard.subscribe((card) => {
+    this.gancxadebis_id=card.id;
+    this.adresati_idi=card.momxmareblis_id;
+  })
   this.reviewForm = new FormGroup({
     saxeli: new FormControl(''),
     
@@ -53,7 +58,7 @@ this.reviewForm.value.gancxadebis_id = this.gancxadebis_id;
 this.reviewForm.value.momxmareblis_id = this.momxmareblis_id;
 this.reviewForm.value.saxeli = this.navServ.IsSignedIn.Name;
 this.reviewForm.value.maili = this.navServ.IsSignedIn.email;
-this.reviewForm.value.adresatis_idi = this.prop.chosenCard.momxmareblis_id; ;
+this.reviewForm.value.adresatis_idi = this.adresati_idi;
 
 console.log(this.reviewForm.value);
 if(this.reviewForm.value.shefaseba && this.reviewForm.value.momxmareblis_id){
@@ -61,11 +66,18 @@ this.http.post('save_review.php', this.reviewForm.value).subscribe({
 next: (data: { status: string }) => { console.log(data); 
   if(data.status == "success"){
     this.reqSent=true;
+    console.log(this.gancxadebis_id);
+  this.loadReviews(this.gancxadebis_id);
   }},
 error: (error) => { console.error(error); }
 
 })
 }
+}
+loadReviews(id){
+  this.reviewServ.fetchCardReviews(this.gancxadebis_id).subscribe((resp)=>{
+    console.log('this should load new data ',resp);
+  });
 }
 
 rater(star){
