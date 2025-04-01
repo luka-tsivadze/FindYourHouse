@@ -153,6 +153,12 @@ fetchDataFromApi(): Observable<any[]> {
         this.back_end_data = data;
         const processedData = data.map((item: any) => {
           try {
+            
+            const uploadDate = new Date(item.statusis_gaaqtiurebis_tarigi);
+            const currentDate = new Date();
+            const timeDifference = currentDate.getTime() - uploadDate.getTime();
+            const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
             const images = JSON.parse(item.fotoebi || '[]');
             const firstimg =
               Array.isArray(images) && images.length > 0
@@ -174,7 +180,7 @@ fetchDataFromApi(): Observable<any[]> {
               profileName: item.momxmareblis_saxeli,
               alt: item.satauri,
               momxmreblis_idi: item.amtvirtvelis_idi,
-              uploadmonth: 3,
+              uploadmonth: daysDifference,
             };
           } catch (error) {
             console.error('Error processing item:', item, error);

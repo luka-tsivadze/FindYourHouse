@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { error } from 'node:console';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class RusService {
     
       firstselectName: 'Выберите статус',
       firstselect:['На продажу', 'В аренду', 'Залог','сдаётся посуточно','Квартиры в строящемся доме'],
-      firstselectValues: ['For Rent', 'For Sale', 'For Pledge', 'For Daily Rent', 'New Development'],
+      firstselectValues: ['იყიდება', 'ქირავდება', 'გირავდება', 'ქირავდება დღიურად', '⁠მშენებარე ბინები'],
       secondselectName: 'Типы недвижимости',
       secondselect:['Квартира', 'Дом', 'Коммерческая недвижимость', 'Гараж'],
       secondselectValues: ['Apartment', 'House', 'Commercial', 'Garage'],
@@ -43,7 +44,7 @@ export class RusService {
         FormControlName: 'asaki',
         firstOption: 'Выберите возраст',
         options: ['0-1 год', '0-5 лет', '0-10 лет', '0-15 лет', '0-20 лет', '0-50 лет', '50+ лет'],
-        optionsValues: ['0-1 Year', '0-5 Year', '0-10 Year', '0-15 Year', '0-20 Year', '0-50 Year', '50+ Year'],
+        optionsValues: ['0-1 წელი', '0-5 წელი', '0-10 წელი', '0-15 წელი', '0-20 წელი', '0-50 წელი', '50+ წელი'],
         formControlName: 'asaki'
       },
       {
@@ -69,6 +70,14 @@ export class RusService {
       { HeaderName: 'Широта Google Map', placeHolder: 'Широта Google Map', id: 'mapa', formControlName: 'mapis_grdzedi' ,type:'number' },
       { HeaderName: 'Долгота Google Map', placeHolder: 'Долгота Google Map', id: 'mapo', formControlName: 'mapis_ganedi' , type:'number' }
     ],
+    NearByTranslate:{
+      Header:'Близлежащие объекты',
+      placeholder:'Введите название места:',
+      placeholderDist:'Расстояние (км)',
+      sections:['Образование','Здоровье и медицина','Транспорт'],
+      error:'Пожалуйста, введите название места',
+    },
+    
     
     form5Info : [
       { text: 'Кондиционер', id: 'air', formControlName: 'kondincioneri' },
@@ -206,6 +215,7 @@ export class RusService {
       },
     },
     CardGallery1: 'Галерея',
+       unit:'кв.м',
     parent: 'Описание',
     Featuredpr: {
       header: 'Рекомендуемые объекты',

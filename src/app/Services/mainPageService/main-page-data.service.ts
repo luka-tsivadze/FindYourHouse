@@ -256,23 +256,28 @@ LangMainData ;
      
     }
 
+
+cityCaller=true;
     cityAmount() {
+      if(!this.cityCaller){
+         return;
+      }
       this.http.get<{ [key: string]: number }>('get-cities-counted-data.php').subscribe({
         next: (apiData) => {
           const nameMap: { [key: string]: string } = {
             "Tbilisi": "Tbilisi",
-            "Batumi": "batumi",
+            "Batumi": "Batumi",
             "Kutaisi": "Kutaisi",
             "Rustavi": "Rustavi",
             "Zugdidi": "Zugdidi",
             "Telavi": "Telavi",
-            "Bakurian": "Bakuriani", // Fix typo
+            "Bakurian": "Bakuriani", 
             "Kobuleti": "Kobuleti"
           };
     
           const updatedData = this.popularPlacesSubject.getValue().map(staticItem => ({
             ...staticItem,
-            properties: apiData[nameMap[staticItem.cityName]] ?? -1 // ✅ Use correct backend key, default to 4 if missing
+            properties: apiData[nameMap[staticItem.cityName]] ?? -1 // ✅ Use correct backend key, default to -1 if missing
           }));
     
           this.popularPlacesSubject.next(updatedData);

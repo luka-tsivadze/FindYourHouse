@@ -37,58 +37,10 @@ chosenCard = new BehaviorSubject<any>(null);
     locationCity: 'New York',
     area: '720',
     rooms: '8',
+    id: 0,
     bedrooms: '3',
   },
-  {
-    img: '../../../assets/Imges/StaticImg/CardImges/fp-2.jpg',
-    type: 'luxury House',
-    price: '$900,000',
-    For: 'For Sale',
-    locationCity: 'New York',
-    area: '420',
-    rooms: '6',
-    bedrooms: '2',
-  },
-  {
-    img: '../../../assets/Imges/StaticImg/CardImges/fp-3.jpg',
-    type: 'Family House',
-    price: '$10,000',
-    For: 'For Rent',
-    locationCity: 'New York',
-    area: '120',
-    rooms: '4',
-    bedrooms: '1',
-  },
-  {
-    img: '../../../assets/Imges/StaticImg/CardImges/fp-1.jpg',
-    type: 'Family House',
-    price: '$200,000',
-    For: 'For Sale',
-    locationCity: 'New York',
-    area: '720',
-    rooms: '8',
-    bedrooms: '3',
-  },
-  {
-    img: '../../../assets/Imges/StaticImg/CardImges/fp-2.jpg',
-    type: 'luxury House',
-    price: '$900,000',
-    For: 'For Sale',
-    locationCity: 'New York',
-    area: '420',
-    rooms: '6',
-    bedrooms: '2',
-  },
-  {
-    img: '../../../assets/Imges/StaticImg/CardImges/fp-3.jpg',
-    type: 'Family House',
-    price: '$10,000',
-    For: 'For Rent',
-    locationCity: 'New York',
-    area: '120',
-    rooms: '4',
-    bedrooms: '1',
-  }
+ 
 
   ]
 
@@ -105,9 +57,9 @@ chosenCard = new BehaviorSubject<any>(null);
   area: 720,
   garages: 2,
   price: '$ 110,000',
-  profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-4.jpg',
+
   profileName: 'john Doe',
-  uploadmonth: 2,
+  uploadmonth: 1,
   id:0,
   
 },
@@ -125,8 +77,7 @@ constructor(private route:Router , private allcards:AllCardsService, private htt
   if(localStorage.getItem('id')){
     this.userId = localStorage.getItem('id');
   }
- 
-this.getuserReview(this.userId);
+
 }
 
 navigateToCard(id: number) {
@@ -134,15 +85,7 @@ navigateToCard(id: number) {
 this.route.navigate(['/allCards', id]);
 }
 
-getuserReview(momxmareblis_id: string) {
-  const params = new HttpParams().set('momxmareblis_id', momxmareblis_id);
 
-  this.http.get<any>('get-reviews.php', { params })
-    .subscribe({
-      next: (data) => { console.log('User Reviews:', data); },
-      error: (error) => { console.error('Error fetching user reviews:', error); }
-    });
-}
 
 
 setCardId(cardId: number) {
@@ -179,7 +122,7 @@ if (Array.isArray(images) && images.length > 0) {
 
   if (selectedCard) {
     // Transform the backend data into the desired format for chosenCard
-    console.log('Selected card:', selectedCard);
+    // console.log('Selected card:', selectedCard); 
     const temp= {
       featuredBtn: true, // Static value as per requirements
       For: selectedCard.garigebis_tipi || 'Unknown',

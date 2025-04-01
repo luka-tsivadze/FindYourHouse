@@ -20,14 +20,27 @@
                     </select>
                  </div>
                  <div class="row">
-
+                     
                      <div class="LabledInputs">
                          <label for="fasi">{{allForms.form1info.thirdTitle}}</label>
-                         <input type="text"  formControlName="fasi" name="price" id="fasi" placeholder="₾">
+                         <div class="row0">
+                             <input type="text"  formControlName="fasi" name="fasi" id="fasi" >
+                            <select name="Currency"  formControlName="fasis_valuta" id="Currency">
+                                <option value="₾" selected>₾</option>
+                                <option value="$">$</option>
+                                <option value="€">€</option>
+                            </select>
+                         </div>
+                         
                         </div>
                         <div class="LabledInputs">
                             <label for="fartobi">{{allForms.form1info.fourthTitle}}</label>
-                            <input type="text"  formControlName="fartobi" name="area" id="fartobi" placeholder="sq/m"> 
+                            <div class="row0">
+                            <input type="text"  formControlName="fartobi" name="fartobi" id="fartobi" > 
+                            <select name="select" > 
+                                <option value="" selected>{{unit}}</option>
+                            </select>    
+                        </div>
                         </div>
                     </div>
         </div>
@@ -101,12 +114,12 @@
                     <option *ngFor="let option of form4.options let i=index" value="{{form4.optionsValues[i]}}">{{option}}</option>
                 </select>
             </div>
-             <h3 >Nearby Properties</h3>
+             <h3 >{{NearByTranslate.Header}}</h3>
             <div class="educationCol" *ngFor="let prop of NearbyProperties let i =index">
         
-               <label > {{prop.header}} </label>
+               <label > {{NearByTranslate.sections[i]}} </label>
                <div class="row">  
-                 <div class="input" *ngFor="let inp of prop.inputs"> <input [formControlName]="inp.placeController" type="text" class="Place" placeholder="write Place Name:"> <input class="Distance" type="number" [formControlName]="inp.DistanceController"  placeholder="Distance(km)"> </div> </div>
+                 <div class="input" *ngFor="let inp of prop.inputs"> <input [formControlName]="inp.placeController" type="text" class="Place" placeholder="{{NearByTranslate.placeholder}}"> <input class="Distance" type="number" [formControlName]="inp.DistanceController"  placeholder="{{NearByTranslate.placeholderDist}}"> </div> </div>
               <div class="buttonPlace">
                   <button type="button" (click)="addInput(prop.inputs , i)">+</button>
                   <span class="error" *ngIf="nearbyError[i].bol">{{nearbyError[i].message}}</span>

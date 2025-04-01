@@ -15,8 +15,10 @@ staticH2='Gallery';
  chosenCard;
  priceForM;
  mainImg;
+ unit;
   constructor( private cardInfo:PropertyInformationService ,private lang:LanguageChooserService) {
 this.staticH2=this.lang.chosenLang.DetailedInfo.CardGallery1;
+this.unit=this.lang.chosenLang.DetailedInfo.unit;
    }
   ngOnInit(): void {
     this.cardInfo.chosenCard.subscribe((card) => {

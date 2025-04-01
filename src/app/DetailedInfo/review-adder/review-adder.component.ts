@@ -41,11 +41,12 @@ ngOnInit(){
     saxeli: new FormControl(''),
     
     maili: new FormControl('', ),
-    message: new FormControl('', Validators.required),
+    message: new FormControl(''),
     gancxadebis_id: new FormControl('', ),
     momxmareblis_id: new FormControl(''),
     shefaseba: new FormControl(''),
     adresatis_idi: new FormControl(''),
+    foto: new FormControl(''),
   });
 
 }
@@ -59,6 +60,7 @@ this.reviewForm.value.momxmareblis_id = this.momxmareblis_id;
 this.reviewForm.value.saxeli = this.navServ.IsSignedIn.Name;
 this.reviewForm.value.maili = this.navServ.IsSignedIn.email;
 this.reviewForm.value.adresatis_idi = this.adresati_idi;
+this.reviewForm.value.foto = this.navServ.IsSignedIn.imgLink;
 
 console.log(this.reviewForm.value);
 if(this.reviewForm.value.shefaseba && this.reviewForm.value.momxmareblis_id){
@@ -75,15 +77,14 @@ error: (error) => { console.error(error); }
 }
 }
 loadReviews(id){
-  this.reviewServ.fetchCardReviews(this.gancxadebis_id).subscribe((resp)=>{
+
+  this.reviewServ.fetchCardReviews(id).subscribe((resp)=>{
     console.log('this should load new data ',resp);
   });
 }
 
 rater(star){
-if(this.reqSent){
-  return;
-}
+
  
       for(let i = 0; i < star; i++){
         this.starRating[i].filled = true;

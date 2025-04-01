@@ -5,6 +5,7 @@ import { LanguageChooserService } from '../../Services/language-chooser/language
 import { RegistrationService } from '../../Services/registration/registration.service';
 import { ReviewsService } from '../../Services/reviews/reviews.service';
 import e from 'express';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -15,6 +16,7 @@ import e from 'express';
 export class ReviewsComponent implements OnInit {
   Reviewinfo=[];
 userid=this.service.userId;
+private reviewSubscription: Subscription | null = null;
   reviews='Reviews'
 
   constructor(private service:PropertyInformationService  ,private lang:LanguageChooserService , 
@@ -29,15 +31,19 @@ userid=this.service.userId;
       this.chosenCard = card;
   
     })
-this.reviewServ.fetchCardReviews(this.chosenCard.id).subscribe();
+    this.reviewSubscription=this.reviewServ.fetchCardReviews(this.chosenCard.id).subscribe();
 this.reviewServ.cardReview$.subscribe(
   (data) => {
     console.log('review data i recieved in detail Info ',data);
     if(data){
     this.Reviewinfo=data.map((element,index)=>{
+      let img = '../../../assets/Imges/NavImg/man.png';
+      if( data[index].amtvirtvelis_foto){
+      img = data[index].amtvirtvelis_foto;
+      }
       return {
         postedimgesLinks:{isimg:false},
-        ProfileimgLink: '../../../assets/Imges/NavImg/man.png',
+        ProfileimgLink: img,
         date: data[index].shefasebis_tarigi_dro,
         description: data[index].mesiji,
         review: data[index].shefaseba,
@@ -59,12 +65,11 @@ this.reviewServ.cardReview$.subscribe(
        window.document.body.style.overflow = "hidden";
   }
   
-// ngOnDestroy(): void {
-//   if (this.service.chosenCard) {
-//     this.service.chosenCard.unsubscribe();
-//   }
-//   if (this.reviewServ.cardReview$) {
-//     this.reviewServ.cardReview$.unsubscribe();
-//   }
-// }
+ngOnDestroy(): void {
+
+  if (this.reviewSubscription) {
+    this.reviewSubscription.unsubscribe(); // ✅ Stop interval when leaving the page
+    this.reviewSubscription = null;
+  }
+}
 }

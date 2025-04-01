@@ -7,6 +7,7 @@ import { LanguageChooserService } from '../../Services/language-chooser/language
 import { ListingServiceService } from '../../Services/listing-service/listing-service.service';
 import { MainPageDataService } from '../../Services/mainPageService/main-page-data.service';
 import { distance } from 'ol/coordinate';
+import { error } from 'node:console';
 
 @Component({
   selector: 'app-main-listing',
@@ -27,31 +28,35 @@ naxaziFiles:File[]=[];
 editItemId: number | null = null;
 maxFiles = 7;
 index=0;
-
+unit;
 calledFromEdit = false;
 isLoadingFiles = true;
 allForms=this.lang.chosenLang.allForms;
 
 NearbyProperties=[{
-  header:'Education',
   FormControls:[{name:'FirstPlace_Education', Distance:'FirstDistance_Education'},{name:'SecondPlace_Education',Distance:'SecondDistance_Education'},
     {name:'ThirdPlace_Education',Distance:'ThirdDistance_Education'}],
   inputs:[{placeController:'FirstPlace_Education', DistanceController:'FirstDistance_Education'} ]
 },
 {
-  header:'Health & Medical',
   FormControls:[{name:'FirstPlace_Health',  Distance:'FirstDistance_Health' },{name:'SecondPlace_Health', Distance:'SecondDistance_Health' }
     ,{name:'ThirdPlace_Health',Distance:'ThirdDistance_Health'},  ],
   inputs:[{placeController:'FirstPlace_Health', DistanceController:'FirstDistance_Health'} ]
 },
 {
-  header:'Transportation',
   FormControls:[{name:'FirstPlace_Transportation', Distance:'FirstDistance_Transportation'   },
     {name:'SecondPlace_Transportation', Distance:'SecondDistance_Transportation'  },
     {name:'ThirdPlace_Transportation', Distance:'ThirdDistance_Transportation'  }],
   inputs:[{placeController:'FirstPlace_Transportation', DistanceController:'FirstDistance_Transportation'}]
 }
 ]
+NearByTranslate={
+  Header:'Nearby Properties',
+  placeholder:'write Place Name:',
+  placeholderDist:'Distance(km)',
+error:'You can add 3 properties Max',
+  sections:['Education','Health & Medical','Transportation'],
+}
 
 city={
   input:this.lang.chosenLang.allForms.City, 
@@ -61,7 +66,8 @@ name;
   constructor( private sharedService:ListingServiceService,  private fb: FormBuilder , private cd: ChangeDetectorRef ,
     private http: HttpClient ,private navservice: NavInfoService ,private lang:LanguageChooserService ,private mainServ:MainPageDataService) { 
      //post api request should be in service not here
-  
+    this.unit=this.lang.chosenLang.DetailedInfo.unit;
+    this.NearByTranslate=this.lang.chosenLang.allForms.NearByTranslate;
     this.listingForm = this.fb.group({
       satauri: ['', Validators.required],
       mokle_agwera: ['', Validators.required],
@@ -69,7 +75,7 @@ name;
       garigebis_tipi: ['', Validators.required],
       tipi: ['', Validators.required],
       otaxebis_raodenoba: ['', Validators.required],
-      fasi: [' '+'₾'+ ' ', [Validators.required, Validators.maxLength(8)]],
+      fasi: ['', [Validators.required, Validators.maxLength(8)]],
       fasis_valuta:['₾'],
       fartobi: [null,[Validators.required, Validators.maxLength(8)]],
       fotoebi: [null, Validators.required],
@@ -77,8 +83,8 @@ name;
       binis_naxazi: ['', ],
       misamarti: ['', Validators.required],
       qalaqi: ['', Validators.required],
-      mapis_grdzedi: ['',],
-      mapis_ganedi: ['', ],
+      mapis_grdzedi: ['', [Validators.min(-90), Validators.max(90)]],
+      mapis_ganedi: ['',  [Validators.min(-180), Validators.max(180)]],
       asaki: ['', Validators.required],
       sadzinebeli: ['', Validators.required],
       sveli_wertilebis_raodenoba : ['', Validators.required],
@@ -148,7 +154,7 @@ name;
   nearbyError:any=[{bol:false , message:''} ,{bol:false , message:''},{bol:false , message:''}];
   addInput(header , index:number){
     if(this.NearbyProperties[index].inputs.length==3){
-this.nearbyError[index].message='You can add 3  properties Max';
+this.nearbyError[index].message=this.NearByTranslate.error;
 this.nearbyError[index].bol=true;
 
       return;
@@ -165,7 +171,7 @@ console.log('input to add ',this.NearbyProperties[index].FormControls[header.len
     console.log('Loading item data:', data);
     this.calledFromEdit = true;
     this.isLoadingFiles = true; // ✅ Start loading
-  this.listingForm.patchValue({ dzveli_atvirtvis_tarigi: data});
+  this.listingForm.patchValue({ dzveli_atvirtvis_tarigi: data.date});
     this.listingForm.patchValue({ moqmedeba: 'shecvla'});
   
     try {
@@ -290,6 +296,7 @@ console.log('input to add ',this.NearbyProperties[index].FormControls[header.len
       this.listingForm.patchValue({ fotoebi: this.fotofiles });
   }
 
+  
 
   mainimg(index: number){
 
@@ -310,7 +317,7 @@ console.log('input to add ',this.NearbyProperties[index].FormControls[header.len
       const files = input.files;
   
       // Validate file size
-      const maxSize = type === 'image' || type === 'image1' ? 5 * 1024 * 1024 : 50 * 1024 * 1024;
+      const maxSize = type === 'image' || type === 'image1' ? 10  * 1024 * 1024 : 50 * 1024 * 1024;
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
   
@@ -350,6 +357,7 @@ console.log('input to add ',this.NearbyProperties[index].FormControls[header.len
             this.listingForm.patchValue({ fotoebi: this.fotofiles });
           }
         } else if (type === 'video') {
+          
           this.videoFiles = [file];
           this.listingForm.patchValue({ video: this.videoFiles });
           this.videoRowlink = URL.createObjectURL(file);
@@ -371,34 +379,25 @@ console.log('input to add ',this.NearbyProperties[index].FormControls[header.len
       this.scrollToFirstInvalidControl();
       return;
     }
-    console.log('Form submitted:', this.listingForm.value);
+
 
     if (!this.selectedFile && (!this.imgRowlink.length && !this.videoRowlink)) {
       console.error('No file selected');
       return;
     }
     this.SendingAnimation = true;
-    
+    if(this.navservice.userId==''){
+      this.listingForm.patchValue({id: localStorage.getItem('userId')});
+    }else{
       this.listingForm.patchValue({id: this.navservice.userId});
+    }
   this.listingForm.patchValue({amtvirtvelis_maili: this.navservice.IsSignedIn.email});
   
-    // Check if the 'fasi' value contains any currency symbol and remove it
-    const currencySymbols = ['₾', '$', '€'];
-    let fasiValue = this.listingForm.value.fasi;
-    let fasiValuta = this.listingForm.value.fasis_valuta;
 
-    currencySymbols.forEach(symbol => {
-      if (fasiValue.includes(symbol)) {
-      fasiValue = fasiValue.replace(symbol, '').trim();
-      fasiValuta = symbol;
-      }
-    });
-
-    this.listingForm.patchValue({ fasi: fasiValue, fasis_valuta: fasiValuta });
   
     const formData = new FormData();
   
-    // Add all form fields
+    console.log('Form submitted:', this.listingForm.value);
     const formFields = this.listingForm.value;
     Object.keys(formFields).forEach((key) => {
       const value = formFields[key];
@@ -432,7 +431,7 @@ console.log('input to add ',this.NearbyProperties[index].FormControls[header.len
            }          
           this.SendingAnimation = false;
           window.location.href = '/allCards';
-
+  
 
         } else {
           this.SendingAnimation = false

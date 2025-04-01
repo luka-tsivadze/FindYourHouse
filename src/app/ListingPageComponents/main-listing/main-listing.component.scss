@@ -159,6 +159,28 @@ button{
           font: 400 15px $font-primary;
         }
       }
+      .row0{
+        @include flex-container(row, start, center);
+        gap: 2px;
+        input{
+          width: 75%;
+          height: 50px;
+          padding: 0 15px;
+          border: 1px solid $light-gray;
+          border-radius: 5px;
+          color: $input-color;
+          font: 400 15px $font-primary;
+        }
+        select{
+          width: 20%;
+          height: 50px;
+          padding: 0 15px;
+          border: 1px solid $light-gray;
+          border-radius: 5px;
+          color: $input-color;
+          font: 400 15px $font-primary;
+        }
+       }
     }
   }
 

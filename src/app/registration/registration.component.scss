@@ -74,8 +74,8 @@
 
     
 .scroll{
-  height: 97vh;
-    overflow-y: scroll;
+    max-height: 97vh;
+    overflow-y: auto;
     position: fixed;
     top: 20px;    
     border-radius: 6px;

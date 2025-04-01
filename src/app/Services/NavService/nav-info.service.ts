@@ -76,7 +76,7 @@ userId
   }
 
 
-  getUserInfo(userId?: string): Observable<any> {
+  getUserInfo(userId?: string ): Observable<any> {
     if (!isPlatformBrowser(this.platformId)) {
       return of(null); // Return empty observable if not in browser
     }

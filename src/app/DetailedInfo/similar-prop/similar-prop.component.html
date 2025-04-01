@@ -2,7 +2,7 @@
 <div class="cardPlace">
 
   
-    <div class="propCard "  routerLink="{{info.id}}"  *ngFor="let info of data let i=index"
+    <div class="propCard "  *ngFor="let info of data let i=index"
     [ngStyle]="{'animation-delay': (i * 0.16) + 's'}"
  
     >
@@ -31,7 +31,7 @@
             <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/car.svg" alt="garages"><p>{{info.garages}} {{FeaturePS.Garage}}</p></div>
         </div>
         <div class="CardFooterRow">
-           <div class="row"> <p>{{info.profileName}}</p></div>  <p>{{info.uploadmonth}} month ago</p>
+           <div class="row"> <p>{{info.profileName}}</p></div>  <p>{{info.uploadmonth}} Days ago</p>
         </div>
         </div>
     </div>

@@ -20,7 +20,7 @@ export class EngService {
     
     firstselectName: 'Select Status',
     firstselect:['For Sale', 'For Rent', 'Pledge','rented daily','Apartments under construction'],
-    firstselectValues: ['For Rent', 'For Sale', 'For Pledge', 'For Daily Rent', 'New Development'],
+    firstselectValues: ['იყიდება', 'ქირავდება', 'გირავდება', 'ქირავდება დღიურად', '⁠მშენებარე ბინები'],
 
 
     secondselectName: 'Property Types',
@@ -53,7 +53,7 @@ export class EngService {
         FormControlName: 'asaki',
         firstOption: 'Select Age',
         options: ['0-1 Years', '0-5 Years', '0-10 Years', '0-15 Years', '0-20 Years', '0-50 Years', '50+ Years'],
-        optionsValues: ['0-1 Year', '0-5 Year', '0-10 Year', '0-15 Year', '0-20 Year', '0-50 Year', '50+ Year'],
+        optionsValues: ['0-1 წელი', '0-5 წელი', '0-10 წელი', '0-15 წელი', '0-20 წელი', '0-50 წელი', '50+ წელი'],
         formControlName: 'asaki'
       },
       {
@@ -94,6 +94,7 @@ export class EngService {
       { text: 'TV Cable & WIFI', id: 'TV', formControlName:'televizia_wifi' },
       { text: 'Microwave', id: 'Mic', formControlName: 'microtalguri' }
     ],
+
     
     form6Info : [
       { HeaderName: 'Name', placeHolder: 'Enter Your Name', id: 'name6', formControlName: 'momxmareblis_saxeli' },
@@ -228,6 +229,7 @@ DetailedInfo={
     }
   },
  CardGallery1:'Gallery',
+ unit:'sq.m',
  parent:'Description',
  Featuredpr:{
   header:'Featured Properties',

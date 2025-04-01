@@ -151,6 +151,7 @@
   }
   @media screen and (max-width:650px) {
     .FormParent{
+      padding: 30px 5px;
         .form{
             .text{
                 .educationCol{
@@ -161,6 +162,19 @@
                         }
                     }
                 }
+            }
+            .form{
+              .VideoRow{
+                width: 95%;
+              }
+              .imgrow{
+                width: 90%;
+              }
+              .text{
+                .row{
+                  flex-wrap: wrap;
+                }
+              }
             }
         }
       .form2 {

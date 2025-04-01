@@ -30,6 +30,15 @@ RError=false;
 errorText;
 regErrorText;
 verificationCode ;
+Registration=[
+  {FormControlName:'saxeli' , labelText:'First Name*', For:"firstNameReg" ,type:'text' ,errortext:'First Name is required.', chack:false},
+  {FormControlName:'gvari' , labelText:'Last Name*', For:"lastNameReg" ,type:'text' ,errortext:'Last Name is required.', chack:false},
+  {FormControlName:'maili' , labelText:'Email Address*', For:"emailReg" ,type:'email' ,errortext:'Email is required.' , chack:false},
+  {FormControlName:'paroli' , labelText:'Password*', For:"passwordReg" ,type:'password' ,errortext:'Password is required.' , chack:false},
+  {FormControlName:'paroliRepeat' , labelText:'Repeat Password*', For:"repeatPasswordReg" ,type:'password' ,errortext:'Repeat Password is required.' , chack:true},
+  {FormControlName:'nomeri' , labelText:'Phone Number*', For:"phoneReg" ,type:'text' ,errortext:'Phone Number is required.' , chack:false},
+  
+]
 public RememberMe = new FormControl(false);
 @ViewChild('loginName') loginName!: ElementRef;
 @ViewChild('registName') registName!: ElementRef;
@@ -67,7 +76,8 @@ constructor(private registrationService: RegistrationService, private http:HttpC
       saxeli: new FormControl('', Validators.required),
       gvari: new FormControl('', Validators.required),
       paroliRepeat: new FormControl('', Validators.required),
-      nomeri: new FormControl({ value: '+995', disabled: false}, [Validators.required, Validators.minLength(9), Validators.maxLength(13),  Validators.pattern('^\\+?[0-9]*$') ]),
+      nomeri : new FormControl('+995', [      Validators.required,    Validators.minLength(9),    Validators.maxLength(13),       Validators.pattern('^\\+?[0-9]*$')    ]),
+      
       verificationInput: new FormControl('', Validators.required),
       sqesi: new FormControl('', Validators.required),
    
@@ -135,7 +145,7 @@ constructor(private registrationService: RegistrationService, private http:HttpC
       
       
       
-      console.log('Registration form submitted:', this.RegistrForm.value);
+      console.log('Registration form submitted:',this.RegistrForm.getRawValue());
  
       const formData = this.RegistrForm.getRawValue();
  
@@ -143,29 +153,27 @@ constructor(private registrationService: RegistrationService, private http:HttpC
         next: (response: any) => {
           
           // Handle successful registration
-          console.log('Registration successful:', response , );
-      if(response.message=='nomeri-arasworia'){
-            this.regErrorText='phone number is incorrect';
-            this.RError=true;
-            return;
-          }else if(response.message=='email-already-in-use'){
-            this.regErrorText='email already in use';
-            this.RError=true;
-            return;
-          }else if(response.status=='error'){
-          this.regErrorText='there is a problem with the server try agein later';
-          this.RError=true;
-          return;
-          }
-          this.RError=false;
-          this.login = true;
-  
-      
-        },
+       
+if (response.message === 'nomeri-arasworia') {
+  this.regErrorText = 'Phone number is incorrect';
+} else if (response.message === 'email-already-in-use') {
+  this.regErrorText = 'Email already in use';
+} else if (response.message === 'email-invalid') { 
+  this.regErrorText = 'Email is invalid';
+} else if (response.status === 'error') {
+  this.regErrorText = `There is a problem with the server, try again later. Error: (${response.message})`;
+} else {
+  this.RError = false;
+  this.login = true;
+  return;
+}
+this.RError = true;
+},
         error: (error) => {
           // Handle HTTP errors
           console.error('Request failed:', error);
           this.RError=true;
+          this.regErrorText=`there is a problem with the server try agein later  Error Message:(${error.message})`;
         }
       });
     } else {
@@ -203,7 +211,7 @@ constructor(private registrationService: RegistrationService, private http:HttpC
     }
     // Update form value before submission
     this.RegistrForm.controls['nomeri'].setValue(phoneNumber);
-  
+    this.RegistrForm.controls['nomeri'].disable();
     // Helper function to generate a random 4-digit code
     const generateRandomCode = (length: number): string => {
       const characters = '0123456789';
@@ -225,21 +233,18 @@ constructor(private registrationService: RegistrationService, private http:HttpC
       return;
     }
   
-
-
   
-    // Send the verification code to the backend
-console.log(verificationCode);
-    // this.http.post('send_code.php', { nomeri, random_kodi: verificationCode }).subscribe({
-    //   next: (response) => {
-    //     console.log('Verification code sent successfully:' , response);
-    // this.RegistrForm.get('nomeri')?.disable();
+
+    this.http.post('send_code.php', { nomeri, random_kodi: verificationCode }).subscribe({
+      next: (response) => {
+        console.log('Verification code sent successfully:' , response);
+    this.RegistrForm.get('nomeri')?.disable();
     
-    //   },
-    //   error: (error) => {
-    //     console.error('Failed to send verification code:', error);
-    //   }
-    // });
+      },
+      error: (error) => {
+        console.error('Failed to send verification code:', error);
+      }
+    });
   }
   
   checkCode(){

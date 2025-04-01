@@ -42,7 +42,9 @@ this.infoService.chosenCard.subscribe((card) => {
     !isNaN(parseFloat(this.chosenCard.latitude.toString())) &&
     !isNaN(parseFloat(this.chosenCard.longitude.toString())) &&
     this.chosenCard.latitude !== null &&
-    this.chosenCard.longitude !== null;
+    this.chosenCard.longitude !== null && this.chosenCard.latitude <= 90 && this.chosenCard.latitude >= -90 &&
+    this.chosenCard.longitude <= 180 && this.chosenCard.longitude >= -180;
+    
     const fieldsToCheck = [
       'saavadmyofos_dasaxeleba_1', 'saavadmyofos_dasaxeleba_2', 'saavadmyofos_dasaxeleba_3',
       'saavadmyofos_distancia_1', 'saavadmyofos_distancia_2', 'saavadmyofos_distancia_3',
@@ -56,20 +58,21 @@ this.infoService.chosenCard.subscribe((card) => {
       const value = this.chosenCard[field];  // Get field value
       return value !== null && value !== undefined && value !== ''; // Check if it's valid
     });
-    console.log("Field Values:", this.chosenCard,fieldsToCheck.map(field => ({ [field]: this.chosenCard[field] })));
 
-    console.log("ShowNearBy:", this.ShowNearBy);
+ 
     
     
     if(this.infoService.chosenCard){
     this.navService.scrollobser.next(true);
    }
-    this.views.sendView(this.chosenCard.id); // send view to the server
+ // send view to the server
 
     window.addEventListener('scroll', () => {
       this.scrollPosition = window.scrollY;
 
     });
+
+    this.views.sendView(this.chosenCard.id); 
   }
   
   ActiveD(){

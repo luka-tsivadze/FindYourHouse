@@ -8,8 +8,13 @@ export class ViewsService {
 
   constructor(private http:HttpClient ) { }
 
-  
+  lestId;
   sendView(id:number){
+    if(this.lestId==id){
+      return;
+    }
+    this.lestId=id;
+
     this.http.post('counter_views.php', {gancxadebis_idi:id}).subscribe({
 
     error: (err) => {

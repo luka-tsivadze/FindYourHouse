@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { error } from 'node:console';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class GeoService {
   
       firstselectName: 'აირჩიეთ სტატუსი',
       firstselect: ['იყიდება', 'ქირავდება', 'გირავდება', 'ქირავდება დღიურად', '⁠მშენებარე ბინები'],
-      firstselectValues: ['For Rent', 'For Sale', 'For Pledge', 'For Daily Rent', 'New Development'],
+      firstselectValues: ['იყიდება', 'ქირავდება', 'გირავდება', 'ქირავდება დღიურად', '⁠მშენებარე ბინები'],
       
       secondselectName: 'ქონების ტიპი',
       secondselect: ['ბინა', 'სახლი', 'კომერციული', 'გარაჟი'],
@@ -44,7 +45,7 @@ export class GeoService {
         FormControlName: 'asaki',
         firstOption: 'აირჩიე ასაკი',
         options: ['0-1 წელი', '0-5 წელი', '0-10 წელი', '0-15 წელი', '0-20 წელი', '0-50 წელი', '50+ წელი'],
-        optionsValues: ['0-1 Year', '0-5 Year', '0-10 Year', '0-15 Year', '0-20 Year', '0-50 Year', '50+ Year'],
+        optionsValues: ['0-1 წელი', '0-5 წელი', '0-10 წელი', '0-15 წელი', '0-20 წელი', '0-50 წელი', '50+ წელი'],
         formControlName: 'asaki'
       },
       {
@@ -83,6 +84,14 @@ export class GeoService {
       { text: 'TV & WIFI', id: 'TV', formControlName: 'televizia_wifi' },
       { text: 'მიკროტალღური ღუმელი', id: 'Mic', formControlName: 'microtalguri' }
     ],
+    NearByTranslate:{
+      Header:'მიმდებარე ობიექტები',
+      placeholder:'შეიყვანეთ ადგილის სახელი:',
+      placeholderDist:'მანძილი(კმ)', 
+      sections:['განათლება','ჯანმრთელობა და მედიცინა','ტრანსპორტი'],
+      error:'მაქსიმუმი 3 ადგილი არის დასაშვები',
+    },
+    
   
     form6Info: [
       { HeaderName: 'სახელი', placeHolder: 'შეიყვანეთ თქვენი სახელი', id: 'name6', formControlName: 'momxmareblis_saxeli' },
@@ -205,6 +214,7 @@ export class GeoService {
       },
     },
     CardGallery1: 'გალერეა',
+    unit:'კვ.მ',
     parent: 'აღწერა',
     Featuredpr: {
       header: 'რჩეული განცხადებები',

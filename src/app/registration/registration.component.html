@@ -4,10 +4,10 @@
     <div class="form" >
         <div class="Top"><p>Welcome To <span class="find">Find</span><span class="houses">Houses</span></p> <div class="X" (click)="makeDisplayFlse()"><img src="../../assets/Imges/StaticImg/StaticIcons/x.svg" alt=""></div></div>
         <div class="LogIn"><h3>Login</h3>
-        
+<!--         
             <a class="fb"><img src="../../assets/Imges/StaticImg/StaticIcons/icons8-facebook.svg" alt=""> <p>Log in with Facebook</p></a>
             <a class="tw"><img src="../../assets/Imges/StaticImg/StaticIcons/instagram.svg" alt=""> <p> Log in with Instagram</p></a>
-            <span>Or</span>
+            <span>Or</span> -->
         </div>
         <main>
             <div class="btnRow">
@@ -17,6 +17,7 @@
 
             <!-- Registration Form -->
             <form [formGroup]="RegistrForm" (ngSubmit)="onSubmitR()" class="inputRow" [ngClass]="{'displayNone':login}">
+
                 <label for="firstNameReg">First Name*</label>
                 <input type="text" id="firstNameReg" formControlName="saxeli" required>
                 <div class="error" *ngIf="RegistrForm.controls['saxeli'].invalid && RegistrForm.controls['saxeli'].touched">
@@ -42,7 +43,8 @@
                 </div>
 
                 <label for="passwordRegRepeat">Password Repeat*</label>
-                <input type="password" id="passwordRegRepeat" formControlName="paroliRepeat" required>
+                <input type="password" id="passwordRegRepeat" formControlName="paroliRepeat" required>  
+                <!-- aqamde  -->
 
                 <div class="error" *ngIf="(RegistrForm.controls['paroliRepeat'].invalid || RegistrForm.controls['paroliRepeat'].value !== RegistrForm.controls['paroli'].value) && RegistrForm.controls['paroliRepeat'].touched">
                     Passwords must match.

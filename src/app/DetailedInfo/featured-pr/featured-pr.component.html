@@ -5,10 +5,10 @@
    <div class="parentCont">
 
        <div class="img-container">
-           <div class="card" *ngFor="let el of cardData"  [style.transform]="'translateX(-' + transformIndex + 'px)'">
+           <div class="card" *ngFor="let el of cardData let i=index"  [style.transform]="'translateX(-' + transformIndex + 'px)'">
                <img src={{el.img}} alt="img">
-               <div class="row"><span class="green">{{el.price}}</span> <span  [ngClass]="{'red':el.For=='For Sale' ,'Rent':el.For=='For Rent'}" >{{el.For}}</span></div>
-               <h4><span>{{el.type}}</span> <span>{{el.locationCity}}</span></h4>
+               <div class="row"><span class="green">{{el.price}}</span> <span  Class='red'>{{el.For}}</span></div>
+               <h4 (click)="routertodetailedInfo(el.id)" ><span>{{el.type}}</span> <span>{{el.locationCity}}</span></h4>
                <div class="hovered">
                 <div class="col"><span>{{staticvalues.area}}</span><p>{{el.area}} sq/m</p></div>
                 <div class="col"><span>{{staticvalues.rooms}}</span> <p>{{el.rooms}} </p></div>
