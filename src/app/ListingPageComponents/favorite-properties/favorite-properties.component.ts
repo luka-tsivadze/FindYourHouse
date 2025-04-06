@@ -49,12 +49,12 @@ reviewIndices=[]
       },
       error: (error) => console.error('Error:', error),
       complete:()=>{
-        this.sharedService.views(this.favCardEl).subscribe({
-          next:(data)=>{
-            console.log('data',data);
-            this.favCardEl = data;
-            this.pageFunction(); 
-          }
+          this.sharedService.views(this.favCardEl).subscribe({
+            next:(data)=>{
+              console.log('data',data);
+              this.favCardEl = data;
+              this.pageFunction(); 
+            }
         });
       },
     });

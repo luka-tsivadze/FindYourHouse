@@ -21,8 +21,10 @@ export class RusService {
       { a: 'Текст', Showimg: false }
     ],
     profileSettings: [
-      { Text: 'Редактировать профиль', value: 'Edit Profile', routes: '' },
       { Text: 'Добавить недвижимость', value: 'Add Property' },
+      {Text: 'Моя собственность', value: 'My Properties'},
+      {Text: 'Избранная собственность', value: 'Favorited Properties'},
+      { Text: 'Редактировать профиль', value: 'Edit Profile', routes: '' },
       { Text: 'Платежи', value: 'Payments' },
       { Text: 'Сменить пароль', value: 'Change Password' },
       { Text: 'Выйти', value: 'Log Out' }
@@ -125,6 +127,48 @@ allFilter = {
     ],
   },
 }
+
+Registration = {
+ 
+  confirmation:{ text:'Вы успешно зарегистрировались', show:false},
+
+  mainInputs: [
+    { FormControlName: 'saxeli', labelText: 'Имя*', For: "firstNameReg", type: 'text', errortext: 'Имя обязательно.', chack: false },
+    { FormControlName: 'gvari', labelText: 'Фамилия*', For: "lastNameReg", type: 'text', errortext: 'Фамилия обязательна.', chack: false },
+    { FormControlName: 'maili', labelText: 'Электронная почта*', For: "emailReg", type: 'email', errortext: 'Электронная почта обязательна.', chack: false },
+    { FormControlName: 'paroli', labelText: 'Пароль*', For: "passwordReg", type: 'password', errortext: 'Пароль обязателен.', chack: false },
+    { FormControlName: 'paroliRepeat', labelText: 'Повторите пароль*', For: "repeatPasswordReg", type: 'password', errortext: 'Пароли должны совпадать.', chack: true },
+  ],
+  register: {
+    buttonText: 'Регистрация',
+    mobile: 'Мобильный номер*',
+    notification: 'Верификация успешно завершена',
+    Codeerror: 'Код неверен',
+    GError: 'Выбор пола обязателен',
+    numbererror: 'Введите свой номер телефона',
+    Hgender: 'Пол*',
+    Man: 'Мужской',
+    Fam: 'Женский',
+    agree:'Я согласен',
+    terms:' с условиями и положениями',
+    codeHolder: 'Введите код, полученный на телефон',
+    respErrorNumber: 'Неверный номер телефона',
+    respErrorEmail: 'Этот email уже используется',
+    respErrorEmailInvalid: 'Неверный email',
+    respErrorServer: 'Проблема с сервером, попробуйте позже.',
+  },
+  login: {
+    inputs: [
+      { FormControlName: 'maili', labelText: '  email*', For: "firstNameLogin", type: 'text', errortext: 'Введите email.' },
+      { FormControlName: 'paroli', labelText: 'Пароль*', For: "passwordLogin", type: 'password', errortext: 'Пароль должен содержать не менее 6 символов.'},
+    ],
+    button: 'Войти',
+    remember: 'Запомнить меня',
+    forget: 'Забыли пароль?',
+  }
+};
+
+
 
   constructor() { }
 }

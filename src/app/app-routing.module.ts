@@ -11,6 +11,7 @@ import { ContactComponent } from './contact/contact.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { authGuard } from './auth.guard';
 import { CardsResolverGuard } from './Guards/card-resolver-guard.guard';
+import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 const routes: Routes = [ 
 
   { path: '', component:MainPageComponent, resolve: { data: CardsResolverGuard } },
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'allCards/:id', component:DetailedInfoParentComponent, resolve: { data: CardsResolverGuard }},
   {path: 'contact', component:ContactComponent},
   {path: 'about', component:AboutUsComponent},
+  {path:'terms-and-conditions', component:TermsAndConditionsComponent},
   {path: '**', component:ErrorPageComponent},
 
 ];

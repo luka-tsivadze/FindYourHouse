@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { FilterDataUniterService } from '../../Services/filter-data-uniter/filter-data-uniter.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { concatMap } from 'rxjs';
+import { RegistrationService } from '../../Services/registration/registration.service';
+import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 
 @Component({
   selector: 'app-all-cards',
@@ -30,18 +32,20 @@ export class AllCardsComponent {
   filteredCards: any[] = [];
 
   heartimgLinks=[];
+  Languages;
     heartimg='../../../assets/Imges/Header/CardImges/icons/heart.svg'
   heartFilled='./../../assets/Imges/StaticImg/StaticIcons/heart-fill - red.svg'
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private filterService: FilterDataUniterService,
     private navService: NavInfoService,
-    private router: Router,
-   
+
+   private Registration: RegistrationService,
     private detailedservice: PropertyInformationService,
+    private LangService: LanguageChooserService,
     private mainPageService: MainPageDataService,
     private cardsService: AllCardsService,
-    private http: HttpClient
+
   ) {
     this.navService.scrollobser.next(true);
 
@@ -49,7 +53,8 @@ export class AllCardsComponent {
 
   heartedCards;
     ngOnInit() {
-  
+  this.Languages =this.LangService.chosenLang;
+  console.log(this.Languages);
       this.cardsService.fetFavchData(this.navService.userId).pipe(
         concatMap((filteredData) => {
           this.heartedCards = filteredData;
@@ -70,13 +75,11 @@ export class AllCardsComponent {
           console.log('Request completed');
         },
       });
-
+  
       this.cardsService.data$.subscribe((value) => {
         this.dataState = value;
       });
 
-        
-      // this.restoreState(); // Restore the state if returning to this page
     }
 
     getMatchingIndexes(savedCards: any[], allCards: any[]): void {
@@ -99,7 +102,11 @@ export class AllCardsComponent {
   
 
     saveToFav(i:number , info){
-   
+   if(this.navService.userId===null){
+    window.document.body.style.overflow = "hidden";
+    this.Registration.setDisplayer(true);
+    return;
+   }
  
       const momxmareblis_idi= this.navService.userId
       const gancxadebis_idi=info.id
@@ -200,3 +207,6 @@ export class AllCardsComponent {
     }
   }
 }
+
+
+

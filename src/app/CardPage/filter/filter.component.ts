@@ -27,9 +27,25 @@ sortingOptions = [{name:'Top Selling',state:true},
   {name:'Price: Low to High',state:false}
   ,{name:'price: Hight to Low ',state:false}];
 options=false  
+
+private resizeObserver: ResizeObserver;
 constructor( private mainPageData:MainPageDataService ,private uniter:FilterDataUniterService, private cardDataServ:AllCardsService , private fb: FormBuilder, private changeRef:ChangeDetectorRef) { 
     this.updateTrackColor_1();
     this.updateTrackColor_2();
+    this.resizeObserver = new ResizeObserver(entries => {
+      for (let entry of entries) {
+        if (entry.contentRect.width < 600) {
+          this.list();
+        }
+      }
+    });
+  }
+  ngAfterViewInit() {
+    this.resizeObserver.observe(document.body);
+  }
+
+  ngOnDestroy() {
+    this.resizeObserver.disconnect();
   }
 
 showOptions(){
@@ -49,6 +65,8 @@ advanced(){
 }
 
 ngOnInit(): void {
+
+
 
   this.filterForm = this.fb.group({
     propertyType: ['0'],

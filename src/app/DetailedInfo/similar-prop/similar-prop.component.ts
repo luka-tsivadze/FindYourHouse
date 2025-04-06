@@ -5,6 +5,7 @@ import { LanguageChooserService } from '../../Services/language-chooser/language
 import { NavInfoService } from '../../Services/NavService/nav-info.service';
 import { AllCardsService } from '../../Services/all-cards/all-cards.service';
 import { forkJoin, switchMap } from 'rxjs';
+import { RegistrationService } from '../../Services/registration/registration.service';
 
 @Component({
   selector: 'app-similar-prop',
@@ -21,7 +22,7 @@ FeaturePS=this.staticInfo.featuredPropertiesStatic;
 chosenCard=this.Infoservice.chosenCard;
   constructor(private Infoservice:PropertyInformationService, private staticInfo:MainPageDataService ,
     private lang:LanguageChooserService ,private navService:NavInfoService , 
-    private cardsService:AllCardsService ) {
+    private cardsService:AllCardsService, private Registration:RegistrationService, ) {
     this.simProp=this.lang.chosenLang.DetailedInfo.simProp;
   }
   ngOnInit(): void {
@@ -81,7 +82,11 @@ this.getMatchingIndexes(favData, this.data);
     this.Infoservice.navigateToCard(cardId);
   }
   saveToFav(i:number , info){
-   
+    if(this.navService.userId===null){
+      window.document.body.style.overflow = "hidden";
+      this.Registration.setDisplayer(true);
+      return;
+     }
  
     const momxmareblis_idi= this.navService.userId
     const gancxadebis_idi=info.id

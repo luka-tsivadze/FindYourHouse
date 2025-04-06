@@ -7,6 +7,8 @@ import { FormControl, FormGroup, Validators , FormsModule} from '@angular/forms'
 import { ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NavInfoService } from '../Services/NavService/nav-info.service';
+import { MainPageDataService } from '../Services/mainPageService/main-page-data.service';
+import { text } from 'stream/consumers';
 
 
 @Component({
@@ -30,25 +32,59 @@ RError=false;
 errorText;
 regErrorText;
 verificationCode ;
-Registration=[
+Registration={
+header:{
+p:'welcome to',
+},
+confirmation:{ text:'You have Succesfully Registered' , show:false},  
+ mainInputs:[
   {FormControlName:'saxeli' , labelText:'First Name*', For:"firstNameReg" ,type:'text' ,errortext:'First Name is required.', chack:false},
   {FormControlName:'gvari' , labelText:'Last Name*', For:"lastNameReg" ,type:'text' ,errortext:'Last Name is required.', chack:false},
   {FormControlName:'maili' , labelText:'Email Address*', For:"emailReg" ,type:'email' ,errortext:'Email is required.' , chack:false},
-  {FormControlName:'paroli' , labelText:'Password*', For:"passwordReg" ,type:'password' ,errortext:'Password is required.' , chack:false},
-  {FormControlName:'paroliRepeat' , labelText:'Repeat Password*', For:"repeatPasswordReg" ,type:'password' ,errortext:'Repeat Password is required.' , chack:true},
-  {FormControlName:'nomeri' , labelText:'Phone Number*', For:"phoneReg" ,type:'text' ,errortext:'Phone Number is required.' , chack:false},
-  
-]
+  {FormControlName:'paroli' , labelText:'Password*', For:"passwordReg" ,type:'password' ,errortext:'Password is required.' , chack:false , showPassword: false},
+  {FormControlName:'paroliRepeat' , labelText:'Repeat Password*', For:"repeatPasswordReg" ,type:'password' ,errortext:'Passwords must match.' , chack:true , showPassword: false},
+],
+register:{
+  buttonText:'Register',
+  mobile:'mobile Number*',
+  notification:'verification ended succsesfully',
+  Codeerror:'Code is incorrect',
+  GError:'Gender is required',
+  numbererror:'write Your phone number',
+  Hgender:'Gender*',
+  Man:'Male',
+  agree:'I agree to',
+  terms:'the terms and conditions',
+  Fam:'Famale',
+  codeHolder:'Enter the code  you received on the phone',
+
+  respErrorNumber:'Phone number is incorrect',
+  respErrorEmail:'Email already in use',
+  respErrorEmailInvalid:'Email is invalid',
+  respErrorServer:'There is a problem with the server, try again later.',
+},
+login:{
+   inputs:[
+    {FormControlName:'maili' , labelText:'User Name or Email Address*', For:"firstNameLogin" ,type:'text' ,errortext:'Write Your User Name Or Email.', chack:false},
+    {FormControlName:'paroli' , labelText:'Password*', For:"passwordLogin" ,type:'password' ,errortext:'Password must be at least 6 characters.' , chack:false , showPassword: false},
+   ],
+   button:'Login',
+   remember:'Remember Me',
+    forget:'Forget Password?',
+}
+
+}
 public RememberMe = new FormControl(false);
 @ViewChild('loginName') loginName!: ElementRef;
 @ViewChild('registName') registName!: ElementRef;
  
-constructor(private registrationService: RegistrationService, private http:HttpClient ,private navServ:NavInfoService) {
- 
+constructor(private registrationService: RegistrationService, private http:HttpClient ,private navServ:NavInfoService ,private mainServ:MainPageDataService)  {
+
 }
 
 
   ngOnInit() {
+    this.Registration=this.mainServ.LangMainData.Registration;
 
     // Subscribe to the displayer observable
     this.displayerSubscription = this.registrationService.displayer$.subscribe(
@@ -76,6 +112,7 @@ constructor(private registrationService: RegistrationService, private http:HttpC
       saxeli: new FormControl('', Validators.required),
       gvari: new FormControl('', Validators.required),
       paroliRepeat: new FormControl('', Validators.required),
+      terms: new FormControl(false, Validators.requiredTrue),
       nomeri : new FormControl('+995', [      Validators.required,    Validators.minLength(9),    Validators.maxLength(13),       Validators.pattern('^\\+?[0-9]*$')    ]),
       
       verificationInput: new FormControl('', Validators.required),
@@ -155,16 +192,20 @@ constructor(private registrationService: RegistrationService, private http:HttpC
           // Handle successful registration
        
 if (response.message === 'nomeri-arasworia') {
-  this.regErrorText = 'Phone number is incorrect';
+  this.regErrorText = this.Registration.register.respErrorNumber;
 } else if (response.message === 'email-already-in-use') {
-  this.regErrorText = 'Email already in use';
+  this.regErrorText = this.Registration.register.respErrorEmail;
 } else if (response.message === 'email-invalid') { 
-  this.regErrorText = 'Email is invalid';
+  this.regErrorText = this.Registration.register.respErrorEmailInvalid;
 } else if (response.status === 'error') {
-  this.regErrorText = `There is a problem with the server, try again later. Error: (${response.message})`;
+  this.regErrorText = `${this.Registration.register.respErrorServer} Error Message:(${response.message})`;
 } else {
   this.RError = false;
   this.login = true;
+this.Registration.confirmation.show=true;
+
+  this.RegistrForm.reset();
+
   return;
 }
 this.RError = true;
@@ -185,7 +226,7 @@ this.RError = true;
   onCodeInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.value.length === 4) {
-      console.log('Verification code chacked:', input.value);
+
       this.checkCode();
     }
   }

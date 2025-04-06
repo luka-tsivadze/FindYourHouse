@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { NavInfoService } from '../Services/NavService/nav-info.service';
 import { FilterDataUniterService } from '../Services/filter-data-uniter/filter-data-uniter.service';
 import { PropertyInformationService } from '../Services/Property-info/property-information.service';
+import { RegistrationService } from '../Services/registration/registration.service';
 
 
 
@@ -57,7 +58,7 @@ filterForm = this.fb.group({
 });
     constructor(@Inject(PLATFORM_ID) private platformId: Object,private navserv:NavInfoService, 
     private http:HttpClient ,private Propinfo:PropertyInformationService ,private router:Router ,private fb: FormBuilder , private cd: ChangeDetectorRef 
-   ,private uniter:FilterDataUniterService
+   ,private uniter:FilterDataUniterService , private Registration:RegistrationService 
     ,private allcard:AllCardsService, private dataService: MainPageDataService )
      {
  this.dataService.cityAmount(); 
@@ -114,7 +115,11 @@ filterForm = this.fb.group({
       
 
       saveToFav(i:number , info){
-       
+        if(this.navserv.userId===null){
+          window.document.body.style.overflow = "hidden";
+          this.Registration.setDisplayer(true);
+          return;
+         }
       const momxmareblis_idi= this.navserv.userId
       const gancxadebis_idi=info.gncxdebis_idi
       const postBody={momxmareblis_idi,gancxadebis_idi}

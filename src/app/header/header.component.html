@@ -66,13 +66,13 @@
         </div>
     </div>
 <div class="popularPlaces"  >
-    <h1 [ngClass]="{'fadeIn':scrollY>130}">{{popularPropStatic.Header}}</h1>
-    <p [ngClass]="{'fadeIn':scrollY>180}"  class="headerP">{{popularPropStatic.properties}} </p>
+    <h1 [ngClass]="{'fadeIn':scrollY>110}">{{popularPropStatic.Header}}</h1>
+    <p [ngClass]="{'fadeIn':scrollY>150}"  class="headerP">{{popularPropStatic.properties}} </p>
     <div class="cardPlace">
 <div  *ngFor="let card of popularPlacesData let i=index" (click)="goToCity(card.cityName)"
   class="cityCard"
 [ngStyle]="{'animation-delay': (i * 0.2) + 's'}"
-  [ngClass]="{'CardAnimation': scrollY > 170 , 'cityCard': scrollY<=180}"
+  [ngClass]="{'CardAnimation': scrollY > 140 , 'cityCard': scrollY<=150}"
 >
 
     <img src={{card.imgLink}} alt=""> <div class="textSide"><h2 class="cityName">{{card.cityName}}</h2> <p>{{card.properties}} {{popularPropStatic.prop}}</p></div>
@@ -83,13 +83,13 @@
 </div>
 
 <div class="featuredProperties"  > 
-    <h1 class="FH" [ngClass]="{'fadeIn':scrollY>720}">{{FeaturePS.Header}}</h1>
-    <p  class="FP" [ngClass]="{'fadeIn':scrollY>769}">{{FeaturePS.properties}} </p>
+    <h1 class="FH" [ngClass]="{'fadeIn':scrollY>620}">{{FeaturePS.Header}}</h1>
+    <p  class="FP" [ngClass]="{'fadeIn':scrollY>669}">{{FeaturePS.properties}} </p>
     <div class="cardPlace">
       
         <div class="propCard"   *ngFor="let info of FeatureProperties let i=index"
-        [ngStyle]="{'animation-delay': (i * 0.2) + 's'}"
-        [ngClass]="{'propCardAnimationR': scrollY > 900 && i%2==0 , 'propCardAnimationL': scrollY > 900 && i%2==1 }"
+        [ngStyle]="{'animation-delay': (i * 0.1) + 's'}"
+        [ngClass]="{'propCardAnimationR': scrollY > 800 && i%2==0 , 'propCardAnimationL': scrollY > 800 && i%2==1 }"
         >
             <div class="leftSide" [ngStyle]="{'background-image': 'url(' + info.imgLink + ')'}">
 
@@ -100,7 +100,7 @@
                 </div>
                   <div class="SecondRow">
                     <button><img class="link" src="../../assets/Imges/Header/CardImges/icons/link.svg" alt="shareIcons"></button>
-                    <button><img src="../../assets/Imges/Header/CardImges/icons/camera-video.svg" alt="camerIcon"></button>
+                    <button *ngIf="info.video!='' "><img src="../../assets/Imges/Header/CardImges/icons/camera-video.svg" alt="camerIcon"></button>
                     <button><img src="../../assets/Imges/Header/CardImges/icons/img.svg" alt="Icon"></button>
                   </div>
             </div>

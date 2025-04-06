@@ -119,7 +119,22 @@
         
                <label > {{NearByTranslate.sections[i]}} </label>
                <div class="row">  
-                 <div class="input" *ngFor="let inp of prop.inputs"> <input [formControlName]="inp.placeController" type="text" class="Place" placeholder="{{NearByTranslate.placeholder}}"> <input class="Distance" type="number" [formControlName]="inp.DistanceController"  placeholder="{{NearByTranslate.placeholderDist}}"> </div> </div>
+                 <div class="input" *ngFor="let inp of prop.inputs">
+                     <input [formControlName]="inp.placeController" type="text" class="Place" placeholder="{{NearByTranslate.placeholder}}">
+                     <div  class="DistanceRow">
+                         <input class="Distance" type="tel" 
+                         onwheel="this.blur()"
+                           onkeydown="if(event.key==='e'||event.key==='E'||event.key==='-'){event.preventDefault();}" 
+                            inputmode="numeric" [formControlName]="inp.DistanceController"  placeholder="{{NearByTranslate.placeholderDist}}" >
+                            
+
+                         <select name="unit" class="NearbySelect" >
+                             <option *ngFor="let el of NearByTranslate.units let i=index" value="{{el}}">{{NearByTranslate.unitstr[i]}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                        </div>
               <div class="buttonPlace">
                   <button type="button" (click)="addInput(prop.inputs , i)">+</button>
                   <span class="error" *ngIf="nearbyError[i].bol">{{nearbyError[i].message}}</span>

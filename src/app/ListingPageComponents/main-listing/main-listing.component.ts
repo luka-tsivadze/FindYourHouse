@@ -53,9 +53,11 @@ NearbyProperties=[{
 NearByTranslate={
   Header:'Nearby Properties',
   placeholder:'write Place Name:',
-  placeholderDist:'Distance(km)',
+  placeholderDist:'Distance',
 error:'You can add 3 properties Max',
   sections:['Education','Health & Medical','Transportation'],
+  units:['km','miles'],
+  unitstr:['km','miles'],
 }
 
 city={
@@ -161,14 +163,14 @@ this.nearbyError[index].bol=true;
     }else{
       this.nearbyError[index].bol=false;
     }
-console.log('input to add ',this.NearbyProperties[index].FormControls[header.length]);
+
     this.NearbyProperties[index].inputs.push({placeController:this.NearbyProperties[index].FormControls[header.length].name,
        DistanceController:this.NearbyProperties[index].FormControls[header.length].Distance});
 
   }
 
   async loadItemData(data) {
-    console.log('Loading item data:', data);
+
     this.calledFromEdit = true;
     this.isLoadingFiles = true; // ✅ Start loading
   this.listingForm.patchValue({ dzveli_atvirtvis_tarigi: data.date});
@@ -372,7 +374,9 @@ console.log('input to add ',this.NearbyProperties[index].FormControls[header.len
       console.log('No file selected');
     }
   }
-  
+
+ 
+
   onSubmit(): void {
     if (this.listingForm.invalid) {
       console.error('Invalid form:', this.listingForm.value); 

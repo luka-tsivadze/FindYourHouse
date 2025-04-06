@@ -303,9 +303,13 @@ background-color: rgb(6, 163, 6) ;
       border-radius: 3px;
      
       img {
-        width: 30px;
+
+        width: 60px;
         height: 29px;
         filter: contrast(10) invert(0);
+      }
+      .icon{
+        opacity: 0;
       }
     }
     .contact {
@@ -411,18 +415,25 @@ background-color: rgb(6, 163, 6) ;
     height: 100vh;
     .logo{
       background-color: #24324a;
-      padding: 22px 30px;
+      padding: 10px 30px;
+      display: flex;
+      justify-content: center;
+  
+      img{
+        width: 70%;
+        
+      }
     }
     .navcontainer{
    display: flex;
    flex-direction: column;
 
- padding-top:30px ;
+ padding-top:20px ;
     padding-bottom:180px ;
     align-items:center;
     
 
-    gap: 5%;
+    gap: 2%;
 height: 100%;
 .profileImg{
   display: flex;
@@ -574,9 +585,16 @@ width: 232px;
       }
         .FirstUl{
           gap: 0;
+          li:not(.contact){
+    
+            .icon{
+              opacity: 1;
+            }
+
+          
         }
 
-    
+      }
   }
   .leftNavIcon{
     display: block;

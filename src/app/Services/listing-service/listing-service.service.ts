@@ -119,7 +119,7 @@ private cachedmyCards$: Observable<any[]> | null = null;
   private Views$ = new BehaviorSubject<any>([]);
 
   views(activePage: any[]): BehaviorSubject<any> {  
-    console.log('Fetching views for:', activePage);
+
     const gancxadebisIds = activePage.map((element: any) => element.id).join(',');
   const gancxadebisArray=activePage.map((element: any) => element.id);
     if (!gancxadebisIds) {
@@ -133,7 +133,7 @@ private cachedmyCards$: Observable<any[]> | null = null;
           return of({}); 
         })),
         
-      post: this.http.post<any>('get-revews-count.php', { gancxadebis_ids: gancxadebisArray })
+      post: this.http.post<any>('get-reviews-count.php', { gancxadebis_ids: gancxadebisArray })
         .pipe(catchError(error => {
           console.error('POST request failed:', error);
           return of({}); 

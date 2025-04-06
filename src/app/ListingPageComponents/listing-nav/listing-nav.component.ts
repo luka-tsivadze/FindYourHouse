@@ -24,7 +24,7 @@ displayElement=false;
 showLanguages=false;
 navLang=this.navService.Languages;
 chosenLang='GEO'
-ProfileSettings=this.navService.MenuBar.profileSettings;
+ProfileSettings;
 NavElements:any=this.navService.MenuBar;
 SignedIn:any
 staticElements: any;
@@ -164,7 +164,7 @@ this.showLanguages=!this.showLanguages;
 
     if(this.showRespNav.bool){
       this.showRespNav.bool=false;
-      this.showRespNav.iconSrc='../../assets/Imges/NavImg/list-outline.svg'
+      this.showRespNav.iconSrc='../../assets/Imges/mainLogo.png'
   }else{
     this.showRespNav.bool=true;  
 

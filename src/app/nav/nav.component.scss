@@ -97,7 +97,7 @@ nav {
     display: flex;
     gap: 15px;
     .icon {
-      width: 60px;
+      // width: 60px;
       height: 54px;
       margin-right: 20px;
     }
@@ -383,7 +383,7 @@ nav {
   position: absolute;
   right:13%;
   top: 78px;
-  width: 190px;
+
   height: 233px;
   border-radius: 5px;
   background-color: #ffffff;
@@ -391,7 +391,7 @@ nav {
   flex-direction: column;
   justify-content: space-around;
   align-items: start;
-  padding: 10px 20px;
+  padding: 10px 18px;
   animation: fadeIn4 0.5s forwards ease-in;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.12);
   a {

@@ -181,6 +181,7 @@ fetchDataFromApi(): Observable<any[]> {
               alt: item.satauri,
               momxmreblis_idi: item.amtvirtvelis_idi,
               uploadmonth: daysDifference,
+              video: item.video,
             };
           } catch (error) {
             console.error('Error processing item:', item, error);
@@ -205,6 +206,9 @@ private cachedFavCards$: Observable<any[]> | null = null; // Cache variable
 
 fetFavchData(id: number ,bool?:boolean): Observable<any[]> {
   const body = { momxmareblis_idi: id };
+ if(!this.navServ.userId) {
+  return of([]); // Return an empty observable if userId is null
+ }
 
   if (this.cachedFavCards$ && !bool) {
     return this.cachedFavCards$;

@@ -56,18 +56,22 @@ export class MyPropertiesComponent implements OnInit {
 this.sharedService.userData().subscribe({
 next:(data)=>{
   this.allCardEl=data;
+
   this.isLoading = false; // Data loading completed
   
 
 },
 error:(error)=>console.error('Error:',error),
 complete:()=>{
+  if (this.allCardEl.length > 0) {
   this.sharedService.views(this.allCardEl).subscribe({
     next:(data)=>{
       this.allCardEl = data;
+
       this.pageFunction(); // Recalculate pages after data is updated
     }
   });
+  }
 },
 
 });
@@ -82,7 +86,7 @@ complete:()=>{
 
   this.http.get(`get-views-counted-data.php`, { params: { gancxadebis_ids: gancxadebisIds } }).subscribe({
     next: (data: any) => {
-      console.log('Views data:', data);
+
 
       this.activePage = this.activePage.map(item => ({
         ...item,

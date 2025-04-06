@@ -59,5 +59,12 @@ export class ReviewsService {
       })
     );
   }
+
+  private websiteReviewsSubject = new BehaviorSubject<any[]>([]);
+  fetchWebsiteReviews(): Observable<any[]> {
+    return this.http.get<any[]>('get_site_reviews.php ').pipe(
+      tap(reviews => this.websiteReviewsSubject.next(reviews))// Update BehaviorSubject
+    );
+  }
   
 }

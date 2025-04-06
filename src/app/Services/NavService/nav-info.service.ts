@@ -21,13 +21,17 @@ export class NavInfoService {
       { a: 'Register',chack:'Register', Showimg: false, RouterLink: ''  },
       { a: 'About Us', Showimg: false, RouterLink: '/about' },
     ],
-    Blog: [ 
-      { a: 'text', Showimg: true, subText: ['text1', 'text2', 'text3'] },
-      { a: 'text', Showimg: false },
-      { a: 'text', Showimg: false }
-    ],
-    profileSettings:[{ Text:'Edit Profile', value:'Edit Profile', routes:''},{ Text:'Add Property',value:'Add Property'}
-      ,{Text:'Payments', value:'Payments' },{Text:'Change Password', value:'Change Password'},{Text:'Log Out',value:'Log Out'}]
+    // Blog: [ 
+    //   { a: 'text', Showimg: true, subText: ['text1', 'text2', 'text3'] },
+    //   { a: 'text', Showimg: false },
+    //   { a: 'text', Showimg: false }
+    // ],
+    // profileSettings:[
+    //   { Text:'Add Property',value:'Add Property'},
+    //   {Text:'My Properties', value:'My Properties'},
+    //   {Text:'Favorited Properties', value:'Favorited Properties'},
+    //   { Text:'Edit Profile', value:'Edit Profile', routes:''},
+    //   ,{Text:'Payments', value:'Payments' },{Text:'Change Password', value:'Change Password'},{Text:'Log Out',value:'Log Out'}]
   };
 
   IsSignedIn = { signed: false,
@@ -41,7 +45,7 @@ export class NavInfoService {
   chosenLang: string | undefined; //სერვისში გამოუსადეგარია 
   scrollobser = new BehaviorSubject<boolean>(false);
   
-userId
+userId;
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient) {
     if (isPlatformBrowser(this.platformId)) {
     

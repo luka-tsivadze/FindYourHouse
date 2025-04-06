@@ -90,9 +90,21 @@
   
    align-items: center;
    gap: 10px;
-       
            box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.1);
 
+
+           .col-100{
+            display: flex;
+            position: relative;
+            flex-direction: column;
+            gap: 9px;
+            .toggle-password{
+                position: absolute;
+                top: 43px;
+                right: 12px;
+                cursor: pointer;
+            }
+           }
       .Top{
             display: flex;
             justify-content: space-between;
@@ -247,6 +259,31 @@
                 color: white;
             }
         }
+        .row{
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 5px;
+            padding: 10px;
+        
+            background-color: none;
+         
+                cursor: pointer;
+                
+                input{
+                    width: 20px!important;
+                    outline: unset !important;
+                }
+                label{
+           
+                    cursor: pointer;
+            
+                    display: flex;
+                    gap: 6px;
+                }
+                
+            
+        }
       
         .inputRow{
             transition: 1s;
@@ -255,6 +292,7 @@
             justify-content: center;
             gap:10px;
             padding-top:20px;
+
             label{
                 float: left;
                 font-size: 14px; 
@@ -301,7 +339,8 @@
             button{
                 background: #ff385d93;
     padding: 13px 35px;
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     width: min-content;
     border: none;
     border-radius: 4px;
@@ -334,7 +373,7 @@
             gap: 10px;
             input {
               
-                width: 20px;
+                width: 20px !important;
                 height: 20px;
                 border: 1px solid #ccc;
                 border-radius: 3px;
@@ -419,4 +458,49 @@ input{
 
 }
 
+}
+
+@media screen and (max-width: 518px) {
+    .bodyEl{
+        .scroll{
+            .form{
+                width: 311px;
+                .Top{
+                    padding: 20px 10px;
+                    font-size: 16px;
+                    .X{
+                        width: 38px;
+                        height: 38px;
+                    }
+                }
+                main{
+                    padding: 0 20px 20px;
+                    .btnRow{
+                        gap: 25px;
+                        .btn{
+                            padding: 10px 17px;
+                            font-size: 14px;
+                        }
+                    }
+                }
+                .bottomRow{
+                    .RememberMe{
+                        label{
+                            font-size: 12px;
+                        }
+                        input{
+                            width: 12px !important;
+                            height: 12px;
+                        }
+                    }
+                    .forgotPassword{
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+     
+    }
+
+    
 }

@@ -20,17 +20,17 @@ export class NavComponent {
 
   scrollY: number=0
 
-LogoLink='../../assets/Imges/NavImg/NavIcon1.svg'
-GlobeLink='../../assets/Imges/NavImg/thirdImg.png'
+LogoLink='../../assets/Imges/mainLogo.png';
+GlobeLink='../../assets/Imges/NavImg/thirdImg.png';
 ShowImg=false;
 displayElement=false;
 showLanguages=false;
 navLang=this.navService.Languages;
-chosenLang='GEO'
-ProfileSettings=this.navService.MenuBar.profileSettings;
+chosenLang='GEO';
+ProfileSettings;
 NavElements=this.navService.MenuBar;
-IsSignedIn:any
-staticElements
+IsSignedIn:any;
+staticElements;
 showNav;
 showRespNav={bool:false ,iconSrc:'../../assets/Imges/NavImg/list-outline.svg'};
 
@@ -104,10 +104,10 @@ showRespNav={bool:false ,iconSrc:'../../assets/Imges/NavImg/list-outline.svg'};
     }
 
     if (this.showNav) {
-      this.LogoLink = '../../assets/Imges/NavImg/NavIcon2.svg';
+      this.LogoLink = '../../assets/Imges/mainLogo.png';
       this.GlobeLink = '../../assets/Imges/NavImg/globeBlack.svg';
     } else {
-      this.LogoLink = '../../assets/Imges/NavImg/NavIcon1.svg';
+      this.LogoLink = '../../assets/Imges/mainLogo.png';
       this.GlobeLink = '../../assets/Imges/NavImg/thirdImg.png';
     }
 
@@ -148,10 +148,10 @@ this.showLanguages=!this.showLanguages;
       this.scrollY = window.scrollY || window.pageYOffset; // Get the current scroll position
 
       if(this.scrollY>100 || this.showNav){
-        this.LogoLink='../../assets/Imges/NavImg/NavIcon2.svg'
+        this.LogoLink='../../assets/Imges/mainLogo.png'
         this.GlobeLink='../../assets/Imges/NavImg/globeBlack.svg'
       }else{
-        this.LogoLink='../../assets/Imges/NavImg/NavIcon1.svg'
+        this.LogoLink='../../assets/Imges/mainLogo.png'
         this.GlobeLink='../../assets/Imges/NavImg/thirdImg.png'
       }
   }
@@ -225,14 +225,11 @@ if(element.chack){
    window.location.reload();
   }else if(el=='Edit Profile'){
 
-    localStorage.setItem('ActiveElement', 'Dashboard')
-
-}else if(el=='Add Property'){
-localStorage.setItem('ActiveElement', 'Add Property')
-
-}else if(el=='Change Password'){
-  localStorage.setItem('ActiveElement', 'Change Password')
-}
+    localStorage.setItem('ActiveElement', 'Dashboard');
+    this.router.navigate(['/Listing']);
+    return;
+  }
+localStorage.setItem('ActiveElement', el)
 this.router.navigate(['/Listing'])
 }
 

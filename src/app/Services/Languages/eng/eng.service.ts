@@ -22,8 +22,13 @@ export class EngService {
       { a: 'text', Showimg: false },
       { a: 'text', Showimg: false }
     ],
-    profileSettings:[{ Text:'Edit Profile', value:'Edit Profile', routes:''},{ Text:'Add Property',value:'Add Property'}
-      ,{Text:'Payments', value:'Payments' },{Text:'Change Password', value:'Change Password'},{Text:'Log Out',value:'Log Out'}]
+    profileSettings:[
+      {Text:'Add Property',value:'Add Property'},
+      {Text:'My Properties', value:'My Properties'},
+      {Text:'Favorited Properties', value:'Favorited Properties'},
+      {Text:'Edit Profile', value:'Edit Profile', routes:''},
+      {Text:'Payments', value:'Payments' },{Text:'Change Password', value:'Change Password'},
+      {Text:'Log Out',value:'Log Out'}]
   };
   NavE = {
     Home: 'Home',
@@ -126,6 +131,47 @@ export class EngService {
 
   },
 
+ }
+ Registration={
+
+  confirmation:{ text:'You have Succesfully Registered' , show:false},  
+  mainInputs:[
+   {FormControlName:'saxeli' , labelText:'First Name*', For:"firstNameReg" ,type:'text' ,errortext:'First Name is required.', chack:false},
+   {FormControlName:'gvari' , labelText:'Last Name*', For:"lastNameReg" ,type:'text' ,errortext:'Last Name is required.', chack:false},
+   {FormControlName:'maili' , labelText:'Email Address*', For:"emailReg" ,type:'email' ,errortext:'Email is required.' , chack:false},
+   {FormControlName:'paroli' , labelText:'Password*', For:"passwordReg" ,type:'password' ,errortext:'Password is required.' , chack:false},
+   {FormControlName:'paroliRepeat' , labelText:'Repeat Password*', For:"repeatPasswordReg" ,type:'password' ,errortext:'Passwords must match.' , chack:true},
+ ],
+ register:{
+   buttonText:'Register',
+   mobile:'mobile Number*',
+   notification:'verification ended succsesfully',
+   Codeerror:'Code is incorrect',
+   GError:'Gender is required',
+   numbererror:'write Your phone number',
+   Hgender:'Gender*',   
+   agree:'I agree to',
+   terms:'the terms and conditions',
+
+   Man:'Male',
+   Fam:'Famale',
+   codeHolder:'Enter the code  you received on the phone',
+ 
+   respErrorNumber:'Phone number is incorrect',
+   respErrorEmail:'Email already in use',
+   respErrorEmailInvalid:'Email is invalid',
+   respErrorServer:'There is a problem with the server, try again later.',
+ },
+ login:{
+    inputs:[
+     {FormControlName:'maili' , labelText:' Email Address*', For:"firstNameLogin" ,type:'text' ,errortext:'Write Your  Email.' },
+     {FormControlName:'paroli' , labelText:'Password*', For:"passwordLogin" ,type:'password' ,errortext:'Password must be at least 6 characters.' },
+    ],
+    button:'Login',
+    remember:'Remember Me',
+     forget:'Forget Password?',
+ }
+ 
  }
      
   constructor() {}

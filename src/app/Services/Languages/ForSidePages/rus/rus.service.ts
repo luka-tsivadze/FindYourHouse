@@ -66,15 +66,16 @@ export class RusService {
     form3Info : [
       { HeaderName: 'Адрес', placeHolder: 'Введите ваш адрес', id: 'adress', formControlName: 'misamarti' , type:'text'},
       
-    
-      { HeaderName: 'Широта Google Map', placeHolder: 'Широта Google Map', id: 'mapa', formControlName: 'mapis_grdzedi' ,type:'number' },
-      { HeaderName: 'Долгота Google Map', placeHolder: 'Долгота Google Map', id: 'mapo', formControlName: 'mapis_ganedi' , type:'number' }
+      // { HeaderName: 'Широта Google Map', placeHolder: 'Широта Google Map', id: 'mapa', formControlName: 'mapis_grdzedi' ,type:'number' },
+      // { HeaderName: 'Долгота Google Map', placeHolder: 'Долгота Google Map', id: 'mapo', formControlName: 'mapis_ganedi' , type:'number' }
     ],
     NearByTranslate:{
       Header:'Близлежащие объекты',
       placeholder:'Введите название места:',
-      placeholderDist:'Расстояние (км)',
+      placeholderDist:'Расстояние',
       sections:['Образование','Здоровье и медицина','Транспорт'],
+      units:['km','miles'],
+      unitstr:['km','miles'],
       error:'Пожалуйста, введите название места',
     },
     
@@ -170,7 +171,7 @@ export class RusService {
     Ed: 'Редактировать',
     prev: 'Предыдущий',
     next: 'Следующий',
-    ago:'Месяцев назад'
+    ago:' Месяцев назад',
   };
   
   contact = {
@@ -185,7 +186,7 @@ export class RusService {
     },
     inputs: [
       { placeholder: 'Имя', type: 'text', FormControlname: 'saxeli' },
-      { placeholder: 'Фамилия', type: 'text', FormControlname: 'gvari' },
+      // { placeholder: 'Фамилия', type: 'text', FormControlname: 'gvari' },
       { placeholder: 'Заголовок', type: 'text', FormControlname: 'satauri' },
       { placeholder: 'Эл. почта', type: 'email', FormControlname: 'maili' },
     ],

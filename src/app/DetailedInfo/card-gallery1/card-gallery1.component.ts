@@ -24,7 +24,8 @@ this.unit=this.lang.chosenLang.DetailedInfo.unit;
     this.cardInfo.chosenCard.subscribe((card) => {
       this.chosenCard = card;
    this.data=this.chosenCard;
-    this.priceForM=Math.round(Number(this.data.purePrice)/Number(this.data.area)) + this.data.currency || 'GEL';
+    // this.priceForM=Math.round(Number(this.data.purePrice)/Number(this.data.area)) + this.data.currency || 'GEL';
+    this.priceForM=this.data.area;
     this.mainImg=this.chosenCard.img[this.ForActive];
     })
   }

@@ -77,7 +77,8 @@ main{
             cursor: pointer;
             position: absolute;
             bottom: 50px;
-            left: 30px;
+            left: 50%;
+            transform: translateX(-50%);
             transition: 0.4s;
             color: #fff;
             display: flex;
@@ -87,9 +88,13 @@ main{
             justify-content: center;
     background-color: #00000028;
     color: #fff;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 500;
         
+        }
+        h4:hover{
+            font-size: 22px;
+            background-color: #000000ac
         }
    
 

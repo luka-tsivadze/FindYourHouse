@@ -19,7 +19,7 @@ export class LeftAmentiesComponent implements OnInit {
   // Array to hold chosenCard values
   Infoelements: any[] = [];
   Amenties ;
-
+unit;
 
 
 
@@ -30,6 +30,7 @@ export class LeftAmentiesComponent implements OnInit {
   }
   chosenCard;
   ngOnInit(): void {
+    this.unit=this.lang.chosenLang.DetailedInfo.unit;
     this.propertyInfo.chosenCard.subscribe((card) => {
       this.chosenCard = card;
       this.Amenties = card.Amenities;
@@ -43,7 +44,7 @@ export class LeftAmentiesComponent implements OnInit {
       chosenCard.Rooms,
       chosenCard.bedrooms,
       chosenCard.bathrooms,
-      chosenCard.area +' /sqM',
+      chosenCard.area +' '+ this.unit,
       chosenCard.YearBuilt
     ];
   }

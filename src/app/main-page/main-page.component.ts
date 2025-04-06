@@ -7,6 +7,8 @@ import { PropertyInformationService } from '../Services/Property-info/property-i
 import { NavInfoService } from '../Services/NavService/nav-info.service';
 import { concatMap } from 'rxjs';
 import { AgentsService } from '../Services/agents/agents.service';
+import { RegistrationService } from '../Services/registration/registration.service';
+import { ReviewsService } from '../Services/reviews/reviews.service';
 
   @Component({
     selector: 'app-main-page',
@@ -51,7 +53,8 @@ DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
 
     constructor(@Inject(PLATFORM_ID) private platformId: Object,
     private allCardsService: AllCardsService,
-     private navService:NavInfoService,
+     private navService:NavInfoService, private Registration:RegistrationService,
+    private Reviews: ReviewsService,
     private Propinfo:PropertyInformationService ,
     private agentsServ:AgentsService, private dataService: MainPageDataService) {
       
@@ -110,7 +113,14 @@ DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
       },
       error: (err) => console.error('Error fetching agents:', err)
     }); 
-    } 
+
+    this.Reviews.fetchWebsiteReviews().subscribe({
+      next: (data) => {
+        console.log('Reviews data:', data);
+      }, 
+error: (err) => console.error('Error fetching Web reviews:', err)
+  });
+}
 
 
     getMatchingIndexes(savedCards: any[], allCards: any[]): void {
@@ -239,6 +249,12 @@ if(index==0){
 
   saveToFav(i:number , info){  
  
+    if(this.navService.userId===null){
+      window.document.body.style.overflow = "hidden";
+      this.Registration.setDisplayer(true);
+      return;
+     }
+     
     const momxmareblis_idi= this.navService.userId
     const gancxadebis_idi=info.gncxdebis_idi
     const postBody={momxmareblis_idi,gancxadebis_idi}

@@ -18,7 +18,7 @@
                 </div>
                   <div class="SecondRow">
                     <button (click)="saveToFav(i,info)"><img class="link" [src]="heartimgLinks[i]" alt="Heart"></button>
-                    <button><img src="../../assets/Imges/Header/CardImges/icons/camera-video.svg" alt="camerIcon"></button>
+                    <button *ngIf="info.video!='' "><img src="../../assets/Imges/Header/CardImges/icons/camera-video.svg" alt="camerIcon"></button>
                     <button><img src="../../assets/Imges/Header/CardImges/icons/img.svg" alt="Icon"></button>
                   </div>
                   <div class="price">{{info.price}}<span *ngIf="info.For=='For Rent'">/mo</span></div>
@@ -34,7 +34,7 @@
                 <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/car.svg" alt="garages"><p>{{info.garages}} {{FeaturePS.Garage}}</p></div>
             </div>
             <div class="CardFooterRow">
-               <div class="row"> <p>{{info.profileName}}</p></div>  <p>{{info.uploadmonth}} Day ago</p>
+               <div class="row"> <p>{{info.profileName}}</p></div>  <p>{{info.uploadmonth}} {{Languages.myProp.ago}}</p>
             </div>
             </div>
         </div>

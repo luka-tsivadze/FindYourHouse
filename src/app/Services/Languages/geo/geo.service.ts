@@ -23,8 +23,10 @@ export class GeoService {
       { a: 'ტექსტი', Showimg: false }
     ],
     profileSettings: [
-      { Text: 'პროფილის რედაქტირება', value: 'Edit Profile', routes: '' },
       { Text: 'განცხადების დამატება', value: 'Add Property' },
+      {Text:'ჩემი განცხადებები', value:'My Properties'},
+      {Text:'შენახული განცხადებები', value:'Favorited Properties'},
+      { Text: 'პროფილის რედაქტირება', value: 'Edit Profile', routes: '' },
       { Text: 'გადახდები', value: 'Payments' },
       { Text: 'პაროლის შეცვლა', value: 'Change Password' },
       { Text: 'გასვლა', value: 'Log Out' }
@@ -168,6 +170,43 @@ allFilter = {
 
 }
 
+Registration = {
+  confirmation: { text: 'თქვენ წარმატებით დარეგისტრირდით', show: false },
+  mainInputs: [
+    { FormControlName: 'saxeli', labelText: 'სახელი*', For: "firstNameReg", type: 'text', errortext: 'სახელი აუცილებელია.', chack: false },
+    { FormControlName: 'gvari', labelText: 'გვარი*', For: "lastNameReg", type: 'text', errortext: 'გვარი აუცილებელია.', chack: false },
+    { FormControlName: 'maili', labelText: 'ელფოსტა*', For: "emailReg", type: 'email', errortext: 'ელფოსტა აუცილებელია.', chack: false },
+    { FormControlName: 'paroli', labelText: 'პაროლი*', For: "passwordReg", type: 'password', errortext: 'პაროლი აუცილებელია.', chack: false },
+    { FormControlName: 'paroliRepeat', labelText: 'გაიმეორეთ პაროლი*', For: "repeatPasswordReg", type: 'password', errortext: 'პაროლები უნდა ემთხვეოდეს.', chack: true },
+  ],
+  register: {
+    buttonText: 'რეგისტრაცია',
+    mobile: 'მობილურის ნომერი*',
+    notification: 'ვერიფიკაცია წარმატებით დასრულდა',
+    Codeerror: 'კოდი არასწორია',
+    GError: 'გთხოვთ აირჩიოთ სქესი',
+    numbererror: 'ჩაწერეთ თქვენი ტელეფონის ნომერი',
+    Hgender: 'სქესი*',
+    Man: 'მამაკაცი',
+    Fam: 'ქალი',
+    agree:'ვეთანხმები',
+    terms:' წესები და პირობები',
+    codeHolder: 'შეიყვანეთ ტელეფონზე მიღებული კოდი',
+    respErrorNumber: 'ტელეფონის ნომერი არასწორია',
+    respErrorEmail: 'ეს ელფოსტა უკვე გამოყენებულია',
+    respErrorEmailInvalid: 'ელფოსტა არასწორია',
+    respErrorServer: 'სერვერის პრობლემა, სცადეთ მოგვიანებით.',
+  },
+  login: {
+    inputs: [
+      { FormControlName: 'maili', labelText: 'შეიყვანეთ  ელფოსტა*', For: "firstNameLogin", type: 'text', errortext: 'შეიყვანეთ მომხმარებლის  ელფოსტა.',  },
+      { FormControlName: 'paroli', labelText: 'პაროლი*', For: "passwordLogin", type: 'password', errortext: 'პაროლი უნდა შეიცავდეს მინიმუმ 6 სიმბოლოს.',  },
+    ],
+    button: 'შესვლა',
+    remember: 'დამახსოვრება',
+    forget: 'დაგავიწყდა პაროლი ?',
+  }
+};
 
 
   constructor() { }

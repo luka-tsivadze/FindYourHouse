@@ -52,6 +52,7 @@ import { DashreviewComponent } from './ListingPageComponents/DashboardParent/das
 import { FilterAdvencedComponent } from './header/filter-advenced/filter-advenced.component';
 import { UploadImageComponent } from './ListingPageComponents/DashboardParent/upload-image/upload-image.component';
 import { LoaderComponent } from './loader/loader.component';
+import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { LoaderComponent } from './loader/loader.component';
     DashreviewComponent,
     FilterAdvencedComponent,
     UploadImageComponent,
-    LoaderComponent
+    LoaderComponent,
+    TermsAndConditionsComponent
   ],
   imports: [
     BrowserModule,
