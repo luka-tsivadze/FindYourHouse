@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavInfoService } from '../../Services/NavService/nav-info.service';
 
@@ -8,6 +8,7 @@ import { ListingServiceService } from '../../Services/listing-service/listing-se
 import { MainPageDataService } from '../../Services/mainPageService/main-page-data.service';
 import { distance } from 'ol/coordinate';
 import { error } from 'node:console';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-main-listing',
@@ -50,15 +51,9 @@ NearbyProperties=[{
   inputs:[{placeController:'FirstPlace_Transportation', DistanceController:'FirstDistance_Transportation'}]
 }
 ]
-NearByTranslate={
-  Header:'Nearby Properties',
-  placeholder:'write Place Name:',
-  placeholderDist:'Distance',
-error:'You can add 3 properties Max',
-  sections:['Education','Health & Medical','Transportation'],
-  units:['km','miles'],
-  unitstr:['km','miles'],
-}
+NearByTranslate;
+
+
 
 city={
   input:this.lang.chosenLang.allForms.City, 
@@ -171,6 +166,9 @@ this.nearbyError[index].bol=true;
 
   async loadItemData(data) {
 
+
+     
+      
     this.calledFromEdit = true;
     this.isLoadingFiles = true; // ✅ Start loading
   this.listingForm.patchValue({ dzveli_atvirtvis_tarigi: data.date});
@@ -251,6 +249,7 @@ this.nearbyError[index].bol=true;
       console.error('Error loading item data:', error);
     } finally {
       // ✅ Ensure `isLoadingFiles` is always set to false, even if an error happens
+      this.checkForLand(); 
       this.isLoadingFiles = false;
     }
   }
@@ -260,8 +259,7 @@ this.nearbyError[index].bol=true;
     const response = await fetch(url);
     const blob = await response.blob();
     const detectedMimeType = blob.type;
-  
-    console.log(`Converted file from URL: ${filename}, Detected MIME type: ${detectedMimeType}`);
+
   
     // Force correct MIME type if necessary
     const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
@@ -291,7 +289,7 @@ this.nearbyError[index].bol=true;
     }else{ 
       this.index-=1;
     }
-    console.log('index',index);
+ 
       
       this.imgRowlink.splice(index, 1);
       this.fotofiles.splice(index, 1);
@@ -375,7 +373,7 @@ this.nearbyError[index].bol=true;
     }
   }
 
- 
+ @Output() valueChange = new EventEmitter<string>();
 
   onSubmit(): void {
     if (this.listingForm.invalid) {
@@ -401,7 +399,7 @@ this.nearbyError[index].bol=true;
   
     const formData = new FormData();
   
-    console.log('Form submitted:', this.listingForm.value);
+
     const formFields = this.listingForm.value;
     Object.keys(formFields).forEach((key) => {
       const value = formFields[key];
@@ -424,19 +422,22 @@ this.nearbyError[index].bol=true;
 
     this.http.post('upload_house.php', formData).subscribe({
       next: (response: any) => {
-        console.log('Form submitted successfully:', response);
+        console.log('Form submitted successfully:', response );
         
-        if (response.status === 'success' && response.message === 'gancxadeba-aitvirta-warmatebit') {
-          
+        if (response.status === 'success' && response.message === 'gancxadeba-aitvirta-warmatebit' || response.message === 'gancxadeba-ganaxlda-warmatebit') {
+          this.sharedService.callApiAgein.next(true);
           if(this.calledFromEdit){
-            console.log('Edit mode', this.listingForm.value);  
-
             this.sharedService.DeleteItem(this.listingForm.value.gancxadebis_id).subscribe();
-           }          
-          this.SendingAnimation = false;
-          window.location.href = '/allCards';
-  
 
+            localStorage.setItem('ActiveElement', 'My Properties');
+            this.valueChange.emit('My Properties'); 
+            this.SendingAnimation = false;
+          }else{
+            this.SendingAnimation = false;
+            window.location.href = '/allCards';
+          }          
+
+    
         } else {
           this.SendingAnimation = false
           console.error('Error:', response.message , response);
@@ -462,8 +463,40 @@ this.nearbyError[index].bol=true;
       }
     }
   }
-   
+  
+  LandIsSelected:boolean=false;
 
+  checkForLand(): void {
+    const selected = this.listingForm.get('tipi')?.value;
+
+    const fields = [
+      'otaxebis_raodenoba',
+      'asaki',
+      'sadzinebeli',
+      'sveli_wertilebis_raodenoba'
+    ];
+  
+    fields.forEach(field => {
+      const control = this.listingForm.get(field);
+
+      if (!control) return;
+
+      if (selected === 'Land Plot' || selected === 'Garage' ) {
+        this.LandIsSelected=true;
+        control.clearValidators();
+        control.setValue("");
+      } else {
+        control.setValidators(Validators.required);
+        this.LandIsSelected=false;
+      }
+
+  
+      control.updateValueAndValidity();
+    });
+    
+  }
+  
+  
   
   
        

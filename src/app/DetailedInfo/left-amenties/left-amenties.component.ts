@@ -29,17 +29,23 @@ unit;
 
   }
   chosenCard;
+  LandCard=false;
+
   ngOnInit(): void {
     this.unit=this.lang.chosenLang.DetailedInfo.unit;
     this.propertyInfo.chosenCard.subscribe((card) => {
+
+      if(card.Type === 'Land Plot' || card.Type === 'Garage') {
+        this.LandCard = true;
+      }
       this.chosenCard = card;
       this.Amenties = card.Amenities;
     })
     const chosenCard = this.chosenCard;
     this.Infoelements = [
       chosenCard.id,
-      chosenCard.For,
       chosenCard.Type,
+      chosenCard.For,
       chosenCard.price,
       chosenCard.Rooms,
       chosenCard.bedrooms,

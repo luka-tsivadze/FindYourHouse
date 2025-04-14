@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AllCardsService } from '../../Services/all-cards/all-cards.service';
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
+import { ViewsService } from '../../Services/views/views.service';
+import { switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-card-gallery1',
@@ -15,20 +17,30 @@ staticH2='Gallery';
  chosenCard;
  priceForM;
  mainImg;
+ viewsCount;
  unit;
-  constructor( private cardInfo:PropertyInformationService ,private lang:LanguageChooserService) {
+  constructor( private cardInfo:PropertyInformationService ,private lang:LanguageChooserService , private views:ViewsService) {
 this.staticH2=this.lang.chosenLang.DetailedInfo.CardGallery1;
 this.unit=this.lang.chosenLang.DetailedInfo.unit;
    }
-  ngOnInit(): void {
-    this.cardInfo.chosenCard.subscribe((card) => {
-      this.chosenCard = card;
-   this.data=this.chosenCard;
-    // this.priceForM=Math.round(Number(this.data.purePrice)/Number(this.data.area)) + this.data.currency || 'GEL';
-    this.priceForM=this.data.area;
-    this.mainImg=this.chosenCard.img[this.ForActive];
-    })
+   ngOnInit(): void {
+    this.cardInfo.chosenCard
+      .pipe(
+        tap((card) => {
+          this.chosenCard = card;
+          this.data = card;
+          this.priceForM = card.area;
+              // this.priceForM=Math.round(Number(this.data.purePrice)/Number(this.data.area)) + this.data.currency || 'GEL';
+          this.mainImg = card.img[this.ForActive];
+        }),
+        switchMap((card) => this.views.getCardViews(card.id))
+      )
+      .subscribe((viewsData) => {
+        this.viewsCount = viewsData;
+        console.log('Views count:', this.viewsCount);
+      });
   }
+  
   setIndex(index){
     this.ForActive=index;
     this.mainImg=this.chosenCard.img[this.ForActive];

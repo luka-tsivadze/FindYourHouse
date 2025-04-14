@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,9 @@ export class ViewsService {
       console.error('Error details:', err);
     }
     });
+  }
+  getCardViews(id):Observable<any>{
+    const params = new HttpParams().set('gancxadebis_idi', id);
+    return this.http.get('get_house_views.php', { params });
   }
 }

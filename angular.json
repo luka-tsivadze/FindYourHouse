@@ -34,7 +34,10 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+                "src/assets/robots.txt",
+                  "src/assets/googleaa2f9d99443c3678.html",
+                    "src/assets/sitemap.xml"
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
@@ -111,7 +114,10 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+                "src/assets/robots.txt",
+                  "src/assets/googleaa2f9d99443c3678.html",
+                    "src/assets/sitemap.xml"
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",

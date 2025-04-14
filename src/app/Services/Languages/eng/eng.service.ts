@@ -10,7 +10,7 @@ export class EngService {
   
     Property: [],
     Pages: [ 
-      { a: 'User Panel', chack:'User Panel', Showimg: true,  RouterLink: '', subText: [ {text:'Dashboard',value:'Dashboard'},
+      { a: 'User Panel', chack:'User Panel', Showimg: true,  RouterLink: '/Listing', subText: [ {text:'Dashboard',value:'Dashboard'},
         { text:'Profile',value:'Profile' }, {text:'My Properties',value:'My Properties'}, { text:'Favorited Properties',value:'Favorited Properties'} ,
          {text:'Add Property',value:'Add Property'} ,{text:'Payments',value:'Payments'},{text:'Change Password',value:'Change Password'}] },
       { a: 'Login', chack:'Login', Showimg: false },
@@ -67,7 +67,7 @@ export class EngService {
     Area: 'sq M',
     ViewDetails: 'View More',
   };
-  main = {
+  main = { 
     WhyChooseUs: 'Why Choose Us',
     everyStep: 'We provide full service at evey step ',
     popularPropertys: 'Discover popular properties',
@@ -86,11 +86,13 @@ export class EngService {
   }
  allFilter={
   FirstFilter:{
-    locations:['Tbilisi','Batumi' , 'Kutaisi' , 'Rustavi','Zugdidi', 'Telavi' ,'Bakuriani','Kobuleti'],
-    locationDis:['Tbilisi','Batumi' , 'kutaisi' , 'Rustavi','Zugdidi', 'Telavi' ,'Bakuriani','Kobuleti'],
+    locations: ['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Zugdidi', 'Telavi', 'Bakuriani', 'Kobuleti','Gori','Poti','Marneuli','Khashuri','Samtredia','Zestaponi','Akhaltsikhe','Senaki','Ozurgeti','Kaspi','Chiatura','Gardabani','Borjomi','Sagarejo','Kvareli','Bolnisi','Tkibuli','Khoni','Tskaltubo','Akhalkalaki','Mtskheta','Gurjaani','Dusheti',
+      'Lanchkhuti','Lagodekhi','Sachkhere','Dedoplistskaro','Abasha','Martvili','Ninotsminda','Tsalka','Vani','Dmanisi','Tsalenjikha', 'Keda'],
+    locationDis:['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Zugdidi', 'Telavi', 'Bakuriani', 'Kobuleti','Gori','Poti','Marneuli','Khashuri','Samtredia','Zestaponi','Akhaltsikhe','Senaki','Ozurgeti','Kaspi','Chiatura','Gardabani','Borjomi','Sagarejo','Kvareli','Bolnisi','Tkibuli','Khoni','Tskaltubo','Akhalkalaki','Mtskheta','Gurjaani','Dusheti',
+      'Lanchkhuti','Lagodekhi','Sachkhere','Dedoplistskaro','Abasha','Martvili','Ninotsminda','Tsalka','Vani','Dmanisi','Tsalenjikha', 'Keda'],
 
-    PropertyTypes:['Apartment','House','Commercial','Garage'],
-    PropertyTypesDis:['Apartment','House','Commercial','Garage']
+    PropertyTypes:['Apartment','House','Commercial','Garage','Land Plot'],
+    PropertyTypesDis:['Apartment','House','Commercial','Garage','Land Plot']
   },
   filter : {
     SelectInputs: [
@@ -176,3 +178,23 @@ export class EngService {
      
   constructor() {}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

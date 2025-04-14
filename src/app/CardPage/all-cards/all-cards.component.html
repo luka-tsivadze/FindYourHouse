@@ -21,17 +21,17 @@
                     <button *ngIf="info.video!='' "><img src="../../assets/Imges/Header/CardImges/icons/camera-video.svg" alt="camerIcon"></button>
                     <button><img src="../../assets/Imges/Header/CardImges/icons/img.svg" alt="Icon"></button>
                   </div>
-                  <div class="price">{{info.price}}<span *ngIf="info.For=='For Rent'">/mo</span></div>
+                  <div class="price">{{info.price}}<span *ngIf="info.For=='For Rent'"></span>  </div>
             </div>
             <div class="rightSide" (click)="routertodetailedInfo(info.id)">
                 <a>{{info.header}}</a>
                 <p><img src="../../assets/Imges/Header/CardImges/icons/Location.svg" alt="locationIcon">{{info.location}} </p>
                 <div class="squareFlex">
 
-                <div class="element"><img src="../../assets/Imges/Header/CardImges/icons/bedroom.svg" alt="badroom"><p>{{info.bedrooms}} {{FeaturePS.BedRooms}}</p></div> 
-                <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/bathtub.svg" alt="bathroom"><p>{{info.bathrooms}} {{FeaturePS.BathRooms}}</p></div> 
-                <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/triangular-ruler.svg" alt="areaIcon"><p>{{info.area}} {{FeaturePS.Area}}</p></div> 
-                <div class="element"><img src="./../../assets/Imges/Header/CardImges/icons/car.svg" alt="garages"><p>{{info.garages}} {{FeaturePS.Garage}}</p></div>
+                <div class="element" *ngIf="info.type!='Land Plot' && info.type!='Garage'"><img src="../../assets/Imges/Header/CardImges/icons/bedroom.svg" alt="badroom"><p>{{info.bedrooms}} {{FeaturePS.BedRooms}}</p></div> 
+                <div class="element" *ngIf="info.type!='Land Plot' && info.type!='Garage'"><img src="./../../assets/Imges/Header/CardImges/icons/bathtub.svg" alt="bathroom"><p>{{info.bathrooms}} {{FeaturePS.BathRooms}}</p></div> 
+                <div class="element" [ngClass]="{'Land':info.type=='Land Plot' || info.type=='Garage' }"><img src="./../../assets/Imges/Header/CardImges/icons/triangular-ruler.svg" alt="areaIcon"><p>{{info.area}} {{FeaturePS.Area}}</p></div> 
+                <div class="element" *ngIf="info.type!='Land Plot' && info.type!='Garage' "><img src="./../../assets/Imges/Header/CardImges/icons/car.svg" alt="garages"><p>{{info.garages}} {{FeaturePS.Garage}}</p></div>
             </div>
             <div class="CardFooterRow">
                <div class="row"> <p>{{info.profileName}}</p></div>  <p>{{info.uploadmonth}} {{Languages.myProp.ago}}</p>

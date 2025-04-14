@@ -1,6 +1,6 @@
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, forkJoin, map, Observable, of, shareReplay, tap } from 'rxjs';
+import { BehaviorSubject, catchError, forkJoin, map, observable, Observable, of, shareReplay, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class ListingServiceService {
 private cachedmyCards$: Observable<any[]> | null = null;
 
  SubmitEdited$ = new BehaviorSubject<any>(null);
-
+ callApiAgein:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
   setEditItemId(el) {
     this.editItemIdSubject.next(el);
   }
@@ -41,8 +41,11 @@ private cachedmyCards$: Observable<any[]> | null = null;
 
 
   userData(): Observable<any[]> {
-    if (this.cachedmyCards$) {
+    if (this.cachedmyCards$ && this.callApiAgein.getValue() === false) {
       return this.cachedmyCards$;
+    }else if(this.callApiAgein.getValue()===true){
+      this.cachedmyCards$ = null; // Reset cached data to force a new API call
+      this.callApiAgein.next(false);
     }
 
     const id = localStorage.getItem('id');

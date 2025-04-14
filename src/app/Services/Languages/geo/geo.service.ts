@@ -10,7 +10,7 @@ export class GeoService {
   
     Property: [ ],
     Pages: [ 
-      { a: 'მომხმარებლის პანელი',chack:'User Panel', Showimg: true, RouterLink: '', subText: [ {text: 'მართვა', value: 'Dashboard'},
+      { a: 'მომხმარებლის პანელი',chack:'User Panel', Showimg: true, RouterLink: '/Listing', subText: [ {text: 'მართვა', value: 'Dashboard'},
         { text: 'პროფილი', value: 'Profile' }, {text: 'ჩემი განცხადებები', value: 'My Properties'}, { text: 'შენახული განცხადებები', value: 'Favorited Properties'},
         {text: 'განცხადების დამატება', value: 'Add Property'} ,{text: 'გადახდა', value: 'Payments'},{text: 'პაროლის შეცვლა', value: 'Change Password'}] },
       { a: 'შესვლა',chack:'Login', Showimg: false },
@@ -68,58 +68,9 @@ NavG={Home:'მთავარი ' ,
         NewsFooterPlaceHolder: 'შეიყვანეთ თქვენი ელ.ფოსტა'
       }
       
-//main-listing Component
-
-form4Info = [
-  {
-    id: 'Age',
-    FormControlName: 'asaki',
-    firstOption: 'აირჩიეთ ქონების ასაკი',
-    options: ['0-1 წელი', '0-5 წელი', '0-10 წელი', '0-15 წელი', '0-20 წელი', '0-50 წელი', '50+ წელი'],
-    formControlName: 'asaki'
-  },
-  {
-    id: 'badrooms',
-    firstOption: 'საძინებლები',
-    options: ['1', '2', '3', '4', '5', '6'],
-    formControlName: 'sadzinebeli'
-  },
-  {
-    id: 'bathroom',
-    firstOption: 'სველი წერტილი',
-    options: ['1', '2', '3', '4', '5', '6'],
-    formControlName: 'sveli_wertilebis_raodenoba'
-  }
-];
-
-form3Info = [
-  { HeaderName: 'მდებარეობა', placeHolder: 'შეიყვანეთ მისამართი', id: 'adress', formControlName: 'misamarti' },
-  { HeaderName: 'ქალაქი', placeHolder: 'შეიყვანეთ ქალაქი', id: 'City', formControlName: 'qalaqi' },
 
 
-  { HeaderName: 'Google Map-ის გრძედი', placeHolder: 'შეიყვანეთ გრძედი', id: 'mapa', formControlName: 'mapis_grdzedi' },
-  { HeaderName: 'Google Map-ის განედი', placeHolder: 'შეიყვანეთ განედი',  id: 'mapo', formControlName: 'mapis_ganedi' }
-];
 
-form5Info = [
-  { text: 'კონდინციონერ', id: 'air', formControlName: 'kondincioneri' },
-  { text: 'საცურაო აუზი', id: 'pool', formControlName: 'sacurao_auzi' },
-  { text: 'ცენტრალური გათბობა', id: 'Heating', formControlName: 'centrluri_gatboba' },
-  { text: 'სარეცხის ოთახი', id: 'room', formControlName: 'samrecxao_otaxi' },
-  { text: 'სპორტდარბაზი', id: 'gym', formControlName: 'sportuli_darbazi' },
-  { text: 'მაღვიძარა', id: 'alarm', formControlName: 'signalizacia' },
-  { text: 'აივანი', id: 'balcon', formControlName: 'aivani' },
-  { text: 'მაცივარი', id: 'Refrigerator', formControlName: 'macivari' },
-  { text: 'ტელევიზია და ინტერნეტი', id: 'TV', formControlName:'televizia_wifi' },
-  { text: 'მიკროტალღური ღუმელი', id: 'Mic', formControlName: 'microtalguri' }
-];
-
-form6Info = [
-  { HeaderName: 'სახელი', placeHolder: 'შეიყვანე შენი სახელი', id: 'name6', formControlName: 'momxmareblis_saxeli' },
-
-  { HeaderName: 'ემაილი', placeHolder: 'შეიყვანე შენი ემაილი', id: 'Email6', formControlName: 'el_fosta' },
-  { HeaderName: 'ტელეფონი', placeHolder: 'შეიყვანე შენი ნომერი', id: 'Number6', formControlName: 'telefonis_nomeri' }
-];
 For={
   text: 'ქონების სტატუსი',
   optdisplay:[ 'ქირავდება', 'იყიდება', 'გირავდება', 'ქირავდება ყოველდღიურად', 'მშენებარე ბინები'],
@@ -127,11 +78,14 @@ For={
 }
 allFilter = {
   FirstFilter: {
-    locations: ['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Zugdidi', 'Telavi', 'Bakuriani', 'Kobuleti'],
-    locationDis: ['თბილისი', 'ბათუმი', 'ქუთაისი', 'რუსთავი', 'ზუგდიდი', 'თელავი', 'ბაკურიანი', 'ქობულეთი'],
+    locations: ['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Zugdidi', 'Telavi', 'Bakuriani', 'Kobuleti','Gori','Poti','Marneuli','Khashuri','Samtredia','Zestaponi','Akhaltsikhe','Senaki','Ozurgeti','Kaspi','Chiatura','Gardabani','Borjomi','Sagarejo','Kvareli','Bolnisi','Tkibuli','Khoni','Tskaltubo','Akhalkalaki','Mtskheta','Gurjaani','Dusheti',
+     'Lanchkhuti','Lagodekhi','Sachkhere','Dedoplistskaro','Abasha','Martvili','Ninotsminda','Tsalka','Vani','Dmanisi','Tsalenjikha', 'Keda'],
+    locationDis: ['თბილისი', 'ბათუმი', 'ქუთაისი', 'რუსთავი', 'ზუგდიდი', 'თელავი', 'ბაკურიანი', 'ქობულეთი','	გორი','ფოთი','მარნეული','ხაშური','სამტრედია','ზესტაფონი','ახალციხე','სენაკი','ოზურგეთი','კასპი','ჭიათურა','გარდაბანი','ბორჯომი','საგარეჯო','ყვარელი','ბოლნისი','ტყიბული','ხონი','წყალტუბო','ახალქალაქი','მცხეთა','გურჯაანი','დუშეთი',
+      'ლანჩხუთი','ლაგოდეხი','საჩხერე','დედოფლისწყარო','აბაშა','მარტვილი','ნინოწმინდა','წალკა','ვანი','დმანისი','წალენჯიხა','ქედა'
+    ],
 
-    PropertyTypes: ['Apartment', 'House', 'Commercial', 'Garage'],
-    PropertyTypesDis: ['ბინა', 'სახლი', 'კომერციული', 'ავტოფარეხი']
+    PropertyTypes: ['Apartment', 'House', 'Commercial', 'Garage','Land Plot'],
+    PropertyTypesDis: ['ბინა', 'სახლი', 'კომერციული', 'ავტოფარეხი','მიწის ნაკვეთი'],
   },
   filter: {
     SelectInputs: [

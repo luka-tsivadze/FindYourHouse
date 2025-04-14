@@ -66,5 +66,15 @@ export class ReviewsService {
       tap(reviews => this.websiteReviewsSubject.next(reviews))// Update BehaviorSubject
     );
   }
+
+  AddWebsiteReview(review: any) {
+this.http.post('send_site_review.php', review).subscribe({
+next: (data: { status: string }) => { console.log(data); 
+console.log('Review added successfully!', data.status);
+},
+error: (error) => { console.error(error); }
+
+})
   
+}
 }

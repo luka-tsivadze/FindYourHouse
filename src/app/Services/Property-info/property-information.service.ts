@@ -123,6 +123,17 @@ if (Array.isArray(images) && images.length > 0) {
   if (selectedCard) {
     // Transform the backend data into the desired format for chosenCard
     // console.log('Selected card:', selectedCard); 
+   let timeDifference 
+    if (selectedCard.tipi != 'Land Plot' && selectedCard.tipi != 'Garage') {
+      console.log('Selected card:', selectedCard);
+   timeDifference=new Date(
+        new Date(selectedCard.gancxadebis_atvirtvis_tarigi).setFullYear(
+          new Date(selectedCard.gancxadebis_atvirtvis_tarigi).getFullYear() -
+          this.extractYears(selectedCard.asaki || '0')) ).toISOString().split('T')[0] 
+    }else{
+      timeDifference=0;
+    }
+
     const temp= {
       featuredBtn: true, // Static value as per requirements
       For: selectedCard.garigebis_tipi || 'Unknown',
@@ -143,11 +154,8 @@ if (Array.isArray(images) && images.length > 0) {
       profileImg: '../../../assets/Imges/StaticImg/CardImges/ts-4.jpg', // Static placeholder
       profileName: selectedCard.momxmareblis_saxeli || 'Unknown',
       uploadmonth: new Date(selectedCard.statusis_gaaqtiurebis_tarigi).getMonth() + 1 || 1,
-    
-      YearBuilt: new Date(
-        new Date(selectedCard.gancxadebis_atvirtvis_tarigi).setFullYear(
-          new Date(selectedCard.gancxadebis_atvirtvis_tarigi).getFullYear() -
-          this.extractYears(selectedCard.asaki )) ).toISOString().split('T')[0],
+
+      YearBuilt: timeDifference,
       id: parseInt(selectedCard.idi),
       latitude:  selectedCard.mapis_grdzedi, // Static placeholder
       longitude: selectedCard.mapis_ganedi, // Static placeholder
@@ -181,13 +189,12 @@ if (Array.isArray(images) && images.length > 0) {
       transportis_distancia_2: selectedCard.transportis_distancia_2 || null,
       transportis_distancia_3: selectedCard.transportis_distancia_3 || null,
       similarProp: [],
+      views:'0',
 
  
     };
-    this.getSimilarProp(selectedCard).subscribe((data) => {
-      console.log('Similar properties:', data);
-      temp.similarProp = data;
-    });
+
+
     // Populate Amenities based on boolean fields
     const language = localStorage.getItem('Language') || 'ENG';
 
@@ -223,7 +230,7 @@ if (Array.isArray(images) && images.length > 0) {
 extractYears(rangeStr: string): number {
   const regex = /\d+-(\d+)/; // Match number range "0-15"
   const match = rangeStr.match(regex);
-
+  if (!rangeStr || typeof rangeStr !== 'string') return 0;
   if (match && match[1]) {
     return parseInt(match[1], 10); // Extract and return the second number
   } else {
@@ -279,4 +286,5 @@ getSimilarProp(chosenCard): Observable<any> {
     });
   });
 }
+
 }

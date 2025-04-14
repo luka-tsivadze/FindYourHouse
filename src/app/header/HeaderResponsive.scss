@@ -95,7 +95,7 @@
               gap: 8px 10px;
               padding: 10px 0;
               .element {
-                width: 85px !important;
+                width: 95px !important;
                 img{
                     width: 15px;
                     height: 15px;
@@ -133,33 +133,36 @@
   }
   }
   @media screen and (max-width: 780px) {
-    .featuredProperties {
-      padding: 30px 2%;
-      .cardPlace {
-   
-        .propCard {
-          width: 90% !important;
-          height: 230px;
-          .rightSide {
-            gap: 9px;
-            .squareFlex {
-              gap: 5px 10px;
-              padding: 6px 0;
-              .element{
-               width: 100px !important;
-                p{
-                  font-size: 12px;
+ 
+  
+    header{
+
+      .featuredProperties {
+        padding: 30px 2%;
+        .cardPlace {
+     
+          .propCard {
+            width: 90% ;
+            height: 230px;
+            .rightSide {
+              gap: 9px;
+              .squareFlex {
+                gap: 5px 10px;
+                padding: 6px 0;
+                .element{
+                 width: 110px  !important;
+                  p{
+                    font-size: 12px;
+                  }
                 }
               }
             }
           }
         }
       }
-    }
-    header{
-      padding-top: 110px;
+      padding-top: 30px;
       .HeaderCol{
-        height: 53vh;
+        height: 63vh;
   
       }
       .HeaderCol{
@@ -174,24 +177,27 @@
       .HeaderSearch{
         form{
           gap: 5px;
+
+        flex-direction: column;
+        padding: 7px 12px;
           .select{
-            width: 110px;
+            width: 270px;
             border-radius: 6px;
             padding: 2px;
             select{
               padding: 10px 0;
-              font-size: 10px;
+              font-size: 12px;
             }
           }
           .advanceS{
             padding: 3px 10px;  
             h5{
-              font-size: 10px;
+              font-size: 11px;
             }
           }
           .submit{
             padding: 5px 15px;
-            font-size: 10px;
+            font-size: 11px;
             height: 39px;
             margin-right: 5px;
           }
@@ -209,6 +215,8 @@
       }
     }
 
+header{
+
 
     .featuredProperties {
       padding: 30px 1%;
@@ -221,49 +229,75 @@
       .cardPlace {
   
         .propCard {
-          width: 100% !important;
-          .rightSide {
-            a{
-              font-size: 0.7rem;
-            }
-            .squareFlex {
-              gap: 5px;
-              padding: 10px;
-              p{
-                font-size: 10px;
-              }
-            }
+          flex-direction: column;
+          align-items: center;
+          gap: 1px;
+          width: 260px;
+          height: 380px;
+          overflow: hidden;
+        
+          .leftSide {
+            width: 100%;
+            height: 50%;
+             button{
+              padding: 6px 14px;
+              font-size: 10px;
+             }
+
+           
+         
           }
-          .leftSide{
-            width: 46%;
-            .FirstRow{
-              button{
+          .rightSide {
+            gap: 4px;
+            padding: 12px;
+         
+            width: 100%;
+            height: 50%;
+         
+            .squareFlex {
+              padding: 5px;
+              padding-left: 0px;
+              gap: 4px;
+              a {
+                font-size: 0.8rem;
+              }
+              p {
                 font-size: 10px;
-                padding: 5px 6px;
               }
             }
-            .SecondRow{
-              gap: 6px;
-              button{
-                position: relative;
-                width: 27px;
-                height: 27px;
-                img{
-                  width: 60%;
+            .CardFooterRow {
+              display: flex;
+              justify-content: space-between;
+              width: 100%;
+              padding-top: 10px;
+              align-items: center;
+              h1 {
+                color: #333;
+                font-size: 1.1rem;
+                font-weight: 600;
+              }
+              .iconRow {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+                .heart {
+                  filter: contrast(0.1);
                 }
               }
             }
           }
+            
+          
         }
       }
     }
-    
+  }
   }
   @media screen and (max-width:450px) {
     header{
       padding-top: 50px;
       .HeaderCol{
-        height: 50vh;
+        height: 65vh;
       }
     .featuredProperties {
       padding: 30px 0.5%;

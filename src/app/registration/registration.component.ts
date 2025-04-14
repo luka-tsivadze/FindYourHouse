@@ -128,6 +128,8 @@ constructor(private registrationService: RegistrationService, private http:HttpC
 
   makeDisplayFlse() {
     // Set displayer to false to hide the form
+    document.body.classList.remove('noscroll');
+    document.body.style.top = '';
     window.document.body.style.overflow = "unset";
     this.registrationService.setDisplayer(false);
   

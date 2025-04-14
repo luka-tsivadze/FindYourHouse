@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <label for="mobile">{{Registration.register.mobile}}
-                    <img class="sendIcon" *ngIf="RegistrForm.controls['nomeri'].valid && !verification" src="../../assets/Imges/StaticImg/StaticIcons/send-plus-fill.svg" alt="send btn" (click)="sendCode()" >
+                    <button class="sendIcon" *ngIf="RegistrForm.controls['nomeri'].valid && !verification" type="button"  (click)="sendCode()" >კოდის მიღება</button>
                  </label>
                 <input type="tel" id="mobile" formControlName="nomeri"  inputmode="numeric" onwheel="this.blur()" onkeydown="if(event.key==='e'||event.key==='E'||event.key==='-'){event.preventDefault();}">
                 <input type="tel" *ngIf="codeSegment && !RegistrForm.controls['nomeri'].invalid &&  !verification"  [placeholder]="Registration.register.codeHolder" name="verificationInput"  (input)="onCodeInput($event)" formControlName="verificationInput">
@@ -66,7 +66,7 @@
                 <div class="error" *ngIf="RegistrForm.controls['sqesi'].invalid && RegistrForm.controls['sqesi'].touched">
                     {{Registration.register.GError}}
                 </div>
-                <div   class="row">
+                <div   class="row chackBox">
                     <input type="checkbox" name="terms" id="terms" formControlName="terms"  required>
                      <label for="terms"> {{Registration.register.agree}}<a  [routerLink]="['/terms-and-conditions']">{{Registration.register.terms}}</a>  </label> 
                 </div>

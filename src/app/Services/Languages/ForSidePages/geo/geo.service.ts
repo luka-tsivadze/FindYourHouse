@@ -32,8 +32,8 @@ export class GeoService {
       ],
 
       secondselectName: 'ქონების ტიპი',
-      secondselect: ['ბინა', 'სახლი', 'კომერციული', 'გარაჟი'],
-      secondselectValues: ['Apartment', 'House', 'Commercial', 'Garage'],
+      secondselect: ['ბინა', 'სახლი', 'კომერციული', 'გარაჟი','მიწის ნაკვეთი'],
+      secondselectValues: ['Apartment', 'House', 'Commercial', 'Garage','Land Plot'],
 
       thirdselectName: 'ოთახების რაოდენობა',
 
@@ -155,8 +155,8 @@ export class GeoService {
       placeholder: 'შეიყვანეთ ადგილის სახელი:',
       placeholderDist: 'მანძილი',
       sections: ['განათლება', 'ჯანმრთელობა და მედიცინა', 'ტრანსპორტი'],
-      units:['km','miles'],
-      unitstr:['კმ','მილი'],
+      units:['km','meter'],
+      unitstr:['კმ','მეტრი'],
       error: 'მაქსიმუმი 3 ადგილი არის დასაშვები',
     },
 
@@ -317,6 +317,12 @@ export class GeoService {
       { placeholder: 'სათაური', type: 'text', FormControlname: 'satauri' },
       { placeholder: 'ელ. ფოსტა', type: 'email', FormControlname: 'maili' },
     ],
+    Webreview: {
+      header: 'შეფასების დამატება',
+      p: 'თქვენი შეფასება გვეხმარება საიტის  გაუმჯობესებაში',
+      placeholderN: 'შეფასება',
+      submit: 'გაგზავნა',
+    },
   };
   About = {
     headerH2: 'ჩვენს კომპანიაზე',
@@ -348,8 +354,10 @@ export class GeoService {
         },
       ],
       staticValues: {
-        h3: 'აგენტის ინფორმაცია',
+        h3: 'გაყიდვების მენეჯერი',
         p: 'ქონების აგენტი',
+        Agentp:'გაყიდვების მენეჯერი',
+        Userp:'ქონების მესაკუთრე',
         req: 'ინფორმაციის მოთხოვნის',
         submit: 'გაგზავნა',
         textArea: 'შეტყობინება',

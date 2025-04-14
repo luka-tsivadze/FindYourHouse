@@ -96,10 +96,10 @@
         <li><p>{{staticElements.Pages}}</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
             <div class="menuBar">
                 <div class="mainPart">
-                    <div class="row">
-                        <a >{{this.NavElements.Pages[0].a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':this.NavElements.Pages[0].Showimg==true}" alt="arrow">
-                        <div [ngClass]="{'ArrowNav':this.NavElements.Pages[0].Showimg==true,'DNone':this.NavElements.Pages[0].Showimg==false}"><div class="forHover">
-                            <div class="aContainer" [routerLink]="this.NavElements.Pages[0].route"   *ngFor="let subElement of this.NavElements.Pages[0].subText">
+                    <div class="row" *ngFor="let i of this.NavElements.Pages"     [ngClass]="{'DNone':i.chack=='Register'||i.chack=='Login'  } ">
+                        <a [routerLink]="i.RouterLink">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="arrow">
+                        <div [ngClass]="{'ArrowNav':i.Showimg==true,'DNone':i.Showimg==false}"><div class="forHover">
+                            <div class="aContainer" [routerLink]="i.route"   *ngFor="let subElement of i.subText">
                                 <a (click)="uploadToLocal(subElement.value)" >{{subElement.text}} </a> </div>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                 </div>
             </div>
         </li>
-        <li><p>{{staticElements.Blog}}</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
+        <!-- <li><p>{{staticElements.Blog}}</p> <img src="../../assets/Imges/NavImg/BottomArrow.svg" alt="Arrow">
             <div class="menuBar">
                 <div class="mainPart">
                 <div class="row" *ngFor="let i of this.NavElements.Blog"><a href="">{{i.a}}</a> <img src="../../assets/Imges/NavImg/right-arrow.svg" [ngClass]="{'ShowImg':i.Showimg==true}" alt="">
@@ -118,7 +118,7 @@
                     </div>
                 </div>
                 </div>
-            </div></li>
+            </div></li> -->
         <li class="contact" routerLink="/contact"><p>{{staticElements.Contact}}</p></li>
     
     </ul>

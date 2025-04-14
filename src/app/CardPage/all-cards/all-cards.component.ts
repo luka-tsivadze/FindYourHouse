@@ -28,7 +28,7 @@ export class AllCardsComponent {
   pageIndices = [];
   pages: number;
   dataState = false;
-  amountOfCards = 9;
+  amountOfCards = 18;
   filteredCards: any[] = [];
 
   heartimgLinks=[];
@@ -159,6 +159,8 @@ export class AllCardsComponent {
   }
 
   pageFunction() {
+  
+
     this.pages = Math.ceil(this.filteredCards.length / this.amountOfCards);
     this.pageIndices = [];
     this.finalInfo = [];
@@ -180,6 +182,8 @@ export class AllCardsComponent {
 
   chosenPage(index) {
     if (this.finalInfo[index]) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
       this.activePage = this.finalInfo[index];
       this.ActivePage = index;
       

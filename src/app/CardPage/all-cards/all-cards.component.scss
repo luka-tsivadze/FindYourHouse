@@ -54,6 +54,18 @@ $transition-duration: 0.5s;
             align-items: center;
             width: 40%;
           }
+          .Land{
+            width: 100%;
+            img {
+              width: 30px;
+              height: 30px;
+            }
+            p {
+              font-size: 15px;
+              font-weight: 600;
+              padding: 10px 0;
+            }
+          }
         }
       }
     }
@@ -188,6 +200,19 @@ $transition-duration: 0.5s;
             img {
               width: 20px;
               height: 20px;
+            }
+          }
+          .Land{
+            width: 100%;
+            padding: 19px 0;
+            img {
+              width: 30px;
+              height: 30px;
+            }
+            p {
+              font-size: 20px;
+              font-weight: 600;
+            
             }
           }
         }

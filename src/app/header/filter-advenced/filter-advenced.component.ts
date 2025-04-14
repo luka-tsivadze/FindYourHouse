@@ -38,8 +38,8 @@ export class FilterAdvencedComponent {
  showSliderTwo_2 = true;
  trackStyle_2: { [key: string]: string };
  
- minGap1 = 250;
- minGap2 = 10000;
+ minGap1 = 15;
+ minGap2 = 5000;
  sliderMaxValue1 = 20000;
  sliderMaxValue2 = 600000;
 activeimg=true;

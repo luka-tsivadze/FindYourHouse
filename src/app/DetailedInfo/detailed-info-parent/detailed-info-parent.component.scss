@@ -23,7 +23,7 @@
 ::ng-deep .container * main {
   border-radius: 6px;
   padding: 1.5rem;
-  min-height: 40vh;
+  min-height: 26vh;
   background: #ffffff;
   position: relative;
   @include flex-container(column, flex-start, flex-start, 2rem);

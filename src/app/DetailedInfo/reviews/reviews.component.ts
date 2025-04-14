@@ -34,7 +34,7 @@ private reviewSubscription: Subscription | null = null;
     this.reviewSubscription=this.reviewServ.fetchCardReviews(this.chosenCard.id).subscribe();
 this.reviewServ.cardReview$.subscribe(
   (data) => {
-    console.log('review data i recieved in detail Info ',data);
+    
     if(data){
     this.Reviewinfo=data.map((element,index)=>{
       let img = '../../../assets/Imges/NavImg/man.png';

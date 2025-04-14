@@ -149,28 +149,33 @@ For= {
   options: [ 'For Sale','For Rent','Pledge','Rented daily','Apartments Under Construction'],
   name: 'propertyStatus', // Added name
 };
-staticData = {
-  headerTextList: ['პლაზა', 'სახლი', 'ბინა'], // ტექსტები რომლებიც გამოიყენება მთავარი გვერდის ანიმაციაზე
-  staticElements:{FindYourHouse:'იპოვე შენი საოცნებო ' ,weHaveOverMillion:'ჩვენ გვაქვს უძრავი ქონების მილიონზე მეტი  არჩევანი, თქვენთვის' , status:['იყიდება','ქირავდება','გირავდება','ქირავდება დღიურად',' მშენებარე ბინები'],location:'მდებარეობა',
-    KayWord:'შეიყვანეთ საძიებო სიტყვა', propertyType:'ქონების ტიპი', Advanced:'გაფართოებული ძებნა', Search:'მოძებნა',}
-};
-popularPlacesStatic={Header:'პოპულარული ადგილები' ,properties:'უძრავი ქონება ყველაზე პოპულარულ ადგილებში', prop:'უძრავი ქონება'}
+staticData
 
-featuredPropertiesStatic = {
-  Header: 'პოპულარული განცხადებები',
-  properties: 'ეს არის ჩვენი გამორჩეული განცხადებები',
-  featured: 'VIP',
-  For: 'იყიდება',
-  BedRooms: 'საძინებელი',
-  BathRooms: 'სააბაზანო',
-  Garage: 'ავტოფარეხი',
-  Area: 'კვ.მ',
-  ViewDetails: 'მეტის ნახვა'
-}
-main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთავაზობთ სრულ სერვისს ყოველ ნაბიჯზე ' ,popularPropertys:'აღმოაჩინე პოპულარული ქონება' , AgentsH:'შეხვდით ჩვენს აგენტებს' , 
-  AgentsP:'ჩვენ ყოველთვის მზად ვართ რომ დაგეხმაროთ' ,RHeader:'კლიენტების შეფასებები',Rptext:'ჩვენ ვაგროვებთ შეფასებებს ჩვენი მომხმარებლებისგან.'}
+// = {
+//   headerTextList: ['პლაზა', 'სახლი', 'ბინა'], // ტექსტები რომლებიც გამოიყენება მთავარი გვერდის ანიმაციაზე
+//   staticElements:{FindYourHouse:'იპოვე შენი საოცნებო ' ,weHaveOverMillion:'ჩვენ გვაქვს უძრავი ქონების მილიონზე მეტი  არჩევანი, თქვენთვის' , status:['იყიდება','ქირავდება','გირავდება','ქირავდება დღიურად',' მშენებარე ბინები'],location:'მდებარეობა',
+//     KayWord:'შეიყვანეთ საძიებო სიტყვა', propertyType:'ქონების ტიპი', Advanced:'გაფართოებული ძებნა', Search:'მოძებნა',}
+// };
+popularPlacesStatic
+// ={Header:'პოპულარული ადგილები' ,properties:'უძრავი ქონება ყველაზე პოპულარულ ადგილებში', prop:'უძრავი ქონება'}
 
-LangMainData ;
+featuredPropertiesStatic
+//  = {
+//   Header: 'პოპულარული განცხადებები',
+//   properties: 'ეს არის ჩვენი გამორჩეული განცხადებები',
+//   featured: 'VIP',
+//   For: 'იყიდება',
+//   BedRooms: 'საძინებელი',
+//   BathRooms: 'სააბაზანო',
+//   Garage: 'ავტოფარეხი',
+//   Area: 'კვ.მ',
+//   ViewDetails: 'მეტის ნახვა'
+// }
+main;
+// {WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთავაზობთ სრულ სერვისს ყოველ ნაბიჯზე ' ,popularPropertys:'აღმოაჩინე პოპულარული ქონება' , AgentsH:'შეხვდით ჩვენს აგენტებს' , 
+//   AgentsP:'ჩვენ ყოველთვის მზად ვართ რომ დაგეხმაროთ' ,RHeader:'კლიენტების შეფასებები',Rptext:'ჩვენ ვაგროვებთ შეფასებებს ჩვენი მომხმარებლებისგან.'}
+
+LangMainData;
 
 
   private featuredPropSubject = new BehaviorSubject<any[]>([]);

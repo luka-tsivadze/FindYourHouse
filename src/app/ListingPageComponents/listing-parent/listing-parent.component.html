@@ -1,6 +1,6 @@
 <app-listing-nav (valueChange)="receiveValue($event)" />
 
-<app-main-listing *ngIf="Value=='Add Property'" />
+<app-main-listing  (valueChange)="receiveValue($event)" *ngIf="Value=='Add Property'" />
 <app-profile *ngIf="Value=='Profile'"/>
 <app-password-change *ngIf="Value=='Change Password'" />
 <app-my-properties *ngIf="Value=='My Properties'" />

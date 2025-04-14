@@ -32,8 +32,14 @@ export class EngService {
       ],
 
       secondselectName: 'Property Types',
-      secondselect: ['Apartment', 'House', 'Commercial', 'Garage'],
-      secondselectValues: ['Apartment', 'House', 'Commercial', 'Garage'],
+      secondselect: ['Apartment', 'House', 'Commercial', 'Garage', 'Land'],
+      secondselectValues: [
+        'Apartment',
+        'House',
+        'Commercial',
+        'Garage',
+        'Land Plot',
+      ],
 
       upPict: 'click Hare To Upload Pictures',
       upVid: 'click Hare  To Upload Video',
@@ -144,13 +150,13 @@ export class EngService {
       { text: 'TV Cable & WIFI', id: 'TV', formControlName: 'televizia_wifi' },
       { text: 'Microwave', id: 'Mic', formControlName: 'microtalguri' },
     ],
-        NearByTranslate: {
+    NearByTranslate: {
       Header: 'Nearby Places',
       placeholder: 'Enter name of place:',
       placeholderDist: 'distance',
       sections: ['Education', 'Health', 'Transport'],
-      units:['km','miles'],
-      unitstr:['km','miles'],
+      units: ['km', 'meter'],
+      unitstr: ['km', 'meter'],
       error: 'only 3 sections are allowed',
     },
 
@@ -249,7 +255,11 @@ export class EngService {
           placeholder: 'Enter Your First Name',
           FormControl: 'saxeli',
         },
-         {label:'Last Name ',placeholder:'Enter Your Last Name ', FormControl:'gvari'},
+        {
+          label: 'Last Name ',
+          placeholder: 'Enter Your Last Name ',
+          FormControl: 'gvari',
+        },
 
         {
           label: 'Phone Number',
@@ -302,6 +312,12 @@ export class EngService {
       { placeholder: 'Header', type: 'text', FormControlname: 'satauri' },
       { placeholder: 'Email', type: 'email', FormControlname: 'maili' },
     ],
+    Webreview: {
+      header: 'Add Review',
+      p: 'Your feedback will help us to improve our website and services.',
+      placeholderN: 'Review',
+      submit: 'Submit Review',
+    },
   };
   About = {
     headerH2: 'About Our Company',
@@ -337,6 +353,8 @@ Atque quasi eum debitis optio ab. Esse itaque officiis tempora possimus odio rer
       staticValues: {
         h3: 'Agent Information',
         p: 'Agent of Property', //could be changed to dynamic
+        Agentp:'sales Manager ',
+        Userp:'property Owner ',
         req: 'Request Inquiry',
         submit: 'Submit Request',
         textArea: 'Message',

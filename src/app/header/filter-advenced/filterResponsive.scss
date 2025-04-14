@@ -3,6 +3,7 @@
     .advancedOpened{
       width: 99%;
       left: 3px;
+      top: 78%;
       font-size: 13px;
       padding: 13px 10px;
     .mainFilter{
@@ -27,31 +28,50 @@
   }
   @media screen and (max-width:500px){
     .advancedOpened{
-      width: 99.5%;
-      left: 2px;
+      width: 95%;
+      left: 50%;
+      top: 99%;
+      transform: translateX(-50%) !important;
+      
       font-size: 12px;
       padding: 11px 5px;
+      .selectRow{
+        width: 94%;
+      
+        flex-direction: column;
+        .selectParent{
+          width: 100% !important;
+        
+        }
+       }
     .mainFilter{
-      padding: 30px 6px;
-      gap: 12px;
+      padding: 10px;
+      padding-bottom: 30px;
+      gap: 52px;
+      width: 100%;
+      flex-direction: column;
       .rightChacks{
+     width: 100%;
         .row{
-          gap: 3px;
+          gap: 4px;
   
           label{
-            font-size: 9px;
+            font-size: 10px;
           }
           input[type="checkbox"] {
-            width: 10px !important;
-            height: 10px !important;
+            width: 11px !important;
+            height: 11px !important;
           }
         }
       }
-      .leftRange{
-        .wrapper{
-          width: 95%;
+
+
+        .leftRange{
+          width: 100%;
+          align-items: center;
         }
-      }
+      
+  
     }
     }
     

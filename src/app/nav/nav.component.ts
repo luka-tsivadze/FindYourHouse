@@ -87,11 +87,7 @@ showRespNav={bool:false ,iconSrc:'../../assets/Imges/NavImg/list-outline.svg'};
     
  
     this.onRouteChange();
-    if( isPlatformBrowser(this.platformId)){
-    if (localStorage.getItem('ActiveElement') =='Log Out'){ 
-      this.profileSettings('Log Out')
-    }
-  }
+
   }
 
   onRouteChange() {
@@ -157,8 +153,12 @@ this.showLanguages=!this.showLanguages;
   }
  
   showRegistrForm() {
-   window.document.body.style.overflow = "hidden";
+    const scrollY = window.scrollY;
+    document.body.classList.add('noscroll');
+    document.body.style.top = `-${scrollY}px`;
+
     this.Registration.setDisplayer(true);
+    window.document.body.style.overflow = "hidden";
   }
 
  navtoReg_Log( element ){
@@ -222,7 +222,7 @@ if(element.chack){
    localStorage.removeItem('id');
    localStorage.removeItem('ActiveElement');
    this.router.navigate(['/'])
-   window.location.reload();
+  //  window.location.reload();
   }else if(el=='Edit Profile'){
 
     localStorage.setItem('ActiveElement', 'Dashboard');

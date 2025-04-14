@@ -205,7 +205,7 @@ select {
 
 .advancedOpened{
   position: absolute;
-  top: 100%;
+  top: 58%;
   left: 5px;
   padding: 25px;
   z-index: 99;
@@ -228,7 +228,7 @@ select {
   @include flex-center(row, 20px);
   justify-content: space-between;
   .selectParent{
-    width: 49% !important;
+    width: 49% ;
   position: relative;
   }
   select{

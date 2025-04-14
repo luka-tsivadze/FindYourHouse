@@ -148,6 +148,7 @@ onSubmit() {
   this.filterForm.patchValue({ priceMin:  this.sliderOneValue_2  });
   this.filterForm.patchValue({ priceMax:  this.sliderTwoValue_2  });
   this.changeRef.detectChanges();
+  // console.log('Form submitted:', this.filterForm.value);
   this.uniter.transferData(this.filterForm.value, 2)
 }
   // First wrapper slider methods

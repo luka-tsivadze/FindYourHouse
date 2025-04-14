@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -51,8 +51,11 @@ import { PersonalInfoComponent } from './ListingPageComponents/DashboardParent/p
 import { DashreviewComponent } from './ListingPageComponents/DashboardParent/dashreview/dashreview.component';
 import { FilterAdvencedComponent } from './header/filter-advenced/filter-advenced.component';
 import { UploadImageComponent } from './ListingPageComponents/DashboardParent/upload-image/upload-image.component';
-import { LoaderComponent } from './loader/loader.component';
+
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
+import { GlobalErrorHandler } from './Services/ErrorHandler/global-error-handler';
+import { LoaderComponent } from './loader/loader.component';
+
 
 @NgModule({
   declarations: [
@@ -101,7 +104,8 @@ import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-co
     FilterAdvencedComponent,
     UploadImageComponent,
     LoaderComponent,
-    TermsAndConditionsComponent
+    TermsAndConditionsComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -113,7 +117,8 @@ import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-co
   providers: [
     provideHttpClient(), 
     provideClientHydration(), 
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    { provide: ErrorHandler, useClass: GlobalErrorHandler } 
   ],
   bootstrap: [AppComponent]
 })

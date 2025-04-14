@@ -8,7 +8,7 @@ export class RusService {
     Home: [  ],
     Property: [ ],
     Pages: [ 
-      { a: 'Панель пользователя',chack:'User Panel', Showimg: true, RouterLink: '', subText: [ {text: 'Панель управления', value: 'Dashboard'},
+      { a: 'Панель пользователя',chack:'User Panel', Showimg: true, RouterLink: '/Listing', subText: [ {text: 'Панель управления', value: 'Dashboard'},
         { text: 'Профиль', value: 'Profile' }, {text: 'Моя собственность', value: 'My Properties'}, { text: 'Избранная собственность', value: 'Favorited Properties'},
         {text: 'Добавить собственность', value: 'Add Property'} ,{text: 'Платежи', value: 'Payments'},{text: 'Изменить пароль', value: 'Change Password'}] },
       { a: 'Войти',chack:'Login', Showimg: false },
@@ -87,11 +87,13 @@ For={
 }
 allFilter = {
   FirstFilter: {
-    locations: ['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Zugdidi', 'Telavi', 'Bakuriani', 'Kobuleti'],
-    locationDis: ['Тбилиси', 'Батуми', 'Кутаиси', 'Рустави', 'Зугдиди', 'Телави', 'Бакуриани', 'Кобулети'],
+    locations: ['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Zugdidi', 'Telavi', 'Bakuriani', 'Kobuleti','Gori','Poti','Marneuli','Khashuri','Samtredia','Zestaponi','Akhaltsikhe','Senaki','Ozurgeti','Kaspi','Chiatura','Gardabani','Borjomi','Sagarejo','Kvareli','Bolnisi','Tkibuli','Khoni','Tskaltubo','Akhalkalaki','Mtskheta','Gurjaani','Dusheti',
+      'Lanchkhuti','Lagodekhi','Sachkhere','Dedoplistskaro','Abasha','Martvili','Ninotsminda','Tsalka','Vani','Dmanisi','Tsalenjikha', 'Keda'],
+    locationDis: ['Тбилиси', 'Батуми', 'Кутаиси', 'Рустави', 'Зугдиди', 'Телави', 'Бакуриани', 'Кобулети','Гори','Поти','Марнеули','Хашури','Самтредиа','Зестапони','Ахалцихе','Сенакь','Озургети','Каспи','Чиатура','Гардабани','Боржоми','Сагареджо','Кварели','Болниси','Ткибули','Хони','Цкалтоубо','Ахалкалаки','Мцхета','Гурджаани','Душети',
+      'Ланчхуте','Лагодехи','Сачхере','Дедоплисцкаро','Абаша','Мартвили','Ниноцминда','Цалка','Вани','Дманиси','Цаленджиха', 'Кеда'],
 
-    PropertyTypes: ['Apartment', 'House', 'Commercial', 'Garage'],
-    PropertyTypesDis: ['Квартира', 'Дом', 'Коммерческая', 'Гараж']
+    PropertyTypes: ['Apartment', 'House', 'Commercial', 'Garage', 'Land Plot'],
+    PropertyTypesDis: ['Квартира', 'Дом', 'Коммерческая', 'Гараж','Земельный участок'],
   },
   filter: {
     SelectInputs: [

@@ -18,6 +18,8 @@ infoSent=[{bol:false, message:'please Fill in the required fields'},{bol:false, 
   staticValues={
     h3:'Agent Information',
     p:'Agent of Property',  //could be changed to dynamic
+    Agentp:'გაყიდვების მენეჯერი',
+    Userp:'ქონების მესაკუთრე',
     req:'Request Inquiry',
     submit:'Submit Request',
     textArea:'Message'
@@ -58,6 +60,7 @@ chosenCard;
     this.propService.chosenCard.subscribe((card) => {
       this.chosenCard = card;
     this.profileInfo = this.chosenCard;
+    console.log(this.profileInfo);
     })
     this.forNgRow[0].text = this.profileInfo.Nomeri;
     this.forNgRow[1].text = this.profileInfo.email;

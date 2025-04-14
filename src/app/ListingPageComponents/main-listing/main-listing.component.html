@@ -12,10 +12,11 @@
                 <label for="mokle_agwera">{{allForms.form1info.secondTitle}}</label>
                 <textarea class="resizable-textarea" type="text" name="Description" id="mokle_agwera" placeholder="{{allForms.form1info.secondplaceHolder}}"  formControlName="mokle_agwera"></textarea>
                 </div>
-                <div class="selectRow"><select   id="garigebis_tipi"  formControlName="garigebis_tipi">  <option value="" disabled selected hidden>{{allForms.form1info.firstselectName}}</option> <option *ngFor="let el of allForms.form1info.firstselect let i =index" value="{{ allForms.form1info.firstselectValues[i]}}">{{el}}</option></select> 
-                    <select  id="tipi"  formControlName="tipi"><option value="" disabled selected hidden>{{allForms.form1info.secondselectName}}</option> 
+                <div class="selectRow">
+                    <select   id="garigebis_tipi"   formControlName="garigebis_tipi">  <option value="" disabled selected hidden>{{allForms.form1info.firstselectName}}</option> <option *ngFor="let el of allForms.form1info.firstselect let i =index" value="{{ allForms.form1info.firstselectValues[i]}}">{{el}}</option></select> 
+                    <select  id="tipi" (change)="checkForLand()" formControlName="tipi"><option value="" disabled selected hidden>{{allForms.form1info.secondselectName}}</option> 
                         <option *ngFor="let opt of allForms.form1info.secondselect let i =index" value="{{allForms.form1info.secondselectValues[i]}}">{{opt}}</option></select> 
-                    <select  id="otaxebis_raodenoba"  formControlName="otaxebis_raodenoba"><option value="" disabled selected hidden>{{allForms.form1info.thirdselectName}}</option>
+                    <select  id="otaxebis_raodenoba" *ngIf="!LandIsSelected"  formControlName="otaxebis_raodenoba"><option value="" disabled selected hidden>{{allForms.form1info.thirdselectName}}</option>
                     <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
                     </select>
                  </div>
@@ -109,10 +110,11 @@
         <h3 class="header">{{allForms.form1info.HeaderName6}}</h3>
         <div class="text">
             <div class="selectRow">
-
-                <select *ngFor="let form4 of  allForms.form4Info" id={{form4.formControlName}} formControlName="{{form4.formControlName}}"  ><option value="" disabled selected hidden>{{form4.firstOption}}</option>
-                    <option *ngFor="let option of form4.options let i=index" value="{{form4.optionsValues[i]}}">{{option}}</option>
-                </select>
+<ng-container *ngIf="!LandIsSelected">
+<select  *ngFor="let form4 of  allForms.form4Info" id={{form4.formControlName}} formControlName="{{form4.formControlName}}"  ><option value="" disabled selected hidden>{{form4.firstOption}}</option>
+    <option *ngFor="let option of form4.options let i=index" value="{{form4.optionsValues[i]}}">{{option}}</option>
+</select>
+</ng-container>
             </div>
              <h3 >{{NearByTranslate.Header}}</h3>
             <div class="educationCol" *ngFor="let prop of NearbyProperties let i =index">
@@ -142,7 +144,7 @@
             </div>
         </div>
     </form>
-    <form class="form5" [formGroup]="listingForm">
+    <form class="form5" [formGroup]="listingForm" *ngIf="!LandIsSelected">
         <h3 class="header">{{allForms.form1info.HeaderName7}}</h3>
         <div class="text">
 

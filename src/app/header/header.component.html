@@ -60,10 +60,10 @@
                 </button>
                 <button class="submit"  type="submit">{{staticElements.Search}}</button>
               
-                <app-filter-advenced [ngClass]="{'dNone':!advenced}"></app-filter-advenced>
               </form>
               
-        </div>
+            </div>
+            <app-filter-advenced [ngClass]="{'dNone':!advenced}"></app-filter-advenced>
     </div>
 <div class="popularPlaces"  >
     <h1 [ngClass]="{'fadeIn':scrollY>110}">{{popularPropStatic.Header}}</h1>
@@ -83,13 +83,13 @@
 </div>
 
 <div class="featuredProperties"  > 
-    <h1 class="FH" [ngClass]="{'fadeIn':scrollY>620}">{{FeaturePS.Header}}</h1>
-    <p  class="FP" [ngClass]="{'fadeIn':scrollY>669}">{{FeaturePS.properties}} </p>
+    <!-- <h1 class="FH" [ngClass]="{'fadeIn':scrollY>620}">{{FeaturePS.Header}}</h1>
+    <p  class="FP" [ngClass]="{'fadeIn':scrollY>669}">{{FeaturePS.properties}} </p> -->
     <div class="cardPlace">
       
         <div class="propCard"   *ngFor="let info of FeatureProperties let i=index"
         [ngStyle]="{'animation-delay': (i * 0.1) + 's'}"
-        [ngClass]="{'propCardAnimationR': scrollY > 800 && i%2==0 , 'propCardAnimationL': scrollY > 800 && i%2==1 }"
+        [ngClass]="{'propCardAnimationR': scrollY > 700 && i%2==0 , 'propCardAnimationL': scrollY > 700 && i%2==1 }"
         >
             <div class="leftSide" [ngStyle]="{'background-image': 'url(' + info.imgLink + ')'}">
 

@@ -26,8 +26,8 @@ export class AllCardsService  {
     locations:['Tbilisi','Batumi' , 'kutaisi' , 'Rustavi','Zugdidi', 'Telavi' ,'Bakuriani','Kobuleti'],
     locationDis:['Tbilisi','Batumi' , 'kutaisi' , 'Rustavi','Zugdidi', 'Telavi' ,'Bakuriani','Kobuleti'],
    
-    PropertyTypes:['Apartment','House','Commercial','Garage'],
-    PropertyTypesDis:['Apartment','House','Commercial','Garage']
+    PropertyTypes:['Apartment','House','Commercial','Garage','Land Plot'],
+    PropertyTypesDis:['Apartment','House','Commercial','Garage','Land Plot'],
   }
   filter = {
     SelectInputs: [
@@ -130,8 +130,8 @@ constructor(private http: HttpClient , private eng: EngService , private Geo: Ge
         break;
         
       case 'RUS':
-       this.filter= this.Geo.allFilter.filter;
-       this.FirstFilter= this.Geo.allFilter.FirstFilter;
+       this.filter= this.rus.allFilter.filter;
+       this.FirstFilter= this.rus.allFilter.FirstFilter;
         break;
         
   
@@ -153,6 +153,7 @@ fetchDataFromApi(): Observable<any[]> {
         this.back_end_data = data;
         const processedData = data.map((item: any) => {
           try {
+            
             
             const uploadDate = new Date(item.statusis_gaaqtiurebis_tarigi);
             const currentDate = new Date();
@@ -182,6 +183,7 @@ fetchDataFromApi(): Observable<any[]> {
               momxmreblis_idi: item.amtvirtvelis_idi,
               uploadmonth: daysDifference,
               video: item.video,
+              type: item.tipi,
             };
           } catch (error) {
             console.error('Error processing item:', item, error);

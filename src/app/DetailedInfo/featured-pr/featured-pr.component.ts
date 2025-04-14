@@ -47,7 +47,7 @@ export class FeaturedPRComponent  implements OnInit {
         };
       }).filter(item => item.id !== this.CurrentId);
     
-      console.log(this.cardData);
+
     });
 
 }

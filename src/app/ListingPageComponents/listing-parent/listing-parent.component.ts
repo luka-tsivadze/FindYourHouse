@@ -39,7 +39,7 @@ export class ListingParentComponent implements OnInit, OnDestroy {
         // Update Value to show 'Add Property' when editing an item
         this.Value = 'Add Property';
         localStorage.setItem('ActiveElement', 'Add Property'); // Update localStorage for consistency
-        console.log(`Edit Item ID received: ${this.editItemId}`);
+        // console.log(`Edit Item ID received: ${this.editItemId}`);
         this.cdr.detectChanges(); // Trigger change detection
       }
     });
@@ -58,7 +58,7 @@ export class ListingParentComponent implements OnInit, OnDestroy {
   // Handle Value changes from child components
   receiveValue(value: string): void {
     this.Value = value; // Update Value based on the event
-    console.log('Value Changed:', this.Value);
+ 
 
     if (value === 'Log Out') {
       // Handle logout logic

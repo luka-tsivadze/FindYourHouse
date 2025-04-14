@@ -32,8 +32,9 @@ export class FilterDataUniterService {
     tipi: {
       Apartment: ['Apartment', 'ბინა'],
       House: ['House', 'სახლი'],
-      Commercial: ['Commercial', 'კომერციული'],
+      Commercial: ['Commercial', 'კომერციული'], //first words should match 
       Garage: ['Garage', 'გარაჟი'],
+      "Land Plot": ['Land Plot', 'მიწის ნაკვეთი'],
     },
     garigebis_tipi: {
       'For Sale': ['For Sale', 'იყიდება'],
@@ -51,6 +52,41 @@ export class FilterDataUniterService {
       Telavi: ['Telavi', 'თელავი'],
       Bakuriani: ['Bakuriani', 'ბაკურიანი'],
       Kobuleti: ['Kobuleti', 'ქობულეთი'],
+      Gori: ['Gori', 'გორი'],
+      Poti: ['Poti', 'ფოთი'],
+      Marneuli: ['Marneuli', 'მარნეული'],
+      Khashuri: ['Khashuri', 'ხაშური'],
+      Samtredia: ['Samtredia', 'სამტრედია'],
+      Zestaponi: ['Zestaponi', 'ზესტაფონი'],
+      Akhaltsikhe: ['Akhaltsikhe', 'ახალციხე'],
+      Senaki: ['Senaki', 'სენაკი'],
+      Ozurgeti: ['Ozurgeti', 'ოზურგეთი'],
+      Kaspi: ['Kaspi', 'კასპი'],
+      Chiatura: ['Chiatura', 'ჭიათურა'],
+      Gardabani: ['Gardabani', 'გარდაბანი'],
+      Borjomi: ['Borjomi', 'ბორჯომი'],
+      Sagarejo: ['Sagarejo', 'საგარეჯო'],
+      Kvareli: ['Kvareli', 'ყვარელი'],
+      Bolnisi: ['Bolnisi', 'ბოლნისი'],
+      Tkibuli: ['Tkibuli', 'ტყიბული'],
+      Khoni: ['Khoni', 'ხონი'],
+      Tskaltubo: ['Tskaltubo', 'წყალტუბო'],
+      Akhalkalaki: ['Akhalkalaki', 'ახალქალაქი'],
+      Mtskheta: ['Mtskheta', 'მცხეთა'],
+      Gurjaani: ['Gurjaani', 'გურჯაანი'],
+      Dusheti: ['Dusheti', 'დუშეთი'],
+      Lanchkhuti: ['Lanchkhuti', 'ლანჩხუთი'],
+      Lagodekhi: ['Lagodekhi', 'ლაგოდეხი'],
+      Sachkhere: ['Sachkhere', 'საჩხერე'],
+      Dedoplistskaro: ['Dedoplistskaro', 'დედოფლისწყარო'],
+      Abasha: ['Abasha', 'აბაშა'],
+      Martvili: ['Martvili', 'მარტვილი'],
+      Ninotsminda: ['Ninotsminda', 'ნინოწმინდა'],
+      Tsalka: ['Tsalka', 'წალკა'],
+      Vani: ['Vani', 'ვანი'],
+      Dmanisi: ['Dmanisi', 'დმანისი'],
+      Tsalenjikha: ['Tsalenjikha', 'წალენჯიხა'],
+      Keda: ['Keda', 'ქედა'],
     },
   };
 
@@ -58,6 +94,7 @@ export class FilterDataUniterService {
 
   transferData(data: any, filterNumber: number): void {
     this.wasCalled = true;
+    
     this.finalData = {};
 
     if (filterNumber === 1) {
@@ -116,13 +153,13 @@ export class FilterDataUniterService {
       });
     } else if (filterNumber === 2) {
       this.finalData.prop = data.propertyType || '0';
+   
       this.finalData.local = data.location || '0';
 
       this.finalData.areaMin = data.areaMin || 0;
       this.finalData.areaMax = data.areaMax || 0;
       this.finalData.priceMin = data.priceMin || 0;
       this.finalData.priceMax = data.priceMax || 0;
-
       this.finalData.statusi = data.propertyStatus || '0';
       this.finalData.badrooms = data.bedrooms !== 0 ? data.bedrooms : '0';
       this.finalData.bathrooms = data.bathrooms !== 0 ? data.bathrooms : '0';
@@ -156,6 +193,7 @@ export class FilterDataUniterService {
   }
 
   filterCards(allCards: any[], filter: FilterData): any[] {
+    console.log('filter', filter.prop);
     const normalizeValue = (value: string, map: Record<string, string[]>): string | undefined => {
       if (!value) return undefined;
       const lowerValue = value.toLowerCase();
