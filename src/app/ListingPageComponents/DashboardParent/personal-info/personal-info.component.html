@@ -25,14 +25,14 @@
         <ng-container *ngIf="displayLinks">
           <div class="col" *ngFor="let item of Allnetworks.elements">
             <label for="{{item.name}}">{{item.value}}</label>
-            <input type="text" id="{{item.name}}" placeholder="Write your Profile link here" [formControlName]="item.FormControlHref">
+            <input type="text" id="{{item.name}}" placeholder="{{staticElements.placeholder}}" [formControlName]="item.FormControlHref">
           </div>
         </ng-container>
         
   
           <div class="row">
 
-            <button type="submit">Submit</button>
+            <button type="submit">{{staticElements.submit}}</button>
             <span *ngIf="UserMessage.load" [ngClass]="{'error':UserMessage.error, 'succes':!UserMessage.error }">{{UserMessage.text}}</span>
           </div>
     </form>

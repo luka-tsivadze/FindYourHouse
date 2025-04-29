@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Agent } from 'node:http';
 
 @Injectable({
   providedIn: 'root',
@@ -55,6 +56,46 @@ export class EngService {
     properties: 'Properties In Most Popular Places',
     prop: 'properties',
   };
+   popularPlacesSubject = [ {
+    cityName: 'Tbilisi',
+
+  },
+  {
+
+    cityName: 'Batumi',
+
+  },
+  {
+
+    cityName: 'Kutaisi',
+
+  },
+  {
+
+    cityName: 'Rustavi',
+
+  },
+  {
+
+    cityName: 'Zugdidi',
+
+  },
+  {
+
+    cityName: 'Telavi',
+
+  },
+  {
+
+    cityName: 'Bakurian',
+   
+  },
+  {
+  
+    cityName: 'Kobuleti',
+  
+  },];
+  
 
   featuredPropertiesStatic = {
     Header: 'Featured Properties',
@@ -73,6 +114,8 @@ export class EngService {
     popularPropertys: 'Discover popular properties',
     AgentsH: 'Meet our agents',
     AgentsP: 'Our Agents are here to help you',
+    AgentsB:'View more',
+    Agents:'Properties',
     RHeader: 'Clients Testimonials',
     Rptext: 'We collect reviews from our customers.',
   };
@@ -128,6 +171,13 @@ export class EngService {
       { id: '8', label: 'Alarm', name: 'Alarm',  formcontroller:'alarm' },
       { id: '9', label: 'Refrigerator', name: 'Refrigerator',  formcontroller:'refrigerator' },
       { id: '10', label: 'Window Covering', name: 'Balcony',  formcontroller:'windowCovering' },
+
+      {label: 'sardafi', name:'basement', id: '11', formcontroller: 'sardafi'},
+      { label: 'lifti',  name:'Elavator', id: '12', formcontroller: 'lifti' },
+      { label: 'garage',  name:'Garage', id: '13',  formcontroller: 'garage' },
+      { label: 'bolo_sartuli',  name:'Top Floor', id: '14',  formcontroller: 'bolo_sartuli' },
+      { label: 'bunebrivi_airi', name:'Natural gas' , id: '15', formcontroller: 'bunebrivi_airi' },
+      { label: 'satavso',  name:'Storage',  id: '16',  formcontroller:'satavso' },
   
     ],
 

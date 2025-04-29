@@ -5,8 +5,8 @@ import { EngService } from '../Languages/eng/eng.service';
 import { GeoService } from '../Languages/geo/geo.service';
 import { RusService } from '../Languages/rus/rus.service';
 import { AllCardsService } from '../all-cards/all-cards.service';
-import { BehaviorSubject, catchError, Observable, of, ReplaySubject, shareReplay } from 'rxjs';
-import { Agent } from 'http';
+import { BehaviorSubject, catchError, Observable, of, } from 'rxjs';
+
 import { AgentsService } from '../agents/agents.service';
 @Injectable({
   providedIn: 'root',
@@ -18,48 +18,56 @@ export class MainPageDataService {
     imgLink: '../../assets/Imges/Header/CardImges/Tbilisi.jpg',
     alt: 'Tbilisi City ',
     cityName: 'Tbilisi',
+    cityCode: 'Tbilisi',
     properties: 203,
   },
   {
     imgLink: '../../assets/Imges/Header/CardImges/batumi.jpg',
     alt: 'Los Angeles cityscape',
     cityName: 'Batumi',
+    cityCode: 'Batumi',
     properties: 215,
   },
   {
     imgLink: '../../assets/Imges/Header/CardImges/kutaisi.jpg',
     alt: 'kutaisi city view',
     cityName: 'Kutaisi',
+    cityCode: 'Kutaisi',
     properties: 409,
   },
   {
     imgLink: '../../assets/Imges/Header/CardImges/rustavi.jpg',
     alt: 'rustavi city view',
     cityName: 'Rustavi',
+    cityCode: 'Rustavi',
     properties: 409,
   },
   {
     imgLink: '../../assets/Imges/Header/CardImges/zugdidi.jpg',
     alt: 'Zugdidi view',
     cityName: 'Zugdidi',
+    cityCode: 'Zugdidi',
     properties: 145,
   },
   {
     imgLink: '../../assets/Imges/Header/CardImges/telavi.jpg',
     alt: 'telavi skyline',
     cityName: 'Telavi',
+    cityCode: 'Telavi',
     properties: 112,
   },
   {
     imgLink: '../../assets/Imges/Header/CardImges/Bakuriani.jpg',
     alt: 'Bakurian cityscape',
-    cityName: 'Bakurian',
+    cityName: 'Bakuriani',
+    cityCode: 'Bakuriani',
     properties: 254,
   },
   {
     imgLink: '../../assets/Imges/Header/CardImges/kobuleti.jpg',
     alt: 'Kobuleti city view',
     cityName: 'Kobuleti',
+    cityCode: 'Kobuleti',    
     properties: 254,
   },]);
 
@@ -67,38 +75,20 @@ export class MainPageDataService {
 
   
 
-  
-  DiscoverPopularPlaces = [  
-    {
-      gncxdebis_idi:21,
-      featuredBtn: true,
-      For: 'For Rent',
-      imgLink: '../../assets/Imges/Header/CardImges/F4.jpg',
-      alt: 'Featured luxury family house villa for rent',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-    },
-    {
-      gncxdebis_idi:50,
-      featuredBtn: true,
-      For: 'For Sale',
-      imgLink: '../../assets/Imges/Header/CardImges/F5.jpg',
-      alt: 'Featured luxury family house villa for sale',
-      header: 'Real Luxury Family House Villa',
-      location: 'Est St, 77 - Central Park South, NYC',
-      bedrooms: 6,
-      bathrooms: 3,
-      area: 720,
-      garages: 2,
-      price: '$ 150,000',
-    },
-
-  ];
+  DiscoverPopularPlaces: Array<{
+    gncxdebis_idi: number;
+    featuredBtn: boolean;
+    For: string;
+    imgLink: string;
+    alt: string;
+    header: string;
+    location: string;
+    bedrooms: number;
+    bathrooms: number;
+    area: number;
+    garages: number;
+    price: string;
+  }>=[];
 
   WhyCards = [   //მხოლოდ 4 ელემენტისგან უნდა შედგებოდეს არც მეტი არც ნაკლები
     {
@@ -134,14 +124,14 @@ export class MainPageDataService {
   },
 
   ]
-  ReviewData=[
-    {Name:'Jonh Doe',imgLink:'../../assets/Imges/Header/CardImges/A-6.jpg', Place:'Houston',Review:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
-     {Name:'Cristy Mayer',imgLink:'../../assets/Imges/Header/CardImges/A-5.jpg', Place:'San Francisco',Review:"Lorem ipsum dolor sit amet, consectetur rem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
-     {Name:'Mary Deshaw',imgLink:'../../assets/Imges/Header/CardImges/A-4.jpg', Place:'San Francisco',Review:"Lorem ipsum dolor sit amet, consectetur rem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+  ReviewData: Array<{
+    Name: string;
+    imgLink: string;
+    Place: string;
+    Review: string;
+  }> = [ ];
+  
 
-    ]
-
-//საწყისი ენის პარამეტრები
 For= {
   imgLink: '../../../assets/Imges/StaticImg/StaticIcons/icons8-home-16.png',
   text: 'Property Status',
@@ -204,6 +194,9 @@ LangMainData;
       switch (this.localStorage) {
         case 'ENG':
           this.LangMainData = EngService
+  
+
+
           this.For.optdisplay=EngService.For.optdisplay
           this.For.text=EngService.For.text
           this.staticData = {
@@ -245,10 +238,17 @@ LangMainData;
           
     
       }
+
+      const updated = this.popularPlacesSubject.getValue().map((staticItem, index) => ({
+        ...staticItem,
+        cityName: this.LangMainData.popularPlacesSubject[index].cityName
+      }));
+      
+      this.popularPlacesSubject.next(updated);
+      
     }
      
     }
-
 
 cityCaller=true;
     cityAmount() {
@@ -257,6 +257,7 @@ cityCaller=true;
       }
       this.http.get<{ [key: string]: number }>('get-cities-counted-data.php').subscribe({
         next: (apiData) => {
+          this.cityCaller=false;
           const nameMap: { [key: string]: string } = {
             "Tbilisi": "Tbilisi",
             "Batumi": "Batumi",
@@ -264,13 +265,13 @@ cityCaller=true;
             "Rustavi": "Rustavi",
             "Zugdidi": "Zugdidi",
             "Telavi": "Telavi",
-            "Bakurian": "Bakuriani", 
+            "Bakuriani": "Bakuriani", 
             "Kobuleti": "Kobuleti"
           };
     
           const updatedData = this.popularPlacesSubject.getValue().map(staticItem => ({
             ...staticItem,
-            properties: apiData[nameMap[staticItem.cityName]] ?? -1 // ✅ Use correct backend key, default to -1 if missing
+            properties: apiData[nameMap[staticItem.cityCode]] ?? -1 // ✅ Use correct backend key, default to -1 if missing
           }));
     
           this.popularPlacesSubject.next(updatedData);
@@ -303,7 +304,7 @@ cityCaller=true;
     ).subscribe((data) => {
       if (!data) return; 
   
-      console.log('Discovered properties from API:', data);
+  
   
       const transformedData = data.map((item) => {
         let images: string[] = [];

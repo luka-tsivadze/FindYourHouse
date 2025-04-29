@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CardGallery1Component } from '../../../../DetailedInfo/card-gallery1/card-gallery1.component';
 import { scheduled } from 'rxjs';
+import { FormControlName } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -140,7 +141,7 @@ export class EngService {
       {
         text: 'Central Heating',
         id: 'Heating',
-        formControlName: 'centrluri_gatboba',
+        formControlName: 'centraluri_gatboba',
       },
       { text: 'Laundry Room', id: 'room', formControlName: 'samrecxao_otaxi' },
       { text: 'Gym', id: 'gym', formControlName: 'sportuli_darbazi' },
@@ -149,6 +150,13 @@ export class EngService {
       { text: 'Refrigerator', id: 'Refrigerator', formControlName: 'macivari' },
       { text: 'TV Cable & WIFI', id: 'TV', formControlName: 'televizia_wifi' },
       { text: 'Microwave', id: 'Mic', formControlName: 'microtalguri' },
+
+      {text: 'basement', id: 'basement', formControlName: 'sardafi'},
+      { text: 'Elevator', id: 'lift', formControlName: 'lifti' },
+      { text: 'Garage', id: 'garage', formControlName: 'garage' },
+      { text: 'Top Floor', id: 'Floor', formControlName: 'bolo_sartuli' },
+      { text: 'Natural gas', id: 'gas', formControlName: 'bunebrivi_airi' },
+      { text: 'Storage', id: 'storage', formControlName: 'satavso' },
     ],
     NearByTranslate: {
       Header: 'Nearby Places',
@@ -230,6 +238,7 @@ export class EngService {
     dash_listing: {
       mainHeader: 'Dashboard',
       headers: ['Listing Name', 'Date', 'Rating', 'Status', 'Edit'],
+      status:['Active', 'Inactive'],
     },
     manage: {
       header: 'Manage Dashboard',
@@ -248,6 +257,7 @@ export class EngService {
         Header: 'Personal Information',
         updateBtn: 'Update Your Password',
         submit: 'Submit',
+        placeholder:'write Your Profile Link here',
       },
       inputText: [
         {
@@ -269,8 +279,52 @@ export class EngService {
         { label: 'Address', placeholder: 'Write Your Address hare' },
       ],
       textArea: [
-        { label: 'About Yourself', placeholder: 'Write about Yourself 1' },
+        { label: 'About Yourself', placeholder: 'Write about Yourself', FormControlName: 'chems_shesaxeb',},
       ],
+      UserMessage:{text:'Your Information has been updated successfully',error:false,   
+        ErrorText:'upload Failed',  fileSelected:false},
+      Elements:{Header:'Upload Profile photo'  , submit:'Save' },
+      
+      
+
+      //"!"
+      UserSelect:[
+        {label:'Account type', placeholder:'Choose Acaunt Type' ,options:{dis:['Sales Manager','User'], val:['gayidvebis_menejeri','momxmarebeli'] },FormControlName:'angarishis_tipi'},
+         {label:'Gender',placeholder:'Choose Gender' ,options:{dis:['Male', 'Female'],val:['kaci', 'qali'] },FormControlName:'sqesi'}
+      ],
+      Allnetworks : {
+        Header: 'Social Networks',
+        elements: [
+          {
+            
+            FormControlHref: 'facebook_linki',
+           name: 'Facebook', 
+           value:'Facebook'
+          },
+          {
+            
+            FormControlHref: 'instagram_linki',
+        name: 'Instagram', value:'Instagram'
+          },
+          {
+            
+            FormControlHref: 'telegram_linki',
+      name: 'Telegram', value: 'Telegram'
+          },
+          {
+            
+            FormControlHref: 'linkedin_linki',
+           name: 'LinkedIn', value: 'LinkedIn'
+          },
+          {
+            FormControlHref: 'whatsapp_linki',
+           name: 'WhatsApp',
+           value:'WhatsApp'
+          }
+      
+         
+        ]
+      }
     },
   };
   Profile = {
@@ -312,12 +366,7 @@ export class EngService {
       { placeholder: 'Header', type: 'text', FormControlname: 'satauri' },
       { placeholder: 'Email', type: 'email', FormControlname: 'maili' },
     ],
-    Webreview: {
-      header: 'Add Review',
-      p: 'Your feedback will help us to improve our website and services.',
-      placeholderN: 'Review',
-      submit: 'Submit Review',
-    },
+
   };
   About = {
     headerH2: 'About Our Company',
@@ -330,6 +379,12 @@ Atque quasi eum debitis optio ab. Esse itaque officiis tempora possimus odio rer
 `,
     btn: 'Read More',
   };
+  Webreview= {
+    header: 'Add Review',
+    p: 'Your feedback will help us to improve our website and services.',
+    placeholderN: 'Review',
+    submit: 'Submit Review',
+  }
   DetailedInfo = {
     advertismentr: 'advertisment',
     AgentsInfo: {
@@ -355,7 +410,7 @@ Atque quasi eum debitis optio ab. Esse itaque officiis tempora possimus odio rer
         p: 'Agent of Property', //could be changed to dynamic
         Agentp:'sales Manager ',
         Userp:'property Owner ',
-        req: 'Request Inquiry',
+        req: 'Send a message',
         submit: 'Submit Request',
         textArea: 'Message',
       },

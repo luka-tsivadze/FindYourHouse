@@ -37,12 +37,46 @@ export class GeoService {
 
 NavG={Home:'მთავარი ' , 
     Property:'უძრავი ქონება', Pages:'გვერდები',Blog:'ბლოგი',
-    Contact:'კონტაქტი',SignIn:'შესვლა',AddListing:' განცხადების ატვირთვა'}
+    Contact:'კონტაქტი',SignIn:'შესვლა',AddListing:'განცხადების განთავსება',}
 
     Header={FindYourHouse:'იპოვე შენი საოცნებო ' ,weHaveOverMillion:'ჩვენ გვაქვს უძრავი ქონების მილიონზე მეტი  არჩევანი, თქვენთვის' ,status:['იყიდება','ქირავდება','გირავდება','ქირავდება დღიურად',' მშენებარე ბინები'],
        KayWord:'საძიებო სიტყვა', propertyType:'ქონების ტიპი', Advanced:'გაფართოებული ძებნა', Search:'მოძებნა',location:'მდებარეობა'
     }
     popularPlaces={Header:'პოპულარული ადგილები' ,properties:'უძრავი ქონება ყველაზე პოპულარულ ადგილებში', prop:"ადგილი"} 
+    popularPlacesSubject = [ {
+      cityName: 'თბილისი',
+
+    },
+    {
+  
+      cityName: 'ბათუმი',
+  
+    },
+    {
+  
+      cityName: 'ქუთაისი',
+  
+    },
+    {
+  
+      cityName: 'რუსთავი',
+  
+    },
+    {
+  
+      cityName: 'ზუგდიდი',
+  
+    },
+    {
+      cityName: 'თელავი',
+    },
+    {
+      cityName: 'ბაკურიანი',
+    },
+    {
+      cityName: 'ქობულეთი',
+    },];
+    
     featuredPropertiesStatic = {
       Header: 'პოპულარული განცხადებები',
       properties: 'ეს არის ჩვენი გამორჩეული განცხადებები',
@@ -55,7 +89,10 @@ NavG={Home:'მთავარი ' ,
       ViewDetails: 'მეტის ნახვა'
     }
     main={WhyChooseUs:'რატომ ჩვენ', everyStep:'ჩვენ გთავაზობთ სრულ სერვისს ყოველ ნაბიჯზე '   ,popularPropertys:'აღმოაჩინე პოპულარული ქონება' , AgentsH:'შეხვდით ჩვენს აგენტებს' , 
-      AgentsP:'ჩვენ ყოველთვის მზად ვართ რომ დაგეხმაროთ' ,RHeader:'კლიენტების შეფასებები',Rptext:'ჩვენ ვაგროვებთ შეფასებებს ჩვენი მომხმარებლებისგან.'}
+      AgentsP:'ჩვენ ყოველთვის მზად ვართ რომ დაგეხმაროთ' , 
+      AgentsB:'ვრცლად ნახვა',
+      Agents:'განცხადება',
+        RHeader:'კლიენტების შეფასებები',Rptext:'ჩვენ ვაგროვებთ შეფასებებს ჩვენი მომხმარებლებისგან.'}
     
     SFooter = {
         headerFP: 'ჩვენი პარტნიორები', 
@@ -118,6 +155,13 @@ allFilter = {
       { id: '8', label: 'Alarm', name: 'სიგნალიზაცია', formcontroller: 'alarm' },
       { id: '9', label: 'Refrigerator', name: 'მაცივარი', formcontroller: 'refrigerator' },
       { id: '10', label: 'Window Covering', name: 'აივანი', formcontroller: 'windowCovering' },
+
+      {  label: 'sardafi', name: 'სარდაფი', id: '11', formcontroller: 'sardafi'},
+      { label: 'lifti', name: 'ლიფტი', id: '12', formcontroller: 'lifti' },
+      { label: 'garage',   name: 'გარაჟი', id: '13', formcontroller: 'garage' },
+      { label: 'bolo_sartuli',  name: 'ბოლო სართული', id: '14',formcontroller: 'bolo_sartuli' },
+      {  label: 'bunebrivi_airi',  name: 'ბუნებრივი აირი', id: '15',formcontroller: 'bunebrivi_airi' },
+      {   label: 'satavso', name: 'სათავსო', id: '16', formcontroller: 'satavso' },
     ],
   },
   
@@ -141,8 +185,8 @@ Registration = {
     GError: 'გთხოვთ აირჩიოთ სქესი',
     numbererror: 'ჩაწერეთ თქვენი ტელეფონის ნომერი',
     Hgender: 'სქესი*',
-    Man: 'მამაკაცი',
-    Fam: 'ქალი',
+    Man: 'მამრობითი',
+    Fam: 'მდედრობითი',
     agree:'ვეთანხმები',
     terms:' წესები და პირობები',
     codeHolder: 'შეიყვანეთ ტელეფონზე მიღებული კოდი',

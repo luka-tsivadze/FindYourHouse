@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { text } from 'express';
 import { error } from 'node:console';
 
 @Injectable({
@@ -12,7 +13,7 @@ export class GeoService {
       firstTitle: 'ქონების სახელი',
       firstplaceHolder: 'შეიტანეთ თქვენი ქონების სახელი',
 
-      secondTitle: 'პროდუქტის აღწერა',
+      secondTitle: 'მოკლე აღწერა',
       secondplaceHolder: 'აღწერეთ თქვენი პროდუქტი',
 
       firstselectName: 'აირჩიეთ სტატუსი',
@@ -31,7 +32,7 @@ export class GeoService {
         '⁠მშენებარე ბინები',
       ],
 
-      secondselectName: 'ქონების ტიპი',
+      secondselectName: 'აირჩიე ქონების ტიპი',
       secondselect: ['ბინა', 'სახლი', 'კომერციული', 'გარაჟი','მიწის ნაკვეთი'],
       secondselectValues: ['Apartment', 'House', 'Commercial', 'Garage','Land Plot'],
 
@@ -47,7 +48,7 @@ export class GeoService {
       HeaderName6: 'დამატებითი ინფორმაცია',
       HeaderName7: 'ქონების მახასიათებლები',
       HeaderName8: 'კონტაქტის ინფორმაცია',
-      submit: 'ატვირთვა',
+      submit: 'განთავსება',
     },
 
     form4Info: [
@@ -128,7 +129,7 @@ export class GeoService {
       {
         text: 'ცენტრალური გათბობა',
         id: 'Heating',
-        formControlName: 'centrluri_gatboba',
+        formControlName: 'centraluri_gatboba',
       },
       {
         text: 'სამრეცხაო ოთახი',
@@ -149,6 +150,15 @@ export class GeoService {
         id: 'Mic',
         formControlName: 'microtalguri',
       },
+      
+      {text: 'სარდაფი', id: 'basement', formControlName: 'sardafi'},
+      { text: 'ლიფტი', id: 'lift', formControlName: 'lifti' },
+      { text: 'გარაჟი', id: 'garage', formControlName: 'garage' },
+      { text: 'ბოლო სართული', id: 'Floor', formControlName: 'bolo_sartuli' },
+      { text: 'ბუნებრივი აირი', id: 'gas', formControlName: 'bunebrivi_airi' },
+      { text: 'სათავსო', id: 'storage', formControlName: 'satavso' },
+      
+      
     ],
     NearByTranslate: {
       Header: 'მიმდებარე ობიექტები',
@@ -230,6 +240,7 @@ export class GeoService {
     dash_listing: {
       mainHeader: 'მართვა',
       headers: ['სახელი', 'თარიღი', 'რეიტინგი', 'სტატუსი', 'რედაქტირება'],
+      status:['აქტიური', 'უმოქმედო'],
     },
     manage: {
       header: 'საინფორმაციო დაფის მართვა',
@@ -248,6 +259,7 @@ export class GeoService {
         Header: 'პერსონალური ინფორმაცია',
         updateBtn: 'განაახლეთ თქვენი პაროლი',
         submit: 'შენახვა',
+        placeholder:'თქვენი პროფილის ბმული: ',
       },
       inputText: [
         {
@@ -272,9 +284,52 @@ export class GeoService {
         {
           label: 'თქვენ შესახებ',
           placeholder: 'დაწერეთ თქვენ შესახებ',
-          FormControl: 'aboutYourSelf',
+          FormControlName: 'chems_shesaxeb',
         },
       ],
+// "!"
+UserSelect: [
+  {
+    label: 'ანგარიშის ტიპი',
+    placeholder: 'აირჩიე ანგარიშის ტიპი',
+    options: {
+      dis: ['გაყიდვების მენეჯერი', 'მომხმარებელი'],
+      val: ['gayidvebis_menejeri', 'momxmarebeli']
+    },
+    FormControlName: 'angarishis_tipi'
+  },
+  {
+    label: 'სქესი',
+    placeholder: 'აირჩიე სქესი',
+    options: {
+      dis: ['მამრობითი', 'მდედრობითი'],
+      val: ['kaci', 'qali']
+    },
+    FormControlName: 'sqesi'
+  }
+],
+Allnetworks: {
+  Header: 'სოციალური ქსელები',
+  elements: [
+    { FormControlHref: 'facebook_linki', name: 'Facebook', value: 'Facebook' },
+    { FormControlHref: 'instagram_linki', name: 'Instagram', value: 'Instagram' },
+    { FormControlHref: 'telegram_linki', name: 'Telegram', value: 'Telegram' },
+    { FormControlHref: 'linkedin_linki', name: 'LinkedIn', value: 'LinkedIn' },
+    { FormControlHref: 'whatsapp_linki', name: 'WhatsApp', value: 'WhatsApp' }
+  ]
+}, 
+UserMessage : {
+  text: 'თქვენი ინფორმაცია წარმატებით განახლდა',
+  error: false,
+  ErrorText:'ატვირთვა ვერ მოხერხდა',
+  fileSelected: false
+},
+Elements : {
+  Header: 'ატვირთეთ პროფილის ფოტო',
+  submit: 'შენახვა'
+}
+
+
     },
   };
   Profile = {
@@ -313,16 +368,11 @@ export class GeoService {
     },
     inputs: [
       { placeholder: 'სახელი', type: 'text', FormControlname: 'saxeli' },
-      // { placeholder: 'გვარი', type: 'text', FormControlname: 'gvari' },
+      { placeholder: 'გვარი', type: 'text', FormControlname: 'gvari' },
       { placeholder: 'სათაური', type: 'text', FormControlname: 'satauri' },
       { placeholder: 'ელ. ფოსტა', type: 'email', FormControlname: 'maili' },
     ],
-    Webreview: {
-      header: 'შეფასების დამატება',
-      p: 'თქვენი შეფასება გვეხმარება საიტის  გაუმჯობესებაში',
-      placeholderN: 'შეფასება',
-      submit: 'გაგზავნა',
-    },
+  
   };
   About = {
     headerH2: 'ჩვენს კომპანიაზე',
@@ -332,6 +382,12 @@ export class GeoService {
     mainText: `ლორემ იპსუმ დოლორ სიტ ამეტ, კონსექტეტურ ადიპისიცინგ ელიტ. ლაბორუმ ოდიო იდ ვოლუპტატიბუს ინციდენტ კუმ? ათქუე კვაზი ეუმ დებიტის ოპტიო აბ. ესე იტაკე ოფიციის ტემპორა პოსიმუს ოდიო რუმ ავერიამ ratione, სუნტ. ლორემ იპსუმ დოლორ სიტ ამეტ, კონსექტეტურ ადიპისიცინგ ელიტ სუნტ.`,
     btn: 'წაიკითხე მეტი',
   };
+  Webreview = {
+    header: 'შეფასების დამატება',
+    p: 'თქვენი შეფასება გვეხმარება საიტის  გაუმჯობესებაში',
+    placeholderN: 'შეფასება',
+    submit: 'გაგზავნა',
+  }
 
   DetailedInfo = {
     advertismentr: 'რეკლამა',
@@ -358,10 +414,12 @@ export class GeoService {
         p: 'ქონების აგენტი',
         Agentp:'გაყიდვების მენეჯერი',
         Userp:'ქონების მესაკუთრე',
-        req: 'ინფორმაციის მოთხოვნის',
+        req: 'შეტრობინების გაგზავნა',
         submit: 'გაგზავნა',
         textArea: 'შეტყობინება',
       },
+
+      
     },
     CardGallery1: 'გალერეა',
     unit: 'კვ.მ',
@@ -378,7 +436,7 @@ export class GeoService {
       h2a: 'სერვისები',
       propstatic: [
         'ქონების ID',
-        'ქონების ტიპი',
+        ' ქონების ტიპი',
         'ქონების სტატუსი',
         'ფასი',
         'ოთახები',

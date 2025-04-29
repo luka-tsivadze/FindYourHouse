@@ -21,7 +21,7 @@ $transition-duration: 0.5s;
 
 .innerPage {
   background: #f5f7fb;
-  padding: 20px 40px;
+  padding: 20px 10px;
   padding-top: 30px;
   width: 100%;
   min-height: 100vh;
@@ -71,7 +71,7 @@ $transition-duration: 0.5s;
     }
   }
   .cardPlace {
-    padding: 30px 50px;
+    padding: 30px;
     @include flex-container(row, center, center);
     flex-wrap: wrap;
     width: 100%;

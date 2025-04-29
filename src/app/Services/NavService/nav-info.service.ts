@@ -2,9 +2,7 @@ import { Injectable, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { text } from 'stream/consumers';
-import { Router } from 'express';
-import { A } from 'ol/renderer/webgl/FlowLayer';
+
 
 @Injectable({
   providedIn: 'root'
@@ -78,18 +76,22 @@ userId;
     this.scrollobser.next(status);  // Update the value
 
   }
+counter = 0;
 
-
-  getUserInfo(userId?: string ): Observable<any> {
+  getUserInfo(userId?: string ,callonce?:boolean ): Observable<any> {
     if (!isPlatformBrowser(this.platformId)) {
       return of(null); // Return empty observable if not in browser
     }
+    if(callonce && this.counter > 0){
+      return of(this.IsSignedIn); // Prevent multiple calls
+    }
+    this.counter++;
 
     const localUserId = localStorage.getItem('id');
     const resolvedUserId = userId || localUserId;
 
     if (!resolvedUserId) {
-      console.error('No userId available to fetch user info.', );
+      
       return of(null); // Return empty observable if no userId
     }
 
@@ -99,7 +101,7 @@ userId;
       tap((data: any) => {
         if (!data || data.length === 0) return;
 
-        console.log('User information fetched:', data);
+      
         
       
         this.IsSignedIn.Name = data[0] && data[0].saxeli && data[0].gvari ? `${data[0].saxeli} ${data[0].gvari}` : '';
@@ -120,9 +122,9 @@ userId;
 
         if (data[0].foto) {
           this.IsSignedIn.imgLink = `users/${data[0].maili}/${data[0].saidentifikacio_kodi}/${data[0].foto}`;
-        } else if (data[0].sqesi === 'male') {
+        } else if (data[0].sqesi === 'male'|| data[0].sqesi === 'kaci') {
           this.IsSignedIn.imgLink = '../../assets/Imges/NavImg/man.png';
-        } else if (data[0].sqesi === 'famale') {
+        } else if (data[0].sqesi === 'famale' || data[0].sqesi === 'qali') {
           this.IsSignedIn.imgLink = '../../assets/Imges/NavImg/girl.png';
         }
 

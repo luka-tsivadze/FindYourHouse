@@ -145,7 +145,7 @@
     ul{
       gap: 5px;
       .listing{
-        padding: 10px 0px;
+        padding: 10px 2px;
         width: 113px;
         font-size: 10px;
         height: unset ;
@@ -179,12 +179,19 @@
               a{
                 font-size: 12px;
               }
+              .ShowImg{
+               
+                  width: 13px !important;
+                  height: 13px !important;
+                
+              }
            
             }
             .row:hover{
               margin-right:2px;
               .ArrowNav{
-                left: 90%;
+                left: 52%;
+                top:101%;
                 padding-left:3px;
                 .forHover{
                   .aContainer{

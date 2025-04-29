@@ -59,22 +59,25 @@ export class ReviewsService {
       })
     );
   }
-
   private websiteReviewsSubject = new BehaviorSubject<any[]>([]);
-  fetchWebsiteReviews(): Observable<any[]> {
+  fetchWebsiteReviews(): Observable<any> {
     return this.http.get<any[]>('get_site_reviews.php ').pipe(
       tap(reviews => this.websiteReviewsSubject.next(reviews))// Update BehaviorSubject
     );
   }
 
-  AddWebsiteReview(review: any) {
-this.http.post('send_site_review.php', review).subscribe({
-next: (data: { status: string }) => { console.log(data); 
-console.log('Review added successfully!', data.status);
+  WebSiteReviewAdder$=new BehaviorSubject<any>([]);
+  AddWebsiteReview(review: any):Observable<any>{
+ this.http.post('send_site_review.php', review).subscribe({
+next: (data: { status: string }) => { 
+
+this.WebSiteReviewAdder$.next(data.status); 
 },
-error: (error) => { console.error(error); }
+error: (error) => { console.error(error);
+  this.WebSiteReviewAdder$.next([]); 
+ },
 
 })
-  
+return this.WebSiteReviewAdder$;  
 }
 }

@@ -93,7 +93,7 @@ ngOnInit() {
  
     this.maxPeice = Math.max(...data.map(item => item.price.replace(/\D/g, '')));
     this.maxArea= Math.max(...data.map(item => item.area));
-    console.log( 'rawest back_end_data i can get:', this.cardDataServ.back_end_data);
+
     
     this.sliderTwoValue_1 = this.maxArea;
     this.sliderTwoValue_2 = this.maxPeice;

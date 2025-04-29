@@ -75,7 +75,7 @@ ngOnInit(): void {
     bedrooms: ['0'],
     bathrooms: ['0'],
     airConditioning: [false],
-    wifi: [false],
+   
     swimmingPool: [false],
     tvCable: [false],
     centralHeating: [false],
@@ -88,7 +88,15 @@ ngOnInit(): void {
     refrigerator: [false],
     windowCovering: [false],
     laundryRoom: [false],
-    microwave: [false]
+    microwave: [false],
+
+    lifti:[false],
+    garage:[false],
+    bolo_sartuli:[false],
+    bunebrivi_airi:[false],
+    satavso:[false],     
+    sardafi:[false]
+    
   });
 
 
@@ -98,7 +106,7 @@ ngOnInit(): void {
  
       this.maxPeice = Math.max(...data.map(item => item.price.replace(/\D/g, '')));
       this.maxArea= Math.max(...data.map(item => item.area));
-      console.log( 'rawest back_end_data i can get:', this.cardDataServ.back_end_data);
+    
     
       this.sliderTwoValue_1 = this.maxArea;
       this.sliderTwoValue_2 = this.maxPeice;

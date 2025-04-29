@@ -1,4 +1,4 @@
-  import { Component, AfterViewInit, Inject, PLATFORM_ID, viewChild, ElementRef, ViewChild, OnInit } from '@angular/core';
+  import { Component, AfterViewInit, Inject, PLATFORM_ID, viewChild, ElementRef, ViewChild, OnInit, effect } from '@angular/core';
 
   import { MainPageDataService } from '../Services/mainPageService/main-page-data.service';
   import { HostListener } from '@angular/core';
@@ -9,6 +9,7 @@ import { concatMap } from 'rxjs';
 import { AgentsService } from '../Services/agents/agents.service';
 import { RegistrationService } from '../Services/registration/registration.service';
 import { ReviewsService } from '../Services/reviews/reviews.service';
+import { Router } from '@angular/router';
 
   @Component({
     selector: 'app-main-page',
@@ -55,7 +56,7 @@ DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
     private allCardsService: AllCardsService,
      private navService:NavInfoService, private Registration:RegistrationService,
     private Reviews: ReviewsService,
-    private Propinfo:PropertyInformationService ,
+    private Propinfo:PropertyInformationService ,private router:Router,
     private agentsServ:AgentsService, private dataService: MainPageDataService) {
       
     
@@ -66,6 +67,7 @@ DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
   heartFilled='../../assets/Imges/StaticImg/StaticIcons/heart-fill - red.svg'
   heartedCards;
 
+  showAgent=false;
   ngOnInit(): void {
     this.dataService.getDiscoveredProperties().pipe(
       concatMap((data) => {
@@ -87,9 +89,17 @@ DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
     this.agentsServ.fetchAgentData().subscribe({
       next: (data) => {
         this.AgentsInfo=[];
-        console.log('Agents data:', data);
+  
         data.map((item,index)=>{
- const imgLink = item.foto ? `users/${item.maili}/${item.saidentifikacio_kodi}/${item.foto}` : '../../assets/Imges/Header/CardImges/A-1.jpg';
+
+          let imgLink 
+          if(item.foto){
+          imgLink=`users/${item.maili}/${item.saidentifikacio_kodi}/${item.foto}` 
+          }else if(item.sqesi=="kaci" || item.sqesi=="male"){
+            imgLink="../../assets/Imges/NavImg/man.png"
+          }else if(item.sqesi=="qali"){
+            imgLink='../../assets/Imges/NavImg/girl.png'
+          }
 
           this.AgentsInfo.push({
 
@@ -98,14 +108,16 @@ DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
     imgLink:imgLink,
 
   Name: `${item.saxeli} ${item.gvari}` || 'Carls Issue',
-  status:item.angarishis_tipi == 'gayidvebis_menejeri'?  'Real Estate Agent' : 'Real Estate Manager', 
+  // status:item.angarishis_tipi == 'gayidvebis_menejeri'?  'Real Estate Agent' : 'Real Estate Manager', 
+  status:item.atvirtuli_gancxadebebi,
   sociaslLinks:[
     ...(item.facebook_linki ? [{alt:'facebook' ,href:item.facebook_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/icons8-facebook.svg'}] : []),
     ...(item.telegram_linki ? [{alt:'telegram' ,href:item.telegram_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/telegram.svg'}] : []),
     ...(item.instagram_linki ? [{alt:'Instagram' ,href:item.instagram_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/instagram.svg'}] : []),
     ...(item.linkedin_linki ? [{alt:'linkdIn' ,href:item.linkedin_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/LinkedIn.png'}] : []),
     ...(item.whatsapp_linki ? [{alt:'whatsapp' ,href:item.whatsapp_linki,IconLink:'../../assets/Imges/Header/CardImges/icons/whatsapp.svg'}] : []),
-  ]
+  ],
+  ...item
 })
 
 })
@@ -116,10 +128,22 @@ DiscoverPopularPlaces=this.dataService.DiscoverPopularPlaces;
 
     this.Reviews.fetchWebsiteReviews().subscribe({
       next: (data) => {
-        console.log('Reviews data:', data);
+        this.ReviewsData=data.map((item)=>{
+      return{
+
+          Name:item.gamgzavnis_saxeli_gvari,
+          imgLink:item.gamgzavnis_foto,
+          Place: item.shefasebis_qula,
+          Review:item.shefasebis_teqsti,
+      }
+
+        })
       }, 
 error: (err) => console.error('Error fetching Web reviews:', err)
   });
+
+
+  
 }
 
 
@@ -128,7 +152,7 @@ error: (err) => console.error('Error fetching Web reviews:', err)
     
       // ✅ Prevent errors by waiting until allCards is loaded
       if (!allCards || !Array.isArray(allCards) || allCards.length === 0) {
-        console.warn('getMatchingIndexes skipped: allCards is empty or not loaded yet.');
+     
         return;
       }
     
@@ -273,111 +297,120 @@ if(index==0){
 
 }
 
+activeRight(){
+  this.booleanLeft=false;
+  this.booleanRight=true;
+}
+activeLeft(){
+  this.booleanLeft=true;
+  this.booleanRight=false;
  
-
-ngOnDestroy(): void {
-      if (this.intervalId) {
-        clearInterval(this.intervalId);
-      }
-  
-    }
-
-  activeRight(){
-    this.booleanLeft=false;
-    this.booleanRight=true;
-  }
-  activeLeft(){
-    this.booleanLeft=true;
-    this.booleanRight=false;
-   
-  }
-
-    ReviewMover(event:Event){
-      const element = event.target as HTMLElement;
-      const elementClass = element.className;
-      const screenWidth = window.innerWidth;
-      const cardWidth = screenWidth < 700 ? 316 : 515;
-      const cardScreenCount =  screenWidth < 1000 ? 1 : screenWidth < 1400 ? 2 : 3;
-
-      if(elementClass==='LeftBtn'|| elementClass=== 'Left'){ 
-        this.transform += cardWidth;
-      } else if(elementClass==='RightBtn' || elementClass=== 'Right'){
-        this.transform -= cardWidth;
-      }
-
-      if(this.transform <= -(this.ReviewsData.length - cardScreenCount) * cardWidth){ 
-        this.transform = 0;
-      } else if(this.transform > 0){
-        this.transform = -(this.ReviewsData.length - cardScreenCount) * cardWidth;
-      }
-
-     
-      this.Relement.nativeElement.style.transform = `translate3d(${this.transform}px, 0px, 0px)`;
-    }
-  @HostListener('window:scroll', ['$event'])
-onScroll(event: Event): void {
-    this.scrollY = window.scrollY || window.pageYOffset; // Get the current scroll position
 }
 
+ReviewMover(event: Event) {
+  const element = event.target as HTMLElement;
+  const classList = element.classList;
 
+  const screenWidth = window.innerWidth;
+  const cardWidth = screenWidth < 700 ? 316 : 515;
+  const cardScreenCount = screenWidth < 1000 ? 1 : screenWidth < 1400 ? 2 : 3;
 
-onDragStart(event: MouseEvent) { 
-  
+  if (classList.contains('LeftBtn') || classList.contains('Left')) {
+    this.transform += cardWidth;
+  } else if (classList.contains('RightBtn') || classList.contains('Right')) {
+    this.transform -= cardWidth;
+  }
+
+  const maxOffset = 0;
+  const minOffset = -(this.ReviewsData.length - cardScreenCount) * cardWidth;
+
+  this.transform = Math.min(maxOffset, Math.max(this.transform, minOffset));
+
+  this.Relement.nativeElement.style.transform = `translate3d(${this.transform}px, 0, 0)`;
+}
+@HostListener('window:scroll', ['$event'])
+onScroll(event: Event): void {
+  this.scrollY = window.scrollY || window.pageYOffset;
+}
+
+@HostListener('document:mouseup')
+onMouseUp(): void {
+  if (this.isDragging) this.onDragEnd();
+}
+
+@HostListener('document:mouseleave')
+onMouseLeave(): void {
+  if (this.isDragging) this.onDragEnd();
+}
+
+onDragStart(event: MouseEvent): void {
   this.isDragging = true;
   this.startX = event.pageX - this.cardRow.nativeElement.offsetLeft;
   this.scrollLeft = this.cardRow.nativeElement.scrollLeft;
 }
 
-onDrag(event: MouseEvent) {
-
-
+onDrag(event: MouseEvent): void {
   if (!this.isDragging) return;
   event.preventDefault();
 
-  // Calculate the movement
-  const x = event.pageX - this.cardRow.nativeElement.offsetLeft;
-  const walk = (x - this.startX) * 2; // scroll-fast
+  const screenWidth = window.innerWidth;
+  const cardWidth = screenWidth < 700 ? 316 : 515;
 
-  // Update transform value
+  const x = event.pageX - this.cardRow.nativeElement.offsetLeft;
+  const walk = (x - this.startX) * 2;
+
   this.transform += event.movementX;
 
-  // Update scroll position
+  // Scroll fallback if needed, or just rely on transform
   this.cardRow.nativeElement.scrollLeft = this.scrollLeft - walk;
-  
-  // Apply transform without animation
+
   this.Relement.nativeElement.style.transition = '0s';
   this.Relement.nativeElement.style.transform = `translate3d(${this.transform}px, 0px, 0px)`;
 }
 
-onDragEnd() {
-  if (!this.isDragging) return;
+onDragEnd(): void {
   this.isDragging = false;
-  this.TransformCof = Math.round(this.transform / 515); 
 
-  if(this.LC!==1){
+  const screenWidth = window.innerWidth;
+  const cardWidth = screenWidth < 700 ? 316 : 515;
+  const visibleCount = screenWidth < 1000 ? 1 : screenWidth < 1400 ? 2 : 3;
 
-  if(this.LC>this.TransformCof){
-    this.TransformCof=this.TransformCof-1;
+  const totalCards = this.ReviewsData.length;
+  const maxIndex = totalCards - visibleCount;
 
-  }else if(this.LC<this.TransformCof){
-    this.TransformCof=this.TransformCof+1;
+  this.TransformCof = Math.round(this.transform / cardWidth);
 
+ 
+  if (this.transform > 0) {
+    this.transform = -maxIndex * cardWidth;
+  } else if (this.transform <= -((totalCards - 2) * cardWidth)) {
+    this.transform = 0;
+  } else {
+    this.transform = this.TransformCof * cardWidth;
   }
-}
-this.LC=this.TransformCof;
 
+  this.LC = this.TransformCof;
 
-  this.transform = this.TransformCof * 515;
-  if(this.transform>0){
-    this.transform=-(this.ReviewsData.length-3)*515;
-   
-  }else if(this.transform<=-(this.ReviewsData.length-2)*515){
-    this.transform=0;
-  }
   this.Relement.nativeElement.style.transition = '0.8s';
   this.Relement.nativeElement.style.transform = `translate3d(${this.transform}px, 0px, 0px)`;
 }
 
+
+displayAgent(Agent){
+
+this.agentsServ.ShowAgent.set(Agent)
+this.router.navigate(['/Agent']); 
+
+}
+
+ngOnDestroy(): void {
+      if (this.intervalId) {
+        clearInterval(this.intervalId);
+      }
+
+    }
+
+ 
 
 
   }

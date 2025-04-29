@@ -92,7 +92,7 @@ export class AllCardsService  {
     this.http.post('https://findhouse.ge/save-house.php', postBody, { headers }).subscribe({
       next:(data)=>{ 
         this.fetFavchData(this.navServ.userId).subscribe({}); 
-        console.log('Response:', data);},
+},
       error:(error) =>{console.error('Error:', error.error)}, 
   
       
@@ -102,7 +102,7 @@ export class AllCardsService  {
   DeleteFavoriteCards(postBody) {
     this.http.post('delete-saved-house.php', postBody ).subscribe({
       next: (response) => {
-        console.log('Response:', response);
+   
         this.fetFavchData(this.navServ.userId).subscribe({})
       },
       error: (error) => {
@@ -170,6 +170,7 @@ fetchDataFromApi(): Observable<any[]> {
               featuredBtn: item.featuredBtn,
               imgLink: firstimg,
               id: item.idi,
+              UserId: item.amtvirtvelis_idi,
               price: item.fasi + item.fasis_valuta,
               header: item.satauri,
               location: item.misamarti,

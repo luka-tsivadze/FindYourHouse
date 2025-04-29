@@ -5,10 +5,10 @@ import { EngService } from '../Services/Languages/eng/eng.service';
 import { GeoService } from '../Services/Languages/geo/geo.service';
 import { RusService } from '../Services/Languages/rus/rus.service';
 import { RegistrationService } from '../Services/registration/registration.service';
-import { BehaviorSubject } from 'rxjs';
+
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { log, profile } from 'console';
+
 import { AllCardsService } from '../Services/all-cards/all-cards.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class NavComponent {
 
   scrollY: number=0
 
-LogoLink='../../assets/Imges/mainLogo.png';
+LogoLink='../../assets/Imges/NavImg/NavIcon2.svg';
 GlobeLink='../../assets/Imges/NavImg/thirdImg.png';
 ShowImg=false;
 displayElement=false;
@@ -100,10 +100,10 @@ showRespNav={bool:false ,iconSrc:'../../assets/Imges/NavImg/list-outline.svg'};
     }
 
     if (this.showNav) {
-      this.LogoLink = '../../assets/Imges/mainLogo.png';
+      this.LogoLink = '../../assets/Imges/NavImg/NavIcon2.svg';
       this.GlobeLink = '../../assets/Imges/NavImg/globeBlack.svg';
     } else {
-      this.LogoLink = '../../assets/Imges/mainLogo.png';
+      this.LogoLink = '../../assets/Imges/NavImg/NavIcon1.svg';
       this.GlobeLink = '../../assets/Imges/NavImg/thirdImg.png';
     }
 
@@ -144,10 +144,10 @@ this.showLanguages=!this.showLanguages;
       this.scrollY = window.scrollY || window.pageYOffset; // Get the current scroll position
 
       if(this.scrollY>100 || this.showNav){
-        this.LogoLink='../../assets/Imges/mainLogo.png'
+        this.LogoLink='../../assets/Imges/NavImg/NavIcon2.svg'
         this.GlobeLink='../../assets/Imges/NavImg/globeBlack.svg'
       }else{
-        this.LogoLink='../../assets/Imges/mainLogo.png'
+        this.LogoLink='../../assets/Imges/NavImg/NavIcon1.svg'
         this.GlobeLink='../../assets/Imges/NavImg/thirdImg.png'
       }
   }
@@ -162,21 +162,20 @@ this.showLanguages=!this.showLanguages;
   }
 
  navtoReg_Log( element ){
-  if(element.a=='Login'){
+  console.log(element)
+  if(element.chack=='Login'){
 this.Registration.toggleLogin(true);
 this.showRegistrForm()
 
-  }else if(element.a=='Register'){
+  }else if(element.chack=='Register'){
     this.Registration.toggleLogin(false);
     this.showRegistrForm()
- }else if(element.a=='User Panel' && !this.IsSignedIn.signed){
+ }else if(element.chack=='User Panel' && !this.IsSignedIn.signed){
 this.showRegistrForm()
 element.route='/'
 }
-if(element.chack){
+if(!element.chack){
 
-}else{
-  console.log(element)
   this.router.navigate([element.RouterLink])
 }
 }
@@ -214,7 +213,7 @@ if(element.chack){
     } 
     this.router.navigate(['/Listing'])
     localStorage.setItem('ActiveElement',info)
- console.log(info)
+
   }
   profileSettings(el){
     if(el=='Log Out'){

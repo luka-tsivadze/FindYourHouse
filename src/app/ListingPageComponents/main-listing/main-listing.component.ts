@@ -87,7 +87,7 @@ name;
       sveli_wertilebis_raodenoba : ['', Validators.required],
       kondincioneri: [false],
       sacurao_auzi: [false],
-      centrluri_gatboba: [false],
+      centraluri_gatboba: [false],
       samrecxao_otaxi: [false],
       sportuli_darbazi: [false],
       signalizacia: [false],
@@ -129,14 +129,20 @@ name;
       SecondDistance_Transportation:[''],
       ThirdPlace_Transportation:[''],
       ThirdDistance_Transportation:[''],
-      
+
+      //ახალი 
+      lifti:[false],
+      garage:[false],
+      bolo_sartuli:[false],
+      bunebrivi_airi:[false],
+      satavso:[false],     
+      sardafi:[false]
       
     });
  
   }
 
-  // Handles file selection
- 
+
   
   ngOnInit(): void {
     // Subscribe to get the ID of the item being edited
@@ -209,11 +215,19 @@ this.nearbyError[index].bol=true;
       this.naxaziFiles = naxaziFilePromise ? [await naxaziFilePromise] : [];
   
       // ✅ Now update the form after all files are processed
+      for (const key in data.additionalInfo) {
+        if (data.additionalInfo[key] === "true") data.additionalInfo[key] = true;
+        if (data.additionalInfo[key] === "false") data.additionalInfo[key] = false;
+      }
       if (data) {
+console.log('data', data);
         this.listingForm.patchValue({
           satauri: data.title,
           gancxadebis_id: data.id,
           id: this.navservice.userId,
+          fotoebi: this.fotofiles,
+          misamarti: data.location,
+          
           mokle_agwera: data.additionalInfo.mokle_agwera,
           garigebis_tipi: data.additionalInfo.garigebis_tipi,
           tipi: data.additionalInfo.tipi,
@@ -221,8 +235,6 @@ this.nearbyError[index].bol=true;
           fasi: data.additionalInfo.fasi,
           fasis_valuta: data.additionalInfo.fasis_valuta,
           fartobi: data.additionalInfo.fartobi,
-          fotoebi: this.fotofiles,
-          misamarti: data.location,
           qalaqi: data.additionalInfo.qalaqi,
           mapis_grdzedi: data.additionalInfo.mapis_grdzedi,
           mapis_ganedi: data.additionalInfo.mapis_ganedi,
@@ -231,24 +243,25 @@ this.nearbyError[index].bol=true;
           sveli_wertilebis_raodenoba: data.additionalInfo.sveli_wertilebis_raodenoba,
           kondincioneri: data.additionalInfo.kondincioneri || false,
           sacurao_auzi: data.additionalInfo.sacurao_auzi || false,
-          centrluri_gatboba: data.additionalInfo.centrluri_gatboba || false,
+          centraluri_gatboba: data.additionalInfo.centraluri_gatboba || false,
           samrecxao_otaxi: data.additionalInfo.samrecxao_otaxi || false,
           sportuli_darbazi: data.additionalInfo.sportuli_darbazi || false,
           signalizacia: data.additionalInfo.signalizacia || false,
           aivani: data.additionalInfo.aivani || false,
           macivari: data.additionalInfo.macivari || false,
           televizia_wifi: data.additionalInfo.televizia_wifi || false,
-          microtalguri: data.additionalInfo.microtalguri || false,
+          microtalguri: data.additionalInfo.mikrotalguri|| false,
           momxmareblis_saxeli: data.additionalInfo.momxmareblis_saxeli,
           telefonis_nomeri: data.additionalInfo.telefonis_nomeri,
           el_fosta: data.additionalInfo.el_fosta,
           amtvirtvelis_maili: data.additionalInfo.amtvirtvelis_maili,
         });
       }
+
     } catch (error) {
       console.error('Error loading item data:', error);
     } finally {
-      // ✅ Ensure `isLoadingFiles` is always set to false, even if an error happens
+
       this.checkForLand(); 
       this.isLoadingFiles = false;
     }
@@ -468,6 +481,7 @@ this.nearbyError[index].bol=true;
 
   checkForLand(): void {
     const selected = this.listingForm.get('tipi')?.value;
+
 
     const fields = [
       'otaxebis_raodenoba',

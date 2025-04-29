@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { error } from 'console';
+import { sign } from 'crypto';
 import { BehaviorSubject, Observable, share, shareReplay, tap } from 'rxjs';
 
 @Injectable({
@@ -9,6 +10,7 @@ import { BehaviorSubject, Observable, share, shareReplay, tap } from 'rxjs';
 export class AgentsService {
 
 private cached$: Observable<any> | null = null;
+public ShowAgent= signal<any | null>(null) ;
   constructor(private http :HttpClient) { }
 
   fetchAgentData(): Observable<any> {

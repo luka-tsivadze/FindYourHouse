@@ -136,7 +136,7 @@ export class RusService {
       {
         text: 'Центральное отопление',
         id: 'Heating',
-        formControlName: 'centrluri_gatboba',
+        formControlName: 'centraluri_gatboba',
       },
       { text: 'Прачечная', id: 'room', formControlName: 'samrecxao_otaxi' },
       {
@@ -149,6 +149,13 @@ export class RusService {
       { text: 'Холодильник', id: 'Refrigerator', formControlName: 'macivari' },
       { text: 'ТВ и Wi-Fi', id: 'TV', formControlName: 'televizia_wifi' },
       { text: 'Микроволновка', id: 'Mic', formControlName: 'microtalguri' },
+      
+      {text: 'basement', id: 'basement', formControlName: 'sardafi'},
+      { text: 'Elevator', id: 'lift', formControlName: 'lifti' },
+      { text: 'Garage', id: 'garage', formControlName: 'garage' },
+      { text: 'Top Floor', id: 'Floor', formControlName: 'bolo_sartuli' },
+      { text: 'Natural gas', id: 'gas', formControlName: 'bunebrivi_airi' },
+      { text: 'Storage', id: 'storage', formControlName: 'satavso' },
     ],
 
     form6Info: [
@@ -229,6 +236,7 @@ export class RusService {
         'Статус',
         'Редактировать',
       ],
+      status:['Активный','Неактивный'],
     },
     manage: {
       header: 'Управление панелью',
@@ -247,6 +255,7 @@ export class RusService {
         Header: 'Личная информация',
         updateBtn: 'Обновите ваш пароль',
         submit: 'Отправить',
+        placeholder:'Введите ваше имя',
       },
       inputText: [
         { labe: 'Имя', placeholder: 'Введите ваше имя', FormControl: 'saxeli' },
@@ -271,9 +280,52 @@ export class RusService {
         {
           label: 'О себе',
           placeholder: 'Напишите о себе',
-          FormControl: 'aboutYourSelf',
+          FormControlName: 'chems_shesaxeb',
         },
       ],
+      // "!"
+UserSelect: [
+  {
+    label: 'Тип аккаунта',
+    placeholder: 'Выберите тип аккаунта',
+    options: {
+      dis: ['Менеджер по продажам', 'Пользователь'],
+      val: ['gayidvebis_menejeri', 'momxmarebeli']
+    },
+    FormControlName: 'angarishis_tipi'
+  },
+  {
+    label: 'Пол',
+    placeholder: 'Выберите пол',
+    options: {
+      dis: ['Мужской', 'Женский'],
+      val: ['kaci', 'qali']
+    },
+    FormControlName: 'sqesi'
+  }
+],
+Allnetworks: {
+  Header: 'Социальные сети',
+  elements: [
+    { FormControlHref: 'facebook_linki', name: 'Facebook', value: 'Facebook' },
+    { FormControlHref: 'instagram_linki', name: 'Instagram', value: 'Instagram' },
+    { FormControlHref: 'telegram_linki', name: 'Telegram', value: 'Telegram' },
+    { FormControlHref: 'linkedin_linki', name: 'LinkedIn', value: 'LinkedIn' },
+    { FormControlHref: 'whatsapp_linki', name: 'WhatsApp', value: 'WhatsApp' }
+  ]
+},
+UserMessage: {
+  text: 'Ваша информация успешно обновлена',
+  error: false,
+  ErrorText:'Ошибка',
+  fileSelected: false
+},
+Elements : {
+  Header: 'Загрузите фото профиля',
+  submit: 'Сохранить'
+}
+
+
     },
   };
   Profile = {
@@ -313,16 +365,11 @@ export class RusService {
     },
     inputs: [
       { placeholder: 'Имя', type: 'text', FormControlname: 'saxeli' },
-      // { placeholder: 'Фамилия', type: 'text', FormControlname: 'gvari' },
+      { placeholder: 'Фамилия', type: 'text', FormControlname: 'gvari' },
       { placeholder: 'Заголовок', type: 'text', FormControlname: 'satauri' },
       { placeholder: 'Эл. почта', type: 'email', FormControlname: 'maili' },
     ],
-    Webreview: {
-      header: 'Добавить отзыв',
-      p: 'Ваш рейтинг для этого объявления',
-      placeholderN: 'Отзыв',
-      submit: 'Отправить отзыв',
-    },
+ 
   };
   About = {
     headerH2: 'О нашей компании',
@@ -332,6 +379,12 @@ export class RusService {
     mainText: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum odio id voluptatibus incidunt cum? Atque quasi eum debitis optio ab. Esse itaque officiis tempora possimus odio rerum aperiam ratione, sunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit sunt.`,
     btn: 'Читать далее',
   };
+  Webreview={
+    header: 'Добавить отзыв',
+    p: 'Ваш рейтинг для этого объявления',
+    placeholderN: 'Отзыв',
+    submit: 'Отправить отзыв',
+  }
   DetailedInfo = {
     advertismentr: 'Реклама',
     AgentsInfo: {
@@ -357,7 +410,7 @@ export class RusService {
         p: 'Агент по недвижимости',
         Agentp:'Агент по недвижимости',
         Userp:'Пользователь',
-        req: 'Отправить запрос',
+        req: 'Отправить сообщение',
         submit: 'Отправить',
         textArea: 'Сообщение',
       },

@@ -54,7 +54,7 @@ export class AllCardsComponent {
   heartedCards;
     ngOnInit() {
   this.Languages =this.LangService.chosenLang;
-  console.log(this.Languages);
+
       this.cardsService.fetFavchData(this.navService.userId).pipe(
         concatMap((filteredData) => {
           this.heartedCards = filteredData;
@@ -72,7 +72,7 @@ export class AllCardsComponent {
           console.error('Error:', error);
         },
         complete: () => {
-          console.log('Request completed');
+        
         },
       });
   

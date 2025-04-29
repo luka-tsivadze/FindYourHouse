@@ -23,9 +23,9 @@ this.Data=data;
   data.map((item) => {
     
    if(item.additionalInfo.statusi=='aqtiuri'){
-    this.statusi='Active';
+    this.statusi=this.lang.chosenLang.Dashboard.dash_listing.status[0];
    }else{
-    this.statusi='Inactive';
+    this.statusi=this.lang.chosenLang.Dashboard.dash_listing.status[1];
    }
     this.listing.push({
       name: item.title,

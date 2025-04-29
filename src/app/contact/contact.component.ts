@@ -78,7 +78,7 @@ ngOnInit(): void {
       this.message.validity=true;
       this.message.text='message was not sent , please fill in all the fields';
       this.message.class='error';
-      console.error('Form is invalid');
+      console.error('Form is invalid:', this.form.errors , this.form.value , this.form.valid);
     }
   }
 }

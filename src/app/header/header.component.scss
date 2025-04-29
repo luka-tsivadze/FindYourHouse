@@ -554,6 +554,7 @@ header {
   }
   .cardPlace {
     display: flex;
+    cursor: pointer;
     width: 100%;
     flex-wrap: wrap;
     gap: 20px;

@@ -21,7 +21,7 @@ import { RegistrationService } from '../Services/registration/registration.servi
 })
 export class HeaderComponent implements OnInit {
 
-  popularPlacesData:{imgLink:string,cityName:string,properties:number}[]=[];
+  popularPlacesData:{imgLink:string,cityName:string,properties:number,cityCode:string}[]=[];
 
   staticData:{
 [x: string]: any;headerTextList:string[]
@@ -61,7 +61,7 @@ filterForm = this.fb.group({
    ,private uniter:FilterDataUniterService , private Registration:RegistrationService 
     ,private allcard:AllCardsService, private dataService: MainPageDataService )
      {
- this.dataService.cityAmount(); 
+
     }
 
 
@@ -314,6 +314,8 @@ onScroll(event: Event): void {
 }
 
 goToCity(location: string): void {
+  
+
   if (!location || location === '0') {
     return; // If the location is 0 (default), do nothing
   }

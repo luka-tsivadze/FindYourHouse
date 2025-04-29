@@ -29,10 +29,18 @@
   <!-- ✅ Favicon -->
   <link rel="icon" type="image/png" href="assets/Favicon.png">
 
-  <!-- ✅ Preload critical font (for faster first paint) -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" as="style">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- ✅ Preload critical font (for faster first paint) -->
+<!-- Preload Roboto -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap">
+</noscript>
+
+<!-- Preload Material Icons -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</noscript>
 
   <!-- ✅ Structured Data (SEO schema) -->
   <script type="application/ld+json">

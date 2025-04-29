@@ -14,9 +14,27 @@ export class GlobalErrorHandler implements ErrorHandler {
 
     // Trigger safe reload logic
 
-    if (loadingService.loadingSubject.getValue()) {
-        setTimeout(() => location.reload(), 10000);
-      }
+    if (this.isCriticalError(error)) {
       
+      setTimeout(() => {
+        if (loadingService.loadingSubject.getValue()) {
+          console.log('there is Problem but page is loaded:', loadingService.loading$.subscribe(), ':', loadingService.loadingSubject.value);
+           
+        
+        }else{
+          console.log('No loading in progress, not reloading.');
+          alert(`An error occurred. The page will be reloaded. ${error.message} `);
+          location.reload();
+        }
+      }, 10000);
+    }
+    
+      
+  }
+  private isCriticalError(error: any): boolean {
+    return error instanceof TypeError || 
+           error?.message?.includes('Cannot read properties') ||
+           error?.message?.includes('Unexpected token') ||
+           error?.message?.includes('null');
   }
 }

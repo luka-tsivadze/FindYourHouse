@@ -13,9 +13,9 @@ import { load } from 'ol/Image';
   styleUrl: './personal-info.component.scss'
 })
 export class PersonalInfoComponent implements OnInit {
-  staticElements={Header:'Personal Information' , updateBtn:'Update Your Password' , submit:'Submit' }
-  UserMessage={text:'Your Information has been updated successfully',error:false,load:false };
-  inputText=[{   label:'First Name', placeholder:'Enter Your First Name',type:'text', FormControlName:'saxeli',},
+  staticElements={Header:'Personal Information' , updateBtn:'Update Your Password' , submit:'Submit' , placeholder:'write Your profile Link'}
+  UserMessage={text:'Your Information has been updated successfully',error:false,load:false , };
+  inputText=[{   label:'First Name', placeholder:'Enter Your First Name',type:'text', FormControlName:'saxeli'},
  {
    label:'Last Name',placeholder:'Enter Your Last Name',type:'text', FormControlName:'gvari',
  },
@@ -26,21 +26,16 @@ export class PersonalInfoComponent implements OnInit {
  {label:'Address',placeholder:'Write Your Address hare',FormControlName:'sacxovrebeli_adgili'},
  
 ]
+
+
 UserSelect=[
   {label:'Account type', placeholder:'Choose Acaunt Type' ,options:{dis:['Sales Manager','User'], val:['gayidvebis_menejeri','momxmarebeli'] },FormControlName:'angarishis_tipi'},
    {label:'Gender',placeholder:'Choose Gender' ,options:{dis:['Male', 'Female'],val:['kaci', 'qali'] },FormControlName:'sqesi'}
 ]
 textArea=[
-  {label:'About Yourself',placeholder:'Write about Yourself',FormControlName:'chems_shesaxeb'},
+  {label:'About Yourself',placeholder:'Write about Yourself', FormControlName:'chems_shesaxeb'},
 
 ]
-Form: FormGroup;
-
-// Initial Controls
-FormControls = [{ btn: 'Btn1', Href: 'Href1' }];
-selectedNetworks: Set<string> = new Set(); // ✅ Track used networks
-plusbtn=true;
-displayLinks=false;
 Allnetworks = {
   Header: 'Social Networks',
   elements: [
@@ -75,6 +70,15 @@ name: 'Telegram', value: 'Telegram'
   ]
 };
 
+Form: FormGroup;
+
+// Initial Controls
+FormControls = [{ btn: 'Btn1', Href: 'Href1' }];
+selectedNetworks: Set<string> = new Set(); // ✅ Track used networks
+plusbtn=true;
+displayLinks=false;
+
+
 constructor(private langServ:LanguageChooserService , private fb:FormBuilder , private navServ:NavInfoService , private cd:ChangeDetectorRef ,
   private listingServ:ListingServiceService) {
   this.Form = this.fb.group({
@@ -106,7 +110,7 @@ change($event){
 
   if($event.value=='gayidvebis_menejeri'){
     this.displayLinks=true;
-  }else{
+  }else if($event.value=='momxmarebeli'){
     this.displayLinks=false;
   }
 }
@@ -117,13 +121,13 @@ submit(){
 
 
     if(data.status=="success"){
-      this.UserMessage={text:'Your Information has been updated successfully',error:false ,load:true }
+      this.UserMessage={text:`${this.langServ.chosenLang.Dashboard.PersonalInfo.UserMessage.text}`,error:false ,load:true }
 this.navServ.getUserInfo().subscribe((data)=>{
 
 }); // Update the user info
 
   }else {
-    this.UserMessage={text:'Information was not updated',error:true ,load:true }
+    this.UserMessage={text:`${this.langServ.chosenLang.Dashboard.PersonalInfo.UserMessage.ErrorText}`,error:true ,load:true }
   }
 });
   
@@ -131,12 +135,15 @@ this.navServ.getUserInfo().subscribe((data)=>{
 }
 ngOnInit(){
 this.staticElements=this.langServ.chosenLang.Dashboard.PersonalInfo.staticElements;
-
+this.Allnetworks=this.langServ.chosenLang.Dashboard.PersonalInfo.Allnetworks;
+this.UserSelect = this.langServ.chosenLang.Dashboard.PersonalInfo.UserSelect;
+this.textArea = this.langServ.chosenLang.Dashboard.PersonalInfo.textArea;
   this.inputText = this.inputText.map((el, index) => ({
     ...el ,// spread existing properties
     placeholder: this.langServ.chosenLang.Dashboard.PersonalInfo.inputText[index].placeholder,
     label: this.langServ.chosenLang.Dashboard.PersonalInfo.inputText[index].label,
   }));
+
 
   
 }

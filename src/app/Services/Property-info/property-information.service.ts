@@ -125,7 +125,7 @@ if (Array.isArray(images) && images.length > 0) {
     // console.log('Selected card:', selectedCard); 
    let timeDifference 
     if (selectedCard.tipi != 'Land Plot' && selectedCard.tipi != 'Garage') {
-      console.log('Selected card:', selectedCard);
+    
    timeDifference=new Date(
         new Date(selectedCard.gancxadebis_atvirtvis_tarigi).setFullYear(
           new Date(selectedCard.gancxadebis_atvirtvis_tarigi).getFullYear() -
@@ -160,6 +160,8 @@ if (Array.isArray(images) && images.length > 0) {
       latitude:  selectedCard.mapis_grdzedi, // Static placeholder
       longitude: selectedCard.mapis_ganedi, // Static placeholder
       Rooms: parseInt(selectedCard.otaxebis_raodenoba) || 0,
+
+      qalaqi: selectedCard.qalaqi || 'Unknown',
 
       Amenities: [],
       img: this.imgLink,
@@ -256,6 +258,7 @@ return this.Sendresp;
 
 RecentProp$=new BehaviorSubject<any>(false);
 getRecentProp():Observable<any>{
+  if(this.RecentProp$.value) return this.RecentProp$;
   this.http.get('get_new_houses.php').subscribe({
     next: (data) => { this.RecentProp$.next(data); },
     error: (error) => { console.error('Error fetching recent properties:', error); }

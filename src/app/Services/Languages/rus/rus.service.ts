@@ -48,7 +48,45 @@ Header = {
   Search: 'Искать сейчас'
 }
 popularPlaces={Header:'Популярные места' ,properties:' Недвижимость в самых популярных местах',prop:"свойство"}
+popularPlacesSubject = [ {
+  cityName: 'Tbilisi',
 
+},
+{
+
+  cityName: 'Batumi',
+
+},
+{
+
+  cityName: 'Kutaisi',
+
+},
+{
+
+  cityName: 'Rustavi',
+
+},
+{
+
+  cityName: 'Zugdidi',
+
+},
+{
+
+  cityName: 'Telavi',
+
+},
+{
+
+  cityName: 'Bakurian',
+ 
+},
+{
+
+  cityName: 'Kobuleti',
+
+},];
 featuredPropertiesStatic = {
   Header: 'Рекомендуемая недвижимость',
   properties: 'Недвижимость в самых популярных местах',
@@ -67,6 +105,8 @@ main = {
   popularPropertys: 'Откройте для себя популярные объекты', 
   AgentsH: 'Познакомьтесь с нашими агентами', 
   AgentsP: 'Мы всегда готовы помочь вам', 
+  AgentsB:' Узнать больше',
+  Agents:'Объект',
   RHeader: 'Отзывы клиентов', 
   Rptext: 'Мы собираем отзывы от наших клиентов.'
 }
@@ -126,6 +166,13 @@ allFilter = {
       { id: '8', label: 'Alarm', name: 'Сигнализация', formcontroller: 'alarm' },
       { id: '9', label: 'Refrigerator', name: 'Холодильник', formcontroller: 'refrigerator' },
       { id: '10', label: 'Window Covering', name: 'Балкон', formcontroller: 'windowCovering' },
+
+      {label: 'sardafi', name:'basement', id: '11', formcontroller: 'sardafi'},
+      { label: 'lifti',  name:'Elavator', id: '12', formcontroller: 'lifti' },
+      { label: 'garage',  name:'Garage', id: '13',  formcontroller: 'garage' },
+      { label: 'bolo_sartuli',  name:'Top Floor', id: '14',  formcontroller: 'bolo_sartuli' },
+      { label: 'bunebrivi_airi', name:'Natural gas' , id: '15', formcontroller: 'bunebrivi_airi' },
+      { label: 'satavso',  name:'Storage',  id: '16',  formcontroller:'satavso' },
     ],
   },
 }

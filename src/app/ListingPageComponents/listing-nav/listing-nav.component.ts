@@ -164,7 +164,7 @@ this.showLanguages=!this.showLanguages;
 
     if(this.showRespNav.bool){
       this.showRespNav.bool=false;
-      this.showRespNav.iconSrc='../../assets/Imges/mainLogo.png'
+      this.showRespNav.iconSrc='../../assets/Imges/mainLogo.svg'
   }else{
     this.showRespNav.bool=true;  
 

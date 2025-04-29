@@ -94,7 +94,7 @@ export class FilterDataUniterService {
 
   transferData(data: any, filterNumber: number): void {
     this.wasCalled = true;
-    
+
     this.finalData = {};
 
     if (filterNumber === 1) {
@@ -145,6 +145,12 @@ export class FilterDataUniterService {
         'TV Cable & wifi',
         'Dryer',
         'Washer',
+        'garage',
+        'lifti',
+        'bolo_sartuli',
+        'bunebrivi_airi',
+        'satavso',
+        'sardafi', 
       ];
       features.forEach((feature) => {
         this.finalData[feature] = (data.checkboxes || []).some(
@@ -179,6 +185,15 @@ export class FilterDataUniterService {
         'outdoorShower',
         'laundryRoom',
         'microwave',
+
+        
+        'garage',
+        'lifti',
+        'bolo_sartuli',
+        'bunebrivi_airi',
+        'satavso',
+        'sardafi',
+
       ];
       features.forEach((feature) => {
         this.finalData[feature] = data[feature] || false;
@@ -193,16 +208,16 @@ export class FilterDataUniterService {
   }
 
   filterCards(allCards: any[], filter: FilterData): any[] {
-    console.log('filter', filter.prop);
     const normalizeValue = (value: string, map: Record<string, string[]>): string | undefined => {
       if (!value) return undefined;
       const lowerValue = value.toLowerCase();
       return Object.keys(map).find((key) =>
         map[key].some((mappedValue) => mappedValue.toLowerCase() === lowerValue)
-      );
-    };
-
-    return allCards.filter((card) => {
+    );
+  };
+  
+  console.log('filter', filter , 'allCards', allCards);
+  return allCards.filter((card) => {
       const normalizedTipi =
         normalizeValue(card.tipi, this.bilingualMapping.tipi) || card.tipi;
       const normalizedGarigebisTipi =
@@ -246,8 +261,23 @@ export class FilterDataUniterService {
         { key: 'alarm', field: 'signalizacia' },
         { key: 'tvCable', field: 'televizia_wifi' },
         { key: 'microwave', field: 'mikrotalguri' },
+
+        { key: 'refrigerator', field: 'macivari' },
+        { key: 'windowCovering', field: 'aivani' },
+        { key: 'laundryRoom', field: 'samrecxio_otaxi' },
+        // { key: 'outdoorShower', field: 'sacxovrebi' },
+        { key: 'dryer', field: 'sagrdzelebi' },
+
+        { key: 'garage', field: 'garaji' },
+        { key: 'lifti', field: 'lifti' },
+        { key: 'bolo_sartuli', field: 'bolo_sartuli' },
+        { key: 'bunebrivi_airi', field: 'bunebrivi_airi' },
+        { key: 'satavso', field: 'satavso' },
+        { key: 'sardafi', field: 'sardafi' },
       ];
+
       const matchesCheckboxes = checkboxFilters.every(({ key, field }) => {
+        
         return !filter[key] || card[field] === 'true';
       });
 

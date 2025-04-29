@@ -55,6 +55,14 @@ import { UploadImageComponent } from './ListingPageComponents/DashboardParent/up
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { GlobalErrorHandler } from './Services/ErrorHandler/global-error-handler';
 import { LoaderComponent } from './loader/loader.component';
+import { WebReviewAdderComponent } from './about-us/web-review-adder/web-review-adder.component';
+import { AgentsDetailedComponent } from './main-page/agents-detailed/agents-detailed.component';
+import { LprofileCardComponent } from './main-page/lprofile-card/lprofile-card.component';
+import { LDescriptionComponent } from './main-page/ldescription/ldescription.component';
+import { RContactComponent } from './main-page/rcontact/rcontact.component';
+import { RecentComponent } from './main-page/recent/recent.component';
+import { ListingComponent } from './main-page/listing/listing.component';
+import { RAdvertismentComponent } from './main-page/r-advertisment/r-advertisment.component';
 
 
 @NgModule({
@@ -105,7 +113,15 @@ import { LoaderComponent } from './loader/loader.component';
     UploadImageComponent,
     LoaderComponent,
     TermsAndConditionsComponent,
-    LoaderComponent
+    LoaderComponent,
+    WebReviewAdderComponent,
+    AgentsDetailedComponent,
+    LprofileCardComponent,
+    LDescriptionComponent,
+    RContactComponent,
+    RecentComponent,
+    ListingComponent,
+    RAdvertismentComponent
   ],
   imports: [
     BrowserModule,

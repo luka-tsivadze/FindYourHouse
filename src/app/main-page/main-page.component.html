@@ -2,7 +2,7 @@
 <div class="cover" ></div> 
 <app-nav/>
 <app-header/>
-
+<!-- <app-agents-detailed *ngIf="showAgent" ></app-agents-detailed> -->
 <main >
 <!-- <div class="whyChoose">
  <div class="headerTextChoose">
@@ -14,6 +14,7 @@
  </div>
 
 </div> -->
+
 <div class="popularProperties" >
     <h2  class="PH2" [ngClass]="{'FadeInUp': scrollY >1750 }">{{Languages.main.popularPropertys}}</h2>
     <p class="PP" [ngClass]="{'FadeInUp': scrollY >1740 }">{{Languages.main.AgentsP}} </p>
@@ -69,6 +70,7 @@
     
 </div>
 
+
 <div class="Agents">
     <h3 class="AHeader">{{Languages.main.AgentsH}}</h3>
     <p class="AP">{{Languages.main.AgentsP}}</p>
@@ -79,19 +81,22 @@
                 <div class="ShareRow"><a  *ngFor="let Info of AgentInfo.sociaslLinks" href="{{Info.href}}" target="_blank"><img src={{Info.IconLink}} alt="{{Info.alt}}"></a>
              
             </div></div>
-            <div class="bottom"><h3>{{AgentInfo.Name}}</h3><p>{{AgentInfo.status}}</p></div>
+            <div class="bottom" (click)="displayAgent(AgentInfo)"><h3>{{AgentInfo.Name}}</h3><p>{{AgentInfo.status}} {{Languages.main.Agents}}</p>
+
+                <button>{{Languages.main.AgentsB}}</button>
+            </div>
 
         </div>
     </div>
 </div>
-<!-- <div class="Reviews">
+<div class="Reviews" *ngIf="ReviewsData.length > 0">
     <h1 class="HText">{{Languages.main.RHeader}}</h1>
     <p class="HP">{{Languages.main.Rptext}}</p>
 <div class="ForOverflow">
     <div #RCard class="cardPlace" #cardPlace (mouseup)="onDragEnd()"  (mousedown)="onDragStart($event)" (mousemove)="onDrag($event)" >
         <div class="ReviewCard"  *ngFor="let review of ReviewsData let i=index" [ngStyle]="{'animation-delay': (i * 0.2) + 's'}" [ngClass]="{'FadeInUp':scrollY>3000}">
             <div class="Top"><p>{{review.Review}}</div>
-                <div class="Bottom"><span><img src="{{review.imgLink}}" alt="profile image"></span><div class="col"><h3>{{review.Name}}</h3> <p>{{review.Place}}</p></div> <img class="STATICiCON" src="../../assets/Imges/StaticImg/quoe.png" alt=",,"></div>
+             <div class="Bottom"><span><img src="{{review.imgLink}}" alt="profile image"></span><div class="col"><h3>{{review.Name}}</h3> <p><span> {{review.Place}}</span> <img src="../../assets/Imges/StaticImg/StaticIcons/star-fill.svg" alt="Star"></p></div> <img class="STATICiCON" src="../../assets/Imges/StaticImg/quoe.png" alt=",,"></div>
             </div>
         </div>
 
@@ -100,7 +105,7 @@
     <button class="LeftBtn" (click)="ReviewMover($event)" ><img class="Left" src="../../assets/Imges/StaticImg/StaticIcons/chevron-left.svg" alt="left Arrow"></button>
     <button class="RightBtn" (click)="ReviewMover($event)" ><img class="Right" src="../../assets/Imges/StaticImg/StaticIcons/chevron-right.svg" alt="right Arrow"></button>
 </div>
-</div> -->
+</div>
 <!-- <app-partners-footer/> -->
 <app-footer/>
 </main>

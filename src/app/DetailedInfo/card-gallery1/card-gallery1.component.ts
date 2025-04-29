@@ -27,6 +27,7 @@ this.unit=this.lang.chosenLang.DetailedInfo.unit;
     this.cardInfo.chosenCard
       .pipe(
         tap((card) => {
+          console.log('card::',card);
           this.chosenCard = card;
           this.data = card;
           this.priceForM = card.area;
@@ -36,8 +37,8 @@ this.unit=this.lang.chosenLang.DetailedInfo.unit;
         switchMap((card) => this.views.getCardViews(card.id))
       )
       .subscribe((viewsData) => {
-        this.viewsCount = viewsData;
-        console.log('Views count:', this.viewsCount);
+        this.viewsCount = viewsData.count;
+        
       });
   }
   
