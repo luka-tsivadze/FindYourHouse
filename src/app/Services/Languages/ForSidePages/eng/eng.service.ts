@@ -20,28 +20,21 @@ export class EngService {
       firstselect: [
         'For Sale',
         'For Rent',
-        'Pledge',
         'rented daily',
-        'Apartments under construction',
+        'Pledge',
+
       ],
       firstselectValues: [
         'იყიდება',
         'ქირავდება',
-        'გირავდება',
         'ქირავდება დღიურად',
-        '⁠მშენებარე ბინები',
+        'გირავდება',
+       
       ],
 
       secondselectName: 'Property Types',
-      secondselect: ['Apartment', 'House', 'Commercial', 'Garage', 'Land'],
-      secondselectValues: [
-        'Apartment',
-        'House',
-        'Commercial',
-        'Garage',
-        'Land Plot',
-      ],
-
+      secondselect:  ['Apartment', 'House','country House.','Land Plot','Commercial', 'Hotel'],
+      secondselectValues: ['Apartment', 'House','country House.','Land Plot','Commercial', 'Hotel'],
       upPict: 'click Hare To Upload Pictures',
       upVid: 'click Hare  To Upload Video',
       upPlan: 'click Hare To Upload Floor Plan',

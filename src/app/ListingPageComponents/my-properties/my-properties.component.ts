@@ -4,6 +4,7 @@ import { ListingServiceService } from '../../Services/listing-service/listing-se
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 import { PropertyInformationService } from '../../Services/Property-info/property-information.service';
 import { Router } from '@angular/router';
+import { of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-my-properties',
@@ -51,31 +52,33 @@ export class MyPropertiesComponent implements OnInit {
     this.PropinfoService.navigateToCard(id);
   }
 
-
- getuserData(){
-this.sharedService.userData().subscribe({
-next:(data)=>{
-  this.allCardEl=data;
-
-  this.isLoading = false; // Data loading completed
+  getuserData() {
+    this.isLoading = true;
   
+    this.sharedService.userData().pipe(
+      switchMap((data) => {
+        this.allCardEl = data;
+        this.isLoading = false;
+  
+        if (data.length > 0) {
+          return this.sharedService.views(data);
+        } else {
+          return of([]); // Return empty observable to complete chain
+        }
+      })
+    ).subscribe({
+      next: (viewsData) => {
+        this.allCardEl = viewsData;
+        this.pageFunction();
 
-},
-error:(error)=>console.error('Error:',error),
-complete:()=>{
-  if (this.allCardEl.length > 0) {
-  this.sharedService.views(this.allCardEl).subscribe({
-    next:(data)=>{
-      this.allCardEl = data;
-
-      this.pageFunction(); // Recalculate pages after data is updated
-    }
-  });
+      },
+      error: (err) => {
+  
+        this.isLoading = false;
+      }
+    });
   }
-},
-
-});
- }
+  
 
  views() {  //move to listing-service.service.ts
   const gancxadebisIds = this.activePage.map(element => element.id).join(',');

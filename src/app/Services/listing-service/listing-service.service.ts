@@ -5,7 +5,7 @@ import { BehaviorSubject, catchError, forkJoin, map, observable, Observable, of,
 @Injectable({
   providedIn: 'root'
 })
-export class ListingServiceService {
+export class ListingServiceService { 
   private editItemIdSubject = new BehaviorSubject<number | null>(null);
   editItemId$ = this.editItemIdSubject.asObservable();
 private cachedmyCards$: Observable<any[]> | null = null;
@@ -24,7 +24,7 @@ private cachedmyCards$: Observable<any[]> | null = null;
 
   DelResponse$=new BehaviorSubject<any>(null);
   DeleteItem(id: number): Observable<any> {
-    console.log('Deleting item:', id);
+
     return this.http.post('del_my_house.php', { id_2: id }).pipe(
       tap((response) => console.log('Delete response:', response)), // ✅ Log response
       catchError((error) => {
@@ -104,7 +104,7 @@ private cachedmyCards$: Observable<any[]> | null = null;
 
   ChangeUserData(data: any): Observable<any> {
     this.cachedmyCards$ = null;
-    console.log('Updating data:', data);
+
     this.http.post('change_user_data.php', data).subscribe({
       next: (response) => {
         console.log('Update response:', response);
@@ -119,44 +119,46 @@ private cachedmyCards$: Observable<any[]> | null = null;
     return this.changeUserData$;
   }
 
+  
   private Views$ = new BehaviorSubject<any>([]);
-
-  views(activePage: any[]): BehaviorSubject<any> {  
-
+  views(activePage: any[]): Observable<any[]> {
     const gancxadebisIds = activePage.map((element: any) => element.id).join(',');
-  const gancxadebisArray=activePage.map((element: any) => element.id);
+    const gancxadebisArray = activePage.map((element: any) => element.id);
+  
     if (!gancxadebisIds) {
-      return this.Views$; // ✅ Avoid unnecessary API calls
+      return of(activePage); // return as-is, no need for API calls
     }
   
-    forkJoin({
-      get: this.http.get<any>(`get-views-counted-data.php`, { params: { gancxadebis_ids: gancxadebisIds } })
-        .pipe(catchError(error => {
+    return forkJoin({
+      get: this.http.get<any>('get-views-counted-data.php', {
+        params: { gancxadebis_ids: gancxadebisIds }
+      }).pipe(
+        catchError(error => {
           console.error('GET request failed:', error);
-          return of({}); 
-        })),
-        
-      post: this.http.post<any>('get-reviews-count.php', { gancxadebis_ids: gancxadebisArray })
-        .pipe(catchError(error => {
+          return of({}); // fallback to empty object
+        }),
+      ),
+      post: this.http.post<any>('get-reviews-count.php', {
+        gancxadebis_ids: gancxadebisArray
+      }).pipe(
+        catchError(error => {
           console.error('POST request failed:', error);
-          return of({}); 
-        }))
-    }).subscribe({
-      next: ({ get, post }) => {
-        console.log('GET response:', get);
-        console.log('POST response:', post);
+          return of({}); // fallback to empty object
+        }),
+      )
+    }).pipe(
+      map(({ get, post }) => {
+        const combinedData = { ...get, ...post };
   
-        const combinedData = { ...get, ...post }; // ✅ Merge available responses
-  
-        this.Views$.next(activePage.map((item: any) => ({
+        return activePage.map((item: any) => ({
           ...item,
-          view: combinedData[item.id] || 0 // ✅ Assign merged API result or default to 0
-        })));
-      }
-    });
-  
-    return this.Views$;
+          view: combinedData[item.id] || 0
+        }));
+      })
+    );
   }
+  
+  
   
    
 }

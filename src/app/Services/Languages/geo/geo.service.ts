@@ -36,8 +36,8 @@ export class GeoService {
   
 
 NavG={Home:'მთავარი ' , 
-    Property:'უძრავი ქონება', Pages:'გვერდები',Blog:'ბლოგი',
-    Contact:'კონტაქტი',SignIn:'შესვლა',AddListing:'განცხადების განთავსება',}
+    Property:'უძრავი ქონება', Pages:'გვერდები',Blog:'ბლოგი',companies:'კომპანიები',
+    Contact:'კონტაქტი',SignIn:'შესვლა',AddListing:'განთავსება',}
 
     Header={FindYourHouse:'იპოვე შენი საოცნებო ' ,weHaveOverMillion:'ჩვენ გვაქვს უძრავი ქონების მილიონზე მეტი  არჩევანი, თქვენთვის' ,status:['იყიდება','ქირავდება','გირავდება','ქირავდება დღიურად',' მშენებარე ბინები'],
        KayWord:'საძიებო სიტყვა', propertyType:'ქონების ტიპი', Advanced:'გაფართოებული ძებნა', Search:'მოძებნა',location:'მდებარეობა'
@@ -121,8 +121,9 @@ allFilter = {
       'ლანჩხუთი','ლაგოდეხი','საჩხერე','დედოფლისწყარო','აბაშა','მარტვილი','ნინოწმინდა','წალკა','ვანი','დმანისი','წალენჯიხა','ქედა'
     ],
 
-    PropertyTypes: ['Apartment', 'House', 'Commercial', 'Garage','Land Plot'],
-    PropertyTypesDis: ['ბინა', 'სახლი', 'კომერციული', 'ავტოფარეხი','მიწის ნაკვეთი'],
+    PropertyTypes:  ['Apartment', 'House','country House','Land Plot','Commercial', 'Hotel'],    
+  
+    PropertyTypesDis: ['ბინა', 'კერძო სახლი', 'აგარაკი','მიწის ნაკვეთი','კომერციული','სასტუმრო'],
   },
   filter: {
     SelectInputs: [

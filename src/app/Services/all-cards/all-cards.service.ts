@@ -7,6 +7,7 @@ import { EngService } from '../Languages/eng/eng.service';
 import { GeoService } from '../Languages/geo/geo.service';
 import { RusService } from '../Languages/rus/rus.service';
 import { NavInfoService } from '../NavService/nav-info.service';
+import { ListingServiceService } from '../listing-service/listing-service.service';
 
 
 
@@ -71,7 +72,7 @@ export class AllCardsService  {
 
    private dataSubject = new Subject<any>(); 
    data$ = this.dataSubject.asObservable(); 
-   private apiResponse$: Observable<any[]>; 
+   public apiResponse$: Observable<any[]>; 
    private submitSubject = new Subject<void>();//for filter submit
    submit$ = this.submitSubject.asObservable();
    localStorage;
@@ -113,7 +114,7 @@ export class AllCardsService  {
       }
     });
   }
-constructor(private http: HttpClient , private eng: EngService , private Geo: GeoService , private rus: RusService , private allCardsService: AllCardsService , private navServ:NavInfoService) { 
+constructor(private http: HttpClient , private eng: EngService , private Geo: GeoService , private rus: RusService ,private navServ:NavInfoService , private listingServ:ListingServiceService) { 
   
 // Initialize the API call
   if (typeof localStorage !== 'undefined' && localStorage.getItem('Language')) {
@@ -145,8 +146,10 @@ constructor(private http: HttpClient , private eng: EngService , private Geo: Ge
 
 
 
-fetchDataFromApi(): Observable<any[]> {
-  if (!this.apiResponse$) {
+fetchDataFromApi(callAgein?): Observable<any[]> {
+
+  
+  if (!this.apiResponse$ || callAgein) {
   
     this.apiResponse$ = this.http.get<any[]>('get_houses.php').pipe(
       map((data: any[]) => {
@@ -232,9 +235,6 @@ fetFavchData(id: number ,bool?:boolean): Observable<any[]> {
   return this.cachedFavCards$;
 }
 
-// FetFavReviews(id: number): Observable<any[]> {
-// return  
-// }
 
 
 }

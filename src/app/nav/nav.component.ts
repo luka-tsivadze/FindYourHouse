@@ -243,6 +243,7 @@ this.router.navigate(['/Listing'])
         this.showRespNav.iconSrc='../../assets/Imges/StaticImg/StaticIcons/x.svg'
   }
 }
+
 }
 
 

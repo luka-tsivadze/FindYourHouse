@@ -55,6 +55,8 @@ private navService:NavInfoService ,
             console.log('this is filtered cards:',this.allCards);
             this.loadCardData(this.allCards);
         
+          }else{
+            this.data=[];
           }
 
         });

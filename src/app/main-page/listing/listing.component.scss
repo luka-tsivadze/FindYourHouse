@@ -10,6 +10,17 @@
     }
   }
   $transition-duration: 0.5s;
+  button{
+    font-weight: 600;
+    padding: 10px 17px;
+    border-radius: 2px;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    background-color: #FF385C;
+    display: inline-block;
+  
+  }
 .cardPlace{
     margin-top: 50px;
     width: 100%;
@@ -49,16 +60,7 @@
         .whiteBg{
             background-color: rgba(74,74,76,0.7) !important;
          }
-        button{
-          font-weight: 600;
-          padding: 10px 17px;
-          border-radius: 2px;
-          color: #fff;
-          border: none;
-          background-color: #FF385C;
-          display: inline-block;
-        
-        }
+ 
       }
       .price{
         position: absolute;

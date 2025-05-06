@@ -20,21 +20,23 @@ export class GeoService {
       firstselect: [
         'იყიდება',
         'ქირავდება',
-        'გირავდება',
         'ქირავდება დღიურად',
-        '⁠მშენებარე ბინები',
+        'გირავდება',
+   
       ],
       firstselectValues: [
         'იყიდება',
         'ქირავდება',
-        'გირავდება',
         'ქირავდება დღიურად',
-        '⁠მშენებარე ბინები',
+        'გირავდება',
+      
       ],
+      firstimgLinks:['','','',''],
 
       secondselectName: 'აირჩიე ქონების ტიპი',
-      secondselect: ['ბინა', 'სახლი', 'კომერციული', 'გარაჟი','მიწის ნაკვეთი'],
-      secondselectValues: ['Apartment', 'House', 'Commercial', 'Garage','Land Plot'],
+      secondselect: ['ბინა', 'კერძო სახლი', 'აგარაკი','მიწის ნაკვეთი' ,'კომერციული', 'სასტუმრო'],
+      secondselectValues: ['Apartment', 'House','country House.','Land Plot','Commercial', 'Hotel'],
+      secondimgLinks:['','','','','',''],
 
       thirdselectName: 'ოთახების რაოდენობა',
 

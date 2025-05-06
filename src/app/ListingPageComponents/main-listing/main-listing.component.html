@@ -13,9 +13,9 @@
                 <textarea class="resizable-textarea" type="text" name="Description" id="mokle_agwera" placeholder="{{allForms.form1info.secondplaceHolder}}"  formControlName="mokle_agwera"></textarea>
                 </div>
                 <div class="selectRow">
-                    <select   id="garigebis_tipi"   formControlName="garigebis_tipi">  <option value="" disabled selected hidden>{{allForms.form1info.firstselectName}}</option> <option *ngFor="let el of allForms.form1info.firstselect let i =index" value="{{ allForms.form1info.firstselectValues[i]}}">{{el}}</option></select> 
-                    <select  id="tipi" (change)="checkForLand()" formControlName="tipi"><option value="" disabled selected hidden>{{allForms.form1info.secondselectName}}</option> 
+                    <select  id="tipi" (change)="checkForLand()" formControlName="tipi"><option value="" disabled selected hidden><img src="../../../assets/Imges/StaticImg/StaticIcons/icons8-home-16.png" alt="..">{{allForms.form1info.secondselectName}}</option> 
                         <option *ngFor="let opt of allForms.form1info.secondselect let i =index" value="{{allForms.form1info.secondselectValues[i]}}">{{opt}}</option></select> 
+                    <select   id="garigebis_tipi"   formControlName="garigebis_tipi">  <option value="" disabled selected hidden>{{allForms.form1info.firstselectName}}</option> <option *ngFor="let el of allForms.form1info.firstselect let i =index" value="{{ allForms.form1info.firstselectValues[i]}}">{{el}}</option></select> 
                     <select  id="otaxebis_raodenoba" *ngIf="!LandIsSelected"  formControlName="otaxebis_raodenoba"><option value="" disabled selected hidden>{{allForms.form1info.thirdselectName}}</option>
                     <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
                     </select>

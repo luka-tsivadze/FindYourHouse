@@ -43,7 +43,7 @@ For=this.dataService.For;
 staticElements=this.dataService.staticData.staticElements
 popularPropStatic=this.dataService.popularPlacesStatic
 screenWidth: number = window.innerWidth;
-allProperties: any[] = []; // Stores full dataset
+allProperties: any[]; // Stores full dataset
     FeatureProperties;
    FeaturePS=this.dataService.featuredPropertiesStatic;
    advenced=false;
@@ -146,6 +146,12 @@ filterForm = this.fb.group({
     }
   
     fetchData(): void {
+// console.log('Fetching data...' + this.allProperties.length)
+// ;
+//       if (this.allProperties.length !== 0) {
+// return;
+// }//need behavior subject to Store data
+
       this.http.get<any[]>('get_main_houses.php').subscribe({
         next: (data) => {
           if (!Array.isArray(data)) {
@@ -276,12 +282,6 @@ filterForm = this.fb.group({
       }
     }
 
-    ngOnDestroy(): void {
-      if (this.intervalId) {
-        clearInterval(this.intervalId);
-      }
-      
-    }
 
 
     activeElement:number | null = -1; // this does not matter change submit in construction 
@@ -324,4 +324,10 @@ goToCity(location: string): void {
   this.router.navigate(['/allCards']);
 }
 
+ngOnDestroy(): void {
+  if (this.intervalId) {
+    clearInterval(this.intervalId);
+  }
+  
+}
 }

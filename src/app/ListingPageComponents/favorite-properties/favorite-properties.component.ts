@@ -5,6 +5,7 @@ import { NavInfoService } from '../../Services/NavService/nav-info.service';
 import { error } from 'console';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 import { ListingServiceService } from '../../Services/listing-service/listing-service.service';
+import { of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-favorite-properties',
@@ -41,23 +42,22 @@ reviewIndices=[]
   }
   ngOnInit() {
     this.staticData = this.lang.chosenLang.myProp;
-    this.allCardsService.fetFavchData(this.idplace.userId ,true).subscribe({
-      next: (filteredData) => {
-       
+
+    this.allCardsService.fetFavchData(this.idplace.userId, true).pipe(
+      switchMap((filteredData) => {
         this.favCardEl = filteredData;
         this.pageFunction();
+        if (this.favCardEl.length === 0) return of([]); // no view calls if empty
+        return this.sharedService.views(this.favCardEl);
+      })
+    ).subscribe({
+      next: (dataWithViews) => {
+        this.favCardEl = dataWithViews;
+        this.pageFunction(); // recalc pages after merging views
       },
-      error: (error) => console.error('Error:', error),
-      complete:()=>{
-          this.sharedService.views(this.favCardEl).subscribe({
-            next:(data)=>{
-              console.log('data',data);
-              this.favCardEl = data;
-              this.pageFunction(); 
-            }
-        });
-      },
+      error: (err) => console.error('ERROR:', err),
     });
+    
   }
 
 
@@ -87,8 +87,7 @@ reviewIndices=[]
     this.finalInfo = []; // Clear pagination data
     this.pageIndices = [];
     if (this.favCardEl.length > 6) {
-      console.log('No favorite properties');
-     
+
       this.pages = Math.ceil(this.favCardEl.length / 6);
       
       for (let i = 0; i < this.pages; i++) {
@@ -102,8 +101,9 @@ reviewIndices=[]
         // Clone the pagesInfo array before resetting it
         this.finalInfo.push([...this.pagesInfo]);
       }
+      console.log('allCardEl', this.finalInfo);
     this.activePage=this.finalInfo[0]
-      console.log('allCardEl', this.activePage);
+
     }else{
       this.pageIndices.push(0);
       this.finalInfo.push([...this.favCardEl]);
@@ -119,7 +119,7 @@ reviewIndices=[]
   chosenPage(index) {
 if(this.finalInfo[index]){
   this.activePage = this.finalInfo[index]
-       console.log('index', this.activePage); 
+      
     this.ActivePage = index;
   }
 }

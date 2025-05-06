@@ -61,6 +61,11 @@ export class ReviewsService {
   }
   private websiteReviewsSubject = new BehaviorSubject<any[]>([]);
   fetchWebsiteReviews(): Observable<any> {
+   if (this.websiteReviewsSubject.getValue().length > 0) {
+      return of(this.websiteReviewsSubject.getValue()); // Return cached data if available
+    
+   }
+
     return this.http.get<any[]>('get_site_reviews.php ').pipe(
       tap(reviews => this.websiteReviewsSubject.next(reviews))// Update BehaviorSubject
     );

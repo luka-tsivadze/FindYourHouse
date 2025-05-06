@@ -1,9 +1,10 @@
-<main>
+<main id="List">
     <h2>ჩემი განცხადებები</h2>
-    <div class="cardPlace"  id="List">
+    <div class="cardPlace"  >
 
-  
-        <div class="propCard "  *ngFor="let info of data let i=index"
+   
+        <ng-container *ngIf="data.length > 0" >
+        <div class="propCard "  *ngFor="let info of data let i=index" 
         [ngStyle]="{'animation-delay': (i * 0.16) + 's'}"
      
         >
@@ -36,5 +37,9 @@
             </div>
             </div>
         </div>
-    </div>
+    </ng-container>
+</div>
+<ng-container *ngIf="data.length == 0" >
+  <button routerLink="/Listing">განცხადების დამატება </button>
+</ng-container>
 </main>

@@ -37,6 +37,7 @@ export class EngService {
     Property: 'Property',
     Pages: 'Pages',
     Blog: 'Blog',
+    companies:'Companies',
     Contact: 'contact',
     SignIn: 'SignIn',
     AddListing: 'Add Listing',
@@ -134,8 +135,8 @@ export class EngService {
     locationDis:['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Zugdidi', 'Telavi', 'Bakuriani', 'Kobuleti','Gori','Poti','Marneuli','Khashuri','Samtredia','Zestaponi','Akhaltsikhe','Senaki','Ozurgeti','Kaspi','Chiatura','Gardabani','Borjomi','Sagarejo','Kvareli','Bolnisi','Tkibuli','Khoni','Tskaltubo','Akhalkalaki','Mtskheta','Gurjaani','Dusheti',
       'Lanchkhuti','Lagodekhi','Sachkhere','Dedoplistskaro','Abasha','Martvili','Ninotsminda','Tsalka','Vani','Dmanisi','Tsalenjikha', 'Keda'],
 
-    PropertyTypes:['Apartment','House','Commercial','Garage','Land Plot'],
-    PropertyTypesDis:['Apartment','House','Commercial','Garage','Land Plot']
+    PropertyTypes:  ['Apartment', 'House','country House','Land Plot','Commercial', 'Hotel'],
+    PropertyTypesDis:  ['Apartment', 'House','country House','Land Plot','Commercial', 'Hotel']
   },
   filter : {
     SelectInputs: [

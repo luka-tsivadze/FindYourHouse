@@ -50,4 +50,5 @@ export class AppComponent implements AfterViewInit {
       }, 1);
     }
   }
+
 }

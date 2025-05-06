@@ -6,9 +6,8 @@ import { NavInfoService } from '../../Services/NavService/nav-info.service';
 import { LanguageChooserService } from '../../Services/language-chooser/language-chooser.service';
 import { ListingServiceService } from '../../Services/listing-service/listing-service.service';
 import { MainPageDataService } from '../../Services/mainPageService/main-page-data.service';
-import { distance } from 'ol/coordinate';
-import { error } from 'node:console';
-import { Observable } from 'rxjs';
+
+import { AllCardsService } from '../../Services/all-cards/all-cards.service';
 
 @Component({
   selector: 'app-main-listing',
@@ -60,7 +59,7 @@ city={
   options:{optDis:this.mainServ.LangMainData.allFilter.FirstFilter.locationDis ,optValue:this.mainServ.LangMainData.allFilter.FirstFilter.locations}};
 name;
 
-  constructor( private sharedService:ListingServiceService,  private fb: FormBuilder , private cd: ChangeDetectorRef ,
+  constructor( private sharedService:ListingServiceService, private allcards:AllCardsService, private fb: FormBuilder , private cd: ChangeDetectorRef ,
     private http: HttpClient ,private navservice: NavInfoService ,private lang:LanguageChooserService ,private mainServ:MainPageDataService) { 
      //post api request should be in service not here
     this.unit=this.lang.chosenLang.DetailedInfo.unit;
@@ -220,7 +219,7 @@ this.nearbyError[index].bol=true;
         if (data.additionalInfo[key] === "false") data.additionalInfo[key] = false;
       }
       if (data) {
-console.log('data', data);
+
         this.listingForm.patchValue({
           satauri: data.title,
           gancxadebis_id: data.id,
@@ -390,7 +389,7 @@ console.log('data', data);
 
   onSubmit(): void {
     if (this.listingForm.invalid) {
-      console.error('Invalid form:', this.listingForm.value); 
+
       this.scrollToFirstInvalidControl();
       return;
     }
@@ -435,11 +434,14 @@ console.log('data', data);
 
     this.http.post('upload_house.php', formData).subscribe({
       next: (response: any) => {
-        console.log('Form submitted successfully:', response );
+
         
         if (response.status === 'success' && response.message === 'gancxadeba-aitvirta-warmatebit' || response.message === 'gancxadeba-ganaxlda-warmatebit') {
           this.sharedService.callApiAgein.next(true);
+          this.allcards.fetchDataFromApi(true).subscribe({});
+
           if(this.calledFromEdit){
+            
             this.sharedService.DeleteItem(this.listingForm.value.gancxadebis_id).subscribe();
 
             localStorage.setItem('ActiveElement', 'My Properties');
@@ -447,7 +449,9 @@ console.log('data', data);
             this.SendingAnimation = false;
           }else{
             this.SendingAnimation = false;
-            window.location.href = '/allCards';
+      
+            localStorage.setItem('ActiveElement', 'My Properties');
+            this.valueChange.emit('My Properties'); 
           }          
 
     

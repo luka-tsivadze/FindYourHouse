@@ -19,32 +19,27 @@ export class RusService {
       firstselect: [
         'На продажу',
         'В аренду',
-        'Залог',
         'сдаётся посуточно',
-        'Квартиры в строящемся доме',
+        'Залог',
+        
       ],
       firstselectValues: [
         'იყიდება',
         'ქირავდება',
-        'გირავდება',
         'ქირავდება დღიურად',
-        '⁠მშენებარე ბინები',
+        'გირავდება',
+   
       ],
       secondselectName: 'Типы недвижимости',
       secondselect: [
         'Квартира',
         'Дом',
+        'Загородный дом',
+        'Земельный участок',
         'Коммерческая недвижимость',
-        'Гараж',
-        'земли',
+        'Отель',
       ],
-      secondselectValues: [
-        'Apartment',
-        'House',
-        'Commercial',
-        'Garage',
-        'Land Plot',
-      ],
+      secondselectValues:  ['Apartment', 'House','country House','Land Plot','Commercial', 'Hotel'],
 
       thirdselectName: 'Комнаты',
 
